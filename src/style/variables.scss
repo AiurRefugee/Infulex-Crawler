@@ -1,0 +1,107 @@
+html {
+    // font-size: 16px;
+    --tabWidth: 18vw;
+    --basicRadius: 0.55rem;
+    --priRadius: 0.8rem;
+    --baseColor: 0;
+
+    --headerHeight: 5vh;
+    --daliMargin: 1.5rem;
+
+    --sideWidth: 15vw;
+
+    --filterWidth: 20vw;
+    --filterAreaWidth: 60px;
+    --filterAreaHeight: 45px;
+    --filterFull: 35vw;
+
+    --daliRecWidth: 20vw;
+    --actorWidth: 12vw;
+
+    --filmCardWidth: 11vw;
+    --colNum: 10.1;
+    --leftSpace: 1vw;
+
+    --classButtonWidth: 18vw;
+    --classMargin: 0.5rem;
+    --classButtonTextSize: 2.5vw;
+
+    --filmNameSize: 1.1rem;
+
+    --cardShadow: 4px 2px 8px 2px rgba(69, 67, 67, 0.69);
+
+    --primaryColor: #1532dbfa;
+    --txtActiveColor: #3776f4ee;
+    --headerOpacity: 0;
+
+    background-color: var(--bg_Primary);
+}
+html {
+    @media (orientation: portrait), (width < 1000px) {
+        // font-size: 14px;
+        --classButtonTextSize: 2rem;
+
+        --headerHeight: 5vh;
+        --daliMargin: 1rem;
+
+        --filterAreaWidth: 35px;
+
+        --daliRecWidth: 30vw;
+
+        --filterFull: 60vw;
+        --colNum: 7;
+
+        --classButtonWidth: 25vw;
+        --classMargin: 0.4rem;
+
+        --filmCardWidth: 14vw;
+        --leftSpace: 2vw;
+        --filmNameSize: 1rem;
+    }
+    @media (width < 600px) {
+        --daliRecWidth: 75vw;
+        --sideWidth: 65dvw;
+        // --basicRadius: 6px;
+        --leftSpace: 4vw;
+        --actorWidth: 30vw;
+        // --priRadius: 15px;
+        --classButtonWidth: 85vw;
+        --colNum: 3.1;
+        --classButtonTextSize: 30px;
+        --filmNameSize: 0.9rem;
+        --cardShadow: 3px 5px 5px 0px rgba(69, 67, 67, 0.69);
+    }
+    /* 暗黑模式样式 */
+    @media (prefers-color-scheme: dark) {
+        --bg_Primary: black;
+        --bg_Secondary: #464646;
+
+        --txtColor_Primary: #e1e1e1;
+        --txtColor_Secondary: #8b8686e8;
+        --txtColor_Basic: #aba9a9;
+
+        --cardShadow: none;
+        ----baseColor: 0;
+    }
+    /* 明亮模式样式 */
+    @media (prefers-color-scheme: light) {
+        --baseColor: 255;
+
+        --bg_Primary: white;
+        --bg_Secondary: #bcbcbc;
+
+        --txtColor_Primary: #3c3c3c;
+        --txtColor_Secondary: #7c7a7ade;
+        --txtColor_Basic: #474545cf;
+    }
+} 
+$headerHeight: 5vh;
+$tabLeftSpace: 0.5rem;
+$tabTopSpace: 0.2rem;
+$zindex: 100;
+$maskZindex: 98;
+$filterAreaWidth: 60px;
+$basicTrans: all 0.25s ease-in-out;
+$textLeft: 5px;
+$basicSpace: 15px;
+$borderSize: 1px;

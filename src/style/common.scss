@@ -1,0 +1,183 @@
+@import "@/style/variables.scss";
+html {
+    overflow: hidden;
+}
+#stickyHeader {
+    color: red;
+}
+.appContainer {
+    width: 100dvw;
+    height: 100dvh; 
+    background-color: var(--bg_Primary);
+    overflow: hidden; 
+
+    // overscroll-behavior: none; /* 禁用弹簧效果 */
+}
+.headerWrapper {
+    width: 100vw;
+    height: var(--headerHeight);
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    user-select: none;
+    -webkit-overflow-scrolling: auto;
+} 
+div {
+    // border: 1px solid black;
+}
+svg {
+    fill: var(--primaryColor);
+}
+input:focus {
+    border: 0;
+    outline: none;
+    box-shadow: none;
+}
+.primText {
+    font-size: var(--filmNameSize);
+    color: var(--txtColor_Primary);
+    line-height: 1.5rem;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.dailFilmName {
+    font-size: calc(var(--filmNameSize) + 0.2rem);
+}
+.dailYear {
+    font-size: calc(var(--filmNameSize) + 0.2rem);
+}
+.year {
+    font-size: calc(var(--filmNameSize) - 0.1rem);
+    color: var(--txtColor_Secondary);
+    line-height: 20px;
+    width: 85%;
+    translate: 0 -0.2rem;
+    white-space: nowrap;
+}
+.text {
+    color: var(--txtActiveColor);
+}
+::-webkit-scrollbar {
+    display: none;
+}
+.listWrapper {
+    width: 100vw;
+    // transition: $basicTrans;
+    overflow: auto;
+    align-content: flex-start;
+    left: 0;
+    top: 40px;
+    z-index: 9999;
+}
+.listHead {
+    padding: 0 var(--leftSpace);
+    width: 100vw;
+    // margin: 0.5rem 0;
+    height: 40px;
+    color: var(--txtColor_Primary);
+    .listTitle {
+        font-weight: 900;
+        font-size: 1.2rem
+    }
+    .showAllButton { 
+        font-size: 0.8rem;
+        cursor: pointer;
+        // margin-right: var(--leftSpace);
+        color: var(--primaryColor);
+    }
+}
+.list {
+    padding-left: var(--leftSpace);
+    overflow: auto;
+    align-content: flex-start;
+}
+.listItem {
+    padding: 0.5rem 0;
+    transition: $basicTrans;
+    // padding-bottom: 1rem; 
+    --itemW: calc((100vw - var(--leftSpace)) / var(--colNum));
+    width: var(--itemW);
+    min-width: var(--itemW);
+    flex-shrink: 0;
+    padding-right: 10px;
+    cursor: pointer;
+}
+// .listItem:hover{
+//     scale: 1.15;
+// }
+.listItemContent {
+    $shadowSize: 20px;
+    width: 95%;
+    aspect-ratio: 1 / 1.4;
+    border-radius: var(--basicRadius);
+    overflow: hidden;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.2rem;
+    transition: $basicTrans;
+    box-shadow: var(--cardShadow);
+}
+.card {
+    width: var(--daliRecWidth);
+    min-width: var(--daliRecWidth);
+    flex-shrink: 0;
+    position: relative;
+    margin-right: var(--daliMargin);
+    transition: $basicTrans;
+    padding: 0.6rem 0;
+    cursor: pointer;
+}
+.card-body {
+    width: var(--daliRecWidth);
+    min-width: var(--daliRecWidth);
+    border-radius: var(--priRadius);
+    box-shadow: var(--cardShadow);
+    aspect-ratio: 1.8 / 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    .cardIcon {
+        width: 25%;
+        aspect-ratio: 1 / 1;
+        position: relative;
+        z-index: 1;
+        // backdrop-filter: blur(10px);
+    }
+    .cardBackground {
+        width: var(--daliRecWidth);
+        min-width: var(--daliRecWidth); 
+        height: 100%;
+        position: absolute;
+        left: 0;
+        z-index: 0;
+        top: 0;
+    }
+
+}
+.divider {
+    width: 100%;
+    height: 1px;
+    background: lightgray;
+}
+.fade-enter-active,
+.fade-leave-active {
+    transition: all 0.2s ease-in-out;
+}
+
+.fade-enter-to,
+.fade-leave-from {
+    opacity: 1;
+}
+.fade-leave-to,
+.fade-enter-from {
+    opacity: 0;
+    // translate: -100% 0;
+    scale: 0.8;
+}
