@@ -42,8 +42,7 @@ function calScroll(event) {
 
   }
 }
-onMounted(() => {
-  console.log(this)
+onMounted(() => { 
 })
 </script>
 <template>
@@ -141,12 +140,7 @@ $tabIconSize: 2rem;
         opacity: 0;
       }
     }
-    .divider {
-      width: 100%;
-      height: 1px;
-      opacity: 0;
-      background: red;
-    }
+    
   } 
 }
 </style>

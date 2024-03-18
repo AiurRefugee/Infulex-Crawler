@@ -62,15 +62,15 @@ input:focus {
 ::-webkit-scrollbar {
     display: none;
 }
-.listWrapper {
-    width: 100vw;
-    // transition: $basicTrans;
-    overflow: auto;
-    align-content: flex-start;
-    left: 0;
-    top: 40px;
-    z-index: 9999;
-}
+// .listWrapper {
+//     width: 100vw;
+//     // transition: $basicTrans;
+//     overflow: auto;
+//     align-content: flex-start;
+//     left: 0;
+//     top: 40px;
+//     z-index: 9999;
+// }
 .listHead {
     padding: 0 var(--leftSpace);
     width: 100vw;
@@ -164,8 +164,9 @@ input:focus {
 .divider {
     width: 100%;
     height: 1px;
-    background: lightgray;
-}
+    opacity: 0;
+    background: red;
+  }
 .fade-enter-active,
 .fade-leave-active {
     transition: all 0.2s ease-in-out;

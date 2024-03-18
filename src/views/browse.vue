@@ -3,9 +3,12 @@ import { onMounted, ref, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { get, post } from "@/APIS/axiosWrapper.js";
 import { useFilmStore } from "@/stores/films";
-import OverviewCard from "@/components/overviewCard.vue";
-
+import OverviewList from "@/components/overviewList.vue";
+import DailRecommend from "@/components/dailRecommend.vue";
+import ClassButtonList from "@/components/classButtonList.vue";
+import BasicList from "@/components/basicList.vue";
 import ScrollView from "@/views/ScrollView.vue";
+
 // 可以在组件中的任意位置访问 `store` 变量 ✨
 const filmStore = useFilmStore();
 
@@ -16,11 +19,13 @@ const tmdbAPIPrefix = "/tmdb";
 const imageSrcPrefix = "https://image.tmdb.org/t/p/original";
 
 const title = ref("浏览");
+const trendingType = ref("movie");
 const movies = ref([]);
 const popularMovies = ref([]);
 const upcomingMovies = ref([]);
 const trendingMovies = ref([]);
 const trendingTV = ref([]);
+const genreMedia = ref([]);
 
 onMounted(async () => {
   //  const testRes = await get(tmdbAPIPrefix + '/discover/movie', {
@@ -45,71 +50,36 @@ onMounted(async () => {
   }).then((data) => {
     trendingTV.value = data.results;
   });
+//   for (const genre of genres) {
+//     get(tmdbAPIPrefix + "/discover/movie", {
+//       language: "zh-CN",
+//       with_genres: genre.id,
+//     }).then((data) => genreMedia.value.push(data.results));
+//   }
 });
 </script>
 <template>
-  <div class="browseWrapper">
-    <ScrollView :title="'浏览'">
+  <ScrollView :title="'浏览'">
+    <div class="browseWrapper">
       <header class="navHeader">
-        <h1 id="scrollTitle" class="text-2xl">浏览</h1>
+        <h1 id="scrollTitle" class="text-2xl pl-4 flex items-center">浏览</h1>
       </header>
-      <div class="dailRecWrapper">
-        <h2 class="h-1/6">每日推荐</h2>
-        <div
-          class="w-full h-5/6 flex flex-1 items-center overflow-x-auto overflow-y-hidden"
-        >
-          <div class="dailCard" v-for="movie in popularMovies" :key="movie">
-            <div class="w-full h-3/4">
-              <img
-                class="w-full h-full object-cover"
-                :src="imageSrcPrefix + movie.backdrop_path"
-              />
-            </div>
-            <p class="filmTitle">{{ movie.title || "--" }}</p>
-            <p class="text-sm">{{ movie.release_date }}</p>
-          </div>
-        </div>
-      </div>
-      <div class="trendingWrapper">
-        <h2 class="h-1/6">热门电影</h2>
-        <div class="w-full h-5/6 flex flex-col flex-wrap overflow-auto">
-          <OverviewCard
-            :media="media"
-            v-for="media in trendingMovies"
-            :key="media"
-          />
-        </div>
-      </div>
-      <div class="trendingWrapper">
-        <h2 class="h-1/6">热门剧集</h2>
-        <div class="w-full h-5/6 flex flex-col flex-wrap overflow-auto">
-          <OverviewCard
-            :media="media"
-            v-for="media in trendingTV"
-            :key="media"
-          />
-        </div>
-      </div>
-      <div class="upcomingWrapper">
-        <h2 class="h-1/6">即将上映</h2>
-        <div
-          class="w-full h-5/6 flex flex-1 items-center overflow-x-auto overflow-y-hidden"
-        >
-          <div class="basicCard" v-for="movie in upcomingMovies" :key="movie">
-            <div class="w-full h-3/4">
-              <img
-                class="w-full h-full object-cover"
-                :src="imageSrcPrefix + movie.poster_path"
-              />
-            </div>
-            <p class="filmTitle">{{ movie.title || "--" }}</p>
-            <p class="text-sm">{{ movie.release_date }}</p>
-          </div>
-        </div>
-      </div>
+      <DailRecommend :movies="popularMovies" />
+      <!-- <div class="browseDivdier"></div> -->
+      <BasicList :medias="upcomingMovies" :title="'最新上映'" />
+      <ClassButtonList/>
+      <OverviewList :medias="trendingMovies" />
+      
+      <!-- <BasicList
+        v-for="(meida, index) in genreMedia"
+        :key="index"
+        :meidas="meida"
+        :title="genres[index].name"
+      /> -->
+      <BasicList :medias="trendingTV" :title="'热门剧集'" />
       <div class="w-full h-52"></div>
-    </ScrollView>
-  </div>
+    </div>
+  </ScrollView>
 </template>
 <style lang="scss" scoped>
 @import "@/style/variables.scss";
@@ -119,41 +89,28 @@ $basicColor: rgb(172, 172, 172);
 * {
   border: 1px solid gray;
 }
-.filmTitle {
-  width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+img {
+  height: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 5px;
+}
+.browseDivdier {
+  width: 98%;
+  height: 3px;
+  align-self: center;
+  flex-shrink: 0;
+  background: white;
 }
 .browseWrapper {
   width: 100%;
-  height: 100vh;
   transform: 0;
+  display: flex;
+  flex-direction: column;
   color: white;
   background: gray;
   transform: translateX(0);
 }
-.dailRecWrapper {
-  width: 100%;
-  height: 40vh;
-  .dailCard {
-    --dailNum: 3.1;
-    width: calc(100% / var(--dailNum));
-    height: 100%;
-    flex-shrink: 0;
-    padding-right: 1rem;
-    @media (width <=628px) {
-      --dailNum: 1.1;
-    }
-    .dailTitle {
-      font-size: 1;
-    }
-  }
-}
-.trendingWrapper {
-  width: 100%;
-  height: 40vh;
-}
+
 .upcomingWrapper {
   width: 100%;
   height: 35vh;
@@ -165,15 +122,5 @@ $basicColor: rgb(172, 172, 172);
   overflow: auto;
   grid-template-rows: repeat(3, 30%);
   grid-template-columns: repeat(auto-fill, 45%);
-}
-.basicCard {
-  --basciNum: 8.1;
-  width: calc(100% / var(--basciNum));
-  height: 100%;
-  padding-right: 1%;
-  flex-shrink: 0;
-  @media (width <=628px) {
-    --basciNum: 4.1;
-  }
 }
 </style>

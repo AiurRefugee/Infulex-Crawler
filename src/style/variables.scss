@@ -1,3 +1,16 @@
+@use "sass:math";
+$breakpointNormal: 1300px;
+$headerHeight: 5vh;
+$tabLeftSpace: 0.5rem;
+$tabTopSpace: 0.2rem;
+$zindex: 100;
+$maskZindex: 98;
+$filterAreaWidth: 60px;
+$basicTrans: all 0.25s ease-in-out;
+$textLeft: 5px;
+$basicSpace: 15px;
+$borderSize: 1px;
+$cardAspectRatio: math.div(2, 3);
 html {
     // font-size: 16px;
     --tabWidth: 18vw;
@@ -22,9 +35,24 @@ html {
     --colNum: 10.1;
     --leftSpace: 1vw;
 
-    --classButtonWidth: 18vw;
+    // 带overerview卡片
+    --overviewHeight: 40vh;
+    --overviewCardNum: 3.1;
+    --overviewSpace: 0.8rem;
+    --overviewRadius: 6px;
+
+    // 影片类型列表
+    --genreHeight: 20vh;
+    --genreFontSize: 2rem;
+    --genreNum: 4.2;
     --classMargin: 0.5rem;
-    --classButtonTextSize: 2.5vw;
+    --genreSpace: 0.8rem;
+
+    // 基础卡片
+    --basicCardadius: 7px;
+    --bascCardiNum: 8.1;
+    --basicCardInfoHeight: 3rem;
+    --basicCardHeight: 35vh;
 
     --filmNameSize: 1.1rem;
 
@@ -35,6 +63,27 @@ html {
     --headerOpacity: 0;
 
     background-color: var(--bg_Primary);
+    @media (width <= 600px) {
+        --genreNum: 2.1;
+        --genreHeight: 15vh;
+
+        // 基础卡片
+        // --basicCardadius: 7px;
+        --bascCardiNum: 3.6;
+        // --basicCardInfoHeight: 3rem;
+        --basicCardHeight: 30vh;
+
+        // 影片类型列表
+        --genreHeight: 20vh;
+        --genreNum: 2.1;
+        --genreHeight: 15vh;
+        --genreFontSize: 1.5rem;
+        --genreSpace: 0.6rem;
+
+        // 带overerview卡片
+        --overviewHeight: 40vh;
+        --overviewCardNum: 1.1;
+    }
 }
 html {
     @media (orientation: portrait), (width < 1000px) {
@@ -58,19 +107,19 @@ html {
         --leftSpace: 2vw;
         --filmNameSize: 1rem;
     }
-    @media (width < 600px) {
-        --daliRecWidth: 75vw;
-        --sideWidth: 65dvw;
-        // --basicRadius: 6px;
-        --leftSpace: 4vw;
-        --actorWidth: 30vw;
-        // --priRadius: 15px;
-        --classButtonWidth: 85vw;
-        --colNum: 3.1;
-        --classButtonTextSize: 30px;
-        --filmNameSize: 0.9rem;
-        --cardShadow: 3px 5px 5px 0px rgba(69, 67, 67, 0.69);
-    }
+    // @media (width < 600px) {
+    //     --daliRecWidth: 75vw;
+    //     --sideWidth: 65dvw;
+    //     // --basicRadius: 6px;
+    //     --leftSpace: 4vw;
+    //     --actorWidth: 30vw;
+    //     // --priRadius: 15px;
+    //     --classButtonWidth: 85vw;
+    //     --colNum: 3.1;
+    //     --classButtonTextSize: 30px;
+    //     --filmNameSize: 0.9rem;
+    //     --cardShadow: 3px 5px 5px 0px rgba(69, 67, 67, 0.69);
+    // }
     /* 暗黑模式样式 */
     @media (prefers-color-scheme: dark) {
         --bg_Primary: black;
@@ -94,14 +143,4 @@ html {
         --txtColor_Secondary: #7c7a7ade;
         --txtColor_Basic: #474545cf;
     }
-} 
-$headerHeight: 5vh;
-$tabLeftSpace: 0.5rem;
-$tabTopSpace: 0.2rem;
-$zindex: 100;
-$maskZindex: 98;
-$filterAreaWidth: 60px;
-$basicTrans: all 0.25s ease-in-out;
-$textLeft: 5px;
-$basicSpace: 15px;
-$borderSize: 1px;
+}

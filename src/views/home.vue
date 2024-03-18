@@ -2,7 +2,7 @@
 import { ref, computed } from "vue";
 import Header from "@/components/Header.vue";
 import List from "@/components/list.vue";
-import TabView from "@/components/tabView.vue";
+import TabView from "@/views/tabView.vue";
 import classButtonList from "@/components/classButtonList.vue";
 import basicFilmCard from "@/components/basicFilmCard.vue"; 
 import { useRouter } from "vue-router";

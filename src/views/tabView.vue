@@ -23,7 +23,7 @@ const content = ref();
 const showTab = ref(true);
 
 const tabcontentLeft = computed(() => {
-  const leftSpace = getCSSVariable("--tabWidth"); 
+  const leftSpace = getCSSVariable("--tabWidth");
   if (size.value == "large") {
     return leftSpace;
   }
@@ -68,19 +68,12 @@ onMounted(() => {});
 <template>
   <div class="tabViewWrapper">
     <div class="tabListWrapper" v-if="size != 'small'">
-      <div
-        class="tablist"
-        
-        :style="{
-          translate: tabTranslate,
-          // paddingTop: size == 'normal' ? '5vh' : 0
-        }"
-      >
-        <NavList />
-      </div>
-      
+      <NavList></NavList>
     </div>
-    <div v-else class="bottomList"></div>
+    <div v-else>
+      <NavList></NavList>
+    </div>
+
     <div class="tabcontent" :style="{ paddingLeft: tabcontentLeft }">
       <router-view></router-view>
     </div>
@@ -98,9 +91,10 @@ onMounted(() => {});
   .tabListWrapper {
     width: var(--tabWidth);
     flex-shrink: 0;
+    translate: 0 0;
     height: 100vh;
     @media (width >=600px) and (width <= 1400px) {
-      --tabWidth: 250px;
+      --tabWidth: 20vw;
     }
     @media (orientation: portrait) {
       --tabWidth: 32vw;
@@ -113,19 +107,13 @@ onMounted(() => {});
       height: 100dvh;
       border-right: $borderSize solid lightgray;
       border-collapse: separate;
-      transition: $basicTrans; 
+      transition: $basicTrans;
       display: flex;
       flex-direction: column;
-      z-index: 999; 
+      z-index: 999;
     }
   }
-
-  .bottomList {
-    width: 100vw;
-    position: absolute;
-    border-top: 1px solid lightgray;
-    bottom: 0;
-  }
+ 
   .tabcontent {
     width: calc(100% - var(--tabWidth));
     height: 100vh;
@@ -134,7 +122,7 @@ onMounted(() => {});
     transition: $basicTrans;
     overflow-x: hidden;
     overflow-y: auto;
-
+    translate: 0 0;
     .scrollWrapper {
       width: 100%;
       overflow-x: hidden;
