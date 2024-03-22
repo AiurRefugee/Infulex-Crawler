@@ -83,7 +83,7 @@ onMounted(() => {});
   .limitRow {
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: var(--overviewRowLimit);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal; /* 确保white-space不是nowrap */

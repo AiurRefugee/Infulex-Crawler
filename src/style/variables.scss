@@ -42,10 +42,11 @@ html {
     --dailNum: 4.1;
 
     // 带overerview卡片
-    --overviewHeight: 45vh;
+    --overviewHeight: max(45vh, 300px);
     --overviewCardNum: 3.1;
     --overviewSpace: 0.8rem;
     --overviewRadius: 6px;
+    --overviewRowLimit: 3;
 
     // 影片类型列表
     --genreHeight: 20vh;
@@ -69,14 +70,14 @@ html {
     --headerOpacity: 0;
 
     background-color: var(--bg_Primary);
-    @media (width <= 628px) {
+    @media (width <= 628px) or (portrait: landscape) {
         --genreNum: 2.1;
         --genreHeight: 15vh;
 
         --tabWidth: 70vw;
 
         // landscape卡片
-        --dailNum: 1.1;
+        --dailNum: 2.1;
 
         // 轮播卡片
         --crouselAspectRatio: 4/5;

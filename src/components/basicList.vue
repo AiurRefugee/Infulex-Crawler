@@ -17,11 +17,6 @@ function toDetail() {
   localStorage.setItem("filmDetail", JSON.stringify(props.item));
   document.documentElement.style.setProperty("--headerOpacity", 0);
 }
-
-function getFilmPosterUrl(url) {
-  const filmPosterBaseUrl = "/filmPosters/";
-  return filmPosterBaseUrl + url + ".jpeg";
-}
 </script>
 <template>
   <div class="basicWrapper flex flex-col justify-around">
@@ -63,10 +58,7 @@ function getFilmPosterUrl(url) {
   padding-right: 0.8rem;
   flex-shrink: 0;
   cursor: pointer;
- 
-  @media (width >=628px) and (width < 1300px) {
-    --bascCardiNum: 6.1;
-  }
+  
   .cardImage {
     width: 100%;
     // height: calc(100% - var(--basicCardInfoHeight));
