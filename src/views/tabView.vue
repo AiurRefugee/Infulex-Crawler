@@ -67,14 +67,9 @@ onMounted(() => {});
 </script>
 <template>
   <div class="tabViewWrapper">
-    <div class="tabListWrapper" v-if="size != 'small'">
-      <NavList></NavList>
-    </div>
-    <div v-else>
-      <NavList></NavList>
-    </div>
+    <NavList></NavList>
 
-    <div class="tabcontent" :style="{ paddingLeft: tabcontentLeft }">
+    <div class="tabcontent">
       <router-view></router-view>
     </div>
   </div>
@@ -89,19 +84,10 @@ onMounted(() => {});
   position: relative;
   justify-content: space-between;
   .tabListWrapper {
-    width: var(--tabWidth);
     flex-shrink: 0;
     translate: 0 0;
     height: 100vh;
-    @media (width >=600px) and (width <= 1400px) {
-      --tabWidth: 20vw;
-    }
-    @media (orientation: portrait) {
-      --tabWidth: 32vw;
-    }
-    @media (width >= 1400px) {
-      --tabWidth: 18vw;
-    }
+
     .tablist {
       width: var(--tabWidth);
       height: 100dvh;
@@ -113,13 +99,14 @@ onMounted(() => {});
       z-index: 999;
     }
   }
- 
+
   .tabcontent {
-    width: calc(100% - var(--tabWidth));
-    height: 100vh;
+    width: 100%;
+    // height: 100vh;
     flex: 1;
     position: relative;
     transition: $basicTrans;
+    // transform: translate(0, 0);
     overflow-x: hidden;
     overflow-y: auto;
     translate: 0 0;

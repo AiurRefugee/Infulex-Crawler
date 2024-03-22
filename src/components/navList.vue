@@ -2,15 +2,17 @@
 import { ref, computed, onMounted } from "vue";
 import { layoutStore } from "@/stores/layout";
 import ScrollView from "@/views/ScrollView.vue";
+import commonScrollHeader from "@/components/commonScrollHeader.vue";
 import gsap from "gsap";
 const store = layoutStore();
 
 const layoutContent = computed(() => store.layoutContent);
+const showTab = computed(() => store.showTab);
 const size = computed(() => store.size);
 const typeWidth = 50;
 const activeMediaIndex = ref(0);
 const title = ref("Infulex");
-const scale = false;
+var standAlone = ref(false);
 
 function toogleItem(item, index) {
   if (item.children.length > 0 && "showChild" in item) {
@@ -50,70 +52,83 @@ function toogleItem(item, index) {
 }
 onMounted(() => {
   console.log("layoutContent", layoutContent.value);
+  standAlone.value =
+    navigator.standalone ||
+    window.matchMedia("(display-mode: standalone)").matches;
 });
 </script>
 <template>
-  <ScrollView :title="'Infulex'" v-if="size != 'small'">
-    <div class="tabNavWrapper">
-      <header class="navHeader">
-        <h1 id="scrollTitle" class="text-2xl">{{ title }} {{ size }}</h1>
-      </header>
-      <div
-        v-for="(item, index) in layoutContent"
-        :key="item.text"
-        class="w-full"
-      >
-        <div class="w-full">
-          <button class="tabItem" @click="toogleItem(item, index)">
-            <div class="flex">
-              <img class="icon" :src="item.image" />
-              <text>{{ item.text }}</text>
-            </div>
-            <div v-if="item.children">
-              <button>
-                <img
-                  class="icon"
-                  :style="{ rotate: item.showChild ? '90deg' : '' }"
-                  src="/src/assets/icons/arrow.svg"
-                />
-              </button>
-            </div>
-          </button>
-          <div class="divider" v-if="item.children"></div>
-        </div>
+  <div
+    class="tabNavWrapper"
+    :style="{
+      width: showTab ? 'var(--tabWidth)' : '0',
+      position: size == 'small' ? 'fixed' : '',
+
+    }"
+  >
+    <ScrollView v-if="!standAlone">
+      <template v-slot:header>
+        <commonScrollHeader :title="'Infulex'" :showTabFlag="showTab" />
+      </template>
+      <template v-slot:content>
         <div
-          class="subWrapper"
+          class="w-full h-full fastTrans"
           :style="{
-            // height: item.children && item.showChild == false ? '0' : ''
+            translate: showTab ? '0' : '-100%',
           }"
         >
-          <button
-            v-for="child in item.children"
-            :key="child.text"
-            class="tabNavChild"
+          <header class="navHeader">
+            <h1 id="scrollTitle" class="text-2xl">{{ title }} {{ size }}</h1>
+          </header>
+          <div
+            v-for="(item, index) in layoutContent"
+            :key="item.text"
+            class="w-full"
           >
-            <img class="icon" :src="child.image" />
-            <text>{{ child.text }}</text>
-          </button>
+            <div class="w-full">
+              <button
+                class="tabItem singleLine"
+                @click="toogleItem(item, index)"
+              >
+                <div class="flex">
+                  <img class="icon" :src="item.image" />
+                  <text>{{ item.text }}</text>
+                </div>
+                <div v-if="item.children">
+                  <button>
+                    <img
+                      class="icon"
+                      :style="{ rotate: item.showChild ? '90deg' : '' }"
+                      src="/src/assets/icons/arrow.svg"
+                    />
+                  </button>
+                </div>
+              </button>
+              <div class="divider" v-if="item.children"></div>
+            </div>
+            <div
+              class="subWrapper"
+              :style="{
+                // height: item.children && item.showChild == false ? '0' : ''
+              }"
+            >
+              <button
+                v-for="child in item.children"
+                :key="child.text"
+                class="tabNavChild singleLine"
+              >
+                <img class="icon" :src="child.image" />
+                <text>{{ child.text }}</text>
+              </button>
+            </div>
+          </div>
+          <div class="w-full h-4/5 flex-shrink-0"></div>
         </div>
-      </div>
-      <div class="w-full h-4/5 flex-shrink-0"></div>
-    </div>
-  </ScrollView>
-  <div class="bottomList" v-else>
-    <button
-      class=" bg-transparent flex flex-col justify-center items-center h-full"
-      v-for="(item, index) in layoutContent"
-      :key="index"
-    >
-      <div class="">
-        <img class="navBottomImage" :src="item.image" />
-      </div>
-      <div>
-        <text class="text-sm">{{ item.text }}</text>
-      </div>
-    </button>
+      </template>
+    </ScrollView>
+    
   </div>
+  <div class="mask trans" v-if="showTab && size == 'small'" @click="store.toogleTab"></div>
 </template>
 <style scoped lang="scss">
 $tabNavWrapperWidth: 30vw;
@@ -131,35 +146,59 @@ $itemHeight: 35px;
   margin: 0 0.5rem;
   transition: $basicTrans;
 }
+.trans {
+  transition: $basicTrans;
+}
+.fastTrans {
+  transition: all 0.15s ease-in-out;
+}
+.mask {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: hsla(0, 1%, 30%, 0.729);
+  z-index: 10;
+}
 .tabNavWrapper {
-  color: white;
-  background: gray;
+  color: var(--txtColor_Primary);
+  overflow: hidden;
+  // background: gray;
   width: var(--tabWidth);
   height: 100dvh;
+  transform: translate(0, 0);
   display: flex;
+  transition: $basicTrans;
   flex-direction: column;
-  padding: 0 1rem;
+  left: 0;
+  z-index: 998;
+  background: var(--bg_Primary);
+  // padding: 0 1rem;
   .navHeader {
     width: 100%;
     height: 6vh;
+    padding: 0 1rem;
     flex-shrink: 0;
   }
   .tabItem {
     display: flex;
     width: 100%;
+    padding: 0 1rem;
     justify-content: space-between;
     align-items: center;
     height: $itemHeight;
   }
   .subWrapper {
     width: 100%;
-    padding-left: 5%;
+    padding-left: 1.8rem;
     overflow: hidden;
     position: relative;
     // transition: $basicTrans;
     .tabNavChild {
       width: 100%;
       height: $itemHeight;
+      color: var(--txtColor_Primary);
       display: flex;
       align-items: center;
     }

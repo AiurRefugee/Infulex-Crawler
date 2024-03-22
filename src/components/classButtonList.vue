@@ -78,7 +78,7 @@ onMounted(async () => {});
 <template>
   <div ref="listWrap" class="genreWrapper">
     <div class="genreTitle pl-4">
-      <div class="text-white">影片类型</div>
+      <div class="">影片类型</div>
       <div class="showAllButton" @click="toAll">
         {{ showAll ? "收起" : "查看全部" }}
       </div>
@@ -107,6 +107,7 @@ onMounted(async () => {});
   margin-top: 0.5rem;
 }
 .genreTitle {
+  color: var(--txtColor_Primary);
   width: 100%;
   height: 1rem;
   display: flex;

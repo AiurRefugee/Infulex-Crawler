@@ -12,7 +12,7 @@ $basicSpace: 15px;
 $borderSize: 1px;
 $cardAspectRatio: math.div(2, 3);
 html {
-    // font-size: 16px;
+    font-size: 16px;
     --tabWidth: 18vw;
     --basicRadius: 0.55rem;
     --priRadius: 0.8rem;
@@ -35,8 +35,14 @@ html {
     --colNum: 10.1;
     --leftSpace: 1vw;
 
+    // 轮播卡片
+    --crouselCardNum: 1.8;
+    --crouselAspectRatio: 16 / 9;
+
+    --dailNum: 4.1;
+
     // 带overerview卡片
-    --overviewHeight: 40vh;
+    --overviewHeight: 45vh;
     --overviewCardNum: 3.1;
     --overviewSpace: 0.8rem;
     --overviewRadius: 6px;
@@ -52,7 +58,7 @@ html {
     --basicCardadius: 7px;
     --bascCardiNum: 8.1;
     --basicCardInfoHeight: 3rem;
-    --basicCardHeight: 35vh;
+    --basicCardHeight: 38vh;
 
     --filmNameSize: 1.1rem;
 
@@ -63,13 +69,23 @@ html {
     --headerOpacity: 0;
 
     background-color: var(--bg_Primary);
-    @media (width <= 600px) {
+    @media (width <= 628px) {
         --genreNum: 2.1;
         --genreHeight: 15vh;
 
+        --tabWidth: 70vw;
+
+        // landscape卡片
+        --dailNum: 1.1;
+
+        // 轮播卡片
+        --crouselAspectRatio: 4/5;
+        --crouselCardNum: 1.1;
+ 
+
         // 基础卡片
         // --basicCardadius: 7px;
-        --bascCardiNum: 3.6;
+        --bascCardiNum: 3.2;
         // --basicCardInfoHeight: 3rem;
         --basicCardHeight: 30vh;
 
@@ -81,13 +97,13 @@ html {
         --genreSpace: 0.6rem;
 
         // 带overerview卡片
-        --overviewHeight: 40vh;
+        --overviewHeight: 50vh;
         --overviewCardNum: 1.1;
     }
 }
 html {
     @media (orientation: portrait), (width < 1000px) {
-        // font-size: 14px;
+        font-size: 12px;
         --classButtonTextSize: 2rem;
 
         --headerHeight: 5vh;
@@ -125,6 +141,7 @@ html {
         --bg_Primary: black;
         --bg_Secondary: #464646;
 
+
         --txtColor_Primary: #e1e1e1;
         --txtColor_Secondary: #8b8686e8;
         --txtColor_Basic: #aba9a9;
@@ -136,7 +153,7 @@ html {
     @media (prefers-color-scheme: light) {
         --baseColor: 255;
 
-        --bg_Primary: white;
+        --bg_Primary: #f6f3f3;
         --bg_Secondary: #bcbcbc;
 
         --txtColor_Primary: #3c3c3c;

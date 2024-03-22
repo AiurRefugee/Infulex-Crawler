@@ -1,17 +1,35 @@
 @import "@/style/variables.scss";
 html {
     overflow: hidden;
+    color: var(--txtColor_Primary);
 }
 #stickyHeader {
     color: red;
 }
+#scrollTitle {
+    white-space: nowrap;
+    overflow: hidden;
+    color: var(--txtColor_Primary);
+}
+.singleLine {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 .appContainer {
     width: 100dvw;
-    height: 100dvh; 
+    // height: 100dvh;
     background-color: var(--bg_Primary);
-    overflow: hidden; 
+    overflow: hidden;
 
     // overscroll-behavior: none; /* 禁用弹簧效果 */
+}
+.filmTitle {
+    color: var(--txtColor_Primary);
+}
+.subFilmTitle {
+    color: var(--txtColor_Secondary);
 }
 .headerWrapper {
     width: 100vw;
@@ -22,7 +40,7 @@ html {
     margin: 0;
     user-select: none;
     -webkit-overflow-scrolling: auto;
-} 
+}
 div {
     // border: 1px solid black;
 }
@@ -38,7 +56,7 @@ input:focus {
     font-size: var(--filmNameSize);
     color: var(--txtColor_Primary);
     line-height: 1.5rem;
-    white-space: nowrap; 
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -79,9 +97,9 @@ input:focus {
     color: var(--txtColor_Primary);
     .listTitle {
         font-weight: 900;
-        font-size: 1.2rem
+        font-size: 1.2rem;
     }
-    .showAllButton { 
+    .showAllButton {
         font-size: 0.8rem;
         cursor: pointer;
         // margin-right: var(--leftSpace);
@@ -96,7 +114,7 @@ input:focus {
 .listItem {
     padding: 0.5rem 0;
     transition: $basicTrans;
-    // padding-bottom: 1rem; 
+    // padding-bottom: 1rem;
     --itemW: calc((100vw - var(--leftSpace)) / var(--colNum));
     width: var(--itemW);
     min-width: var(--itemW);
@@ -152,21 +170,20 @@ input:focus {
     }
     .cardBackground {
         width: var(--daliRecWidth);
-        min-width: var(--daliRecWidth); 
+        min-width: var(--daliRecWidth);
         height: 100%;
         position: absolute;
         left: 0;
         z-index: 0;
         top: 0;
     }
-
 }
 .divider {
     width: 100%;
     height: 1px;
     opacity: 0;
-    background: red;
-  }
+    background: rgb(59, 59, 59);
+}
 .fade-enter-active,
 .fade-leave-active {
     transition: all 0.2s ease-in-out;

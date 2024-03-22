@@ -25,7 +25,7 @@ function getFilmPosterUrl(url) {
 </script>
 <template>
   <div class="basicWrapper flex flex-col justify-around">
-    <h2 class="h-8 pl-4 flex items-center">{{ title }}</h2>
+    <h2 class="h-16 pl-4 flex items-center">{{ title }}</h2>
     <div class="flex overflow-x-auto overflow-y-hidden pl-6">
       <div class="basicCard" v-for="media in medias" :key="media">
         <div class="cardImage">
@@ -36,7 +36,7 @@ function getFilmPosterUrl(url) {
         </div>
         <div class="info">
           <p class="filmTitle singleLine">{{ media.title || media.name || "--" }}</p>
-          <p class="text-sm singleLine">{{ media.release_date || media.first_air_date || "--" }}</p>
+          <p class="text-sm subFilmTitle singleLine">{{ media.release_date || media.first_air_date || "--" }}</p>
         </div>
       </div>
     </div>
@@ -45,11 +45,11 @@ function getFilmPosterUrl(url) {
 <style scoped lang="scss">
 @import "@/style/variables.scss";
 .basicWrapper {
-  
+  color: var(--txtColor_Primary);
   width: 100%;
   overflow: hidden;
   // margin-bottom: 0.5rem;
-  height: var(--basicCardHeight);
+  // height: var(--basicCardHeight);
   @media (width >=600px) and (width < $breakpointNormal) {
     --height: 25vh;
   }
@@ -57,10 +57,10 @@ function getFilmPosterUrl(url) {
 .basicCard {
   
   width: calc(100% / var(--bascCardiNum));
-  height: 100%;
+  aspect-ratio: 3/4;
   // margin: 0 0.6rem;
   margin-left: 0;
-  padding-right: 0.5rem;
+  padding-right: 0.8rem;
   flex-shrink: 0;
   cursor: pointer;
  
@@ -69,7 +69,7 @@ function getFilmPosterUrl(url) {
   }
   .cardImage {
     width: 100%;
-    height: calc(100% - var(--basicCardInfoHeight));
+    // height: calc(100% - var(--basicCardInfoHeight));
     flex-shrink: 0;
     border-radius: var(--basicCardadius);
     aspect-ratio: 2 / 3; 
@@ -80,10 +80,5 @@ function getFilmPosterUrl(url) {
   }
 }
 
-.singleLine {
-  width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
+
 </style>

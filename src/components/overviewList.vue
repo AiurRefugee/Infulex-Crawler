@@ -1,13 +1,13 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
-const props = defineProps(["medias"]);
+const props = defineProps(["medias", "title"]);
 const imageSrcPrefix = "https://image.tmdb.org/t/p/original";
 onMounted(() => {});
 </script>
 <template>
-  <div>
-    <h2 class="h-8 pl-4 flex items-center">本周热门</h2>
-    <div class="overviewWrapper pl-6">
+  <div class="overviewWrapper">
+    <h2 class="h-8 pl-4 flex items-center">{{ title }}</h2>
+    <div class="cardsWrapper pl-6">
       <div class="overviewCard" v-for="media in medias" :key="media">
         <div class="flex">
           <div class="poster">
@@ -17,25 +17,23 @@ onMounted(() => {});
             />
           </div>
           <div class="overview flex flex-col justify-around">
+            <p class="overflow-hidden filmTitle limitRow text-sm">
+              {{ media ? media.overview : "" }}
+            </p>
             <p
-              class="text-sm flex justify-between items-center pr-1 overflow-visible"
+              class="text-sm filmTitle flex justify-between items-center pr-1 overflow-visible"
             >
               <span
-                class="w-1/2 whitespace-nowrap overflow-hidden text-ellipsis"
-                >{{ media ? media.title : "" }}</span
+                class="w-1/2 filmTitle whitespace-nowrap overflow-hidden text-ellipsis"
+                >{{ media ? media.title || media.name : "" }}</span
               >
-              <span class="">{{
-                media ? media.genre_ids || "" : ""
-              }}</span>
-            </p>
-            <p class="overflow-hidden limitRow text-sm">
-              {{ media ? media.overview : "" }}
+              <span class="">{{ media ? media.genre_ids || "" : "" }}</span>
             </p>
           </div>
         </div>
         <!-- <div class="operation">
-      <button>Detail</button>
-    </div> -->
+          <button>Detail</button>
+        </div> -->
       </div>
     </div>
   </div>
@@ -43,10 +41,16 @@ onMounted(() => {});
 <style scoped lang="scss">
 @import "@/style/variables.scss";
 .overviewWrapper {
+  color: var(--txtColor_Primary);
+  
+}
+.cardsWrapper {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   width: 100%;
+  
+  color: var(--txtColor_Primary);
   overflow-x: auto;
   height: var(--overviewHeight);
 }
@@ -74,6 +78,7 @@ onMounted(() => {});
     font-size: 1rem;
     overflow: hidden;
     text-overflow: ellipsis;
+    border-bottom: 1px solid lightgray;
   }
   .limitRow {
     display: -webkit-box;
@@ -89,6 +94,8 @@ onMounted(() => {});
     width: 100px;
     justify-content: center;
     align-items: center;
+    padding: 0 0.8rem;
+    color: var(--txtColor_Primary);
   }
 }
 </style>
