@@ -2,7 +2,7 @@ const _ = require('lodash')
 const Crawler = require('crawler')
 const fs = require('fs')
 
-const imageBaseUrl = 'https://image.tmdb.org/t/p/original'
+const imageBaseUrl = 'https://image.tmdb.org/t/p/w600_and_h900_bestv2'
 const dataPath = '/Users/hujiayou/Documents/VScode_Projects/infulex-cralwer/crawler/data'
 
 var mediaCrawer = new Crawler({

@@ -162,7 +162,7 @@ img {
   flex-direction: column;
   color: white;
   // background: gray;
-  transform: translateX(0);
+  // transform: translateX(0);
 }
 
 .nowPlayingWrapper {
