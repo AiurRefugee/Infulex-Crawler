@@ -155,7 +155,7 @@ $itemHeight: 35px;
   position: fixed;
   left: 0;
   top: 0;
-  background: hsla(0, 1%, 30%, 0.729);
+  background: hsla(0, 0%, 13%, 0.94);
   z-index: 10;
 }
 .tabNavWrapper {

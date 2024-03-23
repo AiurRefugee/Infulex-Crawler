@@ -109,8 +109,7 @@ onMounted(() => {});
     position: relative;
     transition: $basicTrans;
     // transform: translate(0, 0);
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: hidden; 
     translate: 0 0;
     .scrollWrapper {
       width: 100%;

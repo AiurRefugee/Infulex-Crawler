@@ -10,7 +10,7 @@ import DailRecommend from "@/components/dailRecommend.vue";
 import ClassButtonList from "@/components/classButtonList.vue";
 import BasicList from "@/components/basicList.vue";
 import ScrollView from "@/views/ScrollView.vue";
-
+import { calScroll } from "@/APIS/commonFunc.js"
 // 可以在组件中的任意位置访问 `store` 变量 ✨
 const store = layoutStore();
 const genres = computed(() => store.genres);
@@ -43,6 +43,12 @@ const showTabFlg = computed(() => {
     return true;
   }
 });
+
+function calImgHeight(scrollview, event) {
+  calScroll(scrollview, event)
+  const height = event.target.scrollTop;
+  store.imgTop = height / 2;
+}
 
 onMounted(async () => {
   //  const testRes = await get(tmdbAPIPrefix + '/discover/movie', {
@@ -92,7 +98,7 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <ScrollView :title="'浏览'">
+  <ScrollView :title="'浏览'" :calScrollFunc="calImgHeight">
     <template v-slot:header>
       <commonScrollHeader :title="title" :showTabFlag="showTabFlg" />
     </template>
@@ -101,30 +107,28 @@ onMounted(async () => {
         <!-- <header class="navHeader">
           <h1 id="scrollTitle" class="text-2xl pl-4 flex items-center">浏览</h1>
         </header>  -->
-        <div >
-          
-          <!-- <div class="w-full h-4 bgPrimary"></div> -->
-          <Crousel :medias="nowPlayingMovies" :title="'最受欢迎的电影'" />
-        </div>
+
+        <!-- <div class="w-full h-4 bgPrimary z-10"></div> -->
+        <Crousel :medias="nowPlayingMovies" :title="'最受欢迎的电影'" />
 
         <DailRecommend :medias="nowPlayingMovies" :title="'最受欢迎的电影'" />
-        <div class="w-full h-4 bgPrimary"></div>
+        <div class="w-full h-4 bgPrimary z-10"></div>
         <!-- <div class="browseDivdier"></div> -->
         <BasicList :medias="nowPlayingMovies" :title="'正在热映'" />
-        <div class="w-full h-4 bgPrimary"></div>
+        <div class="w-full h-4 bgPrimary z-10"></div>
         <ClassButtonList />
-        <div class="w-full h-4 bgPrimary"></div>
+        <div class="w-full h-4 bgPrimary z-10"></div>
         <OverviewList :medias="nowPlayingMovies" :title="'本周影片趋势'" />
-        <div class="w-full h-4 bgPrimary"></div>
+        <div class="w-full h-4 bgPrimary z-10"></div>
         <BasicList :medias="nowPlayingMovies" :title="'动画电影'" />
-        <div class="w-full h-4 bgPrimary"></div>
+        <div class="w-full h-4 bgPrimary z-10"></div>
         <!-- <BasicList :medias="movieInOneYear" :title="'近一年的电影'" />
-      <div class="w-full h-4 bgPrimary"></div> -->
+      <div class="w-full h-4 bgPrimary z-10"></div> -->
         <DailRecommend :medias="topRatedTV" :title="'最受欢迎的节目'" />
-        <div class="w-full h-4 bgPrimary"></div>
+        <div class="w-full h-4 bgPrimary z-10"></div>
         <OverviewList :medias="nowPlayingMovies" :title="'热门剧集'" />
         <BasicList :medias="topRatedTV" :title="'高分剧集'" />
-        <div class="w-full h-4 bgPrimary"></div>
+        <div class="w-full h-4 bgPrimary z-10"></div>
 
         <!-- <BasicList :medias="" -->
         <!-- <BasicList
@@ -133,7 +137,7 @@ onMounted(async () => {
         :medias="meida"
         :title="genres[index].name"
       /> -->
-        <div class="w-full h-56"></div>
+        <div class="w-full bgPrimary z-10 h-56"></div>
       </div>
     </template>
   </ScrollView>

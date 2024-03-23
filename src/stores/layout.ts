@@ -203,6 +203,7 @@ export const layoutStore = defineStore('layout', {
         height: 'unknown',
       },
     ],
+    imgTop: 0,
     genres: getGenres(),
     showTab: false
   }),
