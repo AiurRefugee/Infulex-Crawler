@@ -11,8 +11,10 @@ html {
     overflow: hidden;
     color: var(--txtColor_Primary);
 }
-.singleLine {
-    width: 100%;
+.bgPrimary { 
+  background: var(--bg_Primary);
+}
+.singleLine { 
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

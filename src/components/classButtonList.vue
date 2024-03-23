@@ -102,9 +102,10 @@ onMounted(async () => {});
   transition: $basicTrans;
 }
 .genreWrapper {
-  width: 100%;
-  height: var(--genreHeight);
-  margin-top: 0.5rem;
+  width: 100%;  
+  position: relative;
+  z-index: 0;
+  background: var(--bg_Primary);
 }
 .genreTitle {
   color: var(--txtColor_Primary);
@@ -115,22 +116,22 @@ onMounted(async () => {});
   align-items: center;
 }
 .listcontentWrapper {
-  width: 100%;
-  height: calc(100% - 1rem);
+  width: 100%; 
   display: flex;
   align-items: center;
   overflow-x: auto;
 }
 .genreCard {
   width: calc(100% / var(--genreNum));
-  flex-shrink: 0;
-  height: 80%;
+  flex-shrink: 0; 
   // padding: var(--classMargin);
-  padding-right: var(--genreSpace);
+  padding: var(--genreSpace);
+  flex-shrink: 0;
+  padding-left: 0;
   box-shadow: none;
   background-size: cover;
   
-  aspect-ratio: 2.3 / 1;
+  aspect-ratio: 2 / 1;
   
   background-position: center;
   background-size: cover;

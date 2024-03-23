@@ -18,20 +18,21 @@ function toogle() {
 
 function calScroll(event) {
   const height = event.target.scrollTop; 
-  const scrollTitleBottom = scrollView.value
+  const scrollTitle = scrollView.value
     .querySelector("#scrollTitle")
-    .getClientRects()[0].bottom;
+    .getClientRects()[0];
+  const threshold = (scrollTitle.top + scrollTitle.bottom) / 2;
   const header = scrollView.value.querySelector("header");
   const title = header.querySelector("h1");
   const divider = header.querySelector(".divider");
-  if (height > scrollTitleBottom ) {
+  if (height > threshold ) {
     // header.style['backdropFilter'] = 'blur(50px)'
     // header.style['-webkit-backdrop-filter'] = 'blur(20px)'
     // header.style.background = 'var(--bg_Primary)'
 
     gsap.to(title, { duration: 0.2, opacity: 1, ease: "power1.inOut" });
     // gsap.to('#stickyHeader', { duration: 0.2, background: 'white', ease: "power1.inOut" })
-    if (height > scrollTitleBottom + 36) {
+    if (height > threshold + 36) {
       gsap.to(divider, { duration: 0.2, opacity: 1, ease: "power1.inOut" });
       header.style['backdropFilter'] = 'blur(30px)' 
       header.style['-webkit-backdrop-filter'] = 'blur(30px)'
@@ -87,6 +88,7 @@ $paddingSize: 2%;
   overflow-y: auto;
   // transform: translateX(0);
   padding-top: $headerHeight;
+  
    
 }
 </style>

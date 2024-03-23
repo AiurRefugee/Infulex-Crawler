@@ -72,13 +72,13 @@ onMounted(() => {
       </template>
       <template v-slot:content>
         <div
-          class="w-full h-full fastTrans"
+          class="w-full h-full trans"
           :style="{
             translate: showTab ? '0' : '-100%',
           }"
         >
           <header class="navHeader">
-            <h1 id="scrollTitle" class="text-2xl">{{ title }} {{ size }}</h1>
+            <h1 id="scrollTitle" class="text-2xl">{{ title }}</h1>
           </header>
           <div
             v-for="(item, index) in layoutContent"
@@ -148,10 +148,7 @@ $itemHeight: 35px;
 }
 .trans {
   transition: $basicTrans;
-}
-.fastTrans {
-  transition: all 0.15s ease-in-out;
-}
+} 
 .mask {
   width: 100vw;
   height: 100vh;

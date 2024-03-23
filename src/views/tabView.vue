@@ -67,7 +67,9 @@ onMounted(() => {});
 </script>
 <template>
   <div class="tabViewWrapper">
-    <NavList></NavList>
+    <slot name="navList">
+      <NavList/>
+    </slot>
 
     <div class="tabcontent">
       <router-view></router-view>

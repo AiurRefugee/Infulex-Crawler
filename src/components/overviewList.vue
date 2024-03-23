@@ -7,7 +7,7 @@ onMounted(() => {});
 <template>
   <div class="overviewWrapper">
     <h2 class="h-8 pl-4 flex items-center">{{ title }}</h2>
-    <div class="cardsWrapper pl-6">
+    <div class="cardsWrapper flex flex-col flex-wrap overflow-x-auto overflow-y-hidden pl-6">
       <div class="overviewCard" v-for="media in medias" :key="media">
         <div class="flex">
           <div class="poster">
@@ -27,7 +27,7 @@ onMounted(() => {});
                 class="w-1/2 filmTitle whitespace-nowrap overflow-hidden text-ellipsis"
                 >{{ media ? media.title || media.name : "" }}</span
               >
-              <span class="">{{ media ? media.genre_ids || "" : "" }}</span>
+              <span class="singleLine">{{ media ? media.genre_ids || "" : "" }}</span>
             </p>
           </div>
         </div>
@@ -42,32 +42,26 @@ onMounted(() => {});
 @import "@/style/variables.scss";
 .overviewWrapper {
   color: var(--txtColor_Primary);
-  
+  position: relative;
+  z-index: 0;
+  background: var(--bg_Primary);
 }
-.cardsWrapper {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  width: 100%;
-  
-  color: var(--txtColor_Primary);
-  overflow-x: auto;
+.cardsWrapper { 
   height: var(--overviewHeight);
 }
 .overviewCard {
   width: calc(100% / var(--overviewCardNum));
-  height: 33%;
+  height: 33%; 
   display: flex;
   cursor: pointer;
   flex-shrink: 0;
   padding: 0.2rem;
   margin-right: var(--overviewSpace);
-  @media (width >=600px) and (width < 1400px) {
-    --overviewCardNum: 2.1;
-  }
+   
   .poster {
     aspect-ratio: 3 / 4;
-    height: 100%;
+    flex-shrink: 0;
+    height: 100%; 
     margin-right: 1rem;
     border-radius: var(--overviewRadius);
     overflow: hidden;

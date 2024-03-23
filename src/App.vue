@@ -8,8 +8,8 @@ import { layoutStore } from '@/stores/layout'
 const layout = layoutStore();
 const filmStore = useFilmStore()
 
-const breakPointSmall = 600;
-const breakPointNormal = 1400;
+const breakPointSmall = 628;
+const breakPointNormal = 1375;
 
 function calWindowSize() {
   var newSize = "normal";

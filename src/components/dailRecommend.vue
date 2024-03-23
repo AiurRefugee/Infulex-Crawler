@@ -29,7 +29,7 @@ function getFilmPosterUrl(url) {
 <template>
   <div class="dailWrapper">
     <h2 class="h-12 pl-4 flex items-center">{{ title }}</h2>
-    <div class="dailCardWrapper pl-6">
+    <div class="dailCardWrapper flex w-full overflow-x-auto overflow-y-hidden pl-6">
       <div class="dailCard" v-for="media in medias" :key="media">
         <div
           class="cardImg relative"
@@ -42,7 +42,10 @@ function getFilmPosterUrl(url) {
             :src="imageSrcPrefix + media.backdrop_path"
           /> -->
           <!-- <p class=" absolute z-10 bottom-4 h-8">{{ media.overview }}</p> -->
-          <img class="absolute z-10 w-1/2 h-1/3" src="/src/assets/icons/play-circle.svg">
+          <img
+            class="absolute z-10 w-1/2 h-1/3"
+            src="/src/assets/icons/play-circle.svg"
+          />
           <!-- <img
           class="w-full h-full object-cover"
           :src="imageSrcPrefix + media.poster_path"
@@ -64,37 +67,40 @@ function getFilmPosterUrl(url) {
 @import "@/style/variables.scss";
 .dailWrapper {
   color: var(--txtColor_Primary);
+  position: relative;
+  z-index: 0;
+  background: var(--bg_Primary);
 }
-.dailCardWrapper {
-  width: 100%;
+.dailCardWrapper { 
   color: var(--txtColor_Primary);
-  display: flex;
-  overflow-x: auto;
-  overflow-y: hidden;
-  .dailCard {
-    cursor: pointer;
-    width: calc(100% / var(--dailNum));
-    
-    // height: 100%;
-    flex-shrink: 0;
-    padding-right: 1rem;
-    .cardImg {
-      // height: calc(100% - var(--infoHeight));
-      width: 100%;
-      background-position: center;
-      background-size: cover;
-      background-color: rgba(0, 0, 0, 0.1);
-      background-blend-mode: overlay;
-      aspect-ratio: 16 / 9;
-      border-radius: 0.8rem;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .info {
-      // height: var(--infoHeight);
-    }
+  background: var(--bg_Primary);
+  position: relative;
+  z-index: 0;
+  background: var(--bg_Primary);
+}
+.dailCard {
+  cursor: pointer;
+  width: calc(100% / var(--dailNum));
+
+  // height: 100%;
+  flex-shrink: 0;
+  padding-right: 1rem;
+  .cardImg {
+    // height: calc(100% - var(--infoHeight));
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    background-color: rgba(0, 0, 0, 0.1);
+    background-blend-mode: overlay;
+    aspect-ratio: 16 / 9;
+    border-radius: 0.8rem;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .info {
+    // height: var(--infoHeight);
   }
 }
 </style>

@@ -43,16 +43,16 @@ function toDetail() {
   color: var(--txtColor_Primary);
   width: 100%;
   overflow: hidden;
+  position: relative;
+  z-index: 0;
+  background: var(--bg_Primary);
   // margin-bottom: 0.5rem;
-  // height: var(--basicCardHeight);
-  @media (width >=600px) and (width < $breakpointNormal) {
-    --height: 25vh;
-  }
+  // height: var(--basicCardHeight); 
 }
 .basicCard {
   
   width: calc(100% / var(--bascCardiNum));
-  aspect-ratio: 3/4;
+  // aspect-ratio: 3/4;
   // margin: 0 0.6rem;
   margin-left: 0;
   padding-right: 0.8rem;
@@ -64,7 +64,7 @@ function toDetail() {
     // height: calc(100% - var(--basicCardInfoHeight));
     flex-shrink: 0;
     border-radius: var(--basicCardadius);
-    aspect-ratio: 2 / 3; 
+    aspect-ratio: 3 / 4; 
     overflow: hidden;
   }
   .info {
