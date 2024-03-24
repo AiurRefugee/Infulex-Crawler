@@ -2,6 +2,7 @@
 import { ref, computed, onMounted } from "vue";
 import gsap from "gsap";
 import { layoutStore } from "@/stores/layout";
+import ClassButton from '@/components/ClassButton.vue'
 const store = layoutStore();
 
 // 可以在组件中的任意位置访问 `store` 变量 ✨
@@ -9,7 +10,7 @@ const genres = computed(() => store.genres);
 
 let transHeight, leftSpace;
 
-const props = defineProps(["cardWidth", "canShowAll", "listTitle"]);
+const props = defineProps(["canShowAll", "listTitle"]);
 const listTitle = ref("评分最高");
 const showAll = ref(false);
 const listWrap = ref(null);
@@ -84,15 +85,7 @@ onMounted(async () => {});
       </div>
     </div>
     <div ref="list" class="listcontentWrapper pl-5">
-      <button
-        class="genreCard trans flex justify-center items-center"
-        v-for="tag in genres"
-        :key="tag"
-      >
-        <div class="genreContent" :style="{ background: `${tag.background}` }">
-          <div class="buttonText">{{ tag.name }}</div>
-        </div>
-      </button>
+      <ClassButton v-for="tag in genres" :key="tag" :genreNumVar="'var(--genreNum)'" :content="tag"/> 
     </div>
   </div>
 </template>
@@ -121,45 +114,5 @@ onMounted(async () => {});
   align-items: center;
   overflow-x: auto;
 }
-.genreCard {
-  width: calc(100% / var(--genreNum));
-  flex-shrink: 0; 
-  // padding: var(--classMargin);
-  padding: var(--genreSpace);
-  flex-shrink: 0;
-  padding-left: 0;
-  box-shadow: none;
-  background-size: cover;
-  
-  aspect-ratio: 2 / 1;
-  
-  background-position: center;
-  background-size: cover;
-  transition: $basicTrans;
-}
-.genreContent {
-  width: 100%;
-  height: 100%;
-  border-radius: var(--priRadius);
-  overflow: hidden; 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(
-    to right,
-    rgba(214, 55, 34, 0.7) 0,
-    rgba(130, 22, 126, 0.7) 100%
-  );
-  // url("src/assets/imgs/ave2.jpg");
-}
-.buttonText {  
-  font-size: var(--genreFontSize);
-  color: white;
-  font-weight: bold;
-  white-space: nowrap;
-  text-overflow: clip;
-  overflow: hidden;
-  text-align: center;
-  letter-spacing: 8px;
-}
+
 </style>

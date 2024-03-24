@@ -1,9 +1,12 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import { layoutStore } from "@/stores/layout";
-import ScrollView from "@/views/ScrollView.vue";
+import ScrollView from "@/viewComponents/ScrollView.vue";
 import commonScrollHeader from "@/components/commonScrollHeader.vue";
 import gsap from "gsap";
+import { calScroll } from "@/APIS/commonFunc.js"
+import { useRouter, useRoute } from "vue-router";
+const router = useRouter();
 const store = layoutStore();
 
 const layoutContent = computed(() => store.layoutContent);
@@ -14,8 +17,17 @@ const activeMediaIndex = ref(0);
 const title = ref("Infulex");
 var standAlone = ref(false);
 
+function navigate(item) {
+  if(item.router) {
+    router.push({
+      path: item.router,
+      replace: true
+    })
+  }
+}
+
 function toogleItem(item, index) {
-  if (item.children.length > 0 && "showChild" in item) {
+  if (item.children && item.children.length > 0 && "showChild" in item) {
     const itemHeight = 35;
     const length = item.children.length;
     item.showChild = !item.showChild;
@@ -66,9 +78,9 @@ onMounted(() => {
 
     }"
   >
-    <ScrollView v-if="!standAlone">
+    <ScrollView v-if="!standAlone" :top="true" :calScrollFunc="calScroll">
       <template v-slot:header>
-        <commonScrollHeader :title="'Infulex'" :showTabFlag="showTab" />
+        <commonScrollHeader :title="'Infulex'" :showTabFlag="showTab" :bgColor="'var(--navBg_Primary)'"/>
       </template>
       <template v-slot:content>
         <div
@@ -82,7 +94,8 @@ onMounted(() => {
           </header>
           <div
             v-for="(item, index) in layoutContent"
-            :key="item.text"
+            :key="index"
+            @click="navigate(item)"
             class="w-full"
           >
             <div class="w-full">
@@ -146,9 +159,7 @@ $itemHeight: 35px;
   margin: 0 0.5rem;
   transition: $basicTrans;
 }
-.trans {
-  transition: $basicTrans;
-} 
+
 .mask {
   width: 100vw;
   height: 100vh;
@@ -161,16 +172,16 @@ $itemHeight: 35px;
 .tabNavWrapper {
   color: var(--txtColor_Primary);
   overflow: hidden;
-  // background: gray;
+  background: var(--navBg_Primary);
   width: var(--tabWidth);
   height: 100dvh;
+  // border-right: 1px solid lightgray;
   transform: translate(0, 0);
   display: flex;
   transition: $basicTrans;
   flex-direction: column;
   left: 0;
-  z-index: 998;
-  background: var(--bg_Primary);
+  z-index: 998; 
   // padding: 0 1rem;
   .navHeader {
     width: 100%;

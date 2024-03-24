@@ -13,8 +13,16 @@ const router = createRouter({
       children: [
         {
           path: '/browse',
-          name: 'detail',
+          name: 'browse',
           component: () => import('../views/browse.vue'),
+          meta: {
+            transition: 'fade'
+          }
+        }, 
+        {
+          path: '/search',
+          name: 'search',
+          component: () => import('../views/searchMedia.vue'),
           meta: {
             transition: 'fade'
           }

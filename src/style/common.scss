@@ -11,10 +11,16 @@ html {
     overflow: hidden;
     color: var(--txtColor_Primary);
 }
-.bgPrimary { 
-  background: var(--bg_Primary);
+.trans {
+    transition: $basicTrans;
 }
-.singleLine { 
+.fastTrans {
+    transition: all 0.2s ease-in-out;
+}
+.bgPrimary {
+    background: var(--bg_Primary);
+}
+.singleLine {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -28,6 +34,8 @@ html {
     // overscroll-behavior: none; /* 禁用弹簧效果 */
 }
 .filmTitle {
+    font-size: 1rem;
+    font-weight: 400;
     color: var(--txtColor_Primary);
 }
 .subFilmTitle {
@@ -179,12 +187,6 @@ input:focus {
         z-index: 0;
         top: 0;
     }
-}
-.divider {
-    width: 100%;
-    height: 1px;
-    opacity: 0;
-    background: rgb(59, 59, 59);
 }
 .fade-enter-active,
 .fade-leave-active {

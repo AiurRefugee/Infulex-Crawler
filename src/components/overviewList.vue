@@ -17,11 +17,11 @@ onMounted(() => {});
             />
           </div>
           <div class="overview flex flex-col justify-around">
-            <p class="overflow-hidden filmTitle limitRow text-sm">
+            <p class="overflow-hidden limitRow text-sm">
               {{ media ? media.overview : "" }}
             </p>
             <p
-              class="text-sm filmTitle flex justify-between items-center pr-1 overflow-visible"
+              class="text-sm flex justify-between items-center pr-1 overflow-visible"
             >
               <span
                 class="w-1/2 filmTitle whitespace-nowrap overflow-hidden text-ellipsis"

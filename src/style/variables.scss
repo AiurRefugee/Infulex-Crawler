@@ -13,7 +13,7 @@ $borderSize: 1px;
 $cardAspectRatio: math.div(2, 3);
 html {
     font-size: 16px;
-    --tabWidth: max(18vw, 150px);
+    --tabWidth: max(25vw, 150px);
     --basicRadius: 0.55rem;
     --priRadius: 0.8rem;
     --baseColor: 0;
@@ -21,22 +21,11 @@ html {
     --headerHeight: 5vh;
     --daliMargin: 1.5rem;
 
-    --sideWidth: 15vw;
-
-    --filterWidth: 20vw;
-    --filterAreaWidth: 60px;
-    --filterAreaHeight: 45px;
-    --filterFull: 35vw;
-
-    --daliRecWidth: 20vw;
-    --actorWidth: 12vw;
-
-    --filmCardWidth: 11vw;
-    --colNum: 10.1;
-    --leftSpace: 1vw;
+    // 搜索页genre卡片
+    --searchGenreCardNum: 3;
 
     // 轮播卡片
-    --crouselCardNum: 1.0;
+    --crouselCardNum: 1;
     --crouselAspectRatio: 21 / 9;
 
     --dailNum: 4.1;
@@ -75,13 +64,14 @@ html {
         --genreHeight: 15vh;
 
         --tabWidth: 70vw;
+        // 搜索页genre卡片
+        --searchGenreCardNum: 2.1;
 
         // landscape卡片
         --dailNum: 1.1;
 
         // 轮播卡片
-        --crouselAspectRatio: 4/5; 
- 
+        --crouselAspectRatio: 2 / 3;
 
         // 基础卡片
         // --basicCardadius: 7px;
@@ -112,7 +102,6 @@ html {
         // 轮播卡片
         // --crouselAspectRatio: 4/5;
         // --crouselCardNum: 1.1;
- 
 
         // 基础卡片
         // --basicCardadius: 7px;
@@ -120,7 +109,7 @@ html {
         // --basicCardInfoHeight: 3rem;
         --basicCardHeight: 30vh;
 
-        // 影片类型列表 
+        // 影片类型列表
         --genreNum: 4.1;
         --genreHeight: 15vh;
         --genreFontSize: 1.5rem;
@@ -133,12 +122,11 @@ html {
     }
 }
 html {
-     
     /* 暗黑模式样式 */
     @media (prefers-color-scheme: dark) {
         --bg_Primary: black;
         --bg_Secondary: #464646;
-
+        --navBg_Primary: #181818;
 
         --txtColor_Primary: #e1e1e1;
         --txtColor_Secondary: #8b8686e8;

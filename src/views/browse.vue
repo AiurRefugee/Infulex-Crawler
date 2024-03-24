@@ -35,6 +35,8 @@ const animationMovies = ref(["", "", "", "", "", "", "", "", "", "", "", ""]);
 const animationTV = ref(["", "", "", "", "", "", "", "", "", "", "", ""]);
 const movieInOneYear = ref(["", "", "", "", "", "", "", "", "", "", "", ""]);
 
+const imgY = computed(() => store.imgY);
+const scrollHeight = ref(0)
 const size = computed(() => store.size);
 const showTabFlg = computed(() => {
   if (size.value != "small") {
@@ -47,7 +49,15 @@ const showTabFlg = computed(() => {
 function calImgHeight(scrollview, event) {
   calScroll(scrollview, event)
   const height = event.target.scrollTop;
-  store.imgTop = height / 2;
+  scrollHeight.value = height; 
+  if (height > 0) {
+    store.imgTop = height / 2;
+    
+  } else {
+    // store.imgTop = height;
+    // // store.imgRatio = '4 / 3';
+    // store.imgRatio = '21 / 10'
+  }
 }
 
 onMounted(async () => {
@@ -98,12 +108,13 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <ScrollView :title="'浏览'" :calScrollFunc="calImgHeight">
+  <ScrollView :calScrollFunc="calImgHeight">
     <template v-slot:header>
       <commonScrollHeader :title="title" :showTabFlag="showTabFlg" />
     </template>
     <template v-slot:content>
       <div class="browseWrapper">
+        
         <!-- <header class="navHeader">
           <h1 id="scrollTitle" class="text-2xl pl-4 flex items-center">浏览</h1>
         </header>  -->

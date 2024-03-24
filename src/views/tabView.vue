@@ -1,12 +1,12 @@
 <script setup>
-import { ref, computed, onMounted } from "vue";
-import ScrollView from "@/views/ScrollView.vue";
+import { ref, computed, onMounted } from "vue"; 
 import { layoutStore } from "@/stores/layout";
 import NavList from "@/components/navList.vue";
 
 const layout = layoutStore();
 
 const size = computed(() => layout.size);
+const showTab = computed( () => layout.showTab)
 
 const breakPointSmall = 600;
 const breakPointNormal = 1400;
@@ -19,8 +19,7 @@ const tabWidthLarge = "18vw";
 const padtop = "2rem";
 
 const contentHeader = ref();
-const content = ref();
-const showTab = ref(true);
+const content = ref(); 
 
 const tabcontentLeft = computed(() => {
   const leftSpace = getCSSVariable("--tabWidth");

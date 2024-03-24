@@ -1,11 +1,13 @@
 <script setup>
 import { ref, computed } from "vue";
-const props = defineProps(["title", "showTabFlag", "transFunc"]);
+const props = defineProps(["title", "showTabFlag", "showDivider", 'bgColor']);
 import { layoutStore } from "@/stores/layout";
 const store = layoutStore();
 </script>
 <template>
-  <header class="stickyHeader">
+  <header class="stickyHeader" :style="{
+    backgroundColor: bgColor,
+  }">
     <div class="upperGrid">
       <div class="tabIcon" @click="store.toogleTab">
         <button :style="{}" v-if="showTabFlag">
@@ -29,7 +31,7 @@ const store = layoutStore();
 
       <h1 ref="headerTitle" class="title">{{ title }}</h1>
     </div>
-    <div ref="divider" class="divider"></div>
+    <div ref="divider" class="divider" v-if="showDivider"></div>
   </header>
 </template>
 <style scoped lang="scss">
@@ -44,13 +46,14 @@ $tabIconSize: 2rem;
   z-index: 999;
   transition: $basicTrans;
   position: fixed;
-  background: transparent;
+  background: var(--bg_Primary);
   // transition: all 0.2s ease-in-out;
   // padding: 0 $tabLeftSpace;
   .upperGrid {
     width: 100%;
     height: 98%;
     display: grid;
+    z-index: 999;
     grid-template-columns: 1fr 2fr 1fr;
     grid-template-rows: 100%;
     align-items: center;
@@ -71,7 +74,7 @@ $tabIconSize: 2rem;
     .title {
       overflow: hidden;
       white-space: nowrap;
-      color: lightgray;
+      color: gray;
       // color: var(--bg_Primary);
       opacity: 0;
     }

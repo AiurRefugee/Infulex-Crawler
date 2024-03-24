@@ -4,8 +4,12 @@ export function calScroll(scrollView, event) {
     // const height = event.target.scrollTop;
     const scrollTitle = scrollView
         .querySelector("#scrollTitle")
-        .getClientRects()[0];
-    const threshold = (scrollTitle.top + scrollTitle.bottom) / 2;
+    var rect = null 
+    if( !scrollTitle ) {
+        return false
+    }
+    rect = scrollTitle.getClientRects()[0];
+    const threshold = (rect.top + rect.bottom) / 2;
     const header = scrollView.querySelector("header");
     const title = header.querySelector("h1");
     const divider = header.querySelector(".divider"); 

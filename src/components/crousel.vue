@@ -4,6 +4,8 @@ import { layoutStore } from "@/stores/layout";
 import gsap from "gsap";
 const store = layoutStore();
 const size = computed(() => store.size);
+const showTab = computed(() => store.showTab);
+const imgScale = computed(() => store.imgScale);
 const imgTop = computed( () => store.imgTop)
 const props = defineProps(["medias", "title"]);
 const imageSrcPrefix = "https://image.tmdb.org/t/p/original";
@@ -43,7 +45,11 @@ onMounted(() => {
   >
     <h1
       id="scrollTitle"
-      class="crouselTitle pl-10 pt-2 absolute top-10 z-10 text-2xl"
+      class="crouselTitle fastTrans pl-10 pt-2 absolute top-10 z-10 text-2xl"
+      :style="{
+        top: showTab ? '0' : '2.5rem',
+        
+      }"
     >
       浏览
     </h1>
@@ -53,13 +59,16 @@ onMounted(() => {
         :key="media.id"
         class="crouselCard"
         :style="{
+          // aspcetrRatio: imgRatio,
           // backgroundImage: 'url(' + imageSrcPrefix + media.backdrop_path + ')',
         }"
       >
-        <img :src="imageSrcPrefix + media.backdrop_path" alt="" :style="{
-          top: imgTop + 'px'
+        <img :src="imageSrcPrefix + (size != 'small' ? media.backdrop_path : media.poster_path)" alt=""
+        :style="{
+          top: imgTop + 'px',
+          // scale: imgScale,
         }"/>
-        <div
+        <div v-if="size != 'small'"
           class="media flex flex-col p-4 pl-6 justify-around absolute bottom-0 overflow-hidden"
         >
           <h1 class="">{{ media.title }}</h1>
@@ -94,6 +103,7 @@ $height: 70vh;
   // top: -100px;
   //   height: var(--cardH);
   .crouselTitle {
+    color: white !important;
     box-sizing: content-box;
     text-shadow: 0px 0px 10px black;
   }

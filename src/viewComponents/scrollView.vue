@@ -4,11 +4,10 @@ import { layoutStore } from "@/stores/layout";
 
 
 const emit = defineEmits(["toogle"]);
-const props = defineProps(['title', 'calScrollFunc']);
+const props = defineProps(['calScrollFunc', 'top']);
 
 const layout = layoutStore();
-const size = computed(() => layout.size); 
-const title = computed(() => props.title)
+const size = computed(() => layout.size);  
 const headerTitle = ref()
 const divider = ref()
 const scrollView = ref()
@@ -24,6 +23,7 @@ onMounted(() => {
     class="scrollView"
     ref="scrollView"
     :style="{  
+      'padding-top': top ? '5vh' : '0'
     }"
     @scroll="calScrollFunc(scrollView, $event)"
   >

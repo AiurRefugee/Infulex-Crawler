@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted } from "vue";
-import { useRoute } from "vue-router"; 
-const route = useRoute();
+import { useRouter } from "vue-router"; 
+const router = useRouter();
 import { get, post } from "@/APIS/axiosWrapper.js"
 import { useFilmStore } from "@/stores/films.ts"
 import { layoutStore } from '@/stores/layout'
@@ -29,6 +29,10 @@ function calWindowSize() {
 onMounted(() => { 
   calWindowSize();
   window.addEventListener("resize", calWindowSize);
+  router.push({
+    name: 'search',
+    replace: true,
+  })
 })
 
 // onMounted(async () => {

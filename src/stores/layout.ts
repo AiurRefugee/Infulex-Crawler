@@ -40,6 +40,7 @@ const movieGenres = [
   {
     id: 10751,
     name: "家庭",
+    background: `linear-gradient(to right, rgb(214 34 132 / 75%) 5%, rgb(45 22 130 / 70%) 90%)`,
   },
   {
     id: 14,
@@ -54,26 +55,32 @@ const movieGenres = [
   {
     id: 27,
     name: "恐怖",
+    background: `linear-gradient(to right, rgb(110 110 110 / 60%) 0, rgb(130 130 130 / 60%) 100%)`,
   },
   {
     id: 9648,
     name: "悬疑",
+    background: `linear-gradient(to right, rgb(110 110 110 / 60%) 0, rgb(130 130 130 / 60%) 100%)`,
   },
   {
     id: 10749,
     name: "爱情",
+    background: `linear-gradient(to right, rgb(110 110 110 / 60%) 0, rgb(130 130 130 / 60%) 100%)`,
   },
   {
     id: 878,
     name: "科幻",
+    background: `linear-gradient(to right, rgb(110 110 110 / 60%) 0, rgb(130 130 130 / 60%) 100%)`,
   },
   {
     id: 10752,
     name: "战争",
+    background: `linear-gradient(to right, rgb(110 110 110 / 60%) 0, rgb(130 130 130 / 60%) 100%)`,
   },
   {
     id: 37,
     name: "西部",
+    background: `linear-gradient(to right, rgb(110 110 110 / 60%) 0, rgb(130 130 130 / 60%) 100%)`,
   },
 ]
 
@@ -163,7 +170,6 @@ export const layoutStore = defineStore('layout', {
         text: "媒体库",
         image: "src/assets/icons/mediastore.svg",
         showChild: true,
-        height: 'unknown',
         children: [
           {
             text: "类型",
@@ -182,18 +188,20 @@ export const layoutStore = defineStore('layout', {
             image: "src/assets/icons/tv.svg",
           },
           {
-            text: "纪录片",
+            text: "导演",
             image: "src/assets/icons/record.svg",
           },
         ],
       },
       {
         text: "浏览",
+        router: '/browse',
         image: "src/assets/icons/browse.svg",
         height: 'unknown',
       },
       {
         text: "搜索",
+        router: '/search',
         image: "src/assets/icons/search.svg",
         height: 'unknown',
       },
@@ -203,7 +211,9 @@ export const layoutStore = defineStore('layout', {
         height: 'unknown',
       },
     ],
-    imgTop: 0,
+    imgRatio: '21/9',
+    imgScale: 1,
+    imgY: 0,
     genres: getGenres(),
     showTab: false
   }),
@@ -213,7 +223,7 @@ export const layoutStore = defineStore('layout', {
   actions: {
     setSize(newSize) {
       this.size = newSize
-    }, 
+    },
     toogleTab() {
       this.showTab = !this.showTab
       console.log('showTab', this.showTab)
