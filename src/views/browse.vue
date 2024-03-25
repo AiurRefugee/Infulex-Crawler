@@ -9,7 +9,7 @@ import OverviewList from "@/components/overviewList.vue";
 import DailRecommend from "@/components/dailRecommend.vue";
 import ClassButtonList from "@/components/classButtonList.vue";
 import BasicList from "@/components/basicList.vue";
-import ScrollView from "@/views/ScrollView.vue";
+import ScrollView from "@/viewComponents/ScrollView.vue";
 import { calScroll } from "@/APIS/commonFunc.js"
 // 可以在组件中的任意位置访问 `store` 变量 ✨
 const store = layoutStore();

@@ -46,7 +46,7 @@ $tabIconSize: 2rem;
   z-index: 999;
   transition: $basicTrans;
   position: fixed;
-  background: var(--bg_Primary);
+  background: var(--bgLight_Primary);
   // transition: all 0.2s ease-in-out;
   // padding: 0 $tabLeftSpace;
   .upperGrid {
@@ -74,7 +74,7 @@ $tabIconSize: 2rem;
     .title {
       overflow: hidden;
       white-space: nowrap;
-      color: gray;
+      color: var(--textDark_Primary);
       // color: var(--bg_Primary);
       opacity: 0;
     }

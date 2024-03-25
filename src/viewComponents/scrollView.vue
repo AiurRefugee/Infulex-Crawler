@@ -45,6 +45,7 @@ $paddingSize: 2%;
   height: 100%;
   //   padding: 0 $tabLeftSpace;
   // transform: translate(0, 0);
+  background: var(--bgLight_Primary);
   overflow-x: hidden;
   overflow-y: auto;
   // transform: translateX(0);

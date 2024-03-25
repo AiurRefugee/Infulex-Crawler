@@ -85,7 +85,7 @@ onMounted(async () => {});
       </div>
     </div>
     <div ref="list" class="listcontentWrapper pl-5">
-      <ClassButton v-for="tag in genres" :key="tag" :genreNumVar="'var(--genreNum)'" :content="tag"/> 
+      <ClassButton v-for="tag in genres" :key="tag" :genreNumVar="'var(--genreNum)'" :tags="genres"/> 
     </div>
   </div>
 </template>

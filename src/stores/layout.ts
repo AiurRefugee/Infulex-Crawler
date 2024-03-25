@@ -230,3 +230,8 @@ export const layoutStore = defineStore('layout', {
     }
   },
 })
+
+
+const titleList = []
+const dict = {}
+

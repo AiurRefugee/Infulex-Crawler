@@ -1,14 +1,12 @@
 <script setup>
-const props = defineProps(["genreNumVar", "tags"])
+const props = defineProps(["genreClass", "tag"])
 </script>
 <template>
   <button
-    class="genreCard trans flex justify-center items-center"
+    :class="['trans', 'flex', 'justify-center', 'items-center', genreClass]"
     :style="{
         width: `calc(100% / ${genreNumVar})`,
-    }"
-    v-for="tag in tags"
-    :key="tag"
+    }"  
   >
     <div class="genreContent" :style="{ background: `${tag.background}` }">
       <div class="buttonText">{{ tag.name }}</div>
@@ -33,21 +31,7 @@ const props = defineProps(["genreNumVar", "tags"])
   background-size: cover;
   transition: $basicTrans;
 }
-.genreContent {
-  width: 100%;
-  height: 100%;
-  border-radius: var(--priRadius);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(
-    to right,
-    rgba(214, 55, 34, 0.7) 0,
-    rgba(130, 22, 126, 0.7) 100%
-  );
-  // url("src/assets/imgs/ave2.jpg");
-}
+
 .buttonText {
   font-size: var(--genreFontSize);
   color: white;

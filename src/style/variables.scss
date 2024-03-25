@@ -22,7 +22,9 @@ html {
     --daliMargin: 1.5rem;
 
     // 搜索页genre卡片
-    --searchGenreCardNum: 3;
+    --searchGenreCardNum: 4;
+    --searchGenreCardRadius: 0.8rem;
+    --searchClassPad: 0.8rem;
 
     // 轮播卡片
     --crouselCardNum: 1;
@@ -65,7 +67,7 @@ html {
 
         --tabWidth: 70vw;
         // 搜索页genre卡片
-        --searchGenreCardNum: 2.1;
+        --searchGenreCardNum: 2;
 
         // landscape卡片
         --dailNum: 1.1;
@@ -89,6 +91,11 @@ html {
         // 带overerview卡片
         --overviewHeight: 50vh;
         --overviewCardNum: 1.1;
+
+        // 搜索页genre卡片
+        // --searchGenreCardNum: 3;
+        // --searchGenreCardRadius: 0.8rem;
+        --searchClassPad: 0.3rem;
     }
     @media (width >628px) and (width < 1375px) {
         // --genreNum: 1.1;
@@ -119,31 +126,56 @@ html {
         --overviewHeight: 50vh;
         --overviewCardNum: 2.1;
         --overviewRowLimit: 2;
+
+        // 搜索页genre卡片
+        --searchGenreCardNum: 3;
+        --searchGenreCardRadius: 0.8rem;
+        --searchClassPad: 0.5rem;
     }
 }
 html {
     /* 暗黑模式样式 */
     @media (prefers-color-scheme: dark) {
-        --bg_Primary: black;
-        --bg_Secondary: #464646;
-        --navBg_Primary: #181818;
+        --textLight_Primary: #232323;
+        --textLight_Secondary: #373636e8;
+        --textLight_Basic: #757474;
 
-        --txtColor_Primary: #e1e1e1;
-        --txtColor_Secondary: #8b8686e8;
-        --txtColor_Basic: #aba9a9;
+        --textDark_Primary: #e1e1e1;
+        --textDark_Secondary: #c8c6c6e8;
+        --textDark_Basic: #aba9a9;
+
+        --bgDark_Primary: #f5f5f5;
+        --bgDark_Secondary: #e7e7e7;
+        --bgDark_Basic: #c6c4c4;
+
+        --bgLight_Primary: #black;
+        --bgLight_Secondary: #202020;
+        --bgLight_Basic: #313030;
+
+        --navBg_Primary: #181818;
 
         --cardShadow: none;
         ----baseColor: 0;
     }
     /* 明亮模式样式 */
     @media (prefers-color-scheme: light) {
-        --baseColor: 255;
+        --textLight_Primary: #e1e1e1;
+        --textLight_Secondary: #c8c6c6e8;
+        --textLight_Basic: #aba9a9;
 
-        --bg_Primary: #f6f3f3;
-        --bg_Secondary: #bcbcbc;
+        --textDark_Primary: #111111fa;
+        --textDark_Secondary: #202020;
+        --textDark_Basic: #757474;
 
-        --txtColor_Primary: #3c3c3c;
-        --txtColor_Secondary: #7c7a7ade;
-        --txtColor_Basic: #474545cf;
+        --bgDark_Primary: black;
+        --bgDark_Secondary: #202020;
+        --bgDark_Basic: #313030;
+
+        --bgLight_Primary: #f5f5f5;
+        --bgLight_Secondary: #e7e7e7;
+        --bgLight_Basic: #c6c4c4;
+
+        --cardShadow: none;
+        ----baseColor: 0;
     }
 }

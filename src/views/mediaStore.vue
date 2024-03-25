@@ -14,7 +14,9 @@ const size = computed(() => layout.size);
 <template>
     <div class="w-full h-full">
         <ScrollView :title="媒体库">
-            
+            <div class="w-full">
+                
+            </div>
         </ScrollView>
     </div>
 </template>

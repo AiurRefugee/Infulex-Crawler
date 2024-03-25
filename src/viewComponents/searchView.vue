@@ -23,23 +23,24 @@ const showTabFlg = computed(() => {
 });
 
 function calScroll(scrollView, event) {
-  const bgColor = "rgb(33 33 33 / 98%)";
+  const normalBgColor = "var(--bgLight_Primary)";
+  const secBgColor = "var(--bgLight_Secondary)";
   const height = scrollView.scrollTop;
   console.log(height);
   const header = scrollView.querySelector("header");
   const title = header.querySelector("h1");
   const searchBar = scrollView.querySelector("#searchBar");
   if (height > 40) {
-    header.style["background"] = bgColor;
-    searchBar.style["background"] = bgColor;
+    header.style["background"] = secBgColor;
+    searchBar.style["background"] = secBgColor;
     searchBar.style['border-bottom'] = '1px solid lightgray'
     searchBar.style['backdrop-filter'] = 'blur(60px)'
     gsap.to(title, { duration: 0.2, opacity: 1, ease: "power1.inOut" });
     gtThreshold = true;
   } else {
     if (gtThreshold) {
-      header.style["background"] = "var(--bg_Primary)";
-      searchBar.style["background"] = "var(--bg_Primary)";
+      header.style["background"] = normalBgColor
+      searchBar.style["background"] = normalBgColor
       searchBar.style['backdrop-filter'] = ''
       searchBar.style['border-bottom'] = ''
       gsap.to(title, { duration: 0.2, opacity: 0, ease: "power1.inOut" });
@@ -58,28 +59,28 @@ function calScroll(scrollView, event) {
       />
     </template>
     <template v-slot:content>
-      <div class="w-full h-full trans">
-        <div class="w-full px-10 h-8">
-          <h1 id="scrollTitle" class="text-2xl">搜索</h1>
+      <div class="w-full h-full trans searchBarWrap">
+        <div class="w-full h-10 px-2">
+          <h1 id="scrollTitle" class="text-2xl ">搜索</h1>
         </div>
         <div class="flex flex-col items-center">
           <div
             id="searchBar"
-            class="w-full h-12 pt-1 pb-3 px-10 trans flex justify-between"
+            class="w-full h-12 pt-1 pb-3 px-4 trans bg-white flex justify-between"
           >
             <div class="searchWrap flex items-center bg-white rounded-lg">
-              <div class="h-2/3 mx-2">
+              <div class="h-2/3 mx-2 flex items-center">
                 <img
-                  class="w-full h-full"
+                  class="h-3/4"
                   src="/src/assets/icons/search.svg"
                   alt="search"
                 />
               </div>
               <input class="h-full pl-2" placeholder="请输入搜索内容" />
             </div>
-            <button class="w-8">取消</button>
+            <button class="w-10 txtDark_Secondary">取消</button>
           </div>
-          <div class="w-full px-10">
+          <div class="w-full px-2">
             <slot></slot>
           </div>
         </div>
@@ -91,6 +92,7 @@ function calScroll(scrollView, event) {
 @import "@/style/variables.scss";
 
 .searchBarWrap {
+  background: var(--bgLight_Primary);
 }
 input {
   // background: rgba(211, 211, 211, 0.445);
@@ -98,13 +100,17 @@ input {
 #searchBar {
   display: flex;
   position: sticky;
+  background: var(--bgLight_Primary);
   top: 0;
+  z-index: inherit;
   // border-bottom: 1px solid lightgray;
   .searchWrap {
     width: calc(100% - 3rem);
     border-radius: 0.5rem;
+    // background: #f5f5f5;
     input {
         width: calc(100% - 4rem);
+        // background: #f5f5f5;
     }
   }
 }
