@@ -28,7 +28,7 @@ function getFilmPosterUrl(url) {
 </script>
 <template>
   <div class="dailWrapper">
-    <h2 class="h-12 pl-4 flex items-center">{{ title }}</h2>
+    <h2 class="h-12 pl-4 flex items-center txtDark_Primary">{{ title }}</h2>
     <div class="dailCardWrapper flex w-full overflow-x-auto overflow-y-hidden pl-6">
       <div class="dailCard" v-for="media in medias" :key="media">
         <div
@@ -53,8 +53,8 @@ function getFilmPosterUrl(url) {
         /> -->
         </div>
         <div class="info">
-          <p class="filmTitle">{{ media.title || media.name || "--" }}</p>
-          <p class="subFilmTitle text-sm">
+          <p class="filmTitle txtDark_Primary">{{ media.title || media.name || "--" }}</p>
+          <p class="subFilmTitle text-sm txtDark_Secondary">
             {{ media.release_date || media.first_air_date || "--" }}
           </p>
         </div>

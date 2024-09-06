@@ -1,10 +1,9 @@
 <script setup>
 import { useRouter } from "vue-router";
 import gsap from "gsap";
-
+import BasicCard from '@/components/basicCard.vue'
 import { useFilmStore } from "@/stores/films.ts";
 
-const imageSrcPrefix = "https://image.tmdb.org/t/p/original";
 
 const filmStore = useFilmStore();
 
@@ -20,20 +19,9 @@ function toDetail() {
 </script>
 <template>
   <div class="basicWrapper flex flex-col justify-around">
-    <h2 class="h-16 pl-4 flex items-center">{{ title }}</h2>
-    <div class="flex overflow-x-auto overflow-y-hidden pl-6">
-      <div class="basicCard" v-for="media in medias" :key="media">
-        <div class="cardImage">
-          <img
-            class="w-full h-full object-cover"
-            :src="imageSrcPrefix + media.poster_path"
-          />
-        </div>
-        <div class="info">
-          <p class="filmTitle singleLine">{{ media.title || media.name || "--" }}</p>
-          <p class="text-sm subFilmTitle singleLine">{{ media.release_date || media.first_air_date || "--" }}</p>
-        </div>
-      </div>
+    <h2 class="h-16 pl-4 flex items-center txtDark_Primary">{{ title }}</h2>
+    <div class="flex w-full overflow-x-auto overflow-y-hidden pl-6">
+      <BasicCard :media="media" v-for="(media, index) in medias" :key="index"/>
     </div>
   </div>
 </template>
@@ -48,29 +36,6 @@ function toDetail() {
   background: var(--bg_Primary);
   // margin-bottom: 0.5rem;
   // height: var(--basicCardHeight); 
-}
-.basicCard {
-  
-  width: calc(100% / var(--bascCardiNum));
-  // aspect-ratio: 3/4;
-  // margin: 0 0.6rem;
-  margin-left: 0;
-  padding-right: 0.8rem;
-  flex-shrink: 0;
-  cursor: pointer;
-  
-  .cardImage {
-    width: 100%;
-    // height: calc(100% - var(--basicCardInfoHeight));
-    flex-shrink: 0;
-    border-radius: var(--basicCardadius);
-    aspect-ratio: 3 / 4; 
-    overflow: hidden;
-  }
-  .info {
-    height: var(--basicCardInfoHeight);
-  }
-}
-
+} 
 
 </style>

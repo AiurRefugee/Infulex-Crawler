@@ -29,10 +29,10 @@ function calWindowSize() {
 onMounted(() => { 
   calWindowSize();
   window.addEventListener("resize", calWindowSize);
-  router.push({
-    name: 'search',
-    replace: true,
-  })
+  // router.push({
+  //   name: 'search',
+  //   replace: true,
+  // })
 })
 
 // onMounted(async () => {

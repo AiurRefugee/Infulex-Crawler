@@ -7,7 +7,7 @@ function extractYears(str) {
 } 
 
 const sleep = async (delay) => new Promise((resolve) => {
-    setTimeout(resolve, delay);
+    setTimeout(resolve, delay || 200);
 })
 
 function removeKeyword(str) {

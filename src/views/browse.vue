@@ -127,7 +127,7 @@ onMounted(async () => {
         <!-- <div class="browseDivdier"></div> -->
         <BasicList :medias="nowPlayingMovies" :title="'正在热映'" />
         <div class="w-full h-4 bgPrimary z-10"></div>
-        <ClassButtonList />
+        <ClassButtonList :genreClass="'browseClassButton'"/>
         <div class="w-full h-4 bgPrimary z-10"></div>
         <OverviewList :medias="nowPlayingMovies" :title="'本周影片趋势'" />
         <div class="w-full h-4 bgPrimary z-10"></div>

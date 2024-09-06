@@ -39,13 +39,7 @@ axios.interceptors.response.use(
         //   return Promise.reject(error);
     }
 );
-
-const config = {
-    headers: {
-        accept: 'application/json',
-        Authorization: `Bearer ${token}`
-    }
-}
+ 
 
 async function get(url, params) {
     const getConfig = {

@@ -31,9 +31,9 @@ function calScrollLeft() {
   }
 }
 onMounted(() => {
-  wrapper = document.getElementById("crouselWrapper");
-  wrapperHeight = wrapper.clientHeight;
-  console.log(wrapperHeight);
+  // wrapper = document.getElementById("crouselWrapper");
+  // wrapperHeight = wrapper.clientHeight;
+  // console.log(wrapperHeight);
   // setInterval(calScrollLeft, 5000);
 });
 </script>

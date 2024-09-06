@@ -17,13 +17,13 @@ export function calScroll(scrollView, event) {
         gsap.to(title, { duration: 0.2, opacity: 1, ease: "power1.inOut" });
         header.style.background = 'rgb(0 0 0 / 40%)'
         if (threshold < -36) {
-            gsap.to(divider, { duration: 0.2, opacity: 1, ease: "power1.inOut" });
+            // gsap.to(divider, { duration: 0.2, opacity: 1, ease: "power1.inOut" });
             header.style['backdropFilter'] = 'blur(100px)'
             header.style['-webkit-backdrop-filter'] = 'blur(100px)'
             
 
         } else {
-            gsap.to(divider, { duration: 0.25, opacity: 0, ease: "power1.inOut" });
+            // gsap.to(divider, { duration: 0.25, opacity: 0, ease: "power1.inOut" });
             header.style['backdropFilter'] = 'none'
             header.style['-webkit-backdrop-filter'] = 'none' 
         }
@@ -31,7 +31,7 @@ export function calScroll(scrollView, event) {
  
         gsap.to(title, { duration: 0.2, opacity: 0, ease: "power1.inOut" });
         header.style.background = ''
-        gsap.to(divider, { duration: 0.2, opacity: 0, ease: "power1.inOut" });
+        // gsap.to(divider, { duration: 0.2, opacity: 0, ease: "power1.inOut" });
 
     }
 }

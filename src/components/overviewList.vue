@@ -6,7 +6,7 @@ onMounted(() => {});
 </script>
 <template>
   <div class="overviewWrapper">
-    <h2 class="h-8 pl-4 flex items-center">{{ title }}</h2>
+    <h2 class="h-8 pl-4 flex items-center txtDark_Primary">{{ title }}</h2>
     <div class="cardsWrapper flex flex-col flex-wrap overflow-x-auto overflow-y-hidden pl-6">
       <div class="overviewCard" v-for="media in medias" :key="media">
         <div class="flex">
@@ -17,17 +17,17 @@ onMounted(() => {});
             />
           </div>
           <div class="overview flex flex-col justify-around">
-            <p class="overflow-hidden limitRow text-sm">
+            <p class="overflow-hidden limitRow text-sm txtDark_Secondary">
               {{ media ? media.overview : "" }}
             </p>
             <p
               class="text-sm flex justify-between items-center pr-1 overflow-visible"
             >
               <span
-                class="w-1/2 filmTitle whitespace-nowrap overflow-hidden text-ellipsis"
+                class="w-1/2 filmTitle whitespace-nowrap overflow-hidden text-ellipsis txtDark_Primary"
                 >{{ media ? media.title || media.name : "" }}</span
               >
-              <span class="singleLine">{{ media ? media.genre_ids || "" : "" }}</span>
+              <span class="singleLine txtDark_Basic">{{ media ? media.genre_ids || "" : "" }}</span>
             </p>
           </div>
         </div>

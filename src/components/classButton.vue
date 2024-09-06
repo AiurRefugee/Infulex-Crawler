@@ -4,8 +4,7 @@ const props = defineProps(["genreClass", "tag"])
 <template>
   <button
     :class="['trans', 'flex', 'justify-center', 'items-center', genreClass]"
-    :style="{
-        width: `calc(100% / ${genreNumVar})`,
+    :style="{ 
     }"  
   >
     <div class="genreContent" :style="{ background: `${tag.background}` }">

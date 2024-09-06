@@ -95,7 +95,7 @@ html {
         // 搜索页genre卡片
         // --searchGenreCardNum: 3;
         // --searchGenreCardRadius: 0.8rem;
-        --searchClassPad: 0.3rem;
+        --searchClassPad: 0.5rem;
     }
     @media (width >628px) and (width < 1375px) {
         // --genreNum: 1.1;
@@ -130,7 +130,7 @@ html {
         // 搜索页genre卡片
         --searchGenreCardNum: 3;
         --searchGenreCardRadius: 0.8rem;
-        --searchClassPad: 0.5rem;
+        --searchClassPad: 0.65rem;
     }
 }
 html {
@@ -155,7 +155,7 @@ html {
         --navBg_Primary: #181818;
 
         --cardShadow: none;
-        ----baseColor: 0;
+        --baseColor: 0;
     }
     /* 明亮模式样式 */
     @media (prefers-color-scheme: light) {
@@ -165,7 +165,7 @@ html {
 
         --textDark_Primary: #111111fa;
         --textDark_Secondary: #202020;
-        --textDark_Basic: #757474;
+        --textDark_Basic: #5b5a5a;
 
         --bgDark_Primary: black;
         --bgDark_Secondary: #202020;

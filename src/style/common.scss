@@ -36,6 +36,9 @@ div {
 .txtDark_Secondary {
     color: var(--textDark_Secondary);
 }
+.txtDark_Basic {
+    color: var(--textDark_Basic);
+}
 .singleLine {
     overflow: hidden;
     white-space: nowrap;
@@ -48,6 +51,30 @@ div {
     overflow: hidden;
 
     // overscroll-behavior: none; /* 禁用弹簧效果 */
+}
+
+//浏览页class button
+.browseClassButton {
+    width: calc(100% / var(--genreNum));
+    aspect-ratio: 16 / 9;
+    padding: 0.5rem 0;
+    padding-right: 0.8rem;
+    flex-shrink: 0;
+    .genreContent {
+        width: 100%;
+        height: 100%;
+        border-radius: var(--searchGenreCardRadius);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+          to right,
+          rgba(214, 55, 34, 0.7) 0,
+          rgba(130, 22, 126, 0.7) 100%
+        );
+        // url("src/assets/imgs/ave2.jpg");
+      }
 }
  
 // 搜索页class button

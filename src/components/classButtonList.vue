@@ -10,7 +10,7 @@ const genres = computed(() => store.genres);
 
 let transHeight, leftSpace;
 
-const props = defineProps(["canShowAll", "listTitle"]);
+const props = defineProps(["canShowAll", "listTitle", "genreClass"]);
 const listTitle = ref("评分最高");
 const showAll = ref(false);
 const listWrap = ref(null);
@@ -79,13 +79,13 @@ onMounted(async () => {});
 <template>
   <div ref="listWrap" class="genreWrapper">
     <div class="genreTitle pl-4">
-      <div class="">影片类型</div>
+      <div class="txtDark_Primary">影片类型</div>
       <div class="showAllButton" @click="toAll">
         {{ showAll ? "收起" : "查看全部" }}
       </div>
     </div>
-    <div ref="list" class="listcontentWrapper pl-5">
-      <ClassButton v-for="tag in genres" :key="tag" :genreNumVar="'var(--genreNum)'" :tags="genres"/> 
+    <div ref="list" class="w-full flex overflow-auto pl-5">
+      <ClassButton v-for="tag in genres" :key="tag" :genreClass="genreClass" :tag="tag"/> 
     </div>
   </div>
 </template>
@@ -107,12 +107,6 @@ onMounted(async () => {});
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-.listcontentWrapper {
-  width: 100%; 
-  display: flex;
-  align-items: center;
-  overflow-x: auto;
-}
+} 
 
 </style>
