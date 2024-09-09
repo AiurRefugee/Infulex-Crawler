@@ -10,7 +10,7 @@ const fileHeaders = {
     }
 }
 
-const to_drive_id = '563295941'
+const to_drive_id = '1911860630'
 
 let authorization = null
 
@@ -41,7 +41,7 @@ axios.interceptors.response.use(
     },
     async (error) => {
         const { config, response } = error
-        console.log(error)
+        console.log(response)
         const code = response?.data?.code
         if (tryNum < 3) {
             tryNum++

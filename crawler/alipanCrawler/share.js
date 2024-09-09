@@ -37,7 +37,7 @@ async function findVideo(share_id, share_token, parent_file_id, layer) {
         }
     }
     const res = await post(list_by_shareUrl, data, shareHeaders)
-    if (res.items) {
+    if (res.items && res.items.length > 0) {
         for (const child of res.items) {
             const { parent_file_id, type, name, file_id } = child
             let hasVideo = null, hasVideoInChild = null, videoRes = null
@@ -48,6 +48,7 @@ async function findVideo(share_id, share_token, parent_file_id, layer) {
                 hasVideo = isVideo(name)
             }
             if (hasVideo || hasVideoInChild) {
+                console.log(`find video in ${file_id}`)
                 if (hasVideoInChild) {
                     return {
                         file_id: file_id,
@@ -56,6 +57,7 @@ async function findVideo(share_id, share_token, parent_file_id, layer) {
                     }
                 }
                 if (hasVideo) {
+                    console.log(`find video in ${parent_file_id}`)
                     return {
                         file_id: parent_file_id,
                         share_id,
@@ -84,20 +86,25 @@ async function crawlShareLink(shareLink) {
             file_id,
             name
         } = findVideoRes
-        console.log(findVideoRes)
-        return {
-            file_id,
-            name,
-            share_token,
-            share_pwd,
-            share_id
+        console.log('findVideoRes', findVideoRes)
+        if (findVideoRes && findVideoRes.file_id) {
+            return {
+                file_id,
+                name,
+                share_token,
+                share_pwd,
+                share_id
+            }
+        } else {
+            false
         }
+        
     } else {
         return false
     }
 }
 
-crawlShareLink('https://www.alipan.com/s/DGNuiQrSfEo')
+// crawlShareLink('https://www.alipan.com/s/DGNuiQrSfEo')
 
 module.exports = {
     updateShareToken,

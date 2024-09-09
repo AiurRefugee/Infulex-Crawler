@@ -35,12 +35,12 @@ function get(url, params, config) {
                     resolve(res?.data);
                 },
                 err => {
-                    console.log(err)
+                    console.log(err?.data)
                     reject(err)
                 }
             )
             .catch(error => {
-                console.log(error)
+                console.log(error?.data)
                 reject(error)
             });
     });
