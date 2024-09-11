@@ -1,12 +1,13 @@
-const axios = require('axios')
 const Crawler = require('crawler')
-const { get, post } = require('../axios/axiosWrapper')
-const { getAiqiyiVideoList } = require('../aiQiYiCrawler/index')
+const { get, post } = require('../axios/axiosWrapper') 
 const { crawlShareLink } = require('../alipanCrawler/share')
 const { share_file_save_all_to_drive } = require('../alipanCrawler/fileOpt')
 const { sleep } = require('../utils')
 
 const c = new Crawler()
+
+const maxPageNum = 5 // 最大页数
+const pageSize = 20 // 页大小
 
 // const QRCode = require('qrcode');
 
@@ -27,13 +28,16 @@ const getLinks = async (url) => {
         c.queue({
             uri: url,
             callback: async function (error, res, done) {
+                console.log('crawling', url)
                 if (error) { 
                     reject(error)
                 } else { 
                     const $ = res.$
                     $('a').each((index, item) => {
                         const href = $(item).attr('href')
-                        if (href && href.includes('alipan') || href.includes('aliyundrive')) {
+                        if (href && href.startsWith('https://www.alipan.com/s') || 
+                            href.startsWith('https://www.aliyundrive.com/s' 
+                        )) {
                             linkSet.add(href)
                         }
                     })
@@ -48,15 +52,16 @@ const getLinks = async (url) => {
 
 
 // 网盘小站搜索关键字，获取前topN个discuss
-const crawlKeyWord = async (keyword, to_parent_file_id) => {
+const crawlKeyWord = async (keyword, to_parent_file_id, pageNum = 1) => {
+    if (pageNum > maxPageNum) return false
     console.log('crawling', keyword)
     const discusses = await get(baseUrl, {
         'include': 'user,lastPostedUser,mostRelevantPost,mostRelevantPost.user,tags,tags.parent,firstPost',
         'filter[q]': keyword,
-        'page[offset]': 0
-    })
-    const topNDiscuss = discusses.data.slice(0, topN)
-    for (const link of topNDiscuss) {
+        'page[offset]': (pageNum - 1) * pageSize
+    }) 
+    
+    for (const link of discusses.data) {
         const slug = link.attributes.slug
         const nextLink = 'https://pan666.net/d/' + slug
         const links = await getLinks(nextLink) 
@@ -64,7 +69,7 @@ const crawlKeyWord = async (keyword, to_parent_file_id) => {
             console.log('getLink', link)
             const response = await crawlShareLink(link)
             await sleep(1000)
-            if (response) {
+            if (response && response.relatedNum) {
                 const { share_id, file_id, share_token, name } = response
                 console.log('find_video', share_id, file_id, share_token, name)
                 share_file_save_all_to_drive({ share_id, share_token }, { file_id, to_parent_file_id })
@@ -74,8 +79,8 @@ const crawlKeyWord = async (keyword, to_parent_file_id) => {
         }
         await sleep(5000)
     }
-    console.log(`前${topN}个讨论里没有找到可用的链接`)
-    return false
+    console.log(`${discusses * pageNum}个讨论里没有找到可用的链接`)
+    crawlKeyWord(keyword, to_parent_file_id, pageNum + 1)
 
 
 }
@@ -93,10 +98,17 @@ const crawlAiqiyi = async () => {
 }
 
 const crawlFilm = async () => {
-    const keyWord = '毒液：致命守护者'
+    const keyWord = '超级马里奥'
     const film_file_id = '66dd9ddff876186cb0b24b2fb3c3faac69213eba'
-    crawlKeyWord(keyWord, film_file_id)
+    crawlKeyWord(keyWord, film_file_id, 2)
+}
+
+const crawlEpisodes = async () => {
+    const keyword = "赛博朋克2077:边缘行者"
+    const episodes_file_id = "66dda2d3b8597f01985e4bac9451e478803ae6f4"
+    crawlKeyWord(keyword, episodes_file_id)
 }
 
 // crawlAiqiyi()
 crawlFilm()
+// crawlEpisodes()

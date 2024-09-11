@@ -41,7 +41,7 @@ axios.interceptors.response.use(
     },
     async (error) => {
         const { config, response } = error
-        console.log(response)
+        console.log(response?.data)
         const code = response?.data?.code
         if (tryNum < 3) {
             tryNum++
@@ -53,7 +53,6 @@ axios.interceptors.response.use(
             }
         } else {
             tryNum = 0
-            console.log(error)
         }
     }
 )

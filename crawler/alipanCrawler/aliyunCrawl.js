@@ -18,7 +18,6 @@ const crawlAndSaveLink = async (sharelink) => {
     
 }
 
-crawlAndSaveLink('https://www.alipan.com/s/DGNuiQrSfEo')
 
 module.exports = {
     crawlAndSaveLink
