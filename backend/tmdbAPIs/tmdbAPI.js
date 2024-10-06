@@ -1,4 +1,7 @@
-const { get, post } = require('./axiosWrapper.js')
+const axios = require('axios')
+const { get, post } = require('../axios/axiosWrapper')
+
+axios.defaults.headers.common['Authorization'] = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlYTJjOWU2NzBhZDQyMGNkMjAzMWE3MTM4NTI1ZDEyMCIsIm5iZiI6MTcyNjE5NzM3Ny4yMjU1MjgsInN1YiI6IjY2ZTM4ZjY4YzgxYjI0YjNmZTIzZDQ0MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gxD1UxBgcwNdGiFBnHF_FiomybTEZyPyPjX068nxoRI'
 
 const baseUrl = 'https://api.themoviedb.org/3'
 
@@ -11,35 +14,10 @@ async function searchMulti(keyword, year) {
         language: 'zh-CN'
     }
     const medias = await get(url, params)
+    console.log(medias)
     return medias
 }
-
-//获取电影详情
-async function getMovieDetail(id) {
-    const url = baseUrl + '/movie/' + id
-    const params = {
-        language: 'zh-CN'
-    }
-    const filmDetail = await get(url, params)
-    return filmDetail
-}
-
-// 获取电影演职员表
-async function getMovieCredits(id) {
-    const url = baseUrl + `/movie/${id}/credits`
-    const params = {
-        language: 'zh-CN'
-    }
-    const credits = await get(url, params)
-    return credits
-}
-
-// 获取电影剧照
-async function getMovieImages(id) {
-    const url = baseUrl + '/movie/' + id + '/images'
-    const images = await get(url)
-    return images
-}
+ 
 
 // 获取tv剧集详情
 async function getTVDetail(id) {
@@ -115,11 +93,10 @@ async function getEpisodeImages(tvId, season_number, episode_number) {
     return images
 }
 
+
+
 module.exports = { 
-    searchMulti,
-    getMovieDetail,
-    getMovieCredits,
-    getMovieImages,
+    searchMulti, 
     getTVDetail,
     getTVCredits,
     getTVImages,
