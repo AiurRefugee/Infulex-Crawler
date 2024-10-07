@@ -27,7 +27,10 @@ input:focus-visible {
     color: var(--textDark_Primary);
 }
 .trans {
-    transition: $basicTrans;
+    transition: $transBase;
+}
+.transSlow {
+    transition: $transSlow;
 }
 .fastTrans {
     transition: all 0.2s ease-in-out;

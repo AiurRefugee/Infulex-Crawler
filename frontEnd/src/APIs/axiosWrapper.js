@@ -5,17 +5,7 @@ let retryCount = 0;
 
 // 超时时间30s
 axios.defaults.timeout = 30 * 1000;
-
-const token = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNWJjMzI3ZTM3NDU4NzIyZmNkY2E1M2VkMWY2NTY0MCIsInN1YiI6IjY1ZTAwN2Q4NTFmOTlhMDE4NTU2NDVmMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.xrSqnf1-Vs9LHEZ9bCZRSScOjyBkD1rvDs3OqkzSBYM'
-
-
-// 公共请求头 
-const config = {
-    headers: {
-        accept: 'application/json',
-        Authorization: `Bearer ${token}`
-    }
-}
+ 
 
 // 响应拦截器
 axios.interceptors.response.use(
@@ -31,6 +21,8 @@ axios.interceptors.response.use(
             retryCount++;
             console.log(`Retrying request ${config.url}, attempt ${retryCount}`);
             return axios(config); // 重新发起请求
+        } else {
+            retryCount = 0
         }
 
         // 如果不符合重试条件或者已经重试了指定次数，直接返回错误
@@ -39,27 +31,25 @@ axios.interceptors.response.use(
     }
 );
 
-export function post(url, params) {
+export function post(url, data, config) {
     return new Promise((resolve, reject) => {
         axios
-            .post(url, params, config)
+            .post(url, data, config)
             .then(
-                res => {
-                    resolve(res.data);
+                res => { 
+                    resolve(res?.data);
                 },
-                err => {
-                    console.log(err)
+                err => { 
                     reject(err)
                 }
             )
-            .catch(error => {
-                console.log(error)
+            .catch(error => { 
                 reject(error)
             });
     });
 }
 
-export function get(url, params) {
+export function get(url, params, config) {
     const getConfig = {
         ...config,
         params
@@ -69,20 +59,15 @@ export function get(url, params) {
             .get(url, getConfig)
             .then(
                 res => {
-                    if (res && res.data) {
-                        resolve(res.data);
-                    } else {
-                        console.log(res)
-                    }
-                    
+                    resolve(res?.data);
                 },
                 err => {
-                    console.log(err)
+                    console.log(err?.data)
                     reject(err)
                 }
             )
             .catch(error => {
-                console.log(error)
+                console.log(error?.data)
                 reject(error)
             });
     });

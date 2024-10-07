@@ -1,16 +1,19 @@
 @use "sass:math";
-$breakpointNormal: 1300px;
-$headerHeight: 5vh;
-$tabLeftSpace: 0.5rem;
-$tabTopSpace: 0.2rem;
-$zindex: 100;
-$maskZindex: 98;
-$filterAreaWidth: 60px;
-$basicTrans: all 0.25s ease-in-out;
-$textLeft: 5px;
+
+
+$breakpointNormal: 1300px; 
 $basicSpace: 15px;
 $borderSize: 1px;
 $cardAspectRatio: math.div(2, 3);
+$filterAreaWidth: 60px;
+$headerHeight: 5vh; 
+$maskZindex: 98; 
+$tabLeftSpace: 0.5rem;
+$tabTopSpace: 0.2rem;
+$textLeft: 5px;
+$transBase: all 0.25s ease-in-out;
+$transSlow: all 0.5s ease-in-out;
+$zindex: 100;
 html {
     font-size: 16px;
     --tabWidth: min(18vw, 300px);

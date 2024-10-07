@@ -18,7 +18,7 @@ input {
   
   height: $searchHeight;
   border-radius: $searchBorRadius;
-  transition: $basicTrans;
+  transition: $transBase;
   border: 2.5px solid var(--primaryColor);
 }
 .searchInput {
@@ -29,7 +29,7 @@ input {
   font-size: 15px;
   letter-spacing: 2px;
   border: none;
-  transition: $basicTrans;
+  transition: $transBase;
   white-space: nowrap;
   text-overflow: ellipsis;
 }

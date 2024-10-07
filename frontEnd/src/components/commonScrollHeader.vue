@@ -44,7 +44,7 @@ $tabIconSize: 2rem;
   height: $headerHeight;
   top: 0;
   z-index: 999;
-  transition: $basicTrans;
+  transition: $transBase;
   position: fixed;
   background: var(--bgLight_Primary);
   // transition: all 0.2s ease-in-out;

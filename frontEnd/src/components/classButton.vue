@@ -28,7 +28,7 @@ const props = defineProps(["genreClass", "tag"])
 
   background-position: center;
   background-size: cover;
-  transition: $basicTrans;
+  transition: $transBase;
 }
 
 .buttonText {

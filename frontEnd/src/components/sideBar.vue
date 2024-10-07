@@ -19,7 +19,7 @@ $sideIndex: 9998;
     z-index: $sideIndex;
     right: 0;
     top: 0;
-    transition: $basicTrans;
+    transition: $transBase;
     background: var(--bg_Primary); 
 }
 .mask {
@@ -28,7 +28,7 @@ $sideIndex: 9998;
     position: fixed;
     left: 0;
     top: 0;
-    transition: $basicTrans;
+    transition: $transBase;
     z-index: calc($sideIndex - 1);
     background: rgba(40, 40, 40, 0.5);
 }

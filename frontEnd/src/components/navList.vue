@@ -157,7 +157,7 @@ $itemHeight: 35px;
   display: flex;
   aspect-ratio: 1 / 1;
   margin: 0 0.5rem;
-  transition: $basicTrans;
+  transition: $transBase;
 }
 
 .mask {
@@ -178,7 +178,7 @@ $itemHeight: 35px;
   // border-right: 1px solid lightgray;
   transform: translate(0, 0);
   display: flex;
-  transition: $basicTrans;
+  transition: $transBase;
   flex-direction: column;
   left: 0;
   z-index: 998; 
@@ -202,7 +202,7 @@ $itemHeight: 35px;
     padding-left: 1.8rem;
     overflow: hidden;
     position: relative;
-    // transition: $basicTrans;
+    // transition: $transBase;
     .tabNavChild {
       width: 100%;
       height: $itemHeight;

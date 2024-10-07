@@ -67,7 +67,7 @@ $size: 80%;
   left: 0;
   top: 0;
   translate: -100% 0;
-  transition: $basicTrans;
+  transition: $transBase;
   backdrop-filter: blur(5px);
   background-color: rgba(48, 48, 48, 0.561);
   @media (width < 1000px) {
