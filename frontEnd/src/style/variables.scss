@@ -13,7 +13,7 @@ $borderSize: 1px;
 $cardAspectRatio: math.div(2, 3);
 html {
     font-size: 16px;
-    --tabWidth: max(25vw, 150px);
+    --tabWidth: min(18vw, 300px);
     --basicRadius: 0.55rem;
     --priRadius: 0.8rem;
     --baseColor: 0;
@@ -42,7 +42,7 @@ html {
     // 影片类型列表
     --genreHeight: 20vh;
     --genreFontSize: 2rem;
-    --genreNum: 4.2;
+    --genreNum: 6;
     --classMargin: 0.5rem;
     --genreSpace: 0.8rem;
 

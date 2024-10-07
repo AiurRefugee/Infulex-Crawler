@@ -10,6 +10,14 @@ html {
 div {
     // background: var(--bgLight_Primary);
 }
+input {
+    background: transparent;
+}
+input:focus-visible {
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
 #stickyHeader {
     color: red;
 }
@@ -53,30 +61,33 @@ div {
     // overscroll-behavior: none; /* 禁用弹簧效果 */
 }
 
-//浏览页class button
-.browseClassButton {
+ .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ }
+ .browseButtonSize {
     width: calc(100% / var(--genreNum));
-    aspect-ratio: 16 / 9;
-    padding: 0.5rem 0;
-    padding-right: 0.8rem;
+    aspect-ratio: 10/5; 
+ }
+ .browseClassButton {
+    
+    
+    border-radius: var(--searchGenreCardRadius);
     flex-shrink: 0;
-    .genreContent {
-        width: 100%;
-        height: 100%;
-        border-radius: var(--searchGenreCardRadius);
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(
+    color: white;
+    font-size: 2em;
+    // letter-spacing: 1em;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 10px;
+    font-size: var(--genreFontSize);
+    background: linear-gradient(
           to right,
           rgba(214, 55, 34, 0.7) 0,
           rgba(130, 22, 126, 0.7) 100%
         );
-        // url("src/assets/imgs/ave2.jpg");
-      }
 }
- 
 // 搜索页class button
 .searchClassButton {
     width: calc(100% / var(--searchGenreCardNum));
@@ -97,4 +108,9 @@ div {
         );
         // url("src/assets/imgs/ave2.jpg");
       }
+}
+.hideScroll {
+    ::-webkit-scrollbar {
+        display: none;
+    }
 }

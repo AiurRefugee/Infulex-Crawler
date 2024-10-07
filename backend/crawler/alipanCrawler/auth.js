@@ -3,7 +3,7 @@ const fs = require('fs');
 const { get, post } = require('../../axios/axiosWrapper')
 
 // 定义文件路径
-const filePath = '/Users/hujiayou/.aligo/aligo.json'
+const filePath = 'aligo.json'
 
 // 刷新token
 const refreshUrl = 'https://api.aliyundrive.com/v2/account/token'

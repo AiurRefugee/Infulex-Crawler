@@ -6,46 +6,6 @@ import { get, post } from "@/APIS/axiosWrapper.js"
 import { useFilmStore } from "@/stores/films.ts"
 import { layoutStore } from '@/stores/layout'
 
-// 测试前端SSE调用
-import { fetchEventSource } from '@microsoft/fetch-event-source'
-const testSSE = () => {
-    const OPENAI_API_KEY = 'app-2GQugsgK0DwVvcwcvEjAfFs3'
-    const OPENAI_COMPLETION_ENDPOINT = 'http://iflight.eatuo.com:32241/v1/chat-messages'
-    const requestData = {
-        query: '你是谁',
-        inputs: {},
-        response_mode: 'streaming',
-        user: 'iflight'
-    }
-    let respString = ''
-    fetchEventSource(OPENAI_COMPLETION_ENDPOINT, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${OPENAI_API_KEY}`,
-        },
-        body: JSON.stringify(requestData),
-        async onopen(response) {
-            // const message = JSON.parse(response)
-            console.log('打开成功')
-        },
-        async onmessage(event) { 
-            const jsonData = JSON.parse(event.data)
-            // 如果等于stop表示结束
-             console.log(jsonData.answer)
-        },
-        async onerror(error) {
-            console.error('Error:', error)
-        },
-        async onclose() {
-            // if the server closes the connection unexpectedly, retry:
-            console.log('关闭连接')
-        }
-    })
-    console.log('测试SSE')
-}
-
-testSSE()
 
 const layout = layoutStore();
 const filmStore = useFilmStore()

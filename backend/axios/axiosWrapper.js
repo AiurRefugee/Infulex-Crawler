@@ -1,5 +1,16 @@
 const axios = require('axios');
 
+axios.interceptors.response.use(
+    async (response) => { 
+        return response
+    },
+    async (error) => {
+        const { config, response } = error
+        console.log(response?.data || response, config)
+        return null
+    }
+)
+
 // 超时时间30s
 axios.defaults.timeout = 30 * 1000;
 

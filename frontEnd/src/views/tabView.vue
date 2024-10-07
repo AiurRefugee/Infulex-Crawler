@@ -67,7 +67,6 @@ onMounted(() => {});
 <template>
   <div class="tabViewWrapper">
     <slot name="navList">
-    114
       <NavList/>
     </slot>
 

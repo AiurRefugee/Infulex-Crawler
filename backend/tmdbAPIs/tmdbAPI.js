@@ -14,7 +14,7 @@ async function searchMulti(keyword, year) {
         language: 'zh-CN'
     }
     const medias = await get(url, params)
-    console.log(medias)
+    console.log('medias', medias)
     return medias
 }
  

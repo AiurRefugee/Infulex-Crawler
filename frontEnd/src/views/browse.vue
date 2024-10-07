@@ -120,14 +120,13 @@ onMounted(async () => {
         </header>  -->
 
         <!-- <div class="w-full h-4 bgPrimary z-10"></div> -->
-        <Crousel :medias="nowPlayingMovies" :title="'最受欢迎的电影'" />
 
         <DailRecommend :medias="nowPlayingMovies" :title="'最受欢迎的电影'" />
         <div class="w-full h-4 bgPrimary z-10"></div>
         <!-- <div class="browseDivdier"></div> -->
         <BasicList :medias="nowPlayingMovies" :title="'正在热映'" />
         <div class="w-full h-4 bgPrimary z-10"></div>
-        <ClassButtonList :genreClass="'browseClassButton'"/>
+        <ClassButtonList :grid="false"/>
         <div class="w-full h-4 bgPrimary z-10"></div>
         <OverviewList :medias="nowPlayingMovies" :title="'本周影片趋势'" />
         <div class="w-full h-4 bgPrimary z-10"></div>
