@@ -51,7 +51,11 @@ const updateShareToken = async (shareLink) => {
 
 }
 
-async function findVideo(titleObj, share_id, share_token, parent_file_id, parentName, layer, nameList = []) {
+async function findVideo(titleObj, shareObj, parent_file_id, parentName, layer, nameList = [], taskManager) {
+    const { share_id, share_token } = shareObj
+    if (taskManager && taskManager.canceled) {
+        return false
+    }
     if (layer == maxLayer) {
         crawledSet.add(share_id)
         return false
@@ -73,13 +77,25 @@ async function findVideo(titleObj, share_id, share_token, parent_file_id, parent
         const res = await post(list_by_shareUrl, data, shareHeaders)
         if (res && res.items.length > 0) {
             const names = res.items.map(item => item.name)
+            if (names.length) {
+                const msg = {
+                    type: 'getFiles',
+                    data: {
+                        parent_file_id,
+                        parentName,
+                        names
+                    }
+                }
+                console.log(msg)
+                taskManager.sendSSE(msg)
+            }
             console.log('findItems in ', parentName, names)
             for (const child of res.items) {
                 console.log('searching', child.name)
                 const { parent_file_id, type, name, file_id } = child
                 nameList.push(name)
                 if (type == 'folder') {
-                    const hasVideoInChild = await findVideo(titleObj, share_id, share_token, file_id, name, layer + 1, nameList)
+                    const hasVideoInChild = await findVideo(titleObj, shareObj, file_id, name, layer + 1, nameList, taskManager)
 
                     if (hasVideoInChild) {
                         console.log(`find video in ${name}`)
@@ -128,20 +144,11 @@ async function findVideo(titleObj, share_id, share_token, parent_file_id, parent
 }
 
 
-async function crawlShareLink(shareLink, keyword) {
-    const searchResult = await searchMulti(keyword)
-    if (!searchResult) {
-        console.log('searchResult is null')
-        return false
-    }
-    const media = searchResult.results?.[0]
-    if (!media) {
-        console.log('media is null')
-        return false
-    }
-    const { title, original_title } = media
+async function crawlShareLink(shareLink, keywordObj, taskManager) { 
+    const { title, original_title } = keywordObj
     const result = await updateShareToken(shareLink)
     if (!result) {
+        console.log('updateShareToken is null')
         return false
     }
     const {
@@ -150,7 +157,7 @@ async function crawlShareLink(shareLink, keyword) {
         share_pwd
     } = result
     if (share_id && share_token) {
-        const findVideoRes = await findVideo({ title, original_title }, share_id, share_token, 'root', 'root', 0)
+        const findVideoRes = await findVideo({ title, original_title }, { share_id, share_token }, 'root', 'root', 0, [], taskManager)
         const {
             file_id,
             name
@@ -178,7 +185,7 @@ async function test() {
     console.log(res)
 }
 
-test()
+// test()
 
 module.exports = {
     updateShareToken,

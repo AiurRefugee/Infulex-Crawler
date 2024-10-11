@@ -214,6 +214,7 @@ export const layoutStore = defineStore('layout', {
     imgRatio: '21/9',
     imgScale: 1,
     imgY: 0,
+    searchFocused: false,
     genres: getGenres(),
     showTab: false
   }),
@@ -223,6 +224,9 @@ export const layoutStore = defineStore('layout', {
   actions: {
     setSize(newSize) {
       this.size = newSize
+    },
+    setSearchFocused (flag) {
+      this.searchFocused = flag
     },
     toogleTab() {
       this.showTab = !this.showTab

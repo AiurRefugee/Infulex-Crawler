@@ -1,12 +1,13 @@
 <script setup>
-import { ref, computed, onMounted } from "vue"; 
+import { ref, computed, onMounted } from "vue";
 import { layoutStore } from "@/stores/layout";
 import NavList from "@/components/navList.vue";
 
 const layout = layoutStore();
 
 const size = computed(() => layout.size);
-const showTab = computed( () => layout.showTab)
+const showTab = computed(() => layout.showTab);
+const searchFocused = computed(() => layout.searchFocused);
 
 const breakPointSmall = 600;
 const breakPointNormal = 1400;
@@ -19,7 +20,7 @@ const tabWidthLarge = "18vw";
 const padtop = "2rem";
 
 const contentHeader = ref();
-const content = ref(); 
+const content = ref();
 
 const tabcontentLeft = computed(() => {
   const leftSpace = getCSSVariable("--tabWidth");
@@ -58,17 +59,20 @@ function getCSSVariable(name) {
 //   root.style.setProperty(name, value);
 // }
 
-function toogle() {
-  showTab.value = !showTab.value;
-}
 
 onMounted(() => {});
 </script>
 <template>
   <div class="tabViewWrapper">
-    <slot name="navList">
-      <NavList/>
-    </slot>
+    <div 
+      class="tabIcon h-[30px] aspect-square flex items-center fixed top-0 left-4 z-[100] cursor-pointer" 
+      @click="layout.toogleTab"
+      v-if="!searchFocused"
+    >
+      <img class="w-full h-full" src="/src/assets/icons/filter.svg" />
+      <!-- <h1 class="whitespace-nowrap text-xl font-bold text-black">Infulex-Crawler</h1> -->
+    </div>
+    <NavList />
 
     <div class="tabcontent">
       <router-view></router-view>
@@ -108,7 +112,7 @@ onMounted(() => {});
     position: relative;
     transition: $transBase;
     // transform: translate(0, 0);
-    overflow: hidden; 
+    overflow: hidden;
     translate: 0 0;
     .scrollWrapper {
       width: 100%;

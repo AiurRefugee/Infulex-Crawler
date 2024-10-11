@@ -15,8 +15,13 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/tmdb/, ''),
         // 在请求头中的host字段使用目标服务器的host
         changeOrigin: true
+      },
+      '/api': {
+        target: 'http://localhost:3000',
+        rewrite: (path) => path.replace(/^\/api/, ''),
+        changeOrigin: true
       }
-      
+
     }
   },
   plugins: [

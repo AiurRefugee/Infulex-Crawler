@@ -1,22 +1,65 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const { crawlKeyWord } = require('./crawler/xiaozhanCrawler/index');
 
-const setMovieBackend = require('./movie.js')
-const setTVSeriesBackend = require('./TVSeries.js')
-const setTVSeriesSeasonBackend = require('./TVSeason.js')
-const setTVEpisodeBackend = require('./TVEpisode.js')
-
+const taskPool = new Set()
 
 const app = express();
 const port = 3000; // 指定应用程序监听的端口号
 
-// 使用 body-parser 中间件解析 POST 请求的请求体
-app.use(bodyParser.json());
+const taskPools = {}
 
-setMovieBackend(app)
-setTVSeriesBackend(app)
-setTVSeriesSeasonBackend(app)
-setTVEpisodeBackend(app)
+// 用于解析 application/json
+app.use(express.json());
+
+// 定义一个简单的 GET 请求处理程序
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
+
+
+app.post('/crawlKeyword', (req, res) => {
+    console.log('received request')
+    // 设置 HTTP 响应头
+    res.writeHead(200, {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+    });
+
+    const { title, original_title} = req.body; 
+    
+
+    // 发送消息的函数
+    const sendSSE = (data) => {
+        const package = {
+            ...data,
+            time: new Date().toLocaleString()
+        } 
+        res.write(`data: ${JSON.stringify(package)}\n\n`);
+    };
+    const taskManager = {
+        canceled: false,
+        sendSSE
+    }
+    taskPool[title + '/' + original_title] = taskManager
+
+    crawlKeyWord({
+        title,
+        original_title
+    }, 1, taskManager)
+    
+
+
+    // 在客户端断开连接时清理资源
+    req.on('close', () => {
+        console.log('client disconnected'); 
+    });
+});
+
+app.post('cancelTask', (req, res) => {
+    const { title, original_title} = req.body; 
+    taskPool[title + '/' + original_title]['canceled'] = true
+})
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);

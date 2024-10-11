@@ -5,7 +5,9 @@ const router = useRouter();
 import { get, post } from "@/APIS/axiosWrapper.js"
 import { useFilmStore } from "@/stores/films.ts"
 import { layoutStore } from '@/stores/layout'
+import { taskStore } from "@/stores/tasks";
 
+const tasks = taskStore();
 
 const layout = layoutStore();
 const filmStore = useFilmStore()
@@ -32,7 +34,7 @@ function calWindowSize() {
 
 onMounted(() => { 
   calWindowSize();
-  window.addEventListener("resize", calWindowSize);
+  window.addEventListener("resize", calWindowSize); 
   // router.push({
   //   name: 'search',
   //   replace: true,

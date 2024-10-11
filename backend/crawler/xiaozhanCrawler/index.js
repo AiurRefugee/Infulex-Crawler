@@ -41,7 +41,7 @@ const getLinks = async (url) => {
                             linkSet.add(href)
                         }
                     })
-                    resolve(linkSet)
+                    resolve(Array.from(linkSet))
                 }
                 done()
             }
@@ -52,35 +52,41 @@ const getLinks = async (url) => {
 
 
 // 网盘小站搜索关键字，获取前topN个discuss
-const crawlKeyWord = async (keyword, to_parent_file_id, pageNum = 1) => {
+const crawlKeyWord = async (keywordObj, pageNum = 1, taskManager) => {
     if (pageNum > maxPageNum) return false
-    console.log('crawling', keyword)
+    const { title, original_title } = keywordObj
+    console.log('crawling', title, 'pageNum', pageNum, taskManager)
     const discusses = await get(baseUrl, {
         'include': 'user,lastPostedUser,mostRelevantPost,mostRelevantPost.user,tags,tags.parent,firstPost',
-        'filter[q]': keyword,
+        'filter[q]': title,
         'page[offset]': (pageNum - 1) * pageSize
     }) 
+    const crawlLinks = async (links) => {
+        if (links.length == 0) return
+        const msg = {
+            type: 'getLinks',
+            data: links
+        }
+        console.log('msg', msg)
+        taskManager && taskManager.sendSSE(msg)
+        for (const link of links) {
+            console.log('getLink', link)
+            crawlShareLink(link, keywordObj, taskManager)
+            await sleep(1000)
+             
+        }
+    }
     
     for (const link of discusses.data) {
+        if (taskManager && taskManager.canceled) return false
         const slug = link.attributes.slug
         const nextLink = 'https://pan666.net/d/' + slug
         const links = await getLinks(nextLink) 
-        for (const link of links) {
-            console.log('getLink', link)
-            const response = await crawlShareLink(link, keyword)
-            await sleep(1000)
-            if (response && response.relatedNum) {
-                const { share_id, file_id, share_token, name } = response
-                console.log('find_video', share_id, file_id, share_token, name)
-                share_file_save_all_to_drive({ share_id, share_token }, { file_id, to_parent_file_id })
-
-                return true
-            }
-        }
-        await sleep(1000)
+        crawlLinks(links)
+        await sleep(2000)
     }
     console.log(`${discusses * pageNum}个讨论里没有找到可用的链接`)
-    crawlKeyWord(keyword, to_parent_file_id, pageNum + 1)
+    crawlKeyWord(keywordObj, pageNum + 1, taskManager)
 
 
 }
@@ -100,7 +106,7 @@ const crawlAiqiyi = async () => {
 const crawlFilm = async () => {
     const keyWord = '超级马里奥'
     const film_file_id = '66dd9ddff876186cb0b24b2fb3c3faac69213eba'
-    crawlKeyWord(keyWord, film_file_id, 2)
+    crawlKeyWord(keyWord, film_file_id, 1)
 }
 
 const crawlEpisodes = async () => {
@@ -111,4 +117,8 @@ const crawlEpisodes = async () => {
 
 // crawlAiqiyi()
 // crawlFilm()
-crawlEpisodes()
+// crawlEpisodes()
+
+module.exports = {
+    crawlKeyWord
+}
