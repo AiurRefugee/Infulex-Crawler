@@ -7,7 +7,7 @@ const layout = layoutStore();
 
 const size = computed(() => layout.size);
 const showTab = computed(() => layout.showTab);
-const searchFocused = computed(() => layout.searchFocused);
+const tabIconVisible = computed(() => layout.tabIconVisible);
 
 const breakPointSmall = 600;
 const breakPointNormal = 1400;
@@ -67,7 +67,7 @@ onMounted(() => {});
     <div 
       class="tabIcon h-[30px] aspect-square flex items-center fixed top-0 left-4 z-[100] cursor-pointer" 
       @click="layout.toogleTab"
-      v-if="!searchFocused"
+      v-if="!tabIconVisible"
     >
       <img class="w-full h-full" src="/src/assets/icons/filter.svg" />
       <!-- <h1 class="whitespace-nowrap text-xl font-bold text-black">Infulex-Crawler</h1> -->
@@ -88,6 +88,7 @@ onMounted(() => {});
   display: flex;
   position: relative;
   justify-content: space-between;
+  background: var(--bgLight_Primary);
   .tabListWrapper {
     flex-shrink: 0;
     translate: 0 0;

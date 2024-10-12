@@ -27,6 +27,14 @@ const router = createRouter({
             transition: 'fade'
           }
         }, 
+        {
+          path: '/dashBoard',
+          name: 'dashBoard',
+          component: () => import('../views/dashBoard.vue'),
+          meta: {
+            transition: 'fade'
+          }
+        }
       ]
     }, 
     

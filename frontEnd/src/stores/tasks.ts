@@ -1,19 +1,21 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
-
 import { fetchEventSource } from '@microsoft/fetch-event-source';
+
+import { task } from '@/mocData/task'
 
 const baseUrl = '/api'
 
-const ctlPools = {}
+
 
 export const taskStore = defineStore('tasks', {
     state: () => ({
         tasks: ref([]),
         task: ref(null),
         loading: ref(false),
-        error: ref(null)
+        error: ref(null),
+        taskPools: ref([task])
     }),
     actions: {
         async fetchTasks() {
@@ -23,10 +25,27 @@ export const taskStore = defineStore('tasks', {
                 console.log(error)
             }
         },
-        createTask(keywordObj) {
+        createTask(data) {
+            const {
+                name,
+                title,
+                original_name
+              } = data
+            const keyword = name || title
+            const keywordObj = {
+                title: keyword, 
+                original_title: original_name || keyword
+            }
+            
+            const { poster_path } = data
             const ctrl = new AbortController()
-            const { title } = keywordObj
-            ctlPools[title] = ctrl
+            const msgs = []
+            taskPools[keyword] = {
+                poster_path,
+                title: keyword,
+                ctrl,
+                msgs
+            }
             fetchEventSource('/api/crawlKeyword', {
                 method: 'POST',
                 openWhenHidden: false,
@@ -36,6 +55,7 @@ export const taskStore = defineStore('tasks', {
                 },
                 onmessage: (event) => {
                     const data = JSON.parse(event.data);
+                    msgs.push(data)
                     console.log(data);
                 },
                 onerror: (err) => {

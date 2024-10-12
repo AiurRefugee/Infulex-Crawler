@@ -209,12 +209,13 @@ export const layoutStore = defineStore('layout', {
         text: "面板",
         image: "/src/assets/icons/dashboard.svg",
         height: 'unknown',
+        router: '/dashboard'
       },
     ],
     imgRatio: '21/9',
     imgScale: 1,
     imgY: 0,
-    searchFocused: false,
+    tabIconVisible: false,
     genres: getGenres(),
     showTab: false
   }),
@@ -226,11 +227,10 @@ export const layoutStore = defineStore('layout', {
       this.size = newSize
     },
     setSearchFocused (flag) {
-      this.searchFocused = flag
+      this.tabIconVisible = flag
     },
     toogleTab() {
       this.showTab = !this.showTab
-      console.log('showTab', this.showTab)
     }
   },
 })

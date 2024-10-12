@@ -14,17 +14,8 @@ const props = defineProps({
 
 
 const crawlKeyWord = () => {
-  const {
-    name,
-    title,
-    original_name
-  } = props.data
-  const keyword = name || title
-  const keywordObj = {
-    title: keyword, 
-    original_title: original_name || keyword
-  }
-  tasks.createTask(keywordObj)
+  
+  tasks.createTask(props.data)
 }
 
 </script>

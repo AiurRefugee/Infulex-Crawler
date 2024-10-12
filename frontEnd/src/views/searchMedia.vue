@@ -9,7 +9,7 @@ import { tmdbApi } from "@/APIs/tmdbApi";
 const store = layoutStore();
 // 可以在组件中的任意位置访问 `store` 变量 ✨
 const genres = computed(() => store.genres);
-const searchFocused = computed(() => store.searchFocused);
+const tabIconVisible = computed(() => store.tabIconVisible);
 
 const scrollArea = ref(null);
 const searchText = ref("复仇者联盟 3"); 
@@ -44,11 +44,11 @@ const cancel = () => {
   <div class="w-full h-full flex flex-col">
     <!-- 顶部占位 -->
     <div
-      class="bg-white trans center flex-shrink-0"
-      :style="{ height: searchFocused ? '0' : '30px' }"
+      class="bgLightPrimary trans center flex-shrink-0"
+      :style="{ height: tabIconVisible ? '0' : '30px' }"
     >
       <text
-        class="transSlow self-end"
+        class="transSlow self-end txtDarkPrimary"
         :style="{
           opacity: showTitle ? '1' : '0',
         }"
@@ -57,22 +57,22 @@ const cancel = () => {
     </div>
 
     <div
-      class="w-full h-full overflow-y-auto overflow-x-hidden"
+      class="w-full h-full overflow-y-auto overflow-x-hidden bgLightPrimary"
       ref="scrollArea"
       @scroll="toogleStyle"
     >
-      <h1 class="searchTitle px-4" :style="{ height: searchFocused ? '0' : '50px' }">
+      <h1 class="searchTitle px-4 txtDarkPrimary" :style="{ height: tabIconVisible ? '0' : '50px' }">
         搜索
       </h1>
 
       <div 
-        class="inputRow w-full h-[48px] pl-4 py-[8px] flex sticky top-0 z-[2000] bg-white transSlow"
+        class="inputRow w-full h-[48px] pl-4 py-[8px] flex sticky top-0 z-[2000] bgLightPrimary transSlow"
         :style="{ 
-          borderBottom: searchFocused ? '1px solid #ccc' : 'none',
-          background: searchFocused ? '#e9e9e9' : 'white',
+          borderBottom: tabIconVisible ? '1px solid #ccc' : 'none',
+          // background: tabIconVisible ? '#e9e9e9' : 'white',
         }"
       >
-        <div class="inputArea w-full px-2 flex items-center bg-gray-300 rounded-lg"
+        <div class="inputArea w-full px-2 flex items-center bg-gray-500 rounded-lg"
         >
           <img
             class="searchIcon h-[15px] fill-slate-200"
@@ -88,9 +88,9 @@ const cancel = () => {
         </div>
         <text
           :style="{
-            width: searchFocused ? '50px' : '0',
+            width: tabIconVisible ? '50px' : '0',
           }"
-          class="center whitespace-nowrap text-red-600 overflow-hidden trans"
+          class="center whitespace-nowrap text-red-600 overflow-hidden trans cursor-pointer"
           @click="cancel"
           >取消</text
         >
@@ -98,7 +98,7 @@ const cancel = () => {
       </div>
 
       <!-- 按类别浏览 -->
-      <div class="w-full h-full px-4" v-if="!searchFocused">
+      <div class="w-full h-full px-4" v-if="!tabIconVisible">
         <div class="text-xl h-10 flex self-start txtDark_Primary">
           <h1>按类别浏览</h1>
         </div>

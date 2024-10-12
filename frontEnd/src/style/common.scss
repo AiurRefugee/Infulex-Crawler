@@ -6,6 +6,9 @@ html {
 }
 * {
     box-sizing: border-box; 
+    // ::-webkit-scrollbar-track {
+    //     background-color: var(--bgLight_Primary);
+    // }
 }
 div {
     // background: var(--bgLight_Primary);
@@ -116,4 +119,12 @@ input:focus-visible {
     ::-webkit-scrollbar {
         display: none;
     }
+}
+
+.txtDarkPrimary {
+    color: var(--txt_Darak_Primary);
+}
+
+.bgLightPrimary {
+    background: var(--bgLight_Primary);
 }

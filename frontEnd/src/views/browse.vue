@@ -10,7 +10,7 @@ import DailRecommend from "@/components/dailRecommend.vue";
 import ClassButtonList from "@/components/classButtonList.vue";
 import BasicList from "@/components/basicList.vue";
 import ScrollView from "@/viewComponents/ScrollView.vue";
-import { calScroll } from "@/APIS/commonFunc.js"
+import { calScroll } from "@/APIS/commonFunc.js";
 // 可以在组件中的任意位置访问 `store` 变量 ✨
 const store = layoutStore();
 const genres = computed(() => store.genres);
@@ -36,7 +36,7 @@ const animationTV = ref(["", "", "", "", "", "", "", "", "", "", "", ""]);
 const movieInOneYear = ref(["", "", "", "", "", "", "", "", "", "", "", ""]);
 
 const imgY = computed(() => store.imgY);
-const scrollHeight = ref(0)
+const scrollHeight = ref(0);
 const size = computed(() => store.size);
 const showTabFlg = computed(() => {
   if (size.value != "small") {
@@ -47,12 +47,11 @@ const showTabFlg = computed(() => {
 });
 
 function calImgHeight(scrollview, event) {
-  calScroll(scrollview, event)
+  calScroll(scrollview, event);
   const height = event.target.scrollTop;
-  scrollHeight.value = height; 
+  scrollHeight.value = height;
   if (height > 0) {
     store.imgTop = height / 2;
-    
   } else {
     // store.imgTop = height;
     // // store.imgRatio = '4 / 3';
@@ -108,49 +107,42 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <ScrollView :calScrollFunc="calImgHeight">
-    <template v-slot:header>
-      <commonScrollHeader :title="title" :showTabFlag="showTabFlg" />
-    </template>
-    <template v-slot:content>
-      <div class="browseWrapper">
-        
-        <!-- <header class="navHeader">
+  <div class="browseWrapper w-full h-full px-2 overflow-x-hidden overflow-y-auto">
+    <div class="h-[30px] flex-shrink-0"></div>
+    <!-- <header class="navHeader">
           <h1 id="scrollTitle" class="text-2xl pl-4 flex items-center">浏览</h1>
         </header>  -->
 
-        <!-- <div class="w-full h-4 bgPrimary z-10"></div> -->
+    <!-- <div class="w-full h-4 bgPrimary z-10"></div> -->
 
-        <DailRecommend :medias="nowPlayingMovies" :title="'最受欢迎的电影'" />
-        <div class="w-full h-4 bgPrimary z-10"></div>
-        <!-- <div class="browseDivdier"></div> -->
-        <BasicList :medias="nowPlayingMovies" :title="'正在热映'" />
-        <div class="w-full h-4 bgPrimary z-10"></div>
-        <ClassButtonList :grid="false"/>
-        <div class="w-full h-4 bgPrimary z-10"></div>
-        <OverviewList :medias="nowPlayingMovies" :title="'本周影片趋势'" />
-        <div class="w-full h-4 bgPrimary z-10"></div>
-        <BasicList :medias="nowPlayingMovies" :title="'动画电影'" />
-        <div class="w-full h-4 bgPrimary z-10"></div>
-        <!-- <BasicList :medias="movieInOneYear" :title="'近一年的电影'" />
+    <DailRecommend :medias="nowPlayingMovies" :title="'最受欢迎的电影'" />
+    <div class="w-full h-4 bgPrimary z-10"></div>
+    <!-- <div class="browseDivdier"></div> -->
+    <BasicList :medias="nowPlayingMovies" :title="'正在热映'" />
+    <div class="w-full h-4 bgPrimary z-10"></div>
+    <ClassButtonList :grid="false" />
+    <div class="w-full h-4 bgPrimary z-10"></div>
+    <OverviewList :medias="nowPlayingMovies" :title="'本周影片趋势'" />
+    <div class="w-full h-4 bgPrimary z-10"></div>
+    <BasicList :medias="nowPlayingMovies" :title="'动画电影'" />
+    <div class="w-full h-4 bgPrimary z-10"></div>
+    <!-- <BasicList :medias="movieInOneYear" :title="'近一年的电影'" />
       <div class="w-full h-4 bgPrimary z-10"></div> -->
-        <DailRecommend :medias="topRatedTV" :title="'最受欢迎的节目'" />
-        <div class="w-full h-4 bgPrimary z-10"></div>
-        <OverviewList :medias="nowPlayingMovies" :title="'热门剧集'" />
-        <BasicList :medias="topRatedTV" :title="'高分剧集'" />
-        <div class="w-full h-4 bgPrimary z-10"></div>
+    <DailRecommend :medias="topRatedTV" :title="'最受欢迎的节目'" />
+    <div class="w-full h-4 bgPrimary z-10"></div>
+    <OverviewList :medias="nowPlayingMovies" :title="'热门剧集'" />
+    <BasicList :medias="topRatedTV" :title="'高分剧集'" />
+    <div class="w-full h-4 bgPrimary z-10"></div>
 
-        <!-- <BasicList :medias="" -->
-        <!-- <BasicList
+    <!-- <BasicList :medias="" -->
+    <!-- <BasicList
         v-for="(meida, index) in genreMedia"
         :key="index"
         :medias="meida"
         :title="genres[index].name"
       /> -->
-        <div class="w-full bgPrimary z-10 h-56"></div>
-      </div>
-    </template>
-  </ScrollView>
+    <div class="w-full bgPrimary z-10 h-56"></div>
+  </div>
 </template>
 <style lang="scss" scoped>
 @import "@/style/variables.scss";

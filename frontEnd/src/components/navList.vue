@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
-import { layoutStore } from "@/stores/layout"; 
-import gsap from "gsap"; 
+import { layoutStore } from "@/stores/layout";
+import gsap from "gsap";
 import { useRouter, useRoute } from "vue-router";
 const router = useRouter();
 const store = layoutStore();
@@ -11,7 +11,7 @@ const showTab = computed(() => store.showTab);
 const size = computed(() => store.size);
 const typeWidth = 50;
 const activeMediaIndex = ref(0);
-const title = 'Influlex-Crawler'
+const title = "Influlex-Crawler";
 var standAlone = ref(false);
 
 function navigate(item) {
@@ -68,64 +68,57 @@ onMounted(() => {
 </script>
 <template>
   <div
-    class="tabNavWrapper"
+    class="tabNavWrapper trans"
+    :class="showTab ? '' : 'hideTab'"
     :style="{
-      width: showTab ? 'var(--tabWidth)' : '0', 
+      width: showTab ? 'var(--tabWidth)' : '0',
     }"
   >
-    
+    <div class="h-[30px] flex-shrink-0"></div>
+    <header class="navHeader">
+      <h1 id="scrollTitle" class="text-2xl">{{ title }}</h1>
+    </header>
     <div
-      class="w-full h-full trans"
-      :style="{
-        translate: showTab ? '0' : '-100%',
-      }"
+      v-for="(item, index) in layoutContent"
+      :key="index"
+      @click="navigate(item)"
+      class="w-full"
     >
-      <div class="h-[30px]"></div>
-      <header class="navHeader">
-        <h1 id="scrollTitle" class="text-2xl">{{ title }}</h1>
-      </header>
-      <div
-        v-for="(item, index) in layoutContent"
-        :key="index"
-        @click="navigate(item)"
-        class="w-full"
-      >
-        <div class="w-full">
-          <button class="tabItem singleLine" @click="toogleItem(item, index)">
-            <div class="flex">
-              <img class="icon" :src="item.image" />
-              <text>{{ item.text }}</text>
-            </div>
-            <div v-if="item.children">
-              <button>
-                <img
-                  class="icon"
-                  :style="{ rotate: item.showChild ? '90deg' : '' }"
-                  src="/src/assets/icons/arrow.svg"
-                />
-              </button>
-            </div>
-          </button>
-          <div class="divider" v-if="item.children"></div>
-        </div>
-        <div
-          class="subWrapper"
-          :style="{
-            // height: item.children && item.showChild == false ? '0' : ''
-          }"
-        >
-          <button
-            v-for="child in item.children"
-            :key="child.text"
-            class="tabNavChild singleLine"
-          >
-            <img class="icon" :src="child.image" />
-            <text>{{ child.text }}</text>
-          </button>
-        </div>
+      <div class="w-full">
+        <button class="tabItem singleLine" @click="toogleItem(item, index)">
+          <div class="flex">
+            <img class="icon" :src="item.image" />
+            <text>{{ item.text }}</text>
+          </div>
+          <div v-if="item.children">
+            <button>
+              <img
+                class="icon"
+                :style="{ rotate: item.showChild ? '90deg' : '' }"
+                src="/src/assets/icons/arrow.svg"
+              />
+            </button>
+          </div>
+        </button>
+        <div class="divider" v-if="item.children"></div>
       </div>
-      <div class="w-full h-4/5 flex-shrink-0"></div>
+      <div
+        class="subWrapper"
+        :style="{
+          // height: item.children && item.showChild == false ? '0' : ''
+        }"
+      >
+        <button
+          v-for="child in item.children"
+          :key="child.text"
+          class="tabNavChild singleLine"
+        >
+          <img class="icon" :src="child.image" />
+          <text>{{ child.text }}</text>
+        </button>
+      </div>
     </div>
+    <div class="w-full h-4/5 flex-shrink-0"></div>
   </div>
 </template>
 <style scoped lang="scss">
@@ -154,19 +147,22 @@ $itemHeight: 35px;
   background: hsla(0, 0%, 13%, 0.94);
   z-index: 10;
 }
+.hideTab {
+  border-right: none;
+  translate: -100%;
+}
 .tabNavWrapper {
   color: var(--txtColor_Primary);
   overflow: hidden;
   background: var(--navBg_Primary);
   width: var(--tabWidth);
   height: 100dvh;
-  // border-right: 1px solid lightgray;
+  border-right: 1px solid lightgray;
   transform: translate(0, 0);
   display: flex;
-  transition: $transBase;
   flex-direction: column;
   left: 0;
-  z-index: 998;
+  // z-index: 998;
   // padding: 0 1rem;
   .navHeader {
     width: 100%;
