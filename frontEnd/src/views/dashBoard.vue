@@ -26,7 +26,7 @@ const taskPools = computed( () => tasks.taskPools )
 </template>
 <style scoped lang="scss">
 .tasks {
-    width: 20vw;
+    width: 26vw;
     div {
         // background: white;
     }

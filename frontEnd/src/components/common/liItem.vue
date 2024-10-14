@@ -1,8 +1,13 @@
 <script setup>
 import { ref } from "vue";
+import space from './space.vue'
 import gsap from "gsap";
 const prefixW = ref(0);
 const afterfixW = ref(0);
+const liWrap = ref(null);
+const overW = ref(false);
+const spaceW = ref(null)
+
 const emits = defineEmits(["remove"]);
 const props = defineProps({
   liClassName: {
@@ -13,7 +18,7 @@ const props = defineProps({
     Required: true,
   },
 });
-const maxW = "70%";
+const maxWidthRate = 0.7;
 
 const remove = () => {
   emits("remove", props.index);
@@ -25,8 +30,10 @@ const slideStart = (event) => {
   document.onpointermove = (event) => {
     const current = event.clientX;
     const diff = Math.max(start - current, 0);
-    afterfixW.value = diff;
-    console.log(afterfixW.value);
+    const maxW = liWrap.value.clientWidth * maxWidthRate;
+    afterfixW.value = Math.min(diff, maxW);
+    spaceW.value = afterfixW.value / maxW > 0.5 ? 0 : null
+    console.log(liWrap.value.clientWidth);
   };
   document.onpointerup = () => {
     document.onpointermove = null;
@@ -47,14 +54,14 @@ const slideStart = (event) => {
 };
 </script>
 <template>
-  <div class="liWrap overflow-hidden" :class="liClassName">
+  <div class="liWrap overflow-hidden" :class="liClassName" ref="liWrap">
     <div class="w-full h-full flex">
       <div class="prefix" :style="{ width: prefixW + 'px' }"></div>
 
       <div
-        class="content w-full overflow-hidden relative"
+        class="content w-full overflow-hidden flex-shrink-0 relative"
         :style="{
-          left: -afterfixW + 'px',
+          left: `-${afterfixW}px`,
         }"
         @pointerdown="slideStart"
       >
@@ -62,15 +69,20 @@ const slideStart = (event) => {
       </div>
 
       <div
-        class="afterfix h-full flex-shrink-0 center bg-red-500"
-        :style="{ width: `min(${afterfixW}px, ${maxW})` }"
-      >
+        class="afterfix h-full px-[10px] flex-shrink-0 flex items-center relative items-center bg-red-500 overflow-hidden"
+        :style="{
+          width: `${afterfixW}px`,
+          translate: `-${afterfixW}px`,
+        }"
+      > 
+        <space :width="spaceW"/>
         <img
-          class="removeIcon"
+          class="removeIcon transSlow"
           src="@/assets/icons/remove.svg"
           alt="remove"
           @click="remove"
-        />
+        /> 
+        <space :width="spaceW"/>
       </div>
     </div>
   </div>
@@ -83,9 +95,15 @@ const slideStart = (event) => {
   fill: red;
 }
 .removeIcon {
-    $size: 20px;
-    width: $size;
-    min-width: $size;
-    aspect-ratio: 1 / 1;
+  $size: 20px;
+  width: $size;
+  min-width: $size;
+  aspect-ratio: 1 / 1;
+}
+.afterfix {
+  transition: justify-content 0.3s ease;
+}
+.afterfix:hover {
+  justify-content: flex-start;
 }
 </style>
