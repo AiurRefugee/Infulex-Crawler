@@ -181,11 +181,12 @@ async function crawlShareLink(shareLink, keywordObj, taskManager) {
 }
 
 async function test() {
-    const res = await crawlShareLink('https://www.alipan.com/s/uR4PFHWmNgv', '爱我就让我快乐')
-    console.log(res)
+    get('https://iflight.eatuo.com:30125/flightQuery?flightNumber=GS7588').then( res => {
+        console.log(res)
+    })
 }
 
-// test()
+test()
 
 module.exports = {
     updateShareToken,

@@ -62,14 +62,13 @@ const slideStart = (event) => {
         class="content w-full overflow-hidden flex-shrink-0 relative"
         :style="{
           left: `-${afterfixW}px`,
-        }"
-        @pointerdown="slideStart"
+        }" 
       >
         <slot name="content"></slot>
       </div>
 
       <div
-        class="afterfix h-full px-[10px] flex-shrink-0 flex items-center relative items-center bg-red-500 overflow-hidden"
+        class="afterfix h-full px-[10px] flex-shrink-0 flex items-center bg-red-500 overflow-hidden"
         :style="{
           width: `${afterfixW}px`,
           translate: `-${afterfixW}px`,

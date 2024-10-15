@@ -15,7 +15,7 @@ export const taskStore = defineStore('tasks', {
         task: ref(null),
         loading: ref(false),
         error: ref(null),
-        taskPools: ref([task])
+        taskPools: ref([...task, ...task, ...task, ...task])
     }),
     actions: {
         async fetchTasks() {

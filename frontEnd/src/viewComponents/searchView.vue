@@ -61,7 +61,7 @@ function calScroll(scrollView, event) {
     <template v-slot:content>
       <div class="w-full h-full trans searchBarWrap">
         <div class="w-full h-10 px-4">
-          <h1 id="scrollTitle" class="text-2xl font-bold">搜索</h1>
+          <h1 id="scrollTitle" class="text-2xl font-bold select-none">搜索</h1>
         </div>
         <div class="flex flex-col items-center">
           <div

@@ -1,4 +1,6 @@
 const axios = require('axios');
+axios.defaults.headers['Content-Type'] = 'application/json';
+axios.defaults.headers['Connection'] = 'keep-alive';
 
 axios.interceptors.response.use(
     async (response) => { 
@@ -6,7 +8,7 @@ axios.interceptors.response.use(
     },
     async (error) => {
         const { config, response } = error
-        console.log(response?.data || response, config)
+        console.log('response', response?.data || response, 'error', error, config)
         return null
     }
 )
@@ -28,6 +30,7 @@ function post(url, data, config) {
                 }
             )
             .catch(error => { 
+                console.log('post error', error?.data)
                 reject(error)
             });
     });
@@ -51,7 +54,7 @@ function get(url, params, config) {
                 }
             )
             .catch(error => {
-                console.log(error?.data)
+                console.log('get error', error?.data)
                 reject(error)
             });
     });

@@ -44,6 +44,10 @@ input:focus-visible {
 .bgPrimary {
     background: var(--bgLight_Primary);
 }
+
+.bgLightSecondary {
+    background: var(--bgLight_Secondary);
+}
 .txtDark_Primary {
     color: var(--textDark_Primary);
 }

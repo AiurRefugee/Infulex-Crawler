@@ -13,10 +13,10 @@ const taskPools = computed( () => tasks.taskPools )
         <div class="tasks h-full">
             <scrollView>
                 <template v-slot:headerCenter>
-                    <h1 class="txtDarkPrimary">Tasks</h1>
+                    <h1 class="txtDarkPrimary select-none">Tasks</h1>
                 </template>
                 <template v-slot:content>
-                    <div class="h-full">
+                    <div class="h-full px-4">
                         <taskOverview v-for="task in taskPools" :key="task" :task="task" />
                     </div>
                 </template>
@@ -24,11 +24,16 @@ const taskPools = computed( () => tasks.taskPools )
         </div>
     </div>
 </template>
-<style scoped lang="scss">
+<style scoped lang="scss"> 
 .tasks {
     width: 26vw;
-    div {
-        // background: white;
+    border-right: 1px solid gray;
+    
+}
+@media (width < 700px) {
+    .tasks {
+        width: 100vw;
+        border-right: none;
     }
 }
 
