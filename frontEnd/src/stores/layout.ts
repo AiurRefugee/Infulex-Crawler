@@ -1,6 +1,10 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
+const smallBreakPoint = 500
+const mediumBreakPoint = 1440
+
+
 const movieGenres = [
   {
     id: 28,
@@ -215,7 +219,7 @@ export const layoutStore = defineStore('layout', {
     imgRatio: '21/9',
     imgScale: 1,
     imgY: 0,
-    tabIconVisible: false,
+    tabIconVisible: true,  // tabIcon是否显示
     genres: getGenres(),
     showTab: false
   }),
@@ -231,10 +235,26 @@ export const layoutStore = defineStore('layout', {
     },
     toogleTab() {
       this.showTab = !this.showTab
+    },
+    setTabIconVisible(value) {
+      this.tabIconVisible = value
+    },
+    calSize() { 
+      const store = layoutStore()
+      const width = document.body.clientWidth
+      console.log('resize', width)
+      if (width <= smallBreakPoint) {
+        store.setSize('small')
+      } else if (width <= mediumBreakPoint) {
+        store.setSize('normal')
+      } else {
+        store.setSize('large')
+      } 
     }
   },
 })
 
+ 
 
 const titleList = []
 const dict = {}

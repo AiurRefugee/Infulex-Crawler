@@ -25,7 +25,7 @@ onMounted(async () => {});
       </div>
     </div>  
     <div ref="list" class="w-full flex gap-6 overflow-auto pl-5">
-      <div class="browseClassButton browseButtonSize center" v-for="tag in genres" :key="tag">
+      <div class="browseClassButton center" v-for="tag in genres" :key="tag">
         <text>{{ tag?.name }}</text>
       </div> 
     </div>

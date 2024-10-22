@@ -65,11 +65,11 @@ onMounted(() => {});
 <template>
   <div class="tabViewWrapper">
     <div 
-      class="tabIcon h-[30px] aspect-square flex items-center fixed top-0 left-4 z-[100] cursor-pointer" 
+      class="tabIcon h-[45px] aspect-square flex items-center fixed top-0 left-4 z-[100] cursor-pointer" 
       @click="layout.toogleTab"
-      v-if="!tabIconVisible"
+      v-if="tabIconVisible"
     >
-      <img class="w-full h-full" src="/src/assets/icons/filter.svg" />
+      <img class="h-[35px] aspect-square" src="/src/assets/icons/filter.svg" />
       <!-- <h1 class="whitespace-nowrap text-xl font-bold text-black">Infulex-Crawler</h1> -->
     </div>
     <NavList />

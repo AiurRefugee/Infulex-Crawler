@@ -5,14 +5,13 @@ import { layoutStore } from "@/stores/layout";
 import searchItem from "@/components/searchItem.vue";
 import { tmdbApi } from "@/APIs/tmdbApi";
 
-
 const store = layoutStore();
 // 可以在组件中的任意位置访问 `store` 变量 ✨
 const genres = computed(() => store.genres);
 const tabIconVisible = computed(() => store.tabIconVisible);
 
 const scrollArea = ref(null);
-const searchText = ref("复仇者联盟 3"); 
+const searchText = ref("复仇者联盟 3");
 const showTitle = ref(false);
 const searchResult = ref([]); // 搜索结果
 
@@ -24,8 +23,8 @@ const toogleStyle = () => {
 搜索tmdb 
 */
 const search = async () => {
-  if (searchText.value == '') {
-    searchResult.value = []
+  if (searchText.value == "") {
+    searchResult.value = [];
   }
   tmdbApi.searchMulti(searchText.value).then((res) => {
     searchResult.value = res?.results;
@@ -35,13 +34,11 @@ const search = async () => {
 // 取消
 const cancel = () => {
   searchText.value = "";
-  store.setSearchFocused(false)
-}
-
-
+  store.setSearchFocused(false);
+};
 </script>
 <template>
-  <div class="w-full h-full flex flex-col">
+  <div class="w-full h-full flex flex-col flex-shrink-0">
     <!-- 顶部占位 -->
     <div
       class="bgLightPrimary trans center flex-shrink-0"
@@ -61,39 +58,45 @@ const cancel = () => {
       ref="scrollArea"
       @scroll="toogleStyle"
     >
-      <h1 class="searchTitle px-4 txtDarkPrimary" :style="{ height: tabIconVisible ? '0' : '50px' }">
+      <h1
+        class="searchTitle px-4 txtDarkPrimary"
+        :style="{ height: tabIconVisible ? '0' : '50px' }"
+      >
         搜索
       </h1>
 
-      <div 
-        class="inputRow w-full h-[48px] pl-4 py-[8px] flex sticky top-0 z-[2000] bgLightPrimary transSlow"
-        :style="{ 
-          borderBottom: tabIconVisible ? '1px solid #ccc' : 'none',
-          // background: tabIconVisible ? '#e9e9e9' : 'white',
-        }"
-      >
-        <div class="inputArea w-full px-2 flex items-center bg-gray-500 rounded-lg"
-        >
-          <img
-            class="searchIcon h-[15px] fill-slate-200"
-            src="@/assets/icons/search.svg"
-          />
-          <input
-            v-model="searchText"
-            class="w-full px-2 text-[1.2em] text-white"
-            placeholder="电影，剧集"
-            @focus="store.setSearchFocused(true)"
-            @input="search"
-          />
-        </div>
-        <text
+      <div class="flex">
+        <div
+          class="inputRow w-full h-[48px] pl-4 py-[8px] flex sticky top-0 z-[2000] bgLightPrimary transSlow"
           :style="{
-            width: tabIconVisible ? '50px' : '0',
+            borderBottom: tabIconVisible ? '1px solid #ccc' : 'none',
+            // background: tabIconVisible ? '#e9e9e9' : 'white',
           }"
-          class="center whitespace-nowrap text-red-600 overflow-hidden trans cursor-pointer"
-          @click="cancel"
-          >取消</text
         >
+          <div
+            class="inputArea w-full px-2 flex items-center bg-gray-500 rounded-lg"
+          >
+            <img
+              class="searchIcon h-[15px] fill-slate-200"
+              src="@/assets/icons/search.svg"
+            />
+            <input
+              v-model="searchText"
+              class="w-full px-2 text-[1.2em] text-white"
+              placeholder="电影，剧集"
+              @focus="store.setSearchFocused(true)"
+              @input="search"
+            />
+          </div>
+          <text
+            :style="{
+              width: tabIconVisible ? '50px' : '0',
+            }"
+            class="center whitespace-nowrap text-red-600 overflow-hidden trans cursor-pointer"
+            @click="cancel"
+            >取消</text
+          >
+        </div>
         <div class="w-4"></div>
       </div>
 
@@ -104,7 +107,7 @@ const cancel = () => {
         </div>
         <div class="buttonGrid w-full h-full">
           <div
-            class="browseClassButton h-[15vh] center"
+            class="browseClassButton center"
             :style="{ background: genre.background }"
             v-for="genre in genres"
             :key="genre.id"
@@ -116,10 +119,13 @@ const cancel = () => {
       </div>
 
       <!-- 搜索结果 -->
-      <div class="searchResult w-full h-full" v-if="searchResult.length && searchText">
+      <div
+        class="searchResult w-full h-full"
+        v-if="searchResult.length && searchText"
+      >
         <ul>
-          <li v-for="item in searchResult" :key="item.id"> 
-            <searchItem :data="item"/>
+          <li v-for="item in searchResult" :key="item.id">
+            <searchItem :data="item" />
           </li>
         </ul>
       </div>
@@ -142,7 +148,7 @@ $gridNumSmall: 2;
   display: grid;
   grid-template-columns: repeat($gridNumLarge, 1fr);
   // grid-template-rows: repeat(auto-fill, 15vh);
-  grid-gap: 20px; 
+  grid-gap: 20px;
   @media (width <=1440px) {
     grid-template-columns: repeat($gridNumBase, 1fr);
   }

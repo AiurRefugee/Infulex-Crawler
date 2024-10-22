@@ -8,33 +8,14 @@ import { layoutStore } from '@/stores/layout'
 import { taskStore } from "@/stores/tasks";
 
 const tasks = taskStore();
-
 const layout = layoutStore();
-const filmStore = useFilmStore()
-
-const breakPointSmall = 628;
-const breakPointNormal = 1375;
-
-function calWindowSize() {
-  var newSize = "normal";
-  console.log("resize");
-  const windowSize = window.innerWidth;
-  if (windowSize <= breakPointSmall) {
-    newSize = "small"; 
-  } else if (windowSize > breakPointSmall && windowSize <= breakPointNormal) {
-    newSize = "normal"; 
-  }
-  if (windowSize > breakPointNormal) {
-    newSize = "large"; 
-  }  
-  layout.setSize(newSize)
-  return newSize;
-}
 
 
 onMounted(() => { 
-  calWindowSize();
-  window.addEventListener("resize", calWindowSize); 
+  layout.calSize()
+  window.addEventListener('resize', () => {
+    layout.calSize()
+  })
   // router.push({
   //   name: 'search',
   //   replace: true,

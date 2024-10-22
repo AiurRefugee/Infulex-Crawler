@@ -15,7 +15,8 @@ export const taskStore = defineStore('tasks', {
         task: ref(null),
         loading: ref(false),
         error: ref(null),
-        taskPools: ref([...task, ...task, ...task, ...task])
+        taskPools: ref([...task, ...task, ...task, ...task]),
+        selectedTask: null
     }),
     actions: {
         async fetchTasks() {
@@ -24,6 +25,10 @@ export const taskStore = defineStore('tasks', {
             } catch (error) {
                 console.log(error)
             }
+        },
+        setCurrentTask(task) {
+            console.log(task)
+            this.selectedTask = task
         },
         createTask(data) {
             const {

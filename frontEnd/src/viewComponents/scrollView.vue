@@ -1,46 +1,32 @@
 <script setup>
-import { ref, onMounted, computed, getCurrentInstance } from "vue";
+import { ref, onMounted, computed, getCurrentInstance, provide } from "vue";
 import { layoutStore } from "@/stores/layout";
 
-
 const emit = defineEmits(["toogle"]);
-const props = defineProps(['calScrollFunc', 'top']);
+const props = defineProps(["calScrollFunc", "top"]);
 
 const layout = layoutStore();
-const size = computed(() => layout.size);  
-const headerTitle = ref()
-const divider = ref()
-const scrollArea = ref()
+const size = computed(() => layout.size);
+const headerTitle = ref();
+const divider = ref();
+const scrollArea = ref();
 
-const showTitle = ref(false)
+const showTitle = ref(false);
 
 const toogleTitle = (event) => {
-  showTitle.value = scrollArea.value.scrollTop > 30 
-}
+  showTitle.value = event.target.scrollTop > 30;
+};
 
-onMounted(() => { 
-})
+provide("showTitle", showTitle);
+
+onMounted(() => {});
 </script>
 <template>
-  <div
-    class="scrollView"
-    
-    
-  >
-    <div class="scrollHeader h-[40px] flex-shrink-0">
-      <div class="headerLeft">
-        <slot name="headerLeft"></slot>
-      </div>
-      <div class="headerCenter center trans" :style="{ opacity: showTitle ? 1 : 0}">
-        <slot name="headerCenter"></slot>
-      </div>
-      <div class="headerRight">
-        <slot name="headerRight"></slot>
-      </div>
-    </div>
-    <div 
+  <div class="scrollView">
+    <slot name="header"></slot>
+    <div
       ref="scrollArea"
-      class="w-full h-full overflow-x-hidden overflow-y-auto"
+      class="scrollViewArea w-full h-full overflow-x-hidden overflow-y-auto"
       @scroll="toogleTitle"
     >
       <slot name="content"></slot>
@@ -67,12 +53,6 @@ $paddingSize: 2%;
   overflow-x: hidden;
   overflow-y: auto;
   // transform: translateX(0);
-  // padding-top: $headerHeight; 
-}
-.scrollHeader {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  justify-content: center;
-  justify-items: center;
+  // padding-top: $headerHeight;
 }
 </style>
