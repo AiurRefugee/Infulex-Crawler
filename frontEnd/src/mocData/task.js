@@ -6,15 +6,19 @@ for (let i = 1; i <= 10; i++) {
 const msgs = [
     {
         type: 'getLink',
-        data: 'www.aliyundrive.com/s/UZjojouQJNr'
+        data: 'www.aliyundrive.com/s/UZjojouQJNr',
+        time: '01-01 12:00'
     },
     {
         type: 'getFile',
-        data: [...files, ...files]
+        name: '复仇者联盟',
+        data: [...files, ...files],
+        time: '01-01 12:00'
     },
     {
         type: 'getVideo',
-        data: '复仇者联盟复仇者联盟复仇者联盟 4 4k.mkv'
+        data: '复仇者联盟复仇者联盟复仇者联盟 4 4k.mkv',
+        time: '01-01 12:00'
     }
 ]
 

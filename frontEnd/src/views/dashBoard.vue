@@ -8,8 +8,8 @@ import scrollHeader from "@/components/common/scrollHeader.vue";
 import taskOverview from "@/components/taskOverview.vue";
 import taskDetail from "@/components/taskDetail/taskDetail.vue";
 const tasks = taskStore();
-const store = layoutStore();
-const size = computed(() => store.size);
+const layout = layoutStore();
+const size = computed(() => layout.size);
 console.log(size.value);
 
 const selectedTask = computed(() => tasks.selectedTask);

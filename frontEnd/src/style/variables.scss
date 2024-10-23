@@ -16,6 +16,11 @@ $transSlow: all 0.5s ease-in-out;
 $zindex: 100;
 
 $headerH: 45px;
+
+// dashBoard 
+$typeW: min(30vw, 90px);
+$cellHeight: 2rem;
+
 html {
     font-size: 16px;
     --tabWidth: max(18vw, 220px);
