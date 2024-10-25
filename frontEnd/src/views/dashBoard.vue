@@ -6,7 +6,7 @@ import { layoutStore } from "@/stores/layout";
 import scrollView from "@/viewComponents/scrollView.vue";
 import scrollHeader from "@/components/common/scrollHeader.vue";
 import taskOverview from "@/components/taskOverview.vue";
-import taskDetail from "@/components/taskDetail/taskDetail.vue";
+import taskDetail from "@/components/taskDetail/taskDetail.vue"; 
 const tasks = taskStore();
 const layout = layoutStore();
 const size = computed(() => layout.size);
@@ -65,12 +65,12 @@ function slideOpt(value) {
 
     <!-- 任务详情 -->
     <div
-      class="detailWrap w-full trans"
+      class="detailWrap w-full"
       :style="{
         // translate: size == 'small' && !selectedTask ? 'var(--taskW)' : '0'
       }"
     >
-      <taskDetail/>
+      <RouterView/>
     </div>
   </div>
 </template>

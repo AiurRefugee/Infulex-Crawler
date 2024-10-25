@@ -33,7 +33,17 @@ const router = createRouter({
           component: () => import('../views/dashBoard.vue'),
           meta: {
             transition: 'fade'
-          }
+          },
+          children: [
+            {
+              path: '/dashBoard/detailView',
+              name: 'dashBoard',
+              component: () => import('../components/taskDetail/taskDetail.vue'),
+              meta: {
+                transition: 'fade'
+              }
+            }
+          ]
         }
       ]
     }, 

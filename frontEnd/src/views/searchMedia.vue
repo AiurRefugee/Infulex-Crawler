@@ -8,11 +8,12 @@ import { tmdbApi } from "@/APIs/tmdbApi";
 const store = layoutStore();
 // 可以在组件中的任意位置访问 `store` 变量 ✨
 const genres = computed(() => store.genres);
-const tabIconVisible = computed(() => store.tabIconVisible);
+const size = computed(() => store.size);
 
 const scrollArea = ref(null);
 const searchText = ref("复仇者联盟 3");
 const showTitle = ref(false);
+const focused = ref(false)
 const searchResult = ref([]); // 搜索结果
 
 const toogleStyle = () => {
@@ -36,18 +37,23 @@ const cancel = () => {
   searchText.value = "";
   store.setSearchFocused(false);
 };
+
+onMounted(() => {
+  if (size.value == 'small') {
+    store.setTabIconVisible(false)
+  }
+})
 </script>
 <template>
   <div class="w-full h-full flex flex-col flex-shrink-0">
     <!-- 顶部占位 -->
     <div
-      class="bgLightPrimary trans center flex-shrink-0"
-      :style="{ height: tabIconVisible ? '0' : '30px' }"
+      class="bgLightPrimary trans center flex-shrink-0 h-[35px]"
     >
       <text
-        class="transSlow self-end txtDarkPrimary"
+        class="transSlow text-xl txtDarkPrimary"
         :style="{
-          opacity: showTitle ? '1' : '0',
+          opacity: showTitle || focused ? '1' : '0',
         }"
         >搜索</text
       >
@@ -59,19 +65,24 @@ const cancel = () => {
       @scroll="toogleStyle"
     >
       <h1
-        class="searchTitle px-4 txtDarkPrimary"
-        :style="{ height: tabIconVisible ? '0' : '50px' }"
+        class="searchTitle h-[45px] px-4 txtDarkPrimary trans"
+        :style="{
+          height: focused ? '0' : '',
+        }"
       >
         搜索
       </h1>
 
-      <div class="flex">
-        <div
-          class="inputRow w-full h-[48px] pl-4 py-[8px] flex sticky top-0 z-[2000] bgLightPrimary transSlow"
-          :style="{
-            borderBottom: tabIconVisible ? '1px solid #ccc' : 'none',
+      <div 
+        class="flex sticky top-0 z-[2000]"
+        :style="{
+            borderBottom: showTitle ? '1px solid #ccc' : 'none',
             // background: tabIconVisible ? '#e9e9e9' : 'white',
-          }"
+        }"
+      >
+        <div
+          class="inputRow w-full h-[60px] pl-4 pt-[5px] pb-[15px] flex bgLightPrimary transSlow"
+          
         >
           <div
             class="inputArea w-full px-2 flex items-center bg-gray-500 rounded-lg"
@@ -84,16 +95,16 @@ const cancel = () => {
               v-model="searchText"
               class="w-full px-2 text-[1.2em] text-white"
               placeholder="电影，剧集"
-              @focus="store.setSearchFocused(true)"
+              @focus="focused = true"
               @input="search"
             />
           </div>
           <text
             :style="{
-              width: tabIconVisible ? '50px' : '0',
+              width: focused ? '50px' : '0',
             }"
             class="center whitespace-nowrap text-red-600 overflow-hidden trans cursor-pointer"
-            @click="cancel"
+            @click="focused = false"
             >取消</text
           >
         </div>
@@ -101,7 +112,7 @@ const cancel = () => {
       </div>
 
       <!-- 按类别浏览 -->
-      <div class="w-full h-full px-4" v-if="!tabIconVisible">
+      <div class="w-full h-full px-4" v-if="!focused">
         <div class="text-xl h-10 flex self-start txtDark_Primary">
           <h1>按类别浏览</h1>
         </div>

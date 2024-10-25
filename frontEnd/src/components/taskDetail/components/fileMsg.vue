@@ -18,7 +18,7 @@ const props = defineProps({
     <div class="flex items-center flex-wrap">
       <p class="type getFile">getFile</p>
 
-      <div class="w-full flex justify-between items-center">
+      <div class="w-full flex justify-between items-center txtDarkPrimary">
         <span>
           <svg class="typeIcon" viewBox="0 0 1024 1024">
             <path
@@ -35,7 +35,7 @@ const props = defineProps({
         <text>{{ msg?.time }}</text>
       </div>
     </div>
-    <div class="files pl-[1.5em]">
+    <div class="files pl-[1.5em] txtDarkSecondary">
       <p v-for="file in msg.data" :key="file">
         <svg class="typeIcon" viewBox="0 0 1024 1024">
           <path
@@ -47,7 +47,7 @@ const props = defineProps({
             d="M257.32 744.95h503.32c19.9 0 36.18-17.18 36.18-37.99s-16.28-37.99-36.18-37.99H257.32c-19.9 0-36.18 17.18-36.18 37.99s16.28 37.99 36.18 37.99z"
           />
         </svg>
-        <text>{{ file }}</text>
+        <text class="">{{ file }}</text>
       </p>
     </div>
   </div>

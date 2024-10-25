@@ -16,6 +16,8 @@ const props = defineProps({
 const resize = (link) => {
   if (size.value == 'small') {
     return link.replace('www.aliyundrive.com', '...')
+  } else {
+    return link
   }
 }
 </script>
@@ -25,7 +27,7 @@ const resize = (link) => {
       <text v-if="msg?.type == 'getLink'">getLink</text>
       <text v-if="msg?.type == 'getVideo'">getVideo</text>
     </div>
-    <div class="w-full pl-[1.5em] flex justify-between gap-4">
+    <div class="w-full pl-[1.5em] flex justify-between gap-4 txtDarkPrimary">
       <span class="link overflow-hidden" v-if="msg?.type == 'getLink'">
         <svg class="typeIcon" viewBox="0 0 1024 1024">
           <path

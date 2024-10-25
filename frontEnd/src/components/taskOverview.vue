@@ -4,6 +4,8 @@ import { taskStore } from "@/stores/tasks";
 import liItem from "@/components/common/liItem.vue";
 import gsap from "gsap";
 import { layoutStore } from "@/stores/layout";
+import { useRouter } from "vue-router";
+const router = useRouter()
 const tasks = taskStore();
 const layout = layoutStore()
 const size = computed(() => layout.size);
@@ -53,6 +55,7 @@ const setTask = () => {
   if (size.value == 'small') {
     layout.setTabIconVisible(false)
   }
+  router.push('/dashBoard/detailView')
 }
 
 const slideStart = (event) => {

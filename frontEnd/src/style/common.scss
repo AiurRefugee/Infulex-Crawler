@@ -49,15 +49,29 @@ input:focus-visible {
 .bgLightSecondary {
     background: var(--bgLight_Secondary);
 }
-.txtDark_Primary {
+
+// txt深色
+.txtDarkPrimary {
     color: var(--textDark_Primary);
 }
-.txtDark_Secondary {
+.txtDarkSecondary {
     color: var(--textDark_Secondary);
 }
-.txtDark_Basic {
+.txtDarkBasic {
     color: var(--textDark_Basic);
 }
+
+// txt 亮色
+.txtLightPrimary {
+    color: var(--txt_Light_Primary);
+}
+.txtLightSecondary {
+    color: var(--txt_Light_Secondary);
+}
+.txtLightBasic {
+    color: var(--txt_Light_Basic);
+}
+
 .singleLine {
     overflow: hidden;
     white-space: nowrap;
@@ -119,7 +133,7 @@ input:focus-visible {
 }
 
 .txtDarkPrimary {
-    color: var(--txt_Darak_Primary);
+    color: var(--txt_Dark_Primary);
 }
 
 .bgLightPrimary {
@@ -150,6 +164,7 @@ input:focus-visible {
     font-size: 1.1rem;
     font-weight: bold;
     font-style: italic;
+    
 }
 
 .files {

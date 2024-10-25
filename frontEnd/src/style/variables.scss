@@ -30,6 +30,9 @@ html {
 
     --txt_Darak_Primary: black;
 
+    --txt_Light_Primary: rgb(223, 222, 222);
+    --txt_Light_Secondary: rgb(191, 191, 191);
+
     --headerHeight: 5vh;
     --daliMargin: 1.5rem;
 
@@ -71,6 +74,11 @@ html {
     --primaryColor: #1532dbfa;
     --txtActiveColor: #3776f4ee;
     --headerOpacity: 0;
+
+    // 消息列表
+    --listBg: #eaeaea;
+    
+    
 
     background-color: var(--bg_Primary);
     @media (width <= 628px) {
@@ -170,6 +178,9 @@ html {
 
         --cardShadow: none;
         --baseColor: 0;
+
+        // 消息列表
+        --listBg: #242424;
     }
     /* 明亮模式样式 */
     @media (prefers-color-scheme: light) {

@@ -4,7 +4,7 @@ import taskHeader from "./components/taskHeader.vue";
 import msgListView from "./components/msgListView.vue";
 import { taskStore } from "@/stores/tasks";
 import { layoutStore } from "@/stores/layout";
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 const tasks = taskStore();
 const selectedTask = computed(() => tasks.selectedTask);
 const layout = layoutStore();
@@ -13,6 +13,11 @@ const size = computed(() => {
   return layout.size;
 });
 
+onMounted( () => {
+  if (size.value == 'small') {
+    layout.setTabIconVisible(false)
+  }
+})
 
 </script>
 <template>
