@@ -61,15 +61,18 @@ html {
     // 影片类型列表
     --genreHeight: 20vh;
     --genreFontSize: 2rem;
-    --genreNum: 6;
+    --genreNum: 8;
     --classMargin: 0.5rem;
     --genreSpace: 0.8rem;
 
     // 基础卡片
     --basicCardadius: 7px;
-    --bascCardiNum: 10.6;
+    --bascCardNum: 12.6;
     --basicCardInfoHeight: 3rem;
     --basicCardHeight: 38vh;
+
+    // 基础卡牌　横向
+    --bascCardRectNum: 6.6;
 
     --filmNameSize: 1.1rem;
 
@@ -86,7 +89,6 @@ html {
 
     background-color: var(--bg_Primary);
     @media (width <= 628px) {
-        --genreNum: 1.1;
         --genreHeight: 15vh;
 
         --tabWidth: 70vw;
@@ -101,13 +103,16 @@ html {
 
         // 基础卡片
         // --basicCardadius: 7px;
-        --bascCardiNum: 3.6;
+        --bascCardNum: 3.6;
         // --basicCardInfoHeight: 3rem;
         --basicCardHeight: 30vh;
 
+        // 基础卡牌　横向
+        --bascCardRectNum: 1.6;
+
         // 影片类型列表
         --genreHeight: 20vh;
-        --genreNum: 2.1;
+        --genreNum: 2.5;
         --genreHeight: 15vh;
         --genreFontSize: 1.5rem;
         --genreSpace: 0.6rem;
@@ -136,12 +141,15 @@ html {
 
         // 基础卡片
         // --basicCardadius: 7px;
-        --bascCardiNum: 5.6;
+        --bascCardNum: 8.6;
         // --basicCardInfoHeight: 3rem;
         --basicCardHeight: 30vh;
 
+        // 基础卡牌　横向
+        --bascCardRectNum: 4.6;
+
         // 影片类型列表
-        --genreNum: 4.1;
+        --genreNum: 6.1;
         --genreHeight: 15vh;
         --genreFontSize: 1.5rem;
         --genreSpace: 1rem;

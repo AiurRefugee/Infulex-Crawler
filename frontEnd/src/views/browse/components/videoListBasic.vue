@@ -1,9 +1,17 @@
 <script setup>
 import { ref, computed } from "vue";
-import videoCardBasic from "@/components/cards/videoCardBasic.vue";
 import { useRouter } from "vue-router"; 
 import { onMounted } from "vue";
+
+
 const props = defineProps({
+  "card": {
+    Required: true
+  },
+  "imageSrcPrefix": {
+    Required: false,
+    default: ''
+  },
     "title": {
         Required: false,
         default: '--'
@@ -40,7 +48,7 @@ onMounted( () => {
 </script>
 <template>
   <div ref="listWrap" class="listWrapper">
-    <div class="listHead flex justify-between items-center">
+    <div class="listHead px-4 flex justify-between items-center">
       <h1 class="listTitle text-xl font-bold py-2 txtDarkPrimary">{{ title || "--" }}</h1>
       <button class="showAllButton font-medium text-orange-400" @click="toAll">查看全部</button>
     </div>
@@ -50,7 +58,7 @@ onMounted( () => {
         class="list flex pl-4 justify-stretch items-start overflow-x-auto"  
         @scroll="calFading"
       > 
-        <videoCardBasic :media="media" v-for="media in list" :key="media"/>
+        <component :is="card" :imageSrcPrefix="imageSrcPrefix" :media="media" v-for="media in list" :key="media"/>
       </div>
     </div>
   </div>
@@ -63,7 +71,7 @@ onMounted( () => {
   right: 0;
   width: 5vw;
   height: 100%; 
-  transition: all 0.5s ease-in-out;
+  transition: all 0.2s ease-in-out;
   background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0, #fff 100%);
   will-change: opacity;
 }

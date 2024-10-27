@@ -24,6 +24,14 @@ export default defineConfig({
         // 在请求头中的host字段使用目标服务器的host
         changeOrigin: true
       },
+      // '/aiqyiyiImg': {
+      //   // 目标服务器，将请求转发到这个服务器
+      //   target: 'http://pic2.iqiyipic.com/image',
+      //   // 改变原始请求的路径（把'/tmdb'替换为空），确保正确的请求路径
+      //   rewrite: (path) => path.replace(/^\/aiqyiyiImg/, ''),
+      //   // 在请求头中的host字段使用目标服务器的host
+      //   changeOrigin: true
+      // },
       '/api': {
         target: 'http://localhost:3000',
         rewrite: (path) => path.replace(/^\/api/, ''),

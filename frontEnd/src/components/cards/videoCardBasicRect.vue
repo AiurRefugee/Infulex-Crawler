@@ -14,7 +14,7 @@ const time = computed( () => props.media?.release_date || props.media?.first_air
 
 </script>
 <template>
-  <div class="basicCard txtDarkSecondary flex-shrink-0 pr-3 cursor-pointer">
+  <div class="basicCardRect txtDarkSecondary flex-shrink-0 pr-3 cursor-pointer">
     <div class="cardImage">
       <img class="w-full h-full object-cover" :src="imageSrcPrefix + media?.poster_path" />
     </div>
@@ -36,14 +36,14 @@ const time = computed( () => props.media?.release_date || props.media?.first_air
 </template>
 <style scoped lang="scss">
 @import "@/style/variables.scss";
-
-.basicCard {
-  width: calc(100vw / var(--bascCardNum));  
-} 
+ 
+.basicCardRect {
+  width: calc(100vw / var(--bascCardRectNum));  
+}
 .cardImage {
   width: 100%;
   border-radius: var(--basicCardadius);
-  aspect-ratio: 2 / 3;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
 }
 </style>

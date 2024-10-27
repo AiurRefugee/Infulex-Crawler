@@ -1,6 +1,6 @@
 @import "@/style/variables.scss";
 html {
-    overflow: hidden;
+    // overflow: hidden;
     color: var(--textColor_Primary);
     background: var(--bgLight_Primary);
     overscroll-behavior: none;
@@ -91,24 +91,8 @@ input:focus-visible {
     justify-content: center;
     align-items: center;
 }
-.browseButtonSize {
-    width: calc(100% / var(--genreNum));
-    aspect-ratio: 10/5;
-}
-.browseClassButton {
-    height: max(15vh, 80px);
 
-    border-radius: var(--searchGenreCardRadius);
-    flex-shrink: 0;
-    color: white;
-    font-size: 2em;
-    // letter-spacing: 1em;
-    text-align: center;
-    font-weight: bold;
-    letter-spacing: 10px;
-    font-size: var(--genreFontSize);
-    background: linear-gradient(to right, rgba(214, 55, 34, 0.7) 0, rgba(130, 22, 126, 0.7) 100%);
-}
+
 // 搜索页class button
 .searchClassButton {
     width: calc(100% / var(--searchGenreCardNum));

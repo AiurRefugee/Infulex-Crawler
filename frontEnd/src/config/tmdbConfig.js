@@ -9,9 +9,9 @@ export const tmdbHeaders = {
     }
 }
 
-export const tmdbAPIPrefix = '/tmdb'
+export const tmdbAPIPrefix = '/tmdb' 
 
-export const imageSrcPrefix = "https://image.tmdb.org/t/p/original"; 
+export const tmdbImgPrefix = "https://image.tmdb.org/t/p/original"; 
 
 export const getParams = {
     language: 'zh-CN'
