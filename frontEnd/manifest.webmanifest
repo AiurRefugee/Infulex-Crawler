@@ -1,8 +1,6 @@
 {
     "display": "fullscreen",
-    "name": "Infulex-Crawler",
-    "theme_color": "white",
-    "background_color": "white",
+    "name": "Infulex-Crawler", 
     "shortcuts": [
         {
             "name": "detail",

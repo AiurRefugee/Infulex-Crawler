@@ -1,8 +1,7 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import gsap from "gsap";
-import { layoutStore } from "@/stores/layout";
-import ClassButton from '@/components/ClassButton.vue'
+import { layoutStore } from "@/stores/layout"; 
 const store = layoutStore();
 
 // 可以在组件中的任意位置访问 `store` 变量 ✨
@@ -22,7 +21,7 @@ onMounted(async () => {});
       <h1 class="text-xl font-bold py-2">影片类型</h1> 
     </div>  
     <div ref="list" class="w-full flex pl-4 gap-3 overflow-auto">
-      <div class="browseClassButton browseButtonSize center" v-for="tag in genres" :key="tag">
+      <div class="browseClassButton browseButtonSize rounded-lg center" v-for="tag in genres" :key="tag">
         <text>{{ tag?.name }}</text>
       </div> 
     </div>
@@ -35,10 +34,7 @@ onMounted(async () => {});
     width: calc(100% / var(--genreNum));
     aspect-ratio: 10/5;
 }
-.browseClassButton {
-  // height: max(15vh, 80px);
-
-  border-radius: var(--searchGenreCardRadius);
+.browseClassButton { 
   flex-shrink: 0;
   color: white;
   font-size: 2em;

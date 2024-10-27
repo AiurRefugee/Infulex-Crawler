@@ -14,19 +14,19 @@ const time = computed( () => props.media?.release_date || props.media?.first_air
 
 </script>
 <template>
-  <div class="basicCardRect txtDarkSecondary flex-shrink-0 pr-3 cursor-pointer">
+  <div class="basicCardRect flex-shrink-0 pr-3 cursor-pointer">
     <div class="cardImage">
       <img class="w-full h-full object-cover" :src="imageSrcPrefix + media?.poster_path" />
     </div>
     <div class="info h-[4em]">
       <p 
-        class="filmTitle text-lg font-bold h-[2em] leading-[2em] singleLine txtDark_Primary"
+        class="filmTitle text-lg font-bold h-[2em] leading-[2em] singleLine txtDarkPrimary"
         v-if="title"
       >
         {{ title }}
       </p>
       <p 
-        class="text-sm subFilmTitle singleLine h-[1.5em] leading-[1.5em] txtDark_Secondary"
+        class="text-sm subFilmTitle singleLine h-[1.5em] leading-[1.5em] txtDarkSecondary"
         v-if="time"
       >
         {{ time }}
