@@ -182,7 +182,7 @@ $basicColor: rgb(172, 172, 172);
 .title {
   font-size: 1.2rem;
   padding: var(--leftSpace);
-  color: var(--txtColor_Primary);
+  color: var(--textColor_Primary);
 }
 .primRow {
   font-size: 0.9rem;
@@ -194,7 +194,7 @@ $basicColor: rgb(172, 172, 172);
   overflow: hidden;
   text-align: center;
   width: 95%;
-  color: var(--txtColor_Primary);
+  color: var(--textColor_Primary);
 }
 .secRow {
   max-width: 90%;
@@ -219,7 +219,7 @@ $basicColor: rgb(172, 172, 172);
     // background: red;
     border-radius: 2rem;
     flex-shrink: 0;
-    color: var(--txtColor_Primary);
+    color: var(--textColor_Primary);
   }
   .presentation {
     width: 85vw;

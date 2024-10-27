@@ -1,7 +1,7 @@
 <script setup>
 import { useRouter } from "vue-router";
 import gsap from "gsap";
-import BasicCard from '@/components/basicCard.vue'
+import BasicCard from '@/components/cards/videoCardBasic.vue'
 import { useFilmStore } from "@/stores/films.ts";
 
 
@@ -28,7 +28,7 @@ function toDetail() {
 <style scoped lang="scss">
 @import "@/style/variables.scss";
 .basicWrapper {
-  color: var(--txtColor_Primary);
+  color: var(--textColor_Primary);
   width: 100%;
   overflow: hidden;
   position: relative;

@@ -14,7 +14,7 @@ const router = createRouter({
         {
           path: '/browse',
           name: 'browse',
-          component: () => import('../views/browse.vue'),
+          component: () => import('../views/browse/browse.vue'),
           meta: {
             transition: 'fade'
           }

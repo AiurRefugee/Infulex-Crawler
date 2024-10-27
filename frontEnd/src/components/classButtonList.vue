@@ -18,14 +18,11 @@ onMounted(async () => {});
 </script>
 <template>
   <div ref="listWrap" class="genreWrapper">
-    <div class="genreTitle w-full flex pl-4" v-if="showTitle">
-      <div class="txtDark_Primary">影片类型</div>
-      <div class="showAllButton" @click="toAll">
-        {{ showAll ? "收起" : "查看全部" }}
-      </div>
+    <div class="genreTitle w-full flex txtDarkSecondary">
+      <h1 class="text-xl font-bold py-2">影片类型</h1> 
     </div>  
-    <div ref="list" class="w-full flex gap-6 overflow-auto pl-5">
-      <div class="browseClassButton center" v-for="tag in genres" :key="tag">
+    <div ref="list" class="w-full flex pl-4 gap-6 overflow-auto">
+      <div class="browseClassButton browseButtonSize center" v-for="tag in genres" :key="tag">
         <text>{{ tag?.name }}</text>
       </div> 
     </div>
@@ -56,4 +53,5 @@ onMounted(async () => {});
           rgba(130, 22, 126, 0.7) 100%
         );
 }
+
 </style>

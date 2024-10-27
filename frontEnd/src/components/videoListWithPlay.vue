@@ -66,13 +66,13 @@ function getFilmPosterUrl(url) {
 <style scoped lang="scss">
 @import "@/style/variables.scss";
 .dailWrapper {
-  color: var(--txtColor_Primary);
+  color: var(--textColor_Primary);
   position: relative;
   z-index: 0;
   background: var(--bg_Primary);
 }
 .dailCardWrapper { 
-  color: var(--txtColor_Primary);
+  color: var(--textColor_Primary);
   background: var(--bg_Primary);
   position: relative;
   z-index: 0;

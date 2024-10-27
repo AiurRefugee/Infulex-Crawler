@@ -63,4 +63,36 @@ const props = defineProps({
 .getFile {
   color: #579cd6;
 }
+.files {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, 45%);
+    justify-content: space-between;
+    justify-items: center;
+    align-content: center;
+    align-items: center;
+    overflow: hidden;
+    // gap: 0.5em 0;
+    p {
+        width: 100%;
+        height: $cellHeight;
+        line-height: 2rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: left;
+    }
+    @media (width > 500px) and (width <= 1440px) {
+        grid-template-columns: repeat(5, 18%);
+        // p:nth-child(5n) {
+        //   text-align: right;
+        // }
+    }
+    @media (width > 1440px) {
+        grid-template-columns: repeat(10, 9%);
+        // p:nth-child(10n) {
+        //   text-align: right;
+        // }
+    }
+}
 </style>

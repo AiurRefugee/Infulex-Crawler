@@ -41,7 +41,7 @@ onMounted(() => {});
 <style scoped lang="scss">
 @import "@/style/variables.scss";
 .overviewWrapper {
-  color: var(--txtColor_Primary);
+  color: var(--textColor_Primary);
   position: relative;
   z-index: 0;
   background: var(--bg_Primary);
@@ -89,7 +89,7 @@ onMounted(() => {});
     justify-content: center;
     align-items: center;
     padding: 0 0.8rem;
-    color: var(--txtColor_Primary);
+    color: var(--textColor_Primary);
   }
 }
 </style>

@@ -152,7 +152,7 @@ $itemHeight: 35px;
   translate: -100%;
 }
 .tabNavWrapper {
-  color: var(--txtColor_Primary); 
+  color: var(--textColor_Primary); 
   background: var(--navBg_Primary);
   width: var(--tabWidth);
   height: 100dvh;
@@ -186,7 +186,7 @@ $itemHeight: 35px;
     .tabNavChild {
       width: 100%;
       height: $itemHeight;
-      color: var(--txtColor_Primary);
+      color: var(--textColor_Primary);
       display: flex;
       align-items: center;
     }

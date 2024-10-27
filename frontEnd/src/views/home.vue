@@ -28,36 +28,7 @@ function changeHeader(event) {
 }
 </script>
 <template>
-  <TabView></TabView>
-  <!-- <div class="homeWrapper" @scroll="changeHeader">
-    <Header></Header>
-    <List listTitle="每日推荐" :array="films">
-      <template v-slot="{ item }">
-        <div class="card">
-          <div class="card-body mb-2">
-            <div class="cardIcon">
-              <img class="w-full h-full" src="/src/assets/icons/play-circle.svg" alt="">
-            </div>
-            <img class="cardBackground" :src="getFilmImage(item.imageUrls)">
-          </div>
-          <div class="primText">{{ item.film.title }}</div>
-          <div class="year">{{ item.film.release_date}}</div>
-        </div>
-      </template>
-    </List>
-    <List listTitle="评分最高" :canShowAll="false" :array="topTwenty">
-      <template v-slot="{ item }">
-        <basicFilmCard :item="item" />
-      </template>
-    </List>
-    <classButtonList />
-    <List listTitle="全部影片" :canShowAll="true" :array="films">
-      <template v-slot="{ item }">
-        <basicFilmCard :item="item" />
-      </template>
-    </List>
-    <div class="w-full h-20"></div>
-  </div> -->
+  <TabView></TabView> 
 </template>
 <style lang="scss">
 @keyframes enter {

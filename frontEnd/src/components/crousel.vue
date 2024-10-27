@@ -95,7 +95,7 @@ $height: 70vh;
 .crouselWrapper {
   --cardW: calc(100% / var(--crouselCardNum));
   --cardH: calc(var(--cardW) / var(--crouselAspectRatio));
-  color: var(--txtColor_Primary);
+  color: var(--textColor_Primary);
   position: relative;
   overflow: auto;
   // z-index: -1;

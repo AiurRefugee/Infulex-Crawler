@@ -30,7 +30,7 @@ import SideBar from '@/components/sideBar.vue';
     background: transparent;  
     height: 40px;
     font-weight: bolder;
-    color: var(--txtColor_Primary);
+    color: var(--textColor_Primary);
     .headerTitle {
         font-size: 2.5rem;
         margin-left: var(--leftSpace);

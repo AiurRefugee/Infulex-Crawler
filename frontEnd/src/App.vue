@@ -16,10 +16,10 @@ onMounted(() => {
   window.addEventListener('resize', () => {
     layout.calSize()
   })
-  // router.push({
-  //   name: 'search',
-  //   replace: true,
-  // })
+  router.push({
+    name: 'browse',
+    replace: true,
+  })
 })
 
 // onMounted(async () => {

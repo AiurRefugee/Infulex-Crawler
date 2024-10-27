@@ -28,7 +28,11 @@ html {
     --priRadius: 0.8rem;
     --baseColor: 0;
 
-    --txt_Darak_Primary: black;
+    // color
+    --placeholderBg: rgb(167, 167, 167);
+
+    // text color
+    --text_Darak_Primary: black;
 
     --txt_Light_Primary: rgb(223, 222, 222);
     --txt_Light_Secondary: rgb(191, 191, 191);
@@ -63,7 +67,7 @@ html {
 
     // 基础卡片
     --basicCardadius: 7px;
-    --bascCardiNum: 8.1;
+    --bascCardiNum: 10.6;
     --basicCardInfoHeight: 3rem;
     --basicCardHeight: 38vh;
 
@@ -97,7 +101,7 @@ html {
 
         // 基础卡片
         // --basicCardadius: 7px;
-        --bascCardiNum: 3.2;
+        --bascCardiNum: 3.6;
         // --basicCardInfoHeight: 3rem;
         --basicCardHeight: 30vh;
 
@@ -117,7 +121,7 @@ html {
         // --searchGenreCardRadius: 0.8rem;
         --searchClassPad: 0.5rem;
     }
-    @media (width >628px) and (width < 1375px) {
+    @media (width > 500px) and (width < 1440px) {
         // --genreNum: 1.1;
         // --genreHeight: 15vh;
 
@@ -132,7 +136,7 @@ html {
 
         // 基础卡片
         // --basicCardadius: 7px;
-        --bascCardiNum: 5.2;
+        --bascCardiNum: 5.6;
         // --basicCardInfoHeight: 3rem;
         --basicCardHeight: 30vh;
 
@@ -156,16 +160,23 @@ html {
 html {
     /* 暗黑模式样式 */
     @media (prefers-color-scheme: dark) {
+
+        // color
+        --placeholderBg: rgb(63, 63, 63);
+
+        
+        // text color
         --textLight_Primary: #232323;
         --textLight_Secondary: #373636e8;
         --textLight_Basic: #757474;
 
-        --txtColor_Primary: white;
+        --textColor_Primary: white;
 
-        --txt_Darak_Primary: #e1e1e1;
+        --text_Darak_Primary: #e1e1e1;
         --textDark_Secondary: #c8c6c6e8;
         --textDark_Basic: #aba9a9;
 
+        // background color
         --bgDark_Primary: #f5f5f5;
         --bgDark_Secondary: #e7e7e7;
         --bgDark_Basic: #c6c4c4;
