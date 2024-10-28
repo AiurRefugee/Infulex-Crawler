@@ -40,7 +40,7 @@ const cancel = () => {
 
 onMounted(() => {
   if (size.value == 'small') {
-    store.setTabIconVisible(false)
+    // store.setTabIconVisible(false)
   }
 })
 </script>
@@ -118,7 +118,7 @@ onMounted(() => {
         </div>
         <div class="buttonGrid w-full h-full">
           <div
-            class="browseClassButton center"
+            class="browseClassButton rounded-xl font-bold text-white text-[2em] tracking-widest center"
             :style="{ background: genre.background }"
             v-for="genre in genres"
             :key="genre.id"

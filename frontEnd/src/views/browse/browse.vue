@@ -23,26 +23,32 @@ const router = useRouter();
 const route = useRoute(); 
 
 const nowPlaying = ref(defaultArray) // 正在热映
-const popular = ref(defaultArray)
+const popularMovies = ref(defaultArray)
 const topRated = ref(defaultArray)
 const upcoming = ref(defaultArray)
 const aiqiyi = ref(defaultArray)
+const popularTV = ref(defaultArray)
+const aiqiyiUpcoming = ref(defaultArray)
+const aiqiyiWangju = ref(defaultArray)
 
-const nowPlayingUrl = '/discover/movie?include_adult=false&include_video=false&sort_by=popularity.desc&with_release_type=2|3&release_date.gte={min_date}&release_date.lte={max_date}'
-const popularUrl = '/discover/movie?include_adult=false&include_video=false&sort_by=popularity.desc'
-const topRatedUrl = '/discover/movie?include_adult=false&include_video=false&sort_by=vote_average.desc&without_genres=99,10755&vote_count.gte=200'
-const upcomingUrl = '/discover/movie?include_adult=false&include_video=false&sort_by=popularity.desc&with_release_type=2|3&release_date.gte={min_date}&release_date.lte={max_date}'
 
+const nowPlayingUrl = '/discover/movie?include_video=false&sort_by=popularity.desc&with_release_type=2|3&release_date.gte={min_date}&release_date.lte={max_date}'
+const popularMoviesUrl = '/trending/movie/week'
+const topRatedUrl = '/discover/movie?include_video=false&sort_by=vote_average.desc&without_genres=99,10755&vote_count.gte=200'
+const upcomingUrl = '/discover/movie?include_video=false&sort_by=popularity.desc&with_release_type=2|3&release_date.gte={min_date}&release_date.lte={max_date}'
+const popularTVUrl = '/trending/tv/week'
  
 onMounted(async () => {
   get(tmdbAPIPrefix + nowPlayingUrl, getParams, tmdbHeaders).then( res => nowPlaying.value = res.results)
-  get(tmdbAPIPrefix + popularUrl, getParams, tmdbHeaders).then( res => popular.value = res.results)
+  get(tmdbAPIPrefix + popularMoviesUrl, getParams, tmdbHeaders).then( res => popularMovies.value = res.results)
   get(tmdbAPIPrefix + topRatedUrl, getParams, tmdbHeaders).then( res => topRated.value = res.results)
-  get(tmdbAPIPrefix + upcomingUrl, getParams, tmdbHeaders).then( res => upcoming.value = res.results)
 
-  get(aiqiyiUrlPrefix + aiqiyiVideoListUrl).then(res => {
-    const aiqiyiRebo = res?.items[3]?.video?.[0]?.data
-    aiqiyi.value = aiqiyiRebo.map(aiqiyiMapMedia)  
+  get(tmdbAPIPrefix + popularTVUrl, getParams, tmdbHeaders).then( res => popularTV.value = res.results)
+
+  get(aiqiyiUrlPrefix + aiqiyiVideoListUrl).then(res => { 
+    aiqiyi.value = aiqiyiMapMedia(res?.items[3]?.video?.[0]?.data) 
+    aiqiyiUpcoming.value = aiqiyiMapMedia(res?.items[1]?.video?.[0]?.data, true)
+    aiqiyiWangju.value = aiqiyiMapMedia(res?.items[0]?.video?.[0]?.data)
   })
 })
 </script>
@@ -59,59 +65,54 @@ onMounted(async () => {
           </scrollHeader>
         </template>
         <template v-slot:content>
-          <div class="w-full h-full">
             <h1 class="px-4 text-[2em] font-bold mb-2 txtDarkPrimary">浏览</h1>
-            <videoListBasic :card="videoCardBasicRect" :list="aiqiyi" :title="'电视剧热播榜'"/>
-            <videoListBasic :card="videoCardBasic" :imageSrcPrefix="tmdbImgPrefix" :list="nowPlaying" :title="'正在热映'"/>
-            <videoListBasic :card="videoCardBasic" :imageSrcPrefix="tmdbImgPrefix" :list="popular" :title="'最受欢迎'"/>
-            <classButtonList />
-            <videoListBasic :card="videoCardBasic" :imageSrcPrefix="tmdbImgPrefix" :list="topRated" :title="'评分最高'"/>
-            <videoListBasic :card="videoCardBasic" :imageSrcPrefix="tmdbImgPrefix" :list="upcoming" :title="'即将到来'"/>
-          </div>
+            <videoListBasic :list="aiqiyi" :title="'电视剧热播榜'">
+              <template #card="{ media }">
+                <videoCardBasic class="basicCardRect" :media="media"/>
+              </template>
+            </videoListBasic> 
+            <!-- <videoListBasic :card="videoCardBasicRect" :list="aiqiyi" :title="'电视剧热播榜'"/>  -->
+            <videoListBasic :list="nowPlaying" :title="'正在热映'">
+              <template #card="{ media }">
+                <videoCardBasic :media="media" :imageSrcPrefix="tmdbImgPrefix"/>
+              </template>
+            </videoListBasic> 
+            <videoListBasic :list="popularMovies" :title="'热门电影'">
+              <template #card="{ media }">
+                <videoCardBasic :media="media" :imageSrcPrefix="tmdbImgPrefix"/>
+              </template>
+            </videoListBasic> 
+            <videoListBasic :list="popularTV" :title="'热门剧集'">
+              <template #card="{ media }">
+                <videoCardBasic :media="media" :imageSrcPrefix="tmdbImgPrefix"/>
+              </template>
+            </videoListBasic> 
+            <videoListBasic :list="aiqiyiWangju" :title="'网剧热播榜'">
+              <template #card="{ media }">
+                <videoCardBasic class="basicCardRect" :media="media"/>
+              </template>
+            </videoListBasic> 
+            <videoListBasic :list="topRated" :title="'评分最高'">
+              <template #card="{ media }">
+                <videoCardBasic :media="media" :imageSrcPrefix="tmdbImgPrefix"/>
+              </template>
+            </videoListBasic>  
+            <videoListBasic :list="aiqiyiUpcoming" :title="'即将到来'">
+              <template #card="{ media }">
+                <videoCardBasic :media="media"/>
+              </template>
+            </videoListBasic>  
+            <div class="h-20"></div>
         </template>
     </scrollView>
   </div>
 </template>
-<style lang="scss" scoped>
-@import "@/style/variables.scss";
-$upperHeight: 52vh;
-$castHeight: 40vh;
-$basicColor: rgb(172, 172, 172);
-* {
-  // border: 1px solid gray;
-}
-img {
-  height: 100%;
-  aspect-ratio: 3 / 4;
-  border-radius: 5px;
-}
-.browseDivdier {
-  width: 98%;
-  height: 3px;
-  align-self: center;
-  flex-shrink: 0;
-  background: white;
-}
-.browseWrapper {
-  width: 100%;
-  // padding: 0 1rem;
-  display: flex;
-  flex-direction: column;
-  color: white;
-  // background: gray;
-  // transform: translateX(0);
-}
+<style lang="scss">
 
-.nowPlayingWrapper {
-  width: 100%;
-  height: 35vh;
-}
-.gridWrapper {
-  width: 100%;
-  height: 83.333333%;
-  display: grid;
-  overflow: auto;
-  grid-template-rows: repeat(3, 30%);
-  grid-template-columns: repeat(auto-fill, 45%);
+.basicCardRect {
+  width: calc(100vw / var(--bascCardRectNum)) !important; 
+  .cardImage {
+    aspect-ratio: 16 / 9 !important;
+  }
 }
 </style>

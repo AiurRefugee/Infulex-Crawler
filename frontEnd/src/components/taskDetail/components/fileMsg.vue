@@ -52,7 +52,8 @@ const props = defineProps({
     </div>
   </div>
 </template>
-<style scoped lang="scss">
+<style scoped lang="scss"> 
+@import "@/style/variables.scss"; 
 .msg {
   display: flex;
   align-items: center;

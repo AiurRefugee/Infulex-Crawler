@@ -16,7 +16,7 @@ const time = computed( () => props.media?.release_date || props.media?.first_air
 <template>
   <div class="basicCardRect flex-shrink-0 pr-3 cursor-pointer">
     <div class="cardImage">
-      <img class="w-full h-full object-cover" :src="imageSrcPrefix + media?.poster_path" />
+      <img class="w-full h-full object-contain" :src="imageSrcPrefix + media?.poster_path" />
     </div>
     <div class="info h-[4em]">
       <p 

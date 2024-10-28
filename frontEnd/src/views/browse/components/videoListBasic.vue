@@ -4,14 +4,7 @@ import { useRouter } from "vue-router";
 import { onMounted } from "vue";
 
 
-const props = defineProps({
-  "card": {
-    Required: true
-  },
-  "imageSrcPrefix": {
-    Required: false,
-    default: ''
-  },
+const props = defineProps({ 
     "title": {
         Required: false,
         default: '--'
@@ -34,7 +27,6 @@ function toAll() {
 }
 
 const calFading = (e) => {
-  console.log(e.target.scrollLeft)
   if (e.target.scrollLeft > 10) {
     scrolling.value = true
   } else {
@@ -52,18 +44,24 @@ onMounted( () => {
       <h1 class="listTitle text-xl font-bold py-2 txtDarkPrimary">{{ title || "--" }}</h1>
       <button class="showAllButton font-medium text-orange-400" @click="toAll">查看全部</button>
     </div>
-    <div class="listWrap relative" :class="scrolling ? 'scrolling' : ''">
+    <!-- <div class="listWrap relative" :class="scrolling ? 'scrolling' : ''"> -->
       <div 
         ref="list" 
-        class="list flex pl-4 justify-stretch items-start overflow-x-auto"  
+        class="list flex pl-6 justify-stretch items-start overflow-x-auto"  
         @scroll="calFading"
       > 
-        <component :is="card" :imageSrcPrefix="imageSrcPrefix" :media="media" v-for="media in list" :key="media"/>
+        <slot name="card" :media="media" v-for="media in list" :key="media">  
+        </slot> 
       </div>
-    </div>
+    <!-- </div> -->
   </div>
 </template>
 <style lang="scss" scoped>
+::-webkit-scrollbar {
+  position: relative;
+  z-index: 9999;
+  display: none;
+}
 .listWrap::after {
   content: "";
   position: absolute;

@@ -1,11 +1,13 @@
 <script setup>
-import { computed } from 'vue' 
-const props = defineProps({
+import { computed, inject } from 'vue' 
+const aspectRatio = inject("aspectRatio") || '2 / 3'
+const props = defineProps({ 
   "media": {
     Required: true
   },
   "imageSrcPrefix": {
-    Required: false
+    Required: false,
+    default: ''
   }
 })
 
@@ -15,18 +17,18 @@ const time = computed( () => props.media?.release_date || props.media?.first_air
 </script>
 <template>
   <div class="basicCard flex-shrink-0 pr-3 cursor-pointer">
-    <div class="cardImage">
+    <div class="cardImage w-full rounded-md overflow-hidden">
       <img class="w-full h-full object-cover" :src="imageSrcPrefix + media?.poster_path" />
     </div>
-    <div class="info h-[4em]">
+    <div class="info h-16 pt-2">
       <p 
-        class="filmTitle text-lg font-bold h-[2em] leading-[2em] singleLine txtDarkPrimary"
+        class="filmTitle text-[1.1em] font-bold singleLine txtDarkPrimary"
         v-if="title"
       >
         {{ title }}
       </p>
       <p 
-        class="text-sm subFilmTitle singleLine h-[1.5em] leading-[1.5em] txtDarkSecondary"
+        class="subFilmTitle singleLine txtDarkSecondary"
         v-if="time"
       >
         {{ time }}
@@ -34,16 +36,11 @@ const time = computed( () => props.media?.release_date || props.media?.first_air
     </div>
   </div>
 </template>
-<style scoped lang="scss">
-@import "@/style/variables.scss";
-
+<style scoped lang="scss"> 
 .basicCard {
-  width: calc(100vw / var(--bascCardNum));  
-} 
-.cardImage {
-  width: 100%;
-  border-radius: var(--basicCardadius);
-  aspect-ratio: 2 / 3;
-  overflow: hidden;
-}
+  width: calc(100vw / var(--bascCardNum)); 
+  .cardImage {
+    aspect-ratio: 2 / 3;
+  } 
+}  
 </style>
