@@ -10,43 +10,51 @@ const router = createRouter({
       meta: {
         transition: 'fade'
       },
+      
+    },
+    {
+      path: '/browse',
+      name: 'browse',
+      component: () => import('../views/browse/browse.vue'),
+      meta: {
+        transition: 'fade'
+      }
+    }, 
+    {
+      path: '/search',
+      name: 'search',
+      component: () => import('../views/searchMedia.vue'),
+      meta: {
+        transition: 'fade'
+      }
+    }, 
+    {
+      path: '/dashBoard',
+      name: 'dashBoard',
+      component: () => import('../views/dashBoard.vue'),
+      meta: {
+        transition: 'fade'
+      },
       children: [
         {
-          path: '/browse',
-          name: 'browse',
-          component: () => import('../views/browse/browse.vue'),
-          meta: {
-            transition: 'fade'
-          }
-        }, 
-        {
-          path: '/search',
-          name: 'search',
-          component: () => import('../views/searchMedia.vue'),
-          meta: {
-            transition: 'fade'
-          }
-        }, 
-        {
-          path: '/dashBoard',
+          path: '/dashBoard/detailView',
           name: 'dashBoard',
-          component: () => import('../views/dashBoard.vue'),
+          component: () => import('../components/taskDetail/taskDetail.vue'),
           meta: {
             transition: 'fade'
-          },
-          children: [
-            {
-              path: '/dashBoard/detailView',
-              name: 'dashBoard',
-              component: () => import('../components/taskDetail/taskDetail.vue'),
-              meta: {
-                transition: 'fade'
-              }
-            }
-          ]
+          }
         }
       ]
-    }, 
+    },
+    {
+      path: '/detailView',
+      name: 'detailView',
+      component: () => import('../views/detailView/detailView.vue'),
+      meta: {
+        transition: 'fade'
+      }
+    }
+
     
   ]
 })

@@ -1,64 +1,79 @@
 <script setup>
-import { onMounted } from "vue";
-import { useRouter } from "vue-router"; 
-const router = useRouter();
-import { get, post } from "@/APIS/axiosWrapper.js"
-import { useFilmStore } from "@/stores/films.ts"
-import { layoutStore } from '@/stores/layout'
-import { taskStore } from "@/stores/tasks";
+import { ref, computed, onMounted } from "vue";
+import { layoutStore } from "@/stores/layout";
+import NavList from "@/components/navList.vue";
 
-const tasks = taskStore();
-const layout = layoutStore();
-
-
-onMounted(() => { 
-  layout.calSize()
-  window.addEventListener('resize', () => {
-    layout.calSize()
-  })
-  router.push({
-    name: 'browse',
-    replace: true,
-  })
-})
-
-// onMounted(async () => {
-
-//   post('/findFilms').then((res) => filmStore.films = res.data)
-  
-//   get('/getClasses').then((res) => {
-//     const tags = {}
-//     const films = res.data 
-//     for (const film of films) { 
-//       if (film && film.imageUrls) {
-//         tags[film.genreId] = {
-//           backgroundUrl: film.imageUrls[0],
-//           backgroundColor: film.background,
-//           name: film.genreName
-//         }
-//       }
-      
-//     }
-//     filmStore.tags = tags
-//     console.log(tags)
-//   })
+const layout = layoutStore(); 
+const tabIconVisible = computed(() => layout.tabIconVisible);  
  
-//   get('/getTopTwenty').then((res) => filmStore.topTwenty = res.data)
 
-
-//   document.addEventListener("resize", () => {
-//     const listDom = document.getElementsByClassName("list");
-//     Array.from(listDom).forEach((item) => {
-//       item.style.overflow = "hidden";
-//     });
-//   });
-// });
-
+onMounted(() => {});
 </script>
-<template> 
-    <router-view v-slot="{ Component, route }">
-      <transition :name="route.meta.transition">
-        <component :is="Component" />
-      </transition>
-    </router-view> 
+<template>
+  <div class="tabViewWrapper">
+    <div 
+      class="tabIcon h-[45px] aspect-square flex items-center fixed top-0 left-4 z-[100] cursor-pointer" 
+      @click="layout.toogleTab"
+      v-if="tabIconVisible"
+    >
+      <img class="h-[35px] aspect-square" src="/src/assets/icons/filter.svg" />
+      <!-- <h1 class="whitespace-nowrap text-xl font-bold text-black">Infulex-Crawler</h1> -->
+    </div>
+    <NavList />
+
+    <div class="tabcontent">
+      <router-view></router-view>
+    </div>
+  </div>
 </template>
+<style lang="scss">
+@import "@/style/variables.scss";
+
+.tabViewWrapper {
+  width: 100vw;
+  height: 100dvh;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  background: var(--bgLight_Primary);
+  .tabListWrapper {
+    flex-shrink: 0;
+    translate: 0 0;
+    height: 100vh;
+
+    .tablist {
+      width: var(--tabWidth);
+      height: 100dvh;
+      border-right: $borderSize solid lightgray;
+      border-collapse: separate;
+      transition: $transBase;
+      display: flex;
+      flex-direction: column;
+      z-index: 999;
+    }
+  }
+
+  .tabcontent {
+    width: 100%;
+    // height: 100vh;
+    flex: 1;
+    position: relative;
+    transition: $transBase;
+    // transform: translate(0, 0);
+    overflow: hidden;
+    translate: 0 0;
+    .scrollWrapper {
+      width: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      .test {
+        width: 80%;
+        height: 50vh;
+        background-color: gray;
+        margin: 8px;
+        flex-shrink: 0;
+      }
+    }
+  }
+}
+</style>

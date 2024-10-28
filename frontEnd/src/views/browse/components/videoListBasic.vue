@@ -1,59 +1,62 @@
 <script setup>
 import { ref, computed } from "vue";
-import { useRouter } from "vue-router"; 
+import { useRouter } from "vue-router";
 import { onMounted } from "vue";
 
-
-const props = defineProps({ 
-    "title": {
-        Required: false,
-        default: '--'
-    },
-    "list": {
-        Required: true,
-        default: ['']
-    }
+const props = defineProps({
+  title: {
+    Required: false,
+    default: "--",
+  },
+  list: {
+    Required: true,
+    default: [""],
+  },
 });
 
-const router = useRouter();  
-const scrolling = ref(false)
+const router = useRouter();
+const scrolling = ref(false);
 
-function toAll() { 
-    if (props.showAllPath) {
-        router.push(props.showAllPath)
-    } else {
-
-    } 
+function toAll() {
+  if (props.showAllPath) {
+    router.push(props.showAllPath);
+  } else {
+  }
 }
 
 const calFading = (e) => {
   if (e.target.scrollLeft > 10) {
-    scrolling.value = true
+    scrolling.value = true;
   } else {
-    scrolling.value = false
+    scrolling.value = false;
   }
+};
 
-}
-
-onMounted( () => { 
-})
+onMounted(() => {});
 </script>
 <template>
   <div ref="listWrap" class="listWrapper">
     <div class="listHead px-4 flex justify-between items-center">
-      <h1 class="listTitle text-xl font-bold py-2 txtDarkPrimary">{{ title || "--" }}</h1>
-      <button class="showAllButton font-medium text-orange-400" @click="toAll">查看全部</button>
+      <h1 class="listTitle text-[1.2em] font-bold py-2 txtDarkPrimary">
+        {{ title || "--" }}
+      </h1>
+      <button
+        class="showAllButton text-[0.8em] font-medium text-orange-400"
+        @click="toAll"
+      >
+        查看全部
+      </button>
     </div>
     <!-- <div class="listWrap relative" :class="scrolling ? 'scrolling' : ''"> -->
-      <div 
-        ref="list" 
-        class="list flex pl-6 justify-stretch items-start overflow-x-auto"  
-        @scroll="calFading"
-      > 
-        <slot name="card" :media="media" v-for="media in list" :key="media">  
-        </slot> 
-      </div>
-    <!-- </div> -->
+    <div
+      ref="list"
+      class="list flex pl-6 justify-stretch items-start overflow-x-auto"
+      @scroll="calFading"
+    >
+      <slot name="card" :media="media" v-for="media in list" :key="media">
+      </slot>
+    </div>
+    <!-- </div> --> 
   </div>
 </template>
 <style lang="scss" scoped>
@@ -68,13 +71,24 @@ onMounted( () => {
   top: 0;
   right: 0;
   width: 30px;
-  height: 100%; 
+  height: 100%;
   transition: all 0.2s ease-in-out;
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0, #fff 100%);
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0,
+    #fff 100%
+  );
   will-change: opacity;
   @media (prefers-color-scheme: dark) {
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0, #000 100%);
+    background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0,
+      #000 100%
+    );
   }
+}
+.borderB { 
+  background: rgba(164, 163, 163, 0.368);
 }
 .scrolling.listWrap::after {
   opacity: 0;

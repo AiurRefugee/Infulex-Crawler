@@ -4,6 +4,8 @@ import gsap from "gsap";
 const lightMask = '#e1e1e1'
 const lightNormal = "#f5f5f5"
 
+const darkMask = '#282828'
+const darkNormal = '#121212'
 const showTitle = inject("showTitle");
 watch(showTitle, (newVal, oldVal) => {
   const prefersDarkMode = window.matchMedia(
@@ -15,9 +17,9 @@ watch(showTitle, (newVal, oldVal) => {
     meta = document.getElementById("darkThemeColor");
     // 显示遮罩层
     if (newVal) {
-      meta.setAttribute("content", "#e7e7e7");
+      meta.setAttribute("content", darkMask);
     } else {
-      meta.setAttribute("content", "#121212");
+      meta.setAttribute("content", darkNormal);
     }
   } else {
     meta = document.getElementById("lightThemeColor");
@@ -54,6 +56,7 @@ watch(showTitle, (newVal, oldVal) => {
   grid-template-columns: 1fr 1fr 1fr;
   justify-content: center;
   justify-items: center;
+  border-bottom: 1px solid #c1c1c100;
 }
 .showBorderB {
   border-bottom: 1px solid #c1c1c1ad;
@@ -62,7 +65,7 @@ watch(showTitle, (newVal, oldVal) => {
   --bg: v-bind(lightMask);
   background: var(--bg);
   @media (prefers-color-scheme: dark) {
-    --bg: #e7e7e7;
+    --bg: v-bind(darkMask);
   }
 }
 </style>

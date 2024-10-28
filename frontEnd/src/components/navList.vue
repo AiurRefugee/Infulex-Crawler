@@ -71,6 +71,7 @@ onMounted(() => {
     class="tabNavWrapper trans overflow-auto"
     :class="showTab ? '' : 'hideTab'"
     :style="{
+      borderRight: showTab ? '1px solid lightgray;' : '',
       width: showTab ? 'var(--tabWidth)' : '0',
     }"
   >
@@ -156,7 +157,7 @@ $itemHeight: 35px;
   background: var(--navBg_Primary);
   width: var(--tabWidth);
   height: 100dvh;
-  border-right: 1px solid lightgray;
+  
   transform: translate(0, 0);
   display: flex;
   flex-direction: column;

@@ -5,6 +5,9 @@ html {
     background: var(--bgLight_Primary);
     overscroll-behavior: none;
 }
+body {
+    background: var(--bgLight_Primary); 
+}
 * {
     box-sizing: border-box;
     // ::-webkit-scrollbar-track {

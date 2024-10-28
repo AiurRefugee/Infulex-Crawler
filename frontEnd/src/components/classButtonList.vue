@@ -20,7 +20,7 @@ onMounted(async () => {});
     <div class="genreTitle w-full px-4 flex txtDarkSecondary">
       <h1 class="text-xl font-bold py-2">影片类型</h1> 
     </div>  
-    <div ref="list" class="w-full flex pl-4 gap-3 overflow-auto">
+    <div ref="list" class="w-full flex pl-6 gap-3 overflow-auto hideScroll">
       <div class="browseClassButton browseButtonSize rounded-lg center" v-for="tag in genres" :key="tag">
         <text>{{ tag?.name }}</text>
       </div> 
@@ -29,6 +29,15 @@ onMounted(async () => {});
 </template>
 <style lang="scss" scoped>
 @import "@/style/variables.scss"; 
+::-webkit-scrollbar {
+    display: none;
+}
+.genreWrapper {
+  margin-bottom: 1.5rem;
+  @media(width < 500px) {
+    margin-bottom: 1rem;
+  }
+}
 //浏览页class button
 .browseButtonSize {
     width: calc(100% / var(--genreNum));

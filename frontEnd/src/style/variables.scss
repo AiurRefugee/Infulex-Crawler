@@ -73,6 +73,10 @@ html {
     // 基础卡牌　横向
     --bascCardRectNum: 6.6;
 
+    // 演职员card
+    --creditCardNum: 15;
+
+
     --filmNameSize: 1.1rem;
 
     --cardShadow: 4px 2px 8px 2px rgba(69, 67, 67, 0.69);
@@ -109,6 +113,10 @@ html {
         // 基础卡牌　横向
         --bascCardRectNum: 1.6;
 
+        // 演职员card
+        --creditCardNum: 5;
+
+
         // 影片类型列表
         --genreHeight: 20vh;
         --genreNum: 2.5;
@@ -144,8 +152,12 @@ html {
         // --basicCardInfoHeight: 3rem;
         --basicCardHeight: 30vh;
 
-        // 基础卡牌　横向
+        // 基础card　横向
         --bascCardRectNum: 4.6;
+
+        // 演职员card
+        --creditCardNum: 12;
+ 
 
         // 影片类型列表
         --genreNum: 6.1;
