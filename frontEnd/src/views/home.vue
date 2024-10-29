@@ -41,7 +41,6 @@ function changeHeader(event) {
     height: 100vh;
   }
 }
-$headerHeight: 10px;
 .homeWrapper {
   width: 100vw;
   height: 100vh;

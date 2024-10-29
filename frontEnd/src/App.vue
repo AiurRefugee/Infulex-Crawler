@@ -35,7 +35,7 @@ onMounted(() => {});
   display: flex;
   position: relative;
   justify-content: space-between;
-  background: var(--bgLight_Primary);
+  background: var(--bg_light_primary);
   .tabListWrapper {
     flex-shrink: 0;
     translate: 0 0;

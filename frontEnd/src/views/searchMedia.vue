@@ -174,7 +174,7 @@ $gridNumSmall: 2;
 }
 // .cardsWrapper {
 //   display: grid;
-//   grid-template-columns: repeat(var(--searchGenreCardNum), 1fr);
+//   grid-template-columns: repeat(var(--search_genre_card_num), 1fr);
 //   grid-template-rows: ;
 // }
 </style>

@@ -37,7 +37,7 @@ onMounted(() => {});
 <template>
   <div ref="listWrap" class="listWrapper">
     <div class="listHead px-4 flex justify-between items-center">
-      <h1 class="listTitle text-[1.2em] font-bold py-2 txtDarkPrimary">
+      <h1 class="listTitle text-[1.2em] font-bold py-1 txtDarkPrimary">
         {{ title || "--" }}
       </h1>
       <button

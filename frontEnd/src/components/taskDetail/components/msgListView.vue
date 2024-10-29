@@ -43,7 +43,7 @@ const toLink = (event, url) => {
 @import "@/style/variables.scss";
 
 .msgListView {
-  background: var(--listBg);
+  background: var(--list_bg);
   height: calc(100% - $headerH);
 }
  

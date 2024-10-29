@@ -46,13 +46,9 @@ $paddingSize: 2%;
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: column;
-  //   padding: 0 $tabLeftSpace;
-  // transform: translate(0, 0);
-  background: var(--bgLight_Primary);
+  flex-direction: column; 
+  background: var(--bg_light_primary);
   overflow-x: hidden;
-  overflow-y: auto;
-  // transform: translateX(0);
-  // padding-top: $headerHeight;
+  overflow-y: auto; 
 }
 </style>

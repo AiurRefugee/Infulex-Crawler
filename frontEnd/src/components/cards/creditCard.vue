@@ -17,19 +17,19 @@ const character = computed( () => props.person?.character )
 
 </script>
 <template>
-  <div class="creditCard pr-5 flex-shrink-0 cursor-pointer">
+  <div class="creditCard pr-3 flex-shrink-0 cursor-pointer">
     <div class="cardImage w-full rounded-xl overflow-hidden">
       <img class="w-full h-full object-cover" :src="imageSrcPrefix + person?.profile_path" />
     </div>
     <div class="info pt-2">
       <p 
-        class="filmTitle text-[1.1em] font-bold singleLine txtDarkPrimary"
+        class="filmTitle font-bold singleLine txtDarkPrimary"
         v-if="name"
       >
         {{ name }}
       </p>
       <p 
-        class="subFilmTitle text-[0.8em] max-h-[3em] maxLine txtDarkSecondary"
+        class="subFilmTitle text-[0.8em] max-h-[3em] maxLine txtDarkBasic"
         v-if="character"
       >
         {{ character }}
@@ -39,7 +39,7 @@ const character = computed( () => props.person?.character )
 </template>
 <style scoped lang="scss"> 
 .creditCard {
-  width: calc(100vw / var(--creditCardNum)); 
+  width: calc(100vw / var(--credit_card_num)); 
   .cardImage {
     aspect-ratio: 1;
   } 

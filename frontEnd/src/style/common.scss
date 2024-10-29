@@ -2,20 +2,21 @@
 html {
     // overflow: hidden;
     color: var(--textColor_Primary);
-    background: var(--bgLight_Primary);
+    background: var(--bg_light_primary);
     overscroll-behavior: none;
 }
 body {
-    background: var(--bgLight_Primary); 
+    background: var(--bg_light_primary); 
 }
 * {
     box-sizing: border-box;
+    user-select: none;
     // ::-webkit-scrollbar-track {
-    //     background-color: var(--bgLight_Primary);
+    //     background-color: var(--bg_light_primary);
     // }
 }
 div {
-    // background: var(--bgLight_Primary);
+    // background: var(--bg_light_primary);
 }
 input {
     background: transparent;
@@ -31,7 +32,7 @@ input:focus-visible {
 #scrollTitle {
     white-space: nowrap;
     overflow: hidden;
-    color: var(--textDark_Primary);
+    color: var(--text_dark_primary);
 }
 .trans {
     transition: $transBase;
@@ -46,30 +47,30 @@ input:focus-visible {
     transition: all 0.5s cubic-bezier(0.02, 0.31, 0.15, 1.01);
 }
 .bgPrimary {
-    background: var(--bgLight_Primary);
+    background: var(--bg_light_primary);
 }
 
 .bgLightSecondary {
-    background: var(--bgLight_Secondary);
+    background: var(--bg_light_secondary);
 }
 
 // txt深色
 .txtDarkPrimary {
-    color: var(--textDark_Primary);
+    color: var(--text_dark_primary);
 }
 .txtDarkSecondary {
-    color: var(--textDark_Secondary);
+    color: var(--text_dark_secondary);
 }
 .txtDarkBasic {
-    color: var(--textDark_Basic);
+    color: var(--text_dark_basic);
 }
 
 // txt 亮色
 .txtLightPrimary {
-    color: var(--txt_Light_Primary);
+    color: var(--txt_light_primary);
 }
 .txtLightSecondary {
-    color: var(--txt_Light_Secondary);
+    color: var(--txt_light_secondary);
 }
 .txtLightBasic {
     color: var(--txt_Light_Basic);
@@ -83,7 +84,7 @@ input:focus-visible {
 .appContainer {
     width: 100dvw;
     // height: 100dvh;
-    background-color: var(--bgLight_Primary);
+    background-color: var(--bg_light_primary);
     overflow: hidden;
 
     // overscroll-behavior: none; /* 禁用弹簧效果 */
@@ -98,7 +99,7 @@ input:focus-visible {
 
 // 搜索页class button
 .searchClassButton {
-    width: calc(100% / var(--searchGenreCardNum));
+    width: calc(100% / var(--search_genre_card_num));
     aspect-ratio: 16 / 9;
     padding: var(--searchClassPad);
     .genreContent {
@@ -120,7 +121,7 @@ input:focus-visible {
 }
  
 .bgLightPrimary {
-    background: var(--bgLight_Primary);
+    background: var(--bg_light_primary);
 }
 
 // dashBoard

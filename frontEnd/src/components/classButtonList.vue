@@ -50,8 +50,7 @@ onMounted(async () => {});
   // letter-spacing: 1em;
   text-align: center;
   font-weight: bold;
-  letter-spacing: 10px;
-  font-size: var(--genreFontSize);
+  letter-spacing: 10px; 
   background: linear-gradient(to right, rgba(214, 55, 34, 0.7) 0, rgba(130, 22, 126, 0.7) 100%);
 }
 

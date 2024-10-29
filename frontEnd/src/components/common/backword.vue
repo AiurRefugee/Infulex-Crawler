@@ -2,7 +2,7 @@
 const props = defineProps({
   title: {
     type: String,
-    default: "",
+    default: "Back",
   },
 });
 </script>

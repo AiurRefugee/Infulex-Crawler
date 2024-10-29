@@ -87,50 +87,50 @@ onMounted(async () => {
         <h1 class="px-4 text-[1.6em] font-bold mb-2 txtDarkPrimary">浏览</h1>
         <videoListBasic :list="aiqiyi" :title="'电视剧热播榜'">
           <template #card="{ media }">
-            <videoCardBasic class="basicCardRect" :media="media" />
+            <videoCardBasic class="basicCardRect" :imageSrcPrefix="''" :media="media" :mediaType="'tv'"/>
           </template>
         </videoListBasic>
         <divider class="mx-4"/>
         <!-- <videoListBasic :card="videoCardBasicRect" :list="aiqiyi" :title="'电视剧热播榜'"/>  -->
         <videoListBasic :list="nowPlaying" :title="'正在热映'">
           <template #card="{ media }">
-            <videoCardBasic :media="media" :imageSrcPrefix="tmdbImgPrefix" />
+            <videoCardBasic :media="media"/>
           </template>
         </videoListBasic>
         <divider class="mx-4"/>
         <videoListBasic :list="popularMovies" :title="'热门电影'">
           <template #card="{ media }">
-            <videoCardBasic :media="media" :imageSrcPrefix="tmdbImgPrefix" />
+            <videoCardBasic :media="media"/>
           </template>
         </videoListBasic>
         <divider class="mx-4"/>
 
-        <classButtonList />  
+        <classButtonList/>  
 
         <videoListBasic :list="popularTV" :title="'热门剧集'">
           <template #card="{ media }">
-            <videoCardBasic :media="media" :mediaType="'tv'"  :imageSrcPrefix="tmdbImgPrefix" />
+            <videoCardBasic :media="media" :mediaType="'tv'"/>
           </template>
         </videoListBasic>
         <divider class="mx-4"/>
 
         <videoListBasic :list="aiqiyiWangju" :title="'网剧热播榜'">
           <template #card="{ media }">
-            <videoCardBasic class="basicCardRect" :media="media" />
+            <videoCardBasic class="basicCardRect" :imageSrcPrefix="''" :media="media" :mediaType="'tv'"/>
           </template>
         </videoListBasic>
         <divider class="mx-4"/>
 
         <videoListBasic :list="topRated" :title="'评分最高'">
           <template #card="{ media }">
-            <videoCardBasic :media="media" :imageSrcPrefix="tmdbImgPrefix" />
+            <videoCardBasic :media="media"/>
           </template>
         </videoListBasic>
         <divider class="mx-4"/>
         
         <videoListBasic :list="aiqiyiUpcoming" :title="'即将到来'">
           <template #card="{ media }">
-            <videoCardBasic :media="media" />
+            <videoCardBasic :media="media" :imageSrcPrefix="''" :mediaType="'tv'"/>
           </template>
         </videoListBasic>
         <div class="h-20"></div>
@@ -140,7 +140,7 @@ onMounted(async () => {
 </template>
 <style lang="scss">
 .basicCardRect {
-  width: calc(100vw / var(--bascCardRectNum)) !important;
+  width: calc(100vw / var(--basc_card_rect_num)) !important;
   .cardImage {
     aspect-ratio: 16 / 9 !important;
   }

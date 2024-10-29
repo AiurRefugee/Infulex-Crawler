@@ -21,25 +21,26 @@ const props = defineProps({
 
 const title = computed( () => props.media?.title || props.media?.name )
 const time = computed( () => props.media?.release_date || props.media?.first_air_date )
+const year = computed( () => time.value?.split('-')[0] )
 
 const toDetail = () => {
   router.push({
-    path: '/detailView',
+    path: '/detailView/' + title.value,
     query: {
-      title: props.media?.title || props.media?.name,
       id: props.media?.id,
-      media_type: props.media?.media_type || props.mediaType
-    }
+      media_type: props.media?.media_type || props.mediaType,
+      year: year.value
+    },
   })
 }
 
 </script>
 <template>
-  <div class="basicCard flex-shrink-0 pr-5 cursor-pointer" @click="toDetail">
+  <div class="basicCard flex-shrink-0 pr-4 py-2 cursor-pointer" @click="toDetail">
     <div class="cardImage w-full rounded-lg overflow-hidden">
       <img class="w-full h-full object-cover" :src="imageSrcPrefix + media?.poster_path" />
     </div>
-    <div class="info h-[4em] pt-2">
+    <div class="info pt-2">
       <p 
         class="filmTitle text-[1.1em] font-bold singleLine txtDarkPrimary"
         v-if="title"
@@ -57,12 +58,27 @@ const toDetail = () => {
 </template>
 <style scoped lang="scss"> 
 .basicCard {
-  width: calc(100vw / var(--bascCardNum)); 
+  width: calc(100vw / var(--basc_card_num)); 
+  
   .cardImage {
+    box-shadow: 0 0 5px #4d4d4d;
     aspect-ratio: 2 / 3;
   } 
-  @media (width < 500px) or (height < 500px) {
-    font-size: 12px;
-  }
 }  
+.info {
+  height: 4em;
+}
+@media (width < 500px) or (height < 500px) {
+    .basicCard {
+      font-size: 12px;
+    }
+    .info {
+      height: 3.5em;
+    }
+}
+@media (prefers-color-scheme: dark) {
+  .cardImage {
+    box-shadow: 0 0 5px #4d4d4d !important;
+  }
+}
 </style>

@@ -47,7 +47,7 @@ const router = createRouter({
       ]
     },
     {
-      path: '/detailView',
+      path: '/detailView/:title',
       name: 'detailView',
       component: () => import('../views/detailView/detailView.vue'),
       meta: {

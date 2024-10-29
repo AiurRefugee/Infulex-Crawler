@@ -154,7 +154,7 @@ $itemHeight: 35px;
 }
 .tabNavWrapper {
   color: var(--textColor_Primary); 
-  background: var(--navBg_Primary);
+  background: var(--nav_bg_primary);
   width: var(--tabWidth);
   height: 100dvh;
   

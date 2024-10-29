@@ -34,7 +34,7 @@ watch(showTitle, (newVal, oldVal) => {
 <template>
   <div 
     class="scrollHeader w-full h-[45px] flex-shrink-0 trans"
-    :class="showTitle ? 'showBorderB scrollHeaderBg' : ''"
+    :class="showTitle ? 'scrollHeaderBg' : ''"
   >
     <div class="headerLeft w-full">
       <slot name="left"></slot>

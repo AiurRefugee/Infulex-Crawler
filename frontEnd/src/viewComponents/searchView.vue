@@ -23,8 +23,8 @@ const showTabFlg = computed(() => {
 });
 
 function calScroll(scrollView, event) {
-  const normalBgColor = "var(--bgLight_Primary)";
-  const secBgColor = "var(--bgLight_Secondary)";
+  const normalBgColor = "var(--bg_light_primary)";
+  const secBgColor = "var(--bg_light_secondary)";
   const height = scrollView.scrollTop;
   console.log(height);
   const header = scrollView.querySelector("header");
@@ -92,7 +92,7 @@ function calScroll(scrollView, event) {
 @import "@/style/variables.scss";
 
 .searchBarWrap {
-  background: var(--bgLight_Primary);
+  background: var(--bg_light_primary);
 }
 input {
   // background: rgba(211, 211, 211, 0.445);
@@ -100,7 +100,7 @@ input {
 #searchBar {
   display: flex;
   position: sticky;
-  background: var(--bgLight_Primary);
+  background: var(--bg_light_primary);
   top: 0;
   z-index: inherit;
   // border-bottom: 1px solid lightgray;

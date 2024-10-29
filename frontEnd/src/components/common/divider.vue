@@ -10,17 +10,25 @@ const props = defineProps({
   <div class="divider" v-if="show"></div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .divider {
+  $space: 1rem;
   height: 1px;
-  background-color: #e0e0e02c;
-  margin-top: 1.25rem;
-  margin-bottom: 1.25rem;
+  background-color: #5353532c;
+  // margin-top: $space / 2;
+  margin-bottom: $space;
+}
+@media (prefer-color-scheme: dark) {
+  .divider {
+    background-color: #e0e0e02c;
+  }
 }
 @media (width < 500px) or (height < 500px) {
   .divider {
-    margin-top: 0.3rem;
-    margin-bottom: 0.3rem 
+    display: none;
+    $space: 0.5rem;
+    margin-top: $space;
+    margin-bottom: $space;
   }
 }
 </style> 

@@ -1,5 +1,7 @@
 @use "sass:math";
 
+$breakPointSmall: 500px;
+$breakpointMedium: 1440px; 
 
 $breakpointNormal: 1300px; 
 $basicSpace: 15px;
@@ -22,217 +24,139 @@ $typeW: min(30vw, 90px);
 $cellHeight: 2rem;
 
 html {
-    font-size: 16px;
-    --tabWidth: max(18vw, 220px);
-    --basicRadius: 0.55rem;
-    --priRadius: 0.8rem;
-    --baseColor: 0;
-
-    // color
-    --placeholderBg: rgb(167, 167, 167);
-
-    // text color
-    --text_Darak_Primary: black;
-
-    --txt_Light_Primary: rgb(223, 222, 222);
-    --txt_Light_Secondary: rgb(191, 191, 191);
-
-    --headerHeight: 5vh;
-    --daliMargin: 1.5rem;
+    --tabWidth: max(18vw, 220px);  
 
     // 搜索页genre卡片
-    --searchGenreCardNum: 4; 
-    --searchClassPad: 0.8rem;
+    --search_genre_card_num: 4;   
 
-    // 轮播卡片
-    --crouselCardNum: 1;
-    --crouselAspectRatio: 21 / 9;
+    // 基础卡片 
+    --basc_card_num: 12.6; 
 
-    --dailNum: 4.1;
-
-    // 带overerview卡片
-    --overviewHeight: max(50vh, 400px);
-    --overviewCardNum: 3.2;
-    --overviewSpace: 0.8rem;
-    --overviewRadius: 6px;
-    --overviewRowLimit: 3;
-
-    // 影片类型列表
-    --genreHeight: 20vh;
-    --genreFontSize: 2rem;
-    --genreNum: 8;
-    --classMargin: 0.5rem;
-    --genreSpace: 0.8rem;
-
-    // 基础卡片
-    --basicCardadius: 7px;
-    --bascCardNum: 12.6;
-    --basicCardInfoHeight: 3rem;
-    --basicCardHeight: 38vh;
+    // 媒体类别
+    --genreNum: 10;
 
     // 基础卡牌　横向
-    --bascCardRectNum: 6.6;
+    --basc_card_rect_num: 6.6;
 
     // 演职员card
-    --creditCardNum: 15;
-
-
-    --filmNameSize: 1.1rem;
-
-    --cardShadow: 4px 2px 8px 2px rgba(69, 67, 67, 0.69);
-
-    --primaryColor: #1532dbfa;
-    --txtActiveColor: #3776f4ee;
-    --headerOpacity: 0;
+    --credit_card_num: 15;   
 
     // 消息列表
-    --listBg: #eaeaea;
-    
+    --list_bg: #eaeaea;
     
 
     background-color: var(--bg_Primary);
-    @media (width <= 628px) {
-        --genreHeight: 15vh;
+
+    // 手机竖屏
+    @media (width < $breakPointSmall) and (orientation: portrait) {
 
         --tabWidth: 70vw;
         // 搜索页genre卡片
-        --searchGenreCardNum: 2;
+        --search_genre_card_num: 2; 
 
-        // landscape卡片
-        --dailNum: 1.1;
+        // 基础卡片 
+        --basc_card_num: 3.8; 
 
-        // 轮播卡片
-        --crouselAspectRatio: 2 / 3;
-
-        // 基础卡片
-        // --basicCardadius: 7px;
-        --bascCardNum: 3.6;
-        // --basicCardInfoHeight: 3rem;
-        --basicCardHeight: 30vh;
+        // 媒体类别
+        --genreNum: 2.3;
 
         // 基础卡牌　横向
-        --bascCardRectNum: 1.6;
+        --basc_card_rect_num: 1.6;
 
         // 演职员card
-        --creditCardNum: 5;
+        --credit_card_num: 5.2;  
+    }
 
-
-        // 影片类型列表
-        --genreHeight: 20vh;
-        --genreNum: 2.5;
-        --genreHeight: 15vh;
-        --genreFontSize: 1.5rem;
-        --genreSpace: 0.6rem;
-
-        // 带overerview卡片
-        --overviewHeight: 50vh;
-        --overviewCardNum: 1.1;
+    // 手机横屏
+    @media (height < $breakPointSmall) and (orientation: landscape) { 
 
         // 搜索页genre卡片
-        // --searchGenreCardNum: 3;
-        // --searchGenreCardRadius: 0.8rem;
-        --searchClassPad: 0.5rem;
+        --search_genre_card_num: 3; 
+
+        // 基础卡片 
+        --basc_card_num: 7.6; 
+        
+        // 演职员card
+        --credit_card_num: 10;  
+
+        // 媒体类别
+        --genreNum: 4.6;
     }
-    @media (width > 500px) and (width < 1440px) {
-        // --genreNum: 1.1;
-        // --genreHeight: 15vh;
+    
+    @media (width > $breakPointSmall) and (width < $breakpointMedium) and (height > $breakPointSmall) { 
 
-        // --tabWidth: 70vw;
-
-        // landscape卡片
-        --dailNum: 3.1;
-
-        // 轮播卡片
-        // --crouselAspectRatio: 4/5;
-        // --crouselCardNum: 1.1;
-
-        // 基础卡片
-        // --basicCardadius: 7px;
-        --bascCardNum: 8.6;
-        // --basicCardInfoHeight: 3rem;
-        --basicCardHeight: 30vh;
+        // 基础卡片 
+        --basc_card_num: 8.6;
 
         // 基础card　横向
-        --bascCardRectNum: 4.6;
+        --basc_card_rect_num: 4.6;
 
         // 演职员card
-        --creditCardNum: 12;
- 
-
-        // 影片类型列表
-        --genreNum: 6.1;
-        --genreHeight: 15vh;
-        --genreFontSize: 1.5rem;
-        --genreSpace: 1rem;
-
-        // // 带overerview卡片
-        --overviewHeight: 50vh;
-        --overviewCardNum: 2.1;
-        --overviewRowLimit: 2;
+        --credit_card_num: 12;
 
         // 搜索页genre卡片
-        --searchGenreCardNum: 3;
-        --searchGenreCardRadius: 0.8rem;
-        --searchClassPad: 0.65rem;
+        --search_genre_card_num: 3;  
+
+        // 媒体类别
+        --genreNum: 6;
     }
 }
 html {
     /* 暗黑模式样式 */
     @media (prefers-color-scheme: dark) {
 
+        --txt_light_primary: rgb(223, 222, 222);
+        --txt_light_secondary: rgb(191, 191, 191); 
+
         // color
         --placeholderBg: rgb(63, 63, 63);
-
         
         // text color
-        --textLight_Primary: #232323;
-        --textLight_Secondary: #373636e8;
-        --textLight_Basic: #757474;
+        --text_light_primary: #232323;
+        --text_light_secondary: #373636e8;
+        --text_light_basic: #757474;
 
-        --textColor_Primary: white;
-
-        --text_Darak_Primary: #e1e1e1;
-        --textDark_Secondary: #dfdfdfe8;
-        --textDark_Basic: #9b9a9a;
+        --text_dark_primary: #e1e1e1;
+        --text_dark_secondary: #dfdfdfe8;
+        --text_dark_basic: #9b9a9a;
 
         // background color
-        --bgDark_Primary: #f5f5f5;
-        --bgDark_Secondary: #e7e7e7;
-        --bgDark_Basic: #c6c4c4;
+        --bg_dark_primary: #f5f5f5;
+        --bg_dark_secondary: #e7e7e7;
+        --bg_dark_basic: #c6c4c4;
 
-        --bgLight_Primary: #121212;
-        --bgLight_Secondary: #202020;
-        --bgLight_Basic: #4f4e4e;
+        --bg_light_primary: #191919;
+        --bg_light_secondary: #202020;
+        --bg_light_basic: #4f4e4e;
 
-        --navBg_Primary: #181818;
-
-        --cardShadow: none;
-        --baseColor: 0;
+        --nav_bg_primary: #181818;  
 
         // 消息列表
-        --listBg: #242424;
+        --list_bg: #242424;
     }
     /* 明亮模式样式 */
     @media (prefers-color-scheme: light) {
-        --textLight_Primary: #e1e1e1;
-        --textLight_Secondary: #c8c6c6e8;
-        --textLight_Basic: #aba9a9;
 
-        --textDark_Primary: #111111fa;
-        --textDark_Secondary: #202020;
-        --textDark_Basic: #5b5a5a;
+        // text color 
+        --txt_light_primary: rgb(223, 222, 222);
+        --txt_light_secondary: rgb(191, 191, 191); 
 
-        --bgDark_Primary: black;
-        --bgDark_Secondary: #202020;
-        --bgDark_Basic: #313030;
+        --text_light_primary: #e1e1e1;
+        --text_light_secondary: #c8c6c6e8;
+        --text_light_basic: #aba9a9;
 
-        --bgLight_Primary: #f5f5f5;
-        --bgLight_Secondary: #e7e7e7;
-        --bgLight_Basic: #b4b3b3b7;
+        --text_dark_primary: #111111fa;
+        --text_dark_secondary: #202020;
+        --text_dark_basic: #5b5a5a;
 
-        --navBg_Primary: #f5f5f5;
+        --bg_dark_primary: black;
+        --bg_dark_secondary: #202020;
+        --bg_dark_basic: #313030;
 
-        --cardShadow: none;
-        ----baseColor: 0;
+        --bg_light_primary: #f5f5f5;
+        --bg_light_secondary: #e7e7e7;
+        --bg_light_basic: #b4b3b3b7;
+
+        --nav_bg_primary: #f5f5f5;
     }
 }

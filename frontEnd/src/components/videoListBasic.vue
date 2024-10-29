@@ -33,9 +33,7 @@ function toDetail() {
   overflow: hidden;
   position: relative;
   z-index: 0;
-  background: var(--bg_Primary);
-  // margin-bottom: 0.5rem;
-  // height: var(--basicCardHeight); 
+  background: var(--bg_Primary); 
 } 
 
 </style>
