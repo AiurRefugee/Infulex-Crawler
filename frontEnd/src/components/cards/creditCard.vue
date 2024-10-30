@@ -40,7 +40,9 @@ const character = computed( () => props.person?.character )
 <style scoped lang="scss"> 
 .creditCard {
   width: calc(100vw / var(--credit_card_num)); 
+  
   .cardImage {
+    border: 2px solid rgba(138, 138, 138, 0.32);
     aspect-ratio: 1;
   } 
   @media (width < 500px) or (height < 500px) {

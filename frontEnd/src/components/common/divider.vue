@@ -20,7 +20,7 @@ const props = defineProps({
 }
 @media (prefer-color-scheme: dark) {
   .divider {
-    background-color: #e0e0e02c;
+    background-color: #e0e0e079;
   }
 }
 @media (width < 500px) or (height < 500px) {

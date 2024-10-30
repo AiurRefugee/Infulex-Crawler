@@ -15,6 +15,7 @@ $tabTopSpace: 0.2rem;
 $textLeft: 5px;
 $transBase: all 0.25s ease-in-out;
 $transSlow: all 0.5s ease-in-out;
+$transFast: all 0.1s ease-in-out;
 $zindex: 100;
 
 $headerH: 45px;
@@ -24,6 +25,9 @@ $typeW: min(30vw, 90px);
 $cellHeight: 2rem;
 
 html {
+    // color
+    --color_Primary: #f19109;
+
     --tabWidth: max(18vw, 220px);  
 
     // 搜索页genre卡片

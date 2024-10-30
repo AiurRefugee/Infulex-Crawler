@@ -28,8 +28,8 @@ const backdropUrl = computed(() => {
 
     <div class="mobileView w-full h-full flex flex-col justify-between">
       <div class="overviewArea flex flex-col">
-        <h1 class="creditTitle px-4 pt-2 pb-1 font-bold txtLightPrimary hideOverview">介绍</h1> 
-        <p class="overview px-4 text-sm txtDarkSecondary overflow-hidden text-ellipsis">
+        <h1 class="creditTitle px-4 pt-2 pb-1 font-bold txtDarkPrimary">介绍</h1> 
+        <p class="px-4 text-sm txtDarkSecondary overflow-hidden text-ellipsis">
           {{ media?.overview }}
         </p> 
       </div>
@@ -39,7 +39,7 @@ const backdropUrl = computed(() => {
 </template>
 <style scoped lang="scss">
 .backdropWrap {
-  height: 70vh;
+  height: 70vmin;
 } 
 .backdropImage {
   position: absolute;

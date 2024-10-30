@@ -24,6 +24,7 @@ import {
   aiqiyiMapMedia,
 } from "@/config/aiqiyiConfig";
 
+const router = useRouter();
 const store = layoutStore(); 
 const defaultArray = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" ];
 
@@ -48,6 +49,19 @@ const upcomingUrl =
   "/discover/movie?include_video=false&sort_by=popularity.desc&with_release_type=2|3&release_date.gte={min_date}&release_date.lte={max_date}";
 const popularTVUrl = "/trending/tv/week";
 
+const toDetail = (media, mediaType) => {
+  const title = media.title || media.name
+  const time = media.release_date || media.first_air_date
+  router.push({
+    path: '/detailView/' + title,
+    query: {
+      id: media?.id,
+      media_type: media?.media_type || mediaType,
+      year: time.split('-')[0]
+    },
+  })
+}
+
 onMounted(async () => {
   get(tmdbAPIPrefix + nowPlayingUrl, getParams, tmdbHeaders).then(
     (res) => (nowPlaying.value = res.results)
@@ -62,7 +76,6 @@ onMounted(async () => {
   get(tmdbAPIPrefix + popularTVUrl, getParams, tmdbHeaders).then(
     (res) => (popularTV.value = res.results)
   );
-
   get(aiqiyiUrlPrefix + aiqiyiVideoListUrl).then((res) => {
     aiqiyi.value = aiqiyiMapMedia(res?.items[3]?.video?.[0]?.data);
     aiqiyiUpcoming.value = aiqiyiMapMedia(
@@ -87,20 +100,20 @@ onMounted(async () => {
         <h1 class="px-4 text-[1.6em] font-bold mb-2 txtDarkPrimary">浏览</h1>
         <videoListBasic :list="aiqiyi" :title="'电视剧热播榜'">
           <template #card="{ media }">
-            <videoCardBasic class="basicCardRect" :imageSrcPrefix="''" :media="media" :mediaType="'tv'"/>
+            <videoCardBasic class="basicCardRect" :imageSrcPrefix="''" :media="media" :mediaType="'tv'" @click="toDetail(media, 'tv')"/>
           </template>
         </videoListBasic>
         <divider class="mx-4"/>
         <!-- <videoListBasic :card="videoCardBasicRect" :list="aiqiyi" :title="'电视剧热播榜'"/>  -->
         <videoListBasic :list="nowPlaying" :title="'正在热映'">
           <template #card="{ media }">
-            <videoCardBasic :media="media"/>
+            <videoCardBasic :media="media" :mediaType="'movie'" @click="toDetail(media, 'movie')"/>
           </template>
         </videoListBasic>
         <divider class="mx-4"/>
         <videoListBasic :list="popularMovies" :title="'热门电影'">
           <template #card="{ media }">
-            <videoCardBasic :media="media"/>
+            <videoCardBasic :media="media" :mediaType="'movie'" @click="toDetail(media, 'movie')"/>
           </template>
         </videoListBasic>
         <divider class="mx-4"/>
@@ -109,28 +122,28 @@ onMounted(async () => {
 
         <videoListBasic :list="popularTV" :title="'热门剧集'">
           <template #card="{ media }">
-            <videoCardBasic :media="media" :mediaType="'tv'"/>
+            <videoCardBasic :media="media" :mediaType="'tv'" @click="toDetail(media, 'tv')"/>
           </template>
         </videoListBasic>
         <divider class="mx-4"/>
 
         <videoListBasic :list="aiqiyiWangju" :title="'网剧热播榜'">
           <template #card="{ media }">
-            <videoCardBasic class="basicCardRect" :imageSrcPrefix="''" :media="media" :mediaType="'tv'"/>
+            <videoCardBasic class="basicCardRect" :imageSrcPrefix="''" :media="media" :mediaType="'tv'" @click="toDetail(media, 'tv')"/>
           </template>
         </videoListBasic>
         <divider class="mx-4"/>
 
         <videoListBasic :list="topRated" :title="'评分最高'">
           <template #card="{ media }">
-            <videoCardBasic :media="media"/>
+            <videoCardBasic :media="media" :mediaType="'movie'" @click="toDetail(media, 'movie')"/>
           </template>
         </videoListBasic>
         <divider class="mx-4"/>
         
         <videoListBasic :list="aiqiyiUpcoming" :title="'即将到来'">
           <template #card="{ media }">
-            <videoCardBasic :media="media" :imageSrcPrefix="''" :mediaType="'tv'"/>
+            <videoCardBasic :media="media" :imageSrcPrefix="''" :mediaType="'tv'" @click="toDetail(media, 'tv')"/>
           </template>
         </videoListBasic>
         <div class="h-20"></div>

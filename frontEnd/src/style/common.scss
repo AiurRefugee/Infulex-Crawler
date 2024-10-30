@@ -1,8 +1,7 @@
 @import "@/style/variables.scss";
 html {
     // overflow: hidden;
-    color: var(--textColor_Primary);
-    background: var(--bg_light_primary);
+    color: var(--textColor_Primary); 
     overscroll-behavior: none;
 }
 body {
@@ -10,14 +9,8 @@ body {
 }
 * {
     box-sizing: border-box;
-    user-select: none;
-    // ::-webkit-scrollbar-track {
-    //     background-color: var(--bg_light_primary);
-    // }
-}
-div {
-    // background: var(--bg_light_primary);
-}
+    user-select: none; 
+} 
 input {
     background: transparent;
 }
@@ -34,6 +27,8 @@ input:focus-visible {
     overflow: hidden;
     color: var(--text_dark_primary);
 }
+
+// trans
 .trans {
     transition: $transBase;
 }
@@ -41,15 +36,21 @@ input:focus-visible {
     transition: $transSlow;
 }
 .fastTrans {
-    transition: all 0.2s ease-in-out;
+    transition: $transFast;
 }
 .slowTrans {
     transition: all 0.5s cubic-bezier(0.02, 0.31, 0.15, 1.01);
 }
-.bgPrimary {
-    background: var(--bg_light_primary);
+
+// colors
+.colorPrimary {
+    background-color: var(--bg_Primary);
 }
 
+// bg light
+.bgLightPrimary {
+    background: var(--bg_light_primary);
+}
 .bgLightSecondary {
     background: var(--bg_light_secondary);
 }
@@ -118,10 +119,6 @@ input:focus-visible {
     ::-webkit-scrollbar {
         display: none;
     }
-}
- 
-.bgLightPrimary {
-    background: var(--bg_light_primary);
 }
 
 // dashBoard

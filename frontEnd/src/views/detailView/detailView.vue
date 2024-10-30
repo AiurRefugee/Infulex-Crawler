@@ -9,6 +9,7 @@ import creditCard from "@/components/cards/creditCard.vue";
 import videoCardBasic from "@/components/cards/videoCardBasic.vue";
 import backdropArea from "./components/backdropArea.vue";
 import optButton from "./components/optButton.vue";
+import subTitle from "./components/subTitle.vue";
 
 import { tmdbAPIPrefix, tmdbHeaders, getParams } from "@/config/tmdbConfig";
 
@@ -20,6 +21,7 @@ const defaultArray = ["", "", "", "", "", "", "", "", "", "", "", ""];
 const mediaDetail = ref({});
 const credits = ref(defaultArray);
 const similar = ref(defaultArray);
+const selectedId = ref(null)
 
 provide("media", mediaDetail);
 
@@ -42,6 +44,11 @@ const searchMedia = async (title, mediaType, year, num = 1) => {
     return media?.id;
   }
 };
+const choose = (media) => {
+  const { media_type, year } = route.query;
+  selectedId.value = media.id;
+  renderDetail(media.id, media_type); 
+}
 
 const getDetail = (id, media_type) => {
   if (!id || !media_type) return;
@@ -71,28 +78,21 @@ const getSimilar = (id, media_type) => {
   });
 };
 
-const renderDetail = async () => {
+const renderDetail = async (id, media_type) => {
+  getDetail(id, media_type);
+  getCredits(id, media_type);
+};
+
+onMounted(async () => {
   const { title } = route.params;
   const { media_type, year } = route.query;
   let id = route.query?.id;
   if (!id) {
     id = await searchMedia(title, media_type, year);
-  }
-  getDetail(id, media_type);
-  getCredits(id, media_type);
+  } 
+  console.log(id, media_type);
+  renderDetail(id, media_type);
   getSimilar(id, media_type);
-};
-
-watch(
-  () => route.query.id,
-  (newId, oldId) => {
-    // 对路由变化做出响应...
-    renderDetail();
-  }
-);
-
-onMounted(() => {
-  renderDetail();
 });
 </script>
 <template>
@@ -110,24 +110,18 @@ onMounted(() => {
       </scrollHeader>
     </template>
     <template v-slot:content>
-      <div class="bgLightPrimary">
+      <div class="bgLightPrimary scroll">
         <backdropArea :media="mediaDetail" />
 
         <div class="h-5"></div>
-        <optButton class="showOpt h-12"/> 
-        <h1
-          class="creditTitle px-4 pt-2 pb-1 font-bold txtLightPrimary hideOverview"
-        >
-          介绍
-        </h1>
+        <optButton class="showOnMobilePortrait h-12"/> 
+        <subTitle class="hideOverview ">介绍</subTitle> 
         <div class="overviewWrap pb-4 overflow-hidden hideOverview">
           <p class="overview px-4 txtDarkSecondary">
             {{ mediaDetail?.overview }}
           </p>
         </div> 
-        <h1 class="creditTitle px-4 pb-2 txtDarkPrimary font-bold whitespa">
-          演员和工作人员
-        </h1>
+        <subTitle>演员和工作人员</subTitle> 
         <div class="flex pl-4 overflow-x-auto overflow-y-hidden">
           <creditCard
             v-for="person in credits"
@@ -136,12 +130,14 @@ onMounted(() => {
           />
         </div>
         <div class="h-4"></div>
-        <h1 class="creditTitle px-4 txtDarkPrimary font-bold">更多相似</h1>
+        <subTitle>更多相似</subTitle>  
         <div class="flex pl-4 overflow-x-auto">
           <videoCardBasic
             v-for="media in similar"
             :key="media.id"
             :media="media"
+            :class="media.id == selectedId && selectedId ? 'selected' : ''"
+            @click="choose(media)"
           />
         </div>
         <div class="h-32"></div>
@@ -149,13 +145,17 @@ onMounted(() => {
     </template>
   </scrollView>
 </template>
-<style scoped lang="scss">
+<style lang="scss">
 ::-webkit-scrollbar {
   display: none;
 }
-.showOpt,
-.hideOverview {
+.showOnMobilePortrait {
   display: none;
+}
+@media (width < 500px) and (orientation: portrait) { 
+  .showOnMobilePortrait {
+    display: block;
+  }
 }
 .overview {
   $line_height: 1em;
@@ -168,11 +168,5 @@ onMounted(() => {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-@media (width < 500px) {
-  .hideOverview,
-  .showOpt {
-    display: block;
-  }
 }
 </style>
