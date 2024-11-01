@@ -50,7 +50,7 @@ onMounted(() => {});
     <!-- <div class="listWrap relative" :class="scrolling ? 'scrolling' : ''"> -->
     <div
       ref="list"
-      class="list flex pl-6 justify-stretch items-start overflow-x-auto"
+      class="list flex pl-4 justify-stretch items-start overflow-x-auto"
       @scroll="calFading"
     >
       <slot name="card" :media="media" v-for="media in list" :key="media">

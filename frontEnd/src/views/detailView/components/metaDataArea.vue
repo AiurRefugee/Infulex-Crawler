@@ -2,18 +2,18 @@
 import { ref, computed, inject } from "vue";
 const media = inject("media");
 const genres = computed(() =>
-  media.value?.genres?.map((g) => g.name).join(", ")
+  media?.value?.genres?.map((g) => g.name).join(", ")
 );
 const release_date = computed(
-  () => media.value?.release_date || media.value?.first_air_date
+  () => media?.value?.release_date || media?.value?.first_air_date
 );
-const runtime = computed(() => calTimeStr(media.value?.runtime || 0));
+const runtime = computed(() => calTimeStr(media?.value?.runtime || 0));
 
 const calTimeStr = (time) => {
   if (!time) return "";
   const hours = Math.floor(time / 60);
   const minutes = time % 60;
-  return `${hours}小时${minutes}分钟`;
+  return `${hours}${hours ? '小时' : ''}${minutes}分钟`;
 };
 </script>
 <template>
@@ -42,7 +42,7 @@ const calTimeStr = (time) => {
     <p class="text-[0.9em] onlyMobile">
       <text v-for="genre in genres" :key="genre">{{ genre }}</text>
     </p>
-    <p class="hideControl">{{ media?.overview }}</p>
+    <p class="hideControl h-[3.6em] leading-[1.2em] text-[0.9em]">{{ media?.overview }}</p>
   </div>
 </template>
 <style scoped lang="scss">

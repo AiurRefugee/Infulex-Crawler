@@ -15,8 +15,7 @@ import videoListBasic from "./components/videoListBasic.vue";
 import {
   tmdbHeaders,
   tmdbAPIPrefix,
-  getParams,
-  tmdbImgPrefix,
+  getParams, 
 } from "@/config/tmdbConfig";
 import {
   aiqiyiUrlPrefix,
@@ -152,12 +151,7 @@ onMounted(async () => {
   </div>
 </template>
 <style lang="scss">
-.basicCardRect {
-  width: calc(100vw / var(--basc_card_rect_num)) !important;
-  .cardImage {
-    aspect-ratio: 16 / 9 !important;
-  }
-} 
+
 .scrollViewArea:nth-child(1) {
   background: red;
   .borderB {

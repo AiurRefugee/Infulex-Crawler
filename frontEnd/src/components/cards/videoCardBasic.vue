@@ -22,15 +22,16 @@ const props = defineProps({
 const title = computed( () => props.media?.title || props.media?.name )
 const time = computed( () => props.media?.release_date || props.media?.first_air_date )
 const year = computed( () => time.value?.split('-')[0] )
+const posterPath = computed( () => props.media?.poster_path || props.media?.backdrop_path || props.media?.still_path )
  
 
 </script>
 <template>
-  <div class="basicCard flex-shrink-0 pr-4 py-2 cursor-pointer">
+  <div class="basicCard flex-shrink-0 cursor-pointer">
     <div class="cardImage p-1 w-full rounded-lg trans">
-      <img class="w-full h-full rounded-lg overflow-hidden object-cover" :src="imageSrcPrefix + media?.poster_path" />
+      <img class="w-full h-full rounded-lg overflow-hidden object-cover" :src="imageSrcPrefix + posterPath" />
     </div>
-    <div class="info pl-1 pt-2">
+    <div class="info pl-1">
       <p 
         class="filmTitle text-[1.1em] font-bold singleLine txtDarkPrimary"
         v-if="title"
@@ -51,6 +52,8 @@ const year = computed( () => time.value?.split('-')[0] )
 .basicCard {
   --border_color: transparent;
   width: calc(100vw / var(--basc_card_num)); 
+  padding-right: 0.5rem;
+  flex-shrink: 0;
   
   .cardImage { 
     border-width: 2px;
@@ -59,17 +62,27 @@ const year = computed( () => time.value?.split('-')[0] )
   } 
 }  
 .info {
-  height: 4em;
+  height: 3em;
 }
+.episode .info {
+  height: 1.8em;
+}
+.basicCardRect {
+  width: calc(100vw / var(--basc_card_rect_num)) !important;
+  .cardImage {
+    aspect-ratio: 16 / 9 !important;
+  }
+} 
 .selected {
   --border_color: #f97316;
 }
 @media (width < 500px) or (height < 500px) {
     .basicCard {
+      padding-right: 0rem;
       font-size: 12px;
-    }
-    .info {
-      height: 3.5em;
+    } 
+    .cardImage { 
+      aspect-ratio: 2 / 2.6;
     }
 }
 @media (prefers-color-scheme: dark) {

@@ -7,11 +7,12 @@ const props = defineProps({
   media: {
     type: Object,
     Required: true,
-    default: () => ({}),
   },
 });
 const backdropUrl = computed(() => {
-  return tmdbImgPrefix + props.media?.backdrop_path;
+  const media = props.media
+  const backdropPath = tmdbImgPrefix + (media?.backdrop_path || media?.still_path); 
+  return backdropPath
 });
 </script>
 <template>
