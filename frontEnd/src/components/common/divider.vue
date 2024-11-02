@@ -15,7 +15,7 @@ const props = defineProps({
   $space: 1rem;
   height: 1px;
   background-color: #5353532c;
-  // margin-top: $space / 2;
+  margin-top: $space;
   margin-bottom: $space;
 }
 @media (prefer-color-scheme: dark) {

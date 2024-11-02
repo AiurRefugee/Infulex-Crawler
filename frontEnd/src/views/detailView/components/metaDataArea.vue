@@ -1,24 +1,37 @@
 <script setup>
 import { ref, computed, inject } from "vue";
-const media = inject("media");
-const genres = computed(() =>
-  media?.value?.genres?.map((g) => g.name).join(", ")
-);
+const media = inject("media"); 
 const release_date = computed(
   () => media?.value?.release_date || media?.value?.first_air_date
 );
-const runtime = computed(() => calTimeStr(media?.value?.runtime || 0));
-
-const calTimeStr = (time) => {
+const runtime = computed(() => {
+  const time = media?.value?.runtime
   if (!time) return "";
   const hours = Math.floor(time / 60);
   const minutes = time % 60;
-  return `${hours}${hours ? '小时' : ''}${minutes}分钟`;
-};
+  return `${hours ? hours : ''}${hours ? '小时' : ''}${minutes}分钟`;
+});
+
+const generes = inject('generes')
+const seasonNum = inject('seasonNum')
+const episodeNum = inject('episodeNum')
+const mediaType = inject('mediaType') 
+
+const title = computed( () => media.value?.title || media.value?.name )
+const generesStr = computed( () => generes.value.map(item => item.name).join(', ') )
 </script>
 <template>
-  <div class="txtLightPrimary">
-    <h1 class="text-[1.5em] font-bold">{{ media?.title || media?.name }}</h1>
+  <div class="title txtLightPrimary">
+    <div class="flex items-center" v-if="mediaType == 'tv'">
+      <h1 class="whitespace-nowrap">第{{ seasonNum }}季</h1>
+      <span class="dot bg-white w-2 h-2 mx-2 rounded-full"></span>
+      <h1 class="whitespace-nowrap">第{{ episodeNum }}集</h1>
+      <span class="bg-white whitespace-nowrap w-3 overflow-hidden text-ellipsis h-1 mx-2 "></span>
+      <h1 class="singleLine">{{ title }}</h1>
+    </div>
+    <div v-if="mediaType == 'movie'">
+      <h1 class="whitespace-nowrap">{{ title }}</h1>
+    </div>
     <div class="metalist text-[0.9em] flex h-6 gap-3 items-center">
       <span class="center gap-1">
         <svg class="icon h-3 aspect-square" viewBox="0 0 1024 1024">
@@ -28,24 +41,29 @@ const calTimeStr = (time) => {
             p-id="5647"
           ></path>
         </svg>
-        <text>{{ media?.vote_average }}</text>
+        <text class="whitespace-nowrap">{{ media?.vote_average }}</text>
       </span>
-      <text>{{ release_date?.split("-")?.[0] }}</text>
+      <text class="whitespace-nowrap">{{ release_date?.split("-")?.[0] }}</text>
       <text v-if="runtime">{{ runtime }}</text>
       <text class="tag">4K</text>
       <text class="tag">HDR</text>
       <!-- genere -->
       <span class="hideControl">
-        <text v-for="genre in genres" :key="genre">{{ genre }}</text>
+        <text>{{ generesStr }}</text>
       </span>
     </div>
     <p class="text-[0.9em] onlyMobile">
-      <text v-for="genre in genres" :key="genre">{{ genre }}</text>
+      <text>{{ generesStr }}</text>
     </p>
-    <p class="hideControl h-[3.6em] leading-[1.2em] text-[0.9em]">{{ media?.overview }}</p>
+    <p class="hideControl h-[3.6em] leading-[1.2em] text-[0.9em] overflow-hidden text-ellipsis">{{ media?.overview }}</p>
   </div>
 </template>
 <style scoped lang="scss">
+.title h1 {
+  font-weight: bold;
+  font-size: 1.5em;
+  text-shadow: 1px 1px 5px gray;
+} 
 .tag {
   width: 3em;
   height: 1.2em;

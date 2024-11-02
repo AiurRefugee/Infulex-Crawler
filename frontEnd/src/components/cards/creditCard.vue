@@ -1,27 +1,24 @@
 <script setup>
 import { computed, inject } from 'vue' 
-import { tmdbImgPrefix } from '@/config/tmdbConfig' 
+import { tmdbApi } from '@/APIs/tmdbApi.js'
 
 const props = defineProps({ 
   "person": {
     Required: true
-  },
-  "imageSrcPrefix": {
-    Required: false,
-    default: tmdbImgPrefix
-  }
+  }, 
 })
 
 const name = computed( () => props.person?.title || props.person?.name )
-const character = computed( () => props.person?.character )
+const character = computed( () => props.person?.character || props.person?.job)
+const imageSrc = computed( () => tmdbApi.tmdbImgPrefix + props.person?.profile_path )
 
 </script>
 <template>
   <div class="creditCard pr-3 flex-shrink-0 cursor-pointer">
     <div class="cardImage w-full rounded-xl overflow-hidden">
-      <img class="w-full h-full object-cover" :src="imageSrcPrefix + person?.profile_path" />
+      <img class="w-full h-full object-cover" :src="imageSrc" />
     </div>
-    <div class="info pt-2">
+    <div class="info h-[5em] pt-2">
       <p 
         class="filmTitle font-bold singleLine txtDarkPrimary"
         v-if="name"
@@ -29,7 +26,7 @@ const character = computed( () => props.person?.character )
         {{ name }}
       </p>
       <p 
-        class="subFilmTitle text-[0.8em] max-h-[3em] maxLine txtDarkBasic"
+        class="subFilmTitle text-[0.8em] h-[3em] maxLine txtDarkBasic"
         v-if="character"
       >
         {{ character }}
@@ -50,6 +47,11 @@ const character = computed( () => props.person?.character )
   }
 }  
 .maxLine {
+  overflow: hidden;
+  text-overflow: ellipsis;
   -webkit-line-clamp: 3; /* 限制为3行 */
+}
+.info:has(.subFilmTitle) {
+  // height: 4em;
 }
 </style>

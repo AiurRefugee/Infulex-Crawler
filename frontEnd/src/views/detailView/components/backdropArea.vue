@@ -3,22 +3,19 @@ import { ref, computed } from "vue";
 import metaDataArea from "./metaDataArea.vue";
 import optButton from "./optButton.vue";
 import { tmdbImgPrefix } from "@/config/tmdbConfig";
+import { inject } from "vue";
 const props = defineProps({
   media: {
     type: Object,
     Required: true,
   },
 });
-const backdropUrl = computed(() => {
-  const media = props.media
-  const backdropPath = tmdbImgPrefix + (media?.backdrop_path || media?.still_path); 
-  return backdropPath
-});
+const backdropUrl = inject('backdropUrl')
 </script>
 <template>
-  <div class="backdropWrap flex center gap-2">
+  <div class="backdropWrap flex center gap-2 pb-2">
 
-    <div class="w-full h-full relative overflow-hidden rounded">
+    <div class="w-full h-full relative overflow-hidden">
       <img class="backdropImage" :src="backdropUrl" />
 
       <div class="w-full flex bgMask">
@@ -81,7 +78,10 @@ const backdropUrl = computed(() => {
   }
   .backdropWrap {
     height: 60vh;
-    overflow: hidden;
+    overflow: hidden; 
+    padding-left: 0.75rem;
+  }
+  .backdropWrap>div {
     $radius: 0.75rem;
     border-bottom-left-radius: $radius;
     border-bottom-right-radius: $radius;

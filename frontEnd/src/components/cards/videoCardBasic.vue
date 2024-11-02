@@ -16,6 +16,10 @@ const props = defineProps({
   "imageSrcPrefix": {
     Required: false,
     default: tmdbImgPrefix
+  },
+  "index": {
+    required: false,
+    default: null
   }
 })
 
@@ -27,19 +31,20 @@ const posterPath = computed( () => props.media?.poster_path || props.media?.back
 
 </script>
 <template>
-  <div class="basicCard flex-shrink-0 cursor-pointer">
-    <div class="cardImage p-1 w-full rounded-lg trans">
-      <img class="w-full h-full rounded-lg overflow-hidden object-cover" :src="imageSrcPrefix + posterPath" />
+  <div class="basicCard py-1 pr-2 flex-shrink-0 cursor-pointer">
+    <div class="cardImage p-[3px] w-full rounded-lg trans">
+      <img class="w-full h-full overflow-hidden rounded-lg object-cover" :src="imageSrcPrefix + posterPath" />
     </div>
-    <div class="info pl-1">
+    <div class="info h-[4em] pt-2">
       <p 
-        class="filmTitle text-[1.1em] font-bold singleLine txtDarkPrimary"
+        class="filmTitle text-[1.1em] leading-[1.1em] font-medium singleLine txtDarkPrimary"
         v-if="title"
       >
-        {{ title }}
+        <span v-if="index != null">{{ index + 1 + '. '}}</span>
+        <span>{{ title }}</span>
       </p>
       <p 
-        class="subFilmTitle text-[0.8em] singleLine txtDarkSecondary"
+        class="subFilmTitle text-[0.8em] leading-[0.8em] singleLine txtDarkSecondary"
         v-if="time"
       >
         {{ time }}
@@ -51,19 +56,15 @@ const posterPath = computed( () => props.media?.poster_path || props.media?.back
 @import '@/style/variables.scss';
 .basicCard {
   --border_color: transparent;
-  width: calc(100vw / var(--basc_card_num)); 
-  padding-right: 0.5rem;
+  width: calc(100vw / var(--basc_card_num));  
   flex-shrink: 0;
   
   .cardImage { 
-    border-width: 2px;
+    outline: 3px var(--border_color) solid;
     border-color: var(--border_color);
     aspect-ratio: 2 / 3;
   } 
-}  
-.info {
-  height: 3em;
-}
+}   
 .episode .info {
   height: 1.8em;
 }
@@ -77,17 +78,16 @@ const posterPath = computed( () => props.media?.poster_path || props.media?.back
   --border_color: #f97316;
 }
 @media (width < 500px) or (height < 500px) {
-    .basicCard {
-      padding-right: 0rem;
+    .basicCard { 
       font-size: 12px;
     } 
     .cardImage { 
-      aspect-ratio: 2 / 2.6;
+      aspect-ratio: 2 / 3;
     }
 }
 @media (prefers-color-scheme: dark) {
-  .cardImage {
-    // box-shadow: 0 0 5px orange !important;
+  .cardImage img {
+    // box-shadow: 0 0 5px rgba(139, 139, 139, 0.627);
   }
 }
 </style>

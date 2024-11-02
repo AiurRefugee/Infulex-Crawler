@@ -68,7 +68,7 @@ onMounted(() => {
 </script>
 <template>
   <div
-    class="tabNavWrapper trans overflow-auto"
+    class="tabNavWrapper trans overflow-auto txtDarkPrimary"
     :class="showTab ? '' : 'hideTab'"
     :style="{
       borderRight: showTab ? '1px solid lightgray;' : '',
@@ -152,8 +152,7 @@ $itemHeight: 35px;
   border-right: none;
   translate: -100%;
 }
-.tabNavWrapper {
-  color: var(--textColor_Primary); 
+.tabNavWrapper { 
   background: var(--nav_bg_primary);
   width: var(--tabWidth);
   height: 100dvh;
