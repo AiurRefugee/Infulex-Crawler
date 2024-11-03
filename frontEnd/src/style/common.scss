@@ -54,6 +54,20 @@ input:focus-visible {
 .bgLightSecondary {
     background: var(--bg_light_secondary);
 }
+.bgLightBasic {
+    background: var(--bg_light_basic);
+}
+
+// bg dark
+.bgDarkPrimary {
+    background: var(--bg_dark_primary);
+}
+.bgDarkSecondary {
+    background: var(--bg_dark_secondary);
+}
+.bgDarkBasic {
+    background: var(--bg_dark_basic);
+}
 
 // txt深色
 .txtDarkPrimary {

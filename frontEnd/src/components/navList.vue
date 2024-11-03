@@ -71,7 +71,7 @@ onMounted(() => {
     class="tabNavWrapper trans overflow-auto txtDarkPrimary"
     :class="showTab ? '' : 'hideTab'"
     :style="{
-      borderRight: showTab ? '1px solid lightgray;' : '',
+      borderRight: showTab ? '1px solid lightgray' : '',
       width: showTab ? 'var(--tabWidth)' : '0',
     }"
   >
@@ -127,6 +127,9 @@ $tabNavWrapperWidth: 30vw;
 $tabHeight: 2px;
 $navTxSize: 16px;
 $itemHeight: 35px;
+::-webkit-scrollbar {
+    display: none;
+}
 @import "@/style/variables.scss";
 // * {
 //   background: gray;

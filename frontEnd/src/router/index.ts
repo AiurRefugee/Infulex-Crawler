@@ -31,15 +31,15 @@ const router = createRouter({
     {
       path: '/dashBoard',
       name: 'dashBoard',
-      component: () => import('../views/dashBoard.vue'),
+      component: () => import('../views/dashBoard/dashBoard.vue'),
       meta: {
         transition: 'fade'
       },
       children: [
         {
-          path: '/dashBoard/detailView',
-          name: 'dashBoard',
-          component: () => import('../components/taskDetail/taskDetail.vue'),
+          path: '/dashBoard/taskDetail/:taskId',
+          name: 'taskDetail',
+          component: () => import('../views/taskDetail/taskDetail.vue'),
           meta: {
             transition: 'fade'
           }
@@ -47,9 +47,9 @@ const router = createRouter({
       ]
     },
     {
-      path: '/detailView/:title',
-      name: 'detailView',
-      component: () => import('../views/detailView/detailView.vue'),
+      path: '/mediaDetail/:title',
+      name: 'mediaDetail',
+      component: () => import('../views/mediaDetail/mediaDetail.vue'),
       meta: {
         transition: 'fade'
       }

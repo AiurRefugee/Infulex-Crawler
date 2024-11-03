@@ -55,7 +55,7 @@ const setTask = () => {
   if (size.value == 'small') {
     layout.setTabIconVisible(false)
   }
-  router.push('/dashBoard/detailView')
+  router.push('/dashBoard/taskDetail')
 }
 
 const slideStart = (event) => {
@@ -92,10 +92,10 @@ const slideStart = (event) => {
 
 </script>
 <template>
-  <div class="taskItemWrap bgLightSecondary rounded-lg overflow-hidden" @pointerdown="slideOpt(true)">
+  <div class="taskItemWrap bgLightSecondary rounded-lg overflow-hidden">
     <liItem :liClassName="'liItem'" :afterfixW="afterfixW">
       <template v-slot:content>
-        <div class="taskOverview h-full center p-3" ref="liWrap" @pointerdown="slideStart" @pointermove="calmove"> 
+        <div class="taskOverview h-full center p-3" ref="liWrap"> 
             <!-- poster -->
             <div class="poster h-full aspect-square center">
               <img

@@ -5,8 +5,9 @@ import { computed } from "vue";
 import { layoutStore } from "@/stores/layout";
 import scrollView from "@/viewComponents/scrollView.vue";
 import scrollHeader from "@/components/common/scrollHeader.vue";
-import taskOverview from "@/components/taskOverview.vue";
-import taskDetail from "@/components/taskDetail/taskDetail.vue"; 
+import taskOverview from "./components/taskOverview.vue"; 
+import { useRouter } from "vue-router";
+const router = useRouter()
 const tasks = taskStore();
 const layout = layoutStore();
 const size = computed(() => layout.size);
@@ -23,6 +24,9 @@ function slideOpt(value) {
   sliding.value = value;
 }
  
+const navToTaskDetail = () => {
+  router.push('/dashBoard/taskDetail/114')
+}
 </script>
 <template>
   <div class="dashBoard flex h-full">
@@ -33,7 +37,7 @@ function slideOpt(value) {
         width: size == 'small' && selectedTask ? '0' : '',
         translate: size == 'small' && selectedTask ? '-100%' : '0'
       }"
-    > 
+    >
       <scrollView>
         <template v-slot:header>
           <scrollHeader>
@@ -47,15 +51,15 @@ function slideOpt(value) {
         <template v-slot:content>
           <div
             class="h-full px-4 overflow-x-hidden"
-            :class="sliding ? 'touch-none' : ''"
-            @pointerdown="slideStart"
+            :class="sliding ? 'touch-none' : ''" 
           >
             <h1 class="text-[2em] font-bold mb-2">全部任务</h1>
             <taskOverview
+              class="cursor-pointer"
               v-for="task in taskPools"
               :key="task"
-              :task="task"
-              @slideOpt="slideOpt" 
+              :task="task" 
+              @click="navToTaskDetail(task)"
             />
             <div class="h-32"></div>
           </div>

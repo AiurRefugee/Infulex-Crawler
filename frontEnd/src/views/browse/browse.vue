@@ -52,7 +52,7 @@ const toDetail = (media, mediaType) => {
   const title = media.title || media.name
   const time = media.release_date || media.first_air_date
   router.push({
-    path: '/detailView/' + title,
+    path: '/mediaDetail/' + title,
     query: {
       id: media?.id,
       media_type: media?.media_type || mediaType,

@@ -117,14 +117,14 @@ onMounted(() => {
           <h1>按类别浏览</h1>
         </div>
         <div class="buttonGrid w-full h-full">
-          <div
+          <button
             class="browseClassButton rounded-xl font-bold text-white text-[2em] tracking-widest center"
             :style="{ background: genre.background }"
             v-for="genre in genres"
             :key="genre.id"
           >
             <text>{{ genre.name }}</text>
-          </div>
+          </button>
         </div>
         <div class="h-[20vh]"></div>
       </div>

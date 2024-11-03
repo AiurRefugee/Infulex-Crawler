@@ -7,15 +7,13 @@ import { task } from '@/mocData/task'
 
 const baseUrl = '/api'
 
-
+const defaultTasks = [...task, ...task, ...task, ...task]
 
 export const taskStore = defineStore('tasks', {
     state: () => ({
-        tasks: ref([]),
-        task: ref(null),
         loading: ref(false),
         error: ref(null),
-        taskPools: ref([...task, ...task, ...task, ...task]),
+        taskPools: ref(defaultTasks),
         selectedTask: null
     }),
     actions: {
@@ -30,31 +28,41 @@ export const taskStore = defineStore('tasks', {
             console.log(task)
             this.selectedTask = task
         },
-        createTask(data) {
+        createTask(media, mediaType) {
             const {
+                id,
                 name,
                 title,
-                original_name
-              } = data
+                original_name,
+                original_title
+            } = media
             const keyword = name || title
             const keywordObj = {
-                title: keyword, 
-                original_title: original_name || keyword
+                title: keyword,
+                original_title: original_name || original_title || keyword,
             }
-            
-            const { poster_path } = data
+            const postData = {
+                keywordObj,
+                media,
+                mediaType
+            }
+
             const ctrl = new AbortController()
             const msgs = []
-            taskPools[keyword] = {
-                poster_path,
-                title: keyword,
-                ctrl,
-                msgs
+            const taskObj = {
+                status: '进行中',
+                media,
+                mediaType,
+                msgs,
+                ctrl
             }
+            this.taskPools[`${mediaType}${id}`] = taskObj
+            this.selectedTask = taskObj
+
             fetchEventSource('/api/crawlKeyword', {
                 method: 'POST',
                 openWhenHidden: false,
-                body: JSON.stringify(keywordObj),
+                body: JSON.stringify(postData),
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -70,9 +78,10 @@ export const taskStore = defineStore('tasks', {
                 signal: ctrl.signal,
             })
         },
-        stopTask(keywordObj) {
-            const { title } = keywordObj
-            ctlPools[title].abort()
+        stopTask(mediaId: Number, mediaType: String) {
+            const key = mediaType + String(mediaId)
+            const task = this.taskPools[key]
+            task.ctrl.abort()
         }
     }
 })

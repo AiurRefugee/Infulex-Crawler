@@ -10,12 +10,14 @@ import backdropArea from "./components/backdropArea.vue";
 import optButton from "./components/optButton.vue";
 import subTitle from "./components/subTitle.vue";
 import seasonsView from "./components/seasonsView.vue";
-
+import { taskStore } from "@/stores/tasks";
 
 import { tmdbApi } from '@/APIs/tmdbApi.js'
 
 const route = useRoute();
 const router = useRouter();
+
+const tasks = taskStore();
 
 const defaultArray = ["", "", "", "", "", "", "", "", "", "", "", ""];
 
@@ -30,6 +32,7 @@ const seasonNum = ref(1)
 const episodeNum = ref(1)
 const backdropUrl = ref("")
 const mediaDetail = ref({})
+const TVDetail = ref({})
 const generes = ref([])
 const mediaTitle = ref("")
 const guestStars = ref(defaultArray)
@@ -126,7 +129,7 @@ const getMovieDetail = async (id) => {
 const getTVDetail = async (id) => {
   const detail = await tmdbApi.getTVDetail(id);
   if (detail) {
-    // mediaDetail.value = detail;
+    TVDetail.value = detail;
     seasons.value = detail?.seasons;
     backdropUrl.value = tmdbApi.tmdbImgPrefix + detail?.backdrop_path
     generes.value = detail?.genres
@@ -202,6 +205,14 @@ const changeEpisode = (season_number, episode_number) => {
 
 provide('changeEpisode', changeEpisode)
 
+const addTask = () => {
+  if (mediaType.value == 'movie') {
+    tasks.createTask(mediaDetail.value, 'movie')
+  }
+  if (mediaType.value == 'tv') {
+    tasks.createTask(TVDetail.value, 'tv')
+  }
+}
 
 
 onMounted(async () => {
@@ -239,7 +250,7 @@ onMounted(async () => {
       <div class="bgLightPrimary scroll">
         <backdropArea :media="mediaDetail" />
 
-        <optButton class="showOnMobilePortrait h-14 pt-4" />
+        <optButton class="showOnMobilePortrait h-12 pt-2" />
 
         <seasonsView v-if="mediaType == 'tv'" ref="seasonsViewRef" :seasons="seasons" />
 
