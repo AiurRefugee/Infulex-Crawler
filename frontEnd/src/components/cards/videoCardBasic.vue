@@ -67,7 +67,7 @@ const posterPath = computed(() => props.media?.poster_path || props.media?.backd
     width: $size;
     height: $size;
   }
-  box-shadow: 0 0 5px rgb(123, 123, 123);
+  box-shadow: $videoCardBasicBoxShadow;
   
 }
 .cardImage {

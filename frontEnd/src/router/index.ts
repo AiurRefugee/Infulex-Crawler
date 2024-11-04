@@ -23,7 +23,7 @@ const router = createRouter({
     {
       path: '/search',
       name: 'search',
-      component: () => import('../views/searchMedia.vue'),
+      component: () => import('../views/search/search.vue'),
       meta: {
         transition: 'fade'
       }

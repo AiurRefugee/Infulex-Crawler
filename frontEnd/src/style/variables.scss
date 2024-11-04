@@ -16,6 +16,7 @@ $textLeft: 5px;
 $transBase: all 0.25s ease-in-out;
 $transSlow: all 0.5s ease-in-out;
 $transFast: all 0.1s ease-in-out;
+$videoCardBasicBoxShadow: 0 0 5px rgb(123 123 123 / 50%);
 $zindex: 100;
 
 $headerH: 45px;
@@ -47,6 +48,9 @@ html {
 
     // 消息列表
     --list_bg: #eaeaea;
+
+    // 分割线背景色
+    --dividerBg: rgb(107 107 107 / 30%);
     
 
     background-color: var(--bg_Primary);
@@ -140,6 +144,9 @@ html {
 
         // 消息列表
         --list_bg: #242424;
+
+        // 分割线背景色
+        --dividerBg: rgba(211, 211, 211, 0.3);
     }
     /* 明亮模式样式 */
     @media (prefers-color-scheme: light) {

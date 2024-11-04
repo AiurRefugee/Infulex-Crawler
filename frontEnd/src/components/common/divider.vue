@@ -18,9 +18,9 @@ const props = defineProps({
   margin-top: $space;
   margin-bottom: $space;
 }
-@media (prefer-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
   .divider {
-    background-color: #e0e0e079;
+    background-color: rgb(83 83 83 / 69%);
   }
 }
 @media (width < 500px) or (height < 500px) {

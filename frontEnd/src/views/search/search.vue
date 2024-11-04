@@ -2,7 +2,7 @@
 import SearchView from "@/viewComponents/searchView.vue";
 import { ref, computed, onMounted } from "vue";
 import { layoutStore } from "@/stores/layout";
-import searchItem from "@/components/searchItem.vue";
+import searchItem from "./components/searchItem.vue";
 import { tmdbApi } from "@/APIs/tmdbApi";
 
 const store = layoutStore();
@@ -97,6 +97,7 @@ onMounted(() => {
               placeholder="电影，剧集"
               @focus="focused = true"
               @input="search"
+              @keydown.enter="search"
             />
           </div>
           <text
@@ -113,7 +114,7 @@ onMounted(() => {
 
       <!-- 按类别浏览 -->
       <div class="w-full h-full px-4" v-if="!focused">
-        <div class="text-xl h-10 flex self-start txtDark_Primary">
+        <div class="text-xl h-10 flex self-start txtDarkPrimary">
           <h1>按类别浏览</h1>
         </div>
         <div class="buttonGrid w-full h-full">
