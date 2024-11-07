@@ -35,7 +35,7 @@ defineExpose({
 });
 </script>
 <template>
-  <subTitle class="">全 {{ seasons.length }} 季</subTitle>
+  <subTitle class="pt-2">全 {{ seasons.length }} 季</subTitle>
   <!-- <select>
         <option v-for="(season, index) in seasons" :key="season.id">第{{ index + 1 }}季</option>
     </select> -->

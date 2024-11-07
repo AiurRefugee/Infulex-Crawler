@@ -107,7 +107,7 @@ const slideStart = (event) => {
             <!-- overview -->
             <div class="overview w-4/5 h-full pl-4 flex flex-col justify-around"> 
                 <div class="h-1/3 flex justify-between items-center">
-                  <h1 class="text-[1.1em] font-bold txtDark_Primary whitespace-nowrap overflow-hidden text-ellipsis">{{ task.title }}</h1>  
+                  <h1 class="text-[1.1em] font-bold txtDarkPrimary whitespace-nowrap overflow-hidden text-ellipsis">{{ task.title }}</h1>  
                   <div class="statusArea h-full flex items-center gap-1">
                     <img class="h-[2vh] aspect-square loading" src="@/assets/icons/loading.svg" v-if="task.status === '进行中'"/>
                     <img class="h-[2vh] aspect-square" src="@/assets/icons/canceled.svg" v-if="task.status === '已取消'"/>
@@ -115,8 +115,8 @@ const slideStart = (event) => {
                     <p class="status w-[3em] text-base whitespace-nowrap" :class="calStatusClass()">{{ task.status }}</p>
                   </div>
                 </div>
-                <p class="h-1/3 txtDark_Basic opacity-50"> getLink</p>
-                <p class="h-1/3 max-w-[200px] overflow-hidden text-ellipsis txtDark_Basic">{{ task.msgs?.[0]?.data }}</p> 
+                <p class="h-1/3 txtDarkBasic opacity-50"> getLink</p>
+                <p class="h-1/3 max-w-[200px] overflow-hidden text-ellipsis txtDarkBasic">{{ task.msgs?.[0]?.data }}</p> 
             </div> 
         </div>
       </template>

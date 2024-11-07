@@ -1,6 +1,8 @@
 const express = require('express');
-const { crawlKeyWord } = require('./crawler/xiaozhanCrawler/index');
-
+const { crawlKeyWord } = require('../crawler/xiaozhanCrawler/index');
+const listenGetTaskList = require('./apis/tasks/getTaskList');
+const listenPOSTAddFavorite = require('./apis/medias/addFavorite');
+const listenGetFavoriteList = require('./apis/medias/getFavoriteList');
 const taskPool = new Set()
 
 const app = express();
@@ -15,6 +17,11 @@ app.use(express.json());
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
+
+app.post('/createTask', (req, res) => {
+    const { media, mediaType, keywordObj } = req.body;
+    console.log(media, mediaType, keywordObj) 
+})
 
 
 app.post('/crawlKeyword', (req, res) => {
@@ -61,6 +68,15 @@ app.post('cancelTask', (req, res) => {
     taskPool[title + '/' + original_title]['canceled'] = true
 })
 
+listenGetTaskList(app)
+listenPOSTAddFavorite(app)
+listenGetFavoriteList(app)
+
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
+
+// crawlKeyWord({
+//     title: '海贼王',
+//     original_title: 'one piece'
+// })

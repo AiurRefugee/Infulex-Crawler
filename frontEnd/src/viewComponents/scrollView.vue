@@ -6,7 +6,11 @@ const emit = defineEmits(["toogle"]);
 const props = defineProps(["calScrollFunc", "top"]);
 
 const layout = layoutStore();
+
 const size = computed(() => layout.size);
+
+const scrollTop = ref(0)
+provide("scrollTop", scrollTop);
 const headerTitle = ref();
 const divider = ref();
 const scrollArea = ref();
@@ -14,6 +18,7 @@ const scrollArea = ref();
 const showTitle = ref(false);
 
 const toogleTitle = (event) => {
+  scrollTop.value = event.target.scrollTop;
   showTitle.value = event.target.scrollTop > 30;
 };
 
@@ -50,5 +55,8 @@ $paddingSize: 2%;
   background: var(--bg_light_primary);
   overflow-x: hidden;
   overflow-y: auto; 
+}
+.scrollViewArea {
+  scroll-timeline: --scrollTimeline y;
 }
 </style>

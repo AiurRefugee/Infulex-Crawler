@@ -36,8 +36,31 @@ const backdropUrl = inject('backdropUrl')
   </div>
 </template>
 <style scoped lang="scss">
+@keyframes backdrop {
+  0% {
+    // --backdropHeight: 50vmin;
+    transform: translateY(0);
+  } 
+  100% {
+    // --backdropHeight: 70vmin;
+    transform: translateY(30vh);
+  }
+}
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
 .backdropWrap {
-  height: 70vmin;
+  --backdropHeight: 70vmin;
+  height: var(--backdropHeight);
+  overflow: hidden;
 } 
 .backdropImage {
   position: absolute;
@@ -47,6 +70,9 @@ const backdropUrl = inject('backdropUrl')
   left: 0;
   z-index: 0;
   object-fit: cover;
+  animation-name: backdrop;
+  animation-timeline: --scrollTimeline;
+  animation-timing-function: linear;
 }
 .bgMask {
   position: absolute;
@@ -56,6 +82,9 @@ const backdropUrl = inject('backdropUrl')
     transparent,
     rgba(65, 65, 65, 0.5) 60%
   );
+  animation-name: fade;
+  animation-timing-function: linear;
+  animation-timeline: --scrollTimeline;
 }
 .mobileView {
   display: none;

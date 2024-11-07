@@ -89,7 +89,7 @@ const posterPath = computed(() => props.media?.poster_path || props.media?.backd
 
     // background-color: #141414;
     img {
-      box-shadow: 0 0 5px rgb(123, 123, 123);
+      box-shadow: $videoCardBasicBoxShadow;
     }
   }
 }

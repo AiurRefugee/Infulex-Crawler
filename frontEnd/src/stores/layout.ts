@@ -186,6 +186,7 @@ export const layoutStore = defineStore('layout', {
           {
             text: "电影",
             image: "src/assets/icons/movie.svg",
+            path: '/movie'
           },
           {
             text: "剧集",
@@ -199,13 +200,13 @@ export const layoutStore = defineStore('layout', {
       },
       {
         text: "浏览",
-        router: '/browse',
+        path: '/browse',
         image: "src/assets/icons/browse.svg",
         height: 'unknown',
       },
       {
         text: "搜索",
-        router: '/search',
+        path: '/search',
         image: "src/assets/icons/search.svg",
         height: 'unknown',
       },
@@ -213,7 +214,7 @@ export const layoutStore = defineStore('layout', {
         text: "面板",
         image: "/src/assets/icons/dashboard.svg",
         height: 'unknown',
-        router: '/dashboard'
+        path: '/dashboard'
       },
     ],
     imgRatio: '21/9',

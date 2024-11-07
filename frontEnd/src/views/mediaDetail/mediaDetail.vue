@@ -13,7 +13,7 @@ import seasonsView from "./components/seasonsView.vue";
 import { taskStore } from "@/stores/tasks";
 
 import { tmdbApi } from '@/APIs/tmdbApi.js'
-
+import { infulexApi } from '@/APIs/infulex.js'
 const route = useRoute();
 const router = useRouter();
 
@@ -214,6 +214,15 @@ const addTask = () => {
   }
 }
 
+const addFavorite = async () => {
+  if (mediaType.value == 'movie') {
+    const addFavorite = await infulexApi.addFavorite(mediaDetail.value, 'movie')
+  } else {
+    const addFavorite = await infulexApi.addFavorite(TVDetail.value, 'tv')
+  } 
+}
+provide('addFavorite', addFavorite)
+
 
 onMounted(async () => {
   const { title } = route.params;
@@ -267,7 +276,7 @@ onMounted(async () => {
           <creditCard v-for="person in credits" :key="person.name" :person="person" />
         </div>
 
-        <subTitle class="" v-if="similar.length">更多相似</subTitle>
+        <subTitle class="py-1" v-if="similar.length">更多相似</subTitle>
         <div class="flex pl-4 overflow-x-auto" v-if="similar.length">
           <videoCardBasic v-for="media in similar" :key="media.id" :media="media"
             :class="media.id == selectedId && selectedId ? 'selected' : ''" @click="choose(media)" />
@@ -281,7 +290,6 @@ onMounted(async () => {
 ::-webkit-scrollbar {
   display: none;
 }
-
 .showOnMobilePortrait {
   display: none;
 }

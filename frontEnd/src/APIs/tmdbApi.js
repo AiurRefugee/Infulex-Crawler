@@ -117,6 +117,7 @@ export const tmdbApi = {
         const similarTVSeries = await get(url, GETParams, tmdbHeaders)
         console.log('getSimilarTVSeries', similarTVSeries)
         return similarTVSeries
-    }
+    },
 
+    
 }

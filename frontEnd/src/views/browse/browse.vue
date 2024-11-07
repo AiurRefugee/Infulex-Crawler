@@ -4,12 +4,11 @@ import { useRouter, useRoute } from "vue-router";
 import { get, post } from "@/APIS/axiosWrapper.js";
 import scrollView from "@/viewComponents/scrollView.vue";
 import scrollHeader from "@/components/common/scrollHeader.vue";
-import classButtonList from "@/components/classButtonList.vue";
 import videoCardBasic from "@/components/cards/videoCardBasic.vue";
 import divider from "@/components/common/divider.vue";
 
 import { layoutStore } from "@/stores/layout";
-import videoListBasic from "./components/videoListBasic.vue";
+import videoListBasic from "@/components/common/videoListBasic.vue";
 // 可以在组件中的任意位置访问 `store` 变量 ✨
 
 import {
@@ -116,8 +115,6 @@ onMounted(async () => {
           </template>
         </videoListBasic>
         <divider class="mx-4"/>
-
-        <classButtonList/>  
 
         <videoListBasic :list="popularTV" :title="'热门剧集'">
           <template #card="{ media }">

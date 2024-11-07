@@ -53,7 +53,7 @@ const navToTaskDetail = () => {
             class="h-full px-4 overflow-x-hidden"
             :class="sliding ? 'touch-none' : ''" 
           >
-            <h1 class="text-[2em] font-bold mb-2">全部任务</h1>
+            <h1 class="txtDarkPrimary text-[2em] font-bold mb-2">全部任务</h1>
             <taskOverview
               class="cursor-pointer"
               v-for="task in taskPools"

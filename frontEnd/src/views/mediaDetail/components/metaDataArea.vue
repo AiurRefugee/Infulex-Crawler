@@ -1,6 +1,10 @@
 <script setup>
 import { ref, computed, inject } from "vue";
 const media = inject("media"); 
+const generes = inject('generes')
+const seasonNum = inject('seasonNum')
+const episodeNum = inject('episodeNum')
+const mediaType = inject('mediaType') 
 const release_date = computed(
   () => media?.value?.release_date || media?.value?.first_air_date
 );
@@ -12,10 +16,7 @@ const runtime = computed(() => {
   return `${hours ? hours : ''}${hours ? '小时' : ''}${minutes}分钟`;
 });
 
-const generes = inject('generes')
-const seasonNum = inject('seasonNum')
-const episodeNum = inject('episodeNum')
-const mediaType = inject('mediaType') 
+
 
 const title = computed( () => media.value?.title || media.value?.name )
 const generesStr = computed( () => generes.value.map(item => item.name).join(', ') )

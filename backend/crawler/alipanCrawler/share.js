@@ -186,7 +186,7 @@ async function test() {
     })
 }
 
-test()
+// test()
 
 module.exports = {
     updateShareToken,

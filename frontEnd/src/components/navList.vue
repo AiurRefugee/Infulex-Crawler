@@ -15,9 +15,10 @@ const title = "Influlex-Crawler";
 var standAlone = ref(false);
 
 function navigate(item) {
-  if (item.router) {
+  console.log("navigate", item);
+  if (item.path) {
     router.push({
-      path: item.router,
+      path: item.path,
       replace: true,
     });
   }
@@ -113,6 +114,7 @@ onMounted(() => {
           v-for="child in item.children"
           :key="child.text"
           class="tabNavChild singleLine"
+          @click="navigate(child)"
         >
           <img class="icon" :src="child.image" />
           <text>{{ child.text }}</text>
