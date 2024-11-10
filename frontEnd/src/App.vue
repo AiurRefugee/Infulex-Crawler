@@ -2,8 +2,8 @@
 import { ref, computed, onMounted } from "vue";
 import { layoutStore } from "@/stores/layout";
 import NavList from "@/components/navList.vue";
-import { useMeidaStore } from '@/stores/media';
-const mediaStore = useMeidaStore()
+import { useMediaStore } from '@/stores/media';
+const mediaStore = useMediaStore()
 const layout = layoutStore(); 
 const tabIconVisible = computed(() => layout.tabIconVisible);  
  

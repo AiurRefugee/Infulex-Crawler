@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 
 import { mediasApi } from "@/APIs/medias.js";  
 
-export const useMeidaStore = defineStore('films', {
+export const useMediaStore = defineStore('films', {
   state: () => ({ 
     favoriteMovies: [],
     favoriteTVs: [],

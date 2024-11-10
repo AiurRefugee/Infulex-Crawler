@@ -1,43 +1,45 @@
-import { inject, onMounted, ref, nextTick, computed } from 'vue'; 
-import { useMeidaStore } from '@/stores/media';
-const mediaStore = useMeidaStore()
+// useFavoriteToggle.js
+import { computed, watch } from 'vue';
+import { useMediaStore } from '@/stores/media'; // 假设这是你的store
 
-// const media = ref({})
-// const mediaType = ref(null)
+export default function useFavoriteToggle(media, mediaType, tvDetail) {
+  const mediaStore = useMediaStore();
 
-const media = inject('media')
-const mediaType = inject('mediaType')
-const tvDetail = inject('tvDetail')
+  const favoriteMoviesId = computed(() => mediaStore.favoriteMoviesIs);
+  const favoriteTVsId = computed(() => mediaStore.favoriteTVsIs);
 
-const favoriteMoviesId = computed( () => mediaStore.favoriteMoviesIs)
-const favoriteTVsId = computed( () => mediaStore.favoriteTVsIs)
-const mediaDetail = computed( () => {
-  if (mediaType.value === 'movie') {
-    return media.value
-  }  
-  if (mediaType.value === 'tv') {
-    return tvDetail.value
-  }
-})
+  const mediaDetail = computed(() => {
+    if (mediaType.value === 'movie') {
+      return media.value;
+    }
+    if (mediaType.value === 'tv') {
+      return tvDetail.value;
+    }
+    return null;
+  });
 
-export const isFavorite = computed(() => {
-  if (mediaType.value === 'movie') {
-    return favoriteMoviesId.value.has(media.value?.id)
-  }  
-  if (mediaType.value === 'tv') {
-    return favoriteTVsId.value.has(tvDetail.value?.id)
-  } 
-})
+  const isFavorite = computed(() => {
+    const movieFavorite = favoriteMoviesId.value.has(media.value?.id);
+    const tvFavorite = favoriteTVsId.value.has(tvDetail.value?.id);
+    return movieFavorite || tvFavorite;
+  });
 
-export const toogleFavorite = () => {
-  if (!mediaDetail.value) {
-    return false
-  }
-  console.log('toogleFavorite', mediaDetail.value, mediaType.value)
-  if (isFavorite.value) {
-    mediaStore.removeFromFavorite(mediaDetail.value.id, mediaType.value)
-  } else {
-    mediaStore.addToFavorite(mediaDetail.value, mediaType.value)
-  }
+  const toggleFavorite = () => {
+    if (!mediaDetail.value) {
+      return;
+    }
+    console.log('toggleFavorite', mediaDetail.value, mediaType.value);
+    if (isFavorite.value) {
+      mediaStore.removeFromFavorite(mediaDetail.value.id, mediaType.value);
+    } else {
+      mediaStore.addToFavorite(mediaDetail.value, mediaType.value);
+    }
+    // 注意：直接修改isFavorite.value可能会导致问题，因为它是一个响应式引用
+  };
+
+  return {
+    mediaDetail,
+    isFavorite,
+    toggleFavorite
+  };
 }
-

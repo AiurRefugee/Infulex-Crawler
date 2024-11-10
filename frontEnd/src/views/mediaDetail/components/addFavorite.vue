@@ -1,8 +1,8 @@
 <script setup>
 import { inject, onMounted, ref, nextTick, computed, watch } from 'vue'; 
-import { useMeidaStore } from '@/stores/media'; 
+import { useMediaStore } from '@/stores/media'; 
 const emits = defineEmits(['setIsFavorite'])
-const mediaStore = useMeidaStore()
+const mediaStore = useMediaStore()
 
 // const media = ref({})
 // const mediaType = ref(null)
