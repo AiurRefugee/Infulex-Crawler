@@ -9,7 +9,7 @@ const baseUrl = '/api'
 
 const defaultTasks = [...task, ...task, ...task, ...task]
 
-export const taskStore = defineStore('tasks', {
+export const useTaskStore = defineStore('tasks', {
     state: () => ({
         loading: ref(false),
         error: ref(null),

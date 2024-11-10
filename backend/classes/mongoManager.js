@@ -1,8 +1,7 @@
 const { MongoClient } = require('mongodb');
 const path = require('path');
 const configPath = path.resolve(__dirname, '../config/mongo/index.js');
-const mongoConfig = require(configPath);
-console.log(mongoConfig);
+const mongoConfig = require(configPath); 
 
 // 单例类
 class MongoManager {

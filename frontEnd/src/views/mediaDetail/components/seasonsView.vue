@@ -4,34 +4,50 @@ import videoCardBasic from "@/components/cards/videoCardBasic.vue";
 
 import { useRouter, useRoute } from "vue-router";
 import { tmdbApi } from "@/APIs/tmdbApi.js";
-import { ref, onMounted, inject } from "vue";
+import { ref, onMounted, inject, nextTick } from "vue";
 
-
-const router = useRouter();
-const route = useRoute();
 
 const defaultArray = ["", "", "", "", "", "", "", "", "", "", "", ""];
 const seasons = ref(defaultArray)
-
-const selectSeason = inject('selectSeason')
-const selectEpisode = inject('selectEpisode')
-const seasonNum = inject("seasonNum");
-const episodeNum = inject("episodeNum"); 
 const episodes = ref(defaultArray);
+const mediaId = ref("")
+
+const media = defineModel('media')
+const episodeNum = defineModel('episodeNum')
+const seasonNum = defineModel('seasonNum') 
+const crew = defineModel('crew')
+const guestStars = defineModel('guestStars')
+
+const selectEpisode = async (num) => {
+  episodeNum.value = num;
+  seasonNum.value = 1;
+  media.value = episodes.value[num - 1];
+  await nextTick();
+  crew.value = media.value?.crew || defaultArray;
+  guestStars.value = media.value?.guest_stars || defaultArray;
+  console.log(media.value);
+}
+
+const selectSeason = (num) => {
+  seasonNum.value = num;
+  getSeasonDetail(media.value.id, num);
+}
 
 const getSeasonDetail = async (id, season_number) => {
   const seasonDetail = await tmdbApi.getSeasonDetail(id, season_number);
   episodes.value = seasonDetail.episodes;
 };
 
-const renderSeasons = async (id, seasonsData, season_number, episode_number) => {
-  seasons.value = seasonsData
-  getSeasonDetail(id, season_number, episode_number);
+const render = async (id, seasonsArray) => { 
+  mediaId.value = id;
+  seasons.value = seasonsArray
+  await getSeasonDetail(id, seasonNum.value);
+  selectEpisode(episodeNum.value);
 };
  
 
 defineExpose({
-  renderSeasons,
+  render,
 });
 </script>
 <template>

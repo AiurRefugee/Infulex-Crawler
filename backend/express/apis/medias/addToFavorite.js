@@ -2,7 +2,7 @@ const MongoManager = require('../../../classes/mongoManager.js')
 const mongoConfig = require('../../../config/mongo/index.js');
 const { databaseUrl, dbName, favoriteMovieCollection, favoriteTvCollection } = mongoConfig;
 
-const addFavorite = async (media, mediaType) => {
+const addToFavorite = async (media, mediaType) => {
     // TODO: 获取任务列表
     const mongoManager = new MongoManager(databaseUrl, dbName);
 
@@ -13,16 +13,21 @@ const addFavorite = async (media, mediaType) => {
     if (mediaType === 'tv') {
         collection = mongoManager.getCollection(favoriteTvCollection);
     }  
-    const insertRes = await collection.insertOne(media) 
+    const filter = { id: media.id }
+    const updateDoc = {
+        $set: media
+    }
+    const options = { upsert: true }
+    const insertRes = await collection.updateOne(filter, updateDoc, options) 
     console.log('insert favorite media', insertRes)
     return insertRes
 }
 
-const listenPOSTAddFavorite = (app) => {
+const listenPOSTaddToFavorite = (app) => {
     
-    app.post('/addFavorite', async (req, res) => {
+    app.post('/addToFavorite', async (req, res) => {
         const { media, mediaType } = req.body
-        const insertRes = await addFavorite(media, mediaType)
+        const insertRes = await addToFavorite(media, mediaType)
         if (insertRes) {
             res.json({
                 code: 200,
@@ -199,8 +204,8 @@ const test = () => {
         "vote_count": 293
     }
     const meidaType = 'tv'
-    addFavorite(detail, meidaType)
+    addToFavorite(detail, meidaType)
 }
  
 
-module.exports = listenPOSTAddFavorite
+module.exports = listenPOSTaddToFavorite

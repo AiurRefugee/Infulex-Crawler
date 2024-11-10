@@ -1,11 +1,11 @@
 <script setup>
 import { useRouter, useRoute } from "vue-router";
-import { taskStore } from "@/stores/tasks";
+import { useTaskStore } from "@/stores/tasks";
 
 const imageSrcPrefix = "https://image.tmdb.org/t/p/original";
 const route = useRoute();
 const router = useRouter();
-const tasks = taskStore();
+const tasks = useTaskStore();
 
 const props = defineProps({
   data: {

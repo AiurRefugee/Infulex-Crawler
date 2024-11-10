@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, computed, watch, provide } from "vue";
+import { onMounted, ref, computed, watch, provide, nextTick } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import scrollView from "@/viewComponents/scrollView.vue";
 import scrollHeader from "@/components/common/scrollHeader.vue";
@@ -10,69 +10,76 @@ import backdropArea from "./components/backdropArea.vue";
 import optButton from "./components/optButton.vue";
 import subTitle from "./components/subTitle.vue";
 import seasonsView from "./components/seasonsView.vue";
-import { taskStore } from "@/stores/tasks";
+import { useTaskStore } from "@/stores/tasks";
 
-import { tmdbApi } from '@/APIs/tmdbApi.js'
-import { infulexApi } from '@/APIs/infulex.js'
+import { tmdbApi } from "@/APIs/tmdbApi.js";
+import { mediasApi } from "@/APIs/medias.js";  
 const route = useRoute();
 const router = useRouter();
 
-const tasks = taskStore();
+const tasks = useTaskStore();
 
 const defaultArray = ["", "", "", "", "", "", "", "", "", "", "", ""];
 
-const mediaId = ref(null) 
+const backdropAreaRef = ref(null);
+const optButtonRef = ref(null)
+const mediaId = ref(null);
 const similar = ref(defaultArray);
-const selectedId = ref(null)
-const mediaType = ref(null)
-const seasonsViewRef = ref()
-const seasons = ref(defaultArray)
-const episodes = ref(defaultArray)
-const seasonNum = ref(1)
-const episodeNum = ref(1)
-const backdropUrl = ref("")
-const mediaDetail = ref({})
-const TVDetail = ref({})
-const generes = ref([])
-const mediaTitle = ref("")
-const guestStars = ref(defaultArray)
-const cast = ref([])
-const crew = ref(defaultArray)
+const selectedId = ref(null);
+const mediaType = ref(null);
+const seasonsViewRef = ref();
+const seasons = ref(defaultArray);
+const episodes = ref(defaultArray);
+const seasonNum = ref(1);
+const episodeNum = ref(1);
+const backdropUrl = ref("");
+const mediaDetail = ref({});
+const TVDetail = ref({});
+const generes = ref([]);
+const mediaTitle = ref("");
+const guestStars = ref(defaultArray);
+const cast = ref([]);
+const crew = ref(defaultArray);
 
 const direcotors = computed(() => {
-  return crew.value.filter(crewMember => crewMember.job === "Director")
-})
+  return crew.value.filter((crewMember) => crewMember.job === "Director");
+});
 
 const writers = computed(() => {
-  return crew.value.filter(crewMember => crewMember.job === "Writer")
-}) 
+  return crew.value.filter((crewMember) => crewMember.job === "Writer");
+});
 
- 
-const credits = computed( () => {
-  const creditArray = [...cast.value, ...guestStars.value, ...direcotors.value, ...writers.value]
+const credits = computed(() => {
+  const creditArray = [
+    ...cast.value,
+    ...guestStars.value,
+    ...direcotors.value,
+    ...writers.value,
+  ];
   if (creditArray.length) {
-    console.log(creditArray.map(credit => credit.name))
-    return creditArray
+    console.log(creditArray.map((credit) => credit.name));
+    return creditArray;
   } else {
-    return defaultArray
-  } 
-})
+    return defaultArray;
+  }
+});
 
-provide('seasonNum', seasonNum)
-provide('episodeNum', episodeNum)
-provide('mediaType', mediaType)
-provide('backdropUrl', backdropUrl)
-provide('media', mediaDetail)
-provide('generes', generes)
+provide('tvDetail', TVDetail)
+provide("seasonNum", seasonNum);
+provide("episodeNum", episodeNum);
+provide("mediaType", mediaType);
+provide("backdropUrl", backdropUrl);
+provide("media", mediaDetail);
+provide("generes", generes);
 
 const clearCredits = () => {
-  cast.value = []
-  crew.value = defaultArray
-  guestStars.value = defaultArray
-} 
+  cast.value = [];
+  crew.value = defaultArray;
+  guestStars.value = defaultArray;
+};
 
 const calSeasonAndEpisodeNumber = (id, media_type) => {
-  if (media_type == 'tv') {
+  if (media_type == "tv") {
     const cacheString = localStorage.getItem(`TV_${id}`);
     if (cacheString) {
       try {
@@ -85,21 +92,24 @@ const calSeasonAndEpisodeNumber = (id, media_type) => {
       }
     }
   }
-}
+};
 
 const saveSeasonAndEpisodeNumber = (id, season_number, episode_number) => {
-  localStorage.setItem(`TV_${id}`, JSON.stringify({ seasonNum: season_number, episodeNum: episode_number }));
-}
+  localStorage.setItem(
+    `TV_${id}`,
+    JSON.stringify({ seasonNum: season_number, episodeNum: episode_number })
+  );
+};
 
 const searchMedia = async (title, mediaType, year, num = 1) => {
   if (num > 2) return;
-  let media
-  if (mediaType == 'movie') {
+  let media;
+  if (mediaType == "movie") {
     const response = await tmdbApi.searchMovie(title, year);
     media = response.results[0];
   }
-  if (mediaType == 'tv') {
-    const response = await tmdbApi.searchTVSeries(title, year)
+  if (mediaType == "tv") {
+    const response = await tmdbApi.searchTVSeries(title, year);
     media = response.results[0];
   }
   if (!media) {
@@ -113,130 +123,94 @@ const choose = (media) => {
   const { media_type, year } = route.query;
   selectedId.value = media.id;
   render(media.id, media_type);
-}
+};
 
 const getMovieDetail = async (id) => {
-  clearCredits()
+  clearCredits();
   const detail = await tmdbApi.getMoviewDetail(id);
   if (detail) {
     mediaDetail.value = detail;
-    backdropUrl.value = tmdbApi.tmdbImgPrefix + (detail?.backdrop_path || detail?.poster_url)
-    generes.value = detail?.genres
-    mediaTitle.value = detail?.name || detail?.title
+    backdropUrl.value =
+      tmdbApi.tmdbImgPrefix + (detail?.backdrop_path || detail?.poster_url);
+    generes.value = detail?.genres;
+    mediaTitle.value = detail?.name || detail?.title;
   }
-}
+};
 
 const getTVDetail = async (id) => {
   const detail = await tmdbApi.getTVDetail(id);
   if (detail) {
     TVDetail.value = detail;
     seasons.value = detail?.seasons;
-    backdropUrl.value = tmdbApi.tmdbImgPrefix + detail?.backdrop_path
-    generes.value = detail?.genres
-    mediaTitle.value = detail?.name
-  }
-  seasonsViewRef.value.renderSeasons(id, seasons.value, seasonNum.value, episodeNum.value);
-}
-
-const getSeasonDetail = async (id, season_number) => {
-  const seasonDetail = await tmdbApi.getSeasonDetail(id, season_number);
-  seasons.value = seasonDetail?.seasons;
-  episodes.value = seasonDetail?.episodes;
-  
-};
-
-const selectSeason = (id, season_number) => { 
-  seasonNum.value = season_number
-  episodeNum.value = 1
-  getSeasonDetail(id, season_number)
-}
-provide('selectSeason', selectSeason)
-
-
-const selectEpisode = async (newEpisodeNum) => { 
-  clearCredits()
-  console.log('selectEpisode', newEpisodeNum)
-  episodeNum.value = newEpisodeNum
-  const episodeInfo = episodes.value[newEpisodeNum - 1] 
-  mediaDetail.value = episodeInfo
-  guestStars.value = episodeInfo?.guest_stars
-  crew.value = episodeInfo?.crew;
-
-}
-provide('selectEpisode', selectEpisode)
+    backdropUrl.value = tmdbApi.tmdbImgPrefix + detail?.backdrop_path;
+    generes.value = detail?.genres;
+    mediaTitle.value = detail?.name;
+  } 
+}; 
 
 const getMovieCredits = async (id) => {
   const response = await tmdbApi.getMovieCredits(id);
-  cast.value = response?.cast; 
+  cast.value = response?.cast;
   crew.value = response?.crew;
 };
- 
 
 const getSimilar = async (id, media_type) => {
   if (!id || !media_type) return;
-  if (media_type == 'tv') {
+  if (media_type == "tv") {
     const response = await tmdbApi.getSimilarTVSeries(id);
     similar.value = response?.results;
   }
-  if (media_type == 'movie') {
+  if (media_type == "movie") {
     const response = await tmdbApi.getSimilarMovies(id);
     similar.value = response?.results;
   }
 };
 
-const render = async (id, media_type) => { 
-  if (media_type == 'tv') {
-    getTVDetail(id)
-    await getSeasonDetail(id, seasonNum.value)
-    selectEpisode(episodeNum.value)
-    
+const render = async (id, media_type) => {
+  if (media_type == "tv") {
+    await getTVDetail(id);
+    seasonsViewRef.value.render(id, seasons.value)  
   }
-  if (media_type == 'movie') {
-    getMovieDetail(id)
-    getMovieCredits(id);
+  if (media_type == "movie") {
+    await getMovieDetail(id);
+    getMovieCredits(id);  
+  }
+}; 
+
+const addTask = () => {
+  if (mediaType.value == "movie") {
+    tasks.createTask(mediaDetail.value, "movie");
+  }
+  if (mediaType.value == "tv") {
+    tasks.createTask(TVDetail.value, "tv");
   }
 };
 
-const changeEpisode = (season_number, episode_number) => {
-  episodeNum.value = episode_number;
-  seasonNum.value = season_number;
-  seasonsViewRef.value.renderSeasons(route.query.id, seasonNum.value, episodeNum.value);
-}
-
-provide('changeEpisode', changeEpisode)
-
-const addTask = () => {
-  if (mediaType.value == 'movie') {
-    tasks.createTask(mediaDetail.value, 'movie')
-  }
-  if (mediaType.value == 'tv') {
-    tasks.createTask(TVDetail.value, 'tv')
-  }
-}
-
-const addFavorite = async () => {
-  if (mediaType.value == 'movie') {
-    const addFavorite = await infulexApi.addFavorite(mediaDetail.value, 'movie')
+const addToFavorite = async () => {
+  if (mediaType.value == "movie") {
+    const addToFavorite = await mediasApi.addToFavorite(
+      mediaDetail.value,
+      "movie"
+    );
   } else {
-    const addFavorite = await infulexApi.addFavorite(TVDetail.value, 'tv')
-  } 
-}
-provide('addFavorite', addFavorite)
-
+    const addToFavorite = await mediasApi.addToFavorite(TVDetail.value, "tv");
+  }
+};
+provide("addToFavorite", addToFavorite);
 
 onMounted(async () => {
   const { title } = route.params;
 
   const { media_type, year } = route.query;
-  mediaType.value = media_type
-
+  mediaType.value = media_type;
+  await nextTick()
   let id = route.query?.id;
   if (!id) {
     id = await searchMedia(title, media_type, year);
   }
-  mediaId.value = id
-  calSeasonAndEpisodeNumber(id, media_type);
-  console.log(id, media_type);
+  mediaId.value = id;
+  calSeasonAndEpisodeNumber(id, media_type); 
+  console.log(id, media_type); 
   render(id, media_type);
   getSimilar(id, media_type);
 });
@@ -257,29 +231,48 @@ onMounted(async () => {
     </template>
     <template v-slot:content>
       <div class="bgLightPrimary scroll">
-        <backdropArea :media="mediaDetail" />
+        <backdropArea ref="backdropAreaRef"/>
 
-        <optButton class="showOnMobilePortrait h-12 pt-2" />
+        <optButton class="showOnMobilePortrait h-12 pt-2" ref="optButtonRef"/>
 
-        <seasonsView v-if="mediaType == 'tv'" ref="seasonsViewRef" :seasons="seasons" />
+        <seasonsView
+          v-if="mediaType == 'tv'"
+          ref="seasonsViewRef"
+          v-model:media="mediaDetail"
+          v-model:episodeNum="episodeNum"
+          v-model:seasonNum="seasonNum"
+          v-model:crew="crew"
+          v-model:guestStars="guestStars"
+        />
 
         <subTitle class="hideOverview showOnMobilePortrait pt-2">介绍</subTitle>
 
         <div class="overviewWrap overflow-hidden showOnMobilePortrait">
-          <p class="overview px-4 h-[3.6em] leading-[1.2em] text-[0.9em] txtDarkSecondary">
+          <p
+            class="overview px-4 h-[3.6em] leading-[1.2em] text-[0.9em] txtDarkSecondary"
+          >
             {{ mediaDetail?.overview }}
           </p>
         </div>
 
         <subTitle class="py-2">演员和工作人员</subTitle>
         <div class="flex pl-4 overflow-x-auto overflow-y-hidden">
-          <creditCard v-for="person in credits" :key="person.name" :person="person" />
+          <creditCard
+            v-for="person in credits"
+            :key="person.name"
+            :person="person"
+          />
         </div>
 
         <subTitle class="py-1" v-if="similar.length">更多相似</subTitle>
         <div class="flex pl-4 overflow-x-auto" v-if="similar.length">
-          <videoCardBasic v-for="media in similar" :key="media.id" :media="media"
-            :class="media.id == selectedId && selectedId ? 'selected' : ''" @click="choose(media)" />
+          <videoCardBasic
+            v-for="media in similar"
+            :key="media.id"
+            :media="media"
+            :class="media.id == selectedId && selectedId ? 'selected' : ''"
+            @click="choose(media)"
+          />
         </div>
         <div class="h-32"></div>
       </div>

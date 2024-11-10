@@ -1,12 +1,12 @@
 <script setup>
 import { ref, computed } from "vue";
-import { taskStore } from "@/stores/tasks";
+import { useTaskStore } from "@/stores/tasks";
 import liItem from "@/components/common/liItem.vue";
 import gsap from "gsap";
 import { layoutStore } from "@/stores/layout";
 import { useRouter } from "vue-router";
 const router = useRouter()
-const tasks = taskStore();
+const tasks = useTaskStore();
 const layout = layoutStore()
 const size = computed(() => layout.size);
 

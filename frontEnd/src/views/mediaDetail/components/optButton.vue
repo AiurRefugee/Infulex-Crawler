@@ -1,38 +1,48 @@
 <script setup>
-import { inject, onMounted, ref } from 'vue'; 
-import { infulexApi } from "@/APIs/infulex.js";
+import { inject, onMounted, ref, nextTick, computed } from 'vue'; 
+import { useMeidaStore } from '@/stores/media';
+const mediaStore = useMeidaStore()
 
-const addFavorite = inject('addFavorite')
+// const media = ref({})
+// const mediaType = ref(null)
+
 const media = inject('media')
 const mediaType = inject('mediaType')
-const isFavorite = ref(false)
+const tvDetail = inject('tvDetail')
 
-const checkFavorite = async () => {
-  console.log('checkFavorite', mediaType.value)
-  const list = await infulexApi.getFavoriteList(mediaType.value)
-  isFavorite.value = list.some(item => item.id === media.value.id) 
-}
+const favoriteMoviesId = computed( () => mediaStore.favoriteMoviesIs)
+const favoriteTVsId = computed( () => mediaStore.favoriteTVsIs)
+const mediaDetail = computed( () => {
+  if (mediaType.value === 'movie') {
+    return media.value
+  }  
+  if (mediaType.value === 'tv') {
+    return tvDetail.value
+  }
+})
 
-const addToFavorite = async () => {
-  addFavorite()
-  isFavorite.value = true
-}
+const isFavorite = computed(() => {
+  if (mediaType.value === 'movie') {
+    return favoriteMoviesId.value.has(media.value?.id)
+  }  
+  if (mediaType.value === 'tv') {
+    return favoriteTVsId.value.has(tvDetail.value?.id)
+  } 
+})
 
-const removeFavorite = async () => {
-  await infulexApi.deleteFavorite(media.value.id)
-  isFavorite.value = false
-}
-
-const toogleFavorite = async () => {
+const toogleFavorite = () => {
+  if (!mediaDetail.value) {
+    return false
+  }
+  console.log('toogleFavorite', mediaDetail.value, mediaType.value)
   if (isFavorite.value) {
-    removeFavorite()
+    mediaStore.removeFromFavorite(mediaDetail.value.id, mediaType.value)
   } else {
-    await addToFavorite()
+    mediaStore.addToFavorite(mediaDetail.value, mediaType.value)
   }
 }
 
-onMounted( () => {
-  checkFavorite()
+onMounted( async () => {  
 })
 </script>
 <template>
@@ -41,9 +51,10 @@ onMounted( () => {
       <button class="w-full playOpt h-full text-[1.1em] tracking-wider bg-orange-500 text-white rounded-[10px]">
         添加任务
       </button>
-      <button class="h-full aspect-square favorite center rounded-[10px]" @click="addFavorite">
+      <button class="h-full aspect-square favorite center rounded-[10px]" @click="toogleFavorite">
         <svg class="icon w-1/2" viewBox="0 0 1024 1024">
           <path
+            class="fastTrans"
             d="M554.8 99.6l104.9 212.5c7 14.1 20.4 23.9 36 26.1l234.6 34.1c39.2 5.7 54.8 53.8 26.5 81.5L787 619.2a47.57 47.57 0 0 0-13.7 42.3l40.1 233.6c6.7 39-34.3 68.8-69.3 50.4L534.2 835.2c-13.9-7.3-30.5-7.3-44.5 0L280 945.5c-35 18.4-76-11.3-69.3-50.4l40.1-233.6c2.7-15.5-2.5-31.3-13.7-42.3L67.3 453.8c-28.4-27.6-12.7-75.8 26.5-81.5l234.6-34.1c15.6-2.3 29-12 36-26.1L469.2 99.6c17.5-35.5 68.1-35.5 85.6 0z"
             p-id="5485" :fill="isFavorite ? 'rgb(249 115 22)' : 'white'"></path>
         </svg>

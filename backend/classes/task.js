@@ -1,26 +1,26 @@
-
+const MongoManager = require('./mongoManager')
 const path = require('path');
-const insertTask = require('../express/apis/tasks/insertTask')
+const configPath = path.resolve(__dirname, '../config/mongo/index.js');
+const mongoConfig = require(configPath);
+
+const { databaseUrl, dbName, taskCollectionName } = mongoConfig;
 
 
 class Task {
     constructor(media, mediaType) {
 
-        const id = media.id;
-        this.id = id
+        this.id = media.id;
         this.mediaType = mediaType;
         this.media = media;
-        const title = media?.title || media?.name;
-        this.title = title
+        this.title = media?.title || media?.name;
         const msgs = []
         msgs.push({
             type: 'Task Created',
             time: new Date(),
         })
         this.msgs = msgs
-        const status = '进行中'
-        this.status = status
-        insertTask({ id, title, status, msgs, mediaType, media })
+        this.status = '进行中'
+        this.insertTask()
         
     }
 
@@ -36,6 +36,15 @@ class Task {
     getTask() {
         const { id, title, status, msgs, mediaType, media } = this;
         return { id, title, status, msgs, mediaType, media };
+    }
+
+    insertTask() {
+        const mongoManager = new MongoManager(databaseUrl, dbName);
+        const taskCollection = mongoManager.getCollection(taskCollectionName);
+        const task = this.getTask()
+        taskCollection.insertOne(task).then( res => {
+            console.log('insertTask', res)
+        })
     }
 }
 

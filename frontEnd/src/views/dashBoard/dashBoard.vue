@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import { taskStore } from "@/stores/tasks";
+import { useTaskStore } from "@/stores/tasks";
 import { computed } from "vue";
 import { layoutStore } from "@/stores/layout";
 import scrollView from "@/viewComponents/scrollView.vue";
@@ -8,7 +8,7 @@ import scrollHeader from "@/components/common/scrollHeader.vue";
 import taskOverview from "./components/taskOverview.vue"; 
 import { useRouter } from "vue-router";
 const router = useRouter()
-const tasks = taskStore();
+const tasks = useTaskStore();
 const layout = layoutStore();
 const size = computed(() => layout.size);
 console.log(size.value);

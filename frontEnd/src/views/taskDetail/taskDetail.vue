@@ -2,10 +2,10 @@
 import scrollView from "@/viewComponents/scrollView.vue";
 import taskHeader from "./components/taskHeader.vue";
 import msgListView from "./components/msgListView.vue";
-import { taskStore } from "@/stores/tasks";
+import { useTaskStore } from "@/stores/tasks";
 import { layoutStore } from "@/stores/layout";
 import { computed, onMounted } from "vue";
-const tasks = taskStore();
+const tasks = useTaskStore();
 const selectedTask = computed(() => tasks.selectedTask);
 const layout = layoutStore();
 

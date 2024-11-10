@@ -2,12 +2,15 @@
 import { ref, computed, onMounted } from "vue";
 import { layoutStore } from "@/stores/layout";
 import NavList from "@/components/navList.vue";
-
+import { useMeidaStore } from '@/stores/media';
+const mediaStore = useMeidaStore()
 const layout = layoutStore(); 
 const tabIconVisible = computed(() => layout.tabIconVisible);  
  
 
-onMounted(() => {});
+onMounted(() => {
+  mediaStore.initMediaStore()
+});
 </script>
 <template>
   <div class="tabViewWrapper">

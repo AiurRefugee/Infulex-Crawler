@@ -1,12 +1,21 @@
 const express = require('express');
 const { crawlKeyWord } = require('../crawler/xiaozhanCrawler/index');
 const listenGetTaskList = require('./apis/tasks/getTaskList');
-const listenPOSTAddFavorite = require('./apis/medias/addFavorite');
+const listenPOSTaddToFavorite = require('./apis/medias/addToFavorite');
 const listenGetFavoriteList = require('./apis/medias/getFavoriteList');
+const listenPOSTRemoveFavorite = require('./apis/medias/removeFromFavorite');
+const listenPOSTAddToLibrary = require('./apis/medias/addToLibrary');
+const listenGetLibraryList = require('./apis/medias/getLibraryList');
+const listenPOSTRemoveFromLibrary = require('./apis/medias/removeFromLibrary');
 const taskPool = new Set()
 
 const app = express();
 const port = 3000; // 指定应用程序监听的端口号
+
+function errorHandler(err, req, res, next) {
+    res.status(500);
+    res.render('error', { error: err });
+  }
 
 const taskPools = {}
 
@@ -69,8 +78,14 @@ app.post('cancelTask', (req, res) => {
 })
 
 listenGetTaskList(app)
-listenPOSTAddFavorite(app)
+listenPOSTaddToFavorite(app)
 listenGetFavoriteList(app)
+listenPOSTRemoveFavorite(app)
+listenPOSTAddToLibrary(app)
+listenGetLibraryList(app)
+listenPOSTRemoveFromLibrary(app)
+
+app.use(errorHandler);
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);

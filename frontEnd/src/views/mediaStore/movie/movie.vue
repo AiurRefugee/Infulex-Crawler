@@ -8,7 +8,7 @@ import creditCard from "@/components/cards/creditCard.vue";
 import videoListBasic from "@/components/common/videoListBasic.vue";
 import videoCardBasic from "@/components/cards/videoCardBasic.vue";
 
-import { infulexApi } from "@/APIs/infulex.js";
+import { infulexApi } from "@/APIs/medias.js";
 import { toDetail } from "@/computeFunc/index.js";
 
 const router = useRouter();
