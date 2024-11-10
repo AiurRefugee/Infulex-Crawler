@@ -30,44 +30,25 @@ const inBox = (event) => {
     return true
   }
 }
+ 
 
-const handleScroll = (event) => {
-  const scrollContainer = document.getElementById("scrollContainer");
-  const scollHandler = document.getElementById("scrollHandler");
-
-  if (scrollTimeout) {
-    clearTimeout(scrollTimeout)
-  }
-  scrollTimeout = setTimeout(() => {
-    showScrollMask.value = false
-  }, 50)
-  // 滚动开始
-  if (!scrollStart) {
-    scrollStart = true 
-    scrollTopOrigin = scrollContainer.scrollTop;
-  }
-  scrollContainer.scrollTop = scrollTopOrigin + scollHandler.scrollTop;
+const closeMask = (event) => {
   showMore.value = false
-  console.log(event,scrollTopOrigin, scollHandler.scrollTop)
+  event.stopPropagation()
 }
 
-const toogleMoreActions = () => {
+const toogleMoreActions = () => { 
   showMore.value = !showMore.value;  
   if (showMore.value) {
-    showScrollMask.value = true
+    document.addEventListener('click', closeMask, { capture: true, once: true }) 
   }
-};
-
-const close = (event) => {
-  showMore.value = false
-  showScrollMask.value = false
-}
+}; 
 
 onMounted(() => {
   const scrollContainer = document.getElementById("scrollContainer");
-  // scrollContainer.addEventListener("scroll", () => {
-  //   showMore.value = false;
-  // });
+  scrollContainer.addEventListener("scroll", () => {
+    showMore.value = false;
+  });
   console.log(props.actions);
 });
 </script>
@@ -90,14 +71,13 @@ onMounted(() => {
       ></path>
     </svg>
 
-    <div
+    <!-- <div
       id="scrollHandler"
       class="w-[100vw] h-[100vh] fixed left-0 top-0 z-[100] overflow-auto"
-      v-if="showScrollMask"
-      @scroll="handleScroll"
+      v-if="showScrollMask" 
     >
       <div class="w-[100vw] h-[200vh]" @pointerup="close"></div>
-    </div>
+    </div> -->
 
     <div
       ref="listRef"
