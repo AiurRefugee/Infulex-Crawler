@@ -1,52 +1,23 @@
 <script setup>
-import { inject, onMounted, ref, nextTick, computed } from 'vue'; 
-import { useMeidaStore } from '@/stores/media';
-const mediaStore = useMeidaStore()
-
-// const media = ref({})
-// const mediaType = ref(null)
-
-const media = inject('media')
-const mediaType = inject('mediaType')
-const tvDetail = inject('tvDetail')
-
-const favoriteMoviesId = computed( () => mediaStore.favoriteMoviesIs)
-const favoriteTVsId = computed( () => mediaStore.favoriteTVsIs)
-const mediaDetail = computed( () => {
-  if (mediaType.value === 'movie') {
-    return media.value
-  }  
-  if (mediaType.value === 'tv') {
-    return tvDetail.value
-  }
-})
-
-const isFavorite = computed(() => {
-  if (mediaType.value === 'movie') {
-    return favoriteMoviesId.value.has(media.value?.id)
-  }  
-  if (mediaType.value === 'tv') {
-    return favoriteTVsId.value.has(tvDetail.value?.id)
-  } 
-})
-
+import { ref, onMounted, computed, watch } from 'vue'
+import addFavorite from './addFavorite.vue';
+const addFavoriteRef = ref(null)
+const isFavorite = ref(false)
 const toogleFavorite = () => {
-  if (!mediaDetail.value) {
-    return false
-  }
-  console.log('toogleFavorite', mediaDetail.value, mediaType.value)
-  if (isFavorite.value) {
-    mediaStore.removeFromFavorite(mediaDetail.value.id, mediaType.value)
-  } else {
-    mediaStore.addToFavorite(mediaDetail.value, mediaType.value)
-  }
+  addFavoriteRef.value?.toogleFavorite()
 }
 
-onMounted( async () => {  
+const setIsFavorite = (val) => {
+  console.log('setIsFavorite', val)
+  isFavorite.value = val
+}
+
+onMounted( async () => {   
 })
 </script>
 <template>
   <div class="px-4">
+    <addFavorite ref="addFavoriteRef" @setIsFavorite="setIsFavorite"/>
     <div class="h-full flex gap-3 flex-shrink-0">
       <button class="w-full playOpt h-full text-[1.1em] tracking-wider bg-orange-500 text-white rounded-[10px]">
         添加任务
@@ -63,7 +34,7 @@ onMounted( async () => {
     <!-- <addTaskButton/>  -->
   </div>
 </template>
-<style scoped lang="scss">
+<style scoped lang="scss"> 
 .playOpt {
   box-shadow: 0 0 5px 0px #444444b8;
 }

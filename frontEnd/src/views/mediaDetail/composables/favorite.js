@@ -1,7 +1,5 @@
-<script setup>
-import { inject, onMounted, ref, nextTick, computed, watch } from 'vue'; 
-import { useMeidaStore } from '@/stores/media'; 
-const emits = defineEmits(['setIsFavorite'])
+import { inject, onMounted, ref, nextTick, computed } from 'vue'; 
+import { useMeidaStore } from '@/stores/media';
 const mediaStore = useMeidaStore()
 
 // const media = ref({})
@@ -22,18 +20,16 @@ const mediaDetail = computed( () => {
   }
 })
 
-const isFavorite = computed(() => { 
-  const movieFavorite = favoriteMoviesId.value.has(media.value?.id)
-  const tvFavorite = favoriteTVsId.value.has(tvDetail.value?.id)
-  const isFavorite = movieFavorite || tvFavorite
-  return isFavorite
+export const isFavorite = computed(() => {
+  if (mediaType.value === 'movie') {
+    return favoriteMoviesId.value.has(media.value?.id)
+  }  
+  if (mediaType.value === 'tv') {
+    return favoriteTVsId.value.has(tvDetail.value?.id)
+  } 
 })
 
-watch(isFavorite, async (newVal) => {
-  emits('setIsFavorite', newVal)
-})
-
-const toogleFavorite = () => {
+export const toogleFavorite = () => {
   if (!mediaDetail.value) {
     return false
   }
@@ -43,15 +39,5 @@ const toogleFavorite = () => {
   } else {
     mediaStore.addToFavorite(mediaDetail.value, mediaType.value)
   }
-  isFavorite.value = !isFavorite.value
 }
 
-defineExpose({
-  toogleFavorite
-})
-</script>
-<template>  
-</template>
-<style scoped lang="scss">
-
-</style>

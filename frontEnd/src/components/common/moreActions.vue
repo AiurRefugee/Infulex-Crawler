@@ -45,11 +45,10 @@ const toogleMoreActions = () => {
 }; 
 
 onMounted(() => {
-  const scrollContainer = document.getElementById("scrollContainer");
-  scrollContainer.addEventListener("scroll", () => {
-    showMore.value = false;
-  });
-  console.log(props.actions);
+  // const scrollContainer = document.getElementById("scrollContainer");
+  // scrollContainer.addEventListener("scroll", () => {
+  //   showMore.value = false;
+  // }); 
 });
 </script>
 <template>
