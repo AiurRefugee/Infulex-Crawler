@@ -54,16 +54,16 @@ export const useMediaStore = defineStore('films', {
       } else {
         this.tvLibrary.push(media)
       }
-      mediasApi.addToFavorite(media, type)
+      mediasApi.addToLibrary(media, type)
     },
 
-    removeFromLibrary(media, type) {
+    removeFromLibrary(mediaId, type) {
       if (type === 'movie') {
-        this.movieLibrary = this.movieLibrary.filter(movie => movie.id !== media.id)
+        this.movieLibrary = this.movieLibrary.filter(movie => movie.id !== mediaId)
       } else {
-        this.tvLibrary = this.tvLibrary.filter(tv => tv.id !== media.id)
+        this.tvLibrary = this.tvLibrary.filter(tv => tv.id !== mediaId)
       }
-      mediasApi.removeFromLibrary(media, type)
+      mediasApi.removeFromLibrary(mediaId, type)
     },
 
     async fetchFavoriteMovieList() {
@@ -76,9 +76,21 @@ export const useMediaStore = defineStore('films', {
         this.favoriteTVs = tvs;
     },
 
+    async fetchLibraryMovieList() {
+        const movies = await mediasApi.getLibraryList('movie');
+        this.movieLibrary = movies;
+    },
+
+    async fetchLibraryTVList() {
+        const tvs = await mediasApi.getLibraryList('tv');
+        this.tvLibrary = tvs;
+    },
+
     async initMediaStore() {
         this.fetchFavoriteMovieList();
         this.fetchFavoriteTVList();
+        this.fetchLibraryMovieList();
+        this.fetchLibraryTVList();
     }
   },
 })

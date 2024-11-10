@@ -17,7 +17,7 @@ const media = inject('media')
   <div class="backdropWrap flex center gap-2 pb-2">
 
     <div class="w-full h-full relative overflow-hidden">
-      <img class="backdropImage" :src="backdropUrl" />
+      <img class="backdropImage" :src="backdropUrl" draggable="false"/>
 
       <div class="w-full flex bgMask">
         <optButton class="w-[400px] h-10 showOpt hideOnMobileLandscape" />

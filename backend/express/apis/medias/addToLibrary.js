@@ -1,6 +1,6 @@
 const MongoManager = require('../../../classes/mongoManager.js')
 const mongoConfig = require('../../../config/mongo/index.js');
-const { databaseUrl, dbName, movieLibraryyCollection, tvLibraryyCollection } = mongoConfig;
+const { databaseUrl, dbName, movieLibraryCollection, tvLibraryCollection } = mongoConfig;
 
 const addToLibrary = async (media, mediaType) => {
     // TODO: 获取任务列表
@@ -8,10 +8,10 @@ const addToLibrary = async (media, mediaType) => {
 
     let collection = null 
     if (mediaType === 'movie') {
-        collection = mongoManager.getCollection(movieLibraryyCollection);
+        collection = mongoManager.getCollection(movieLibraryCollection);
     } 
     if (mediaType === 'tv') {
-        collection = mongoManager.getCollection(tvLibraryyCollection);
+        collection = mongoManager.getCollection(tvLibraryCollection);
     }  
     const filter = { id: media.id }
     const updateDoc = {
@@ -31,12 +31,12 @@ const listenPOSTAddToLibrary = (app) => {
         if (insertRes) {
             res.json({
                 code: 200,
-                message: '添加成功'
+                message: 'addToLibrary 添加成功'
             })
         } else {
             res.json({
                 code: 500,
-                message: '添加失败'
+                message: 'addToLibrary 添加失败'
             })
         }
     })

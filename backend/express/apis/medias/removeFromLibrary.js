@@ -1,28 +1,28 @@
 const MongoManager = require('../../../classes/mongoManager.js')
 const mongoConfig = require('../../../config/mongo/index.js');
-const { databaseUrl, dbName, movieLibarayyCollection, tvLibarayyCollection } = mongoConfig;
+const { databaseUrl, dbName, movieLibraryCollection, tvLibraryCollection } = mongoConfig;
 
-const removeFromLibary = async (mediaId, mediaType) => {
+const removeFromLibrary = async (mediaId, mediaType) => {
     // TODO: 获取任务列表
     const mongoManager = new MongoManager(databaseUrl, dbName);
 
     let collection = null 
     if (mediaType === 'movie') {
-        collection = mongoManager.getCollection(movieLibarayyCollection);
+        collection = mongoManager.getCollection(movieLibraryCollection);
     } 
     if (mediaType === 'tv') {
-        collection = mongoManager.getCollection(tvLibarayyCollection);
+        collection = mongoManager.getCollection(tvLibraryCollection);
     }  
     const insertRes = await collection.deleteOne({ id: mediaId}) 
     console.log('delete favorite media', insertRes)
     return insertRes
 }
 
-const listenPOSTRemoveFromLibary = (app) => {
+const listenPOSTRemoveFromLibrary = (app) => {
     
-    app.post('/removeFromLibary', async (req, res) => {
+    app.post('/removeFromLibrary', async (req, res) => {
         const { media, mediaType } = req.body
-        const insertRes = await removeFromLibary(media, mediaType)
+        const insertRes = await removeFromLibrary(media, mediaType)
         if (insertRes) {
             res.json({
                 code: 200,
@@ -39,10 +39,10 @@ const listenPOSTRemoveFromLibary = (app) => {
 
 const test = () => { 
     const meidaType = 'tv'
-    removeFromLibary(194764, meidaType)
+    removeFromLibrary(194764, meidaType)
 }
 
 // test()
  
 
-module.exports = listenPOSTRemoveFromLibary
+module.exports = listenPOSTRemoveFromLibrary

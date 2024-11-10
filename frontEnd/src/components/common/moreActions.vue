@@ -33,8 +33,10 @@ const inBox = (event) => {
  
 
 const closeMask = (event) => {
-  showMore.value = false
-  event.stopPropagation()
+  if (!inBox(event)) {
+    showMore.value = false
+    event.stopPropagation()
+  } 
 }
 
 const toogleMoreActions = () => { 
@@ -45,10 +47,10 @@ const toogleMoreActions = () => {
 }; 
 
 onMounted(() => {
-  // const scrollContainer = document.getElementById("scrollContainer");
-  // scrollContainer.addEventListener("scroll", () => {
-  //   showMore.value = false;
-  // }); 
+  const scrollContainer = document.getElementById("scrollContainer");
+  scrollContainer.addEventListener("scroll", () => {
+    showMore.value = false;
+  }); 
 });
 </script>
 <template>

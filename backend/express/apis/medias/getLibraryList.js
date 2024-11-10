@@ -1,6 +1,6 @@
 const MongoManager = require('../../../classes/mongoManager.js')
 const mongoConfig = require('../../../config/mongo/index.js');
-const { databaseUrl, dbName, movieLibarayyCollection, tvLibarayyCollection } = mongoConfig;
+const { databaseUrl, dbName, movieLibraryCollection, tvLibraryCollection } = mongoConfig;
 
 const getLibaray = async (mediaType) => {
     // TODO: 获取任务列表
@@ -8,10 +8,10 @@ const getLibaray = async (mediaType) => {
     console.log('getFavoriteList', mediaType)
     let collection = null 
     if (mediaType === 'movie') {
-        collection = mongoManager.getCollection(movieLibarayyCollection);
+        collection = mongoManager.getCollection(movieLibraryCollection);
     } 
     if (mediaType === 'tv') {
-        collection = mongoManager.getCollection(tvLibarayyCollection);
+        collection = mongoManager.getCollection(tvLibraryCollection);
     }  
     const listPromise = await collection.find({})
     const list = await listPromise.toArray()

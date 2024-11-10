@@ -11,8 +11,8 @@ const favoriteTvCollection = 'favorite_tv'
 
 const userInfoCollectionName = 'user_info'
 
-const movieLibarayyCollection = 'movie_library'
-const tvLibarayyCollection = 'tv_library'
+const movieLibraryCollection = 'movie_library'
+const tvLibraryCollection = 'tv_library'
 
 const mongoConfig = {
     databaseUrl,
@@ -22,8 +22,8 @@ const mongoConfig = {
     userInfoCollectionName,
     favoriteMovieCollection,
     favoriteTvCollection,
-    movieLibarayyCollection,
-    tvLibarayyCollection
+    movieLibraryCollection,
+    tvLibraryCollection
 }
 
 module.exports = mongoConfig
