@@ -11,6 +11,7 @@ const props = defineProps({
   },
 });
 const backdropUrl = inject('backdropUrl')
+const media = inject('media')
 </script>
 <template>
   <div class="backdropWrap flex center gap-2 pb-2">

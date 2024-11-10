@@ -10,22 +10,70 @@ const props = defineProps({
 });
 const listRef = ref()
 const showMore = ref(false); 
+const showScrollMask = ref(false)
+let scrollStart = false
+let scrollTopOrigin = null
+let scrollTimeout = null
+
+const inBox = (event) => {
+  event.stopPropagation();
+  event.preventDefault();
+  const boundibgBox = listRef.value.getBoundingClientRect();
+  if (
+    event.clientX < boundibgBox.left ||
+    event.clientX > boundibgBox.right ||
+    event.clientY < boundibgBox.top ||
+    event.clientY > boundibgBox.bottom
+  ) {
+    return false
+  } else {
+    return true
+  }
+}
+
+const handleScroll = (event) => {
+  const scrollContainer = document.getElementById("scrollContainer");
+  const scollHandler = document.getElementById("scrollHandler");
+
+  if (scrollTimeout) {
+    clearTimeout(scrollTimeout)
+  }
+  scrollTimeout = setTimeout(() => {
+    showScrollMask.value = false
+  }, 50)
+  // 滚动开始
+  if (!scrollStart) {
+    scrollStart = true 
+    scrollTopOrigin = scrollContainer.scrollTop;
+  }
+  scrollContainer.scrollTop = scrollTopOrigin + scollHandler.scrollTop;
+  showMore.value = false
+  console.log(event,scrollTopOrigin, scollHandler.scrollTop)
+}
 
 const toogleMoreActions = () => {
-  showMore.value = !showMore.value; 
+  showMore.value = !showMore.value;  
+  if (showMore.value) {
+    showScrollMask.value = true
+  }
 };
+
+const close = (event) => {
+  showMore.value = false
+  showScrollMask.value = false
+}
 
 onMounted(() => {
   const scrollContainer = document.getElementById("scrollContainer");
-  scrollContainer.addEventListener("scroll", () => {
-    showMore.value = false;
-  });
+  // scrollContainer.addEventListener("scroll", () => {
+  //   showMore.value = false;
+  // });
   console.log(props.actions);
 });
 </script>
 <template>
   <div
-    class="more-actions w-full h-[45px] flex items-center relative pr-6 overflow-visible aspect-square"
+    class="more-actions w-full h-[45px] flex items-center relative pr-6 overflow-visible aspect-square rounded-full"
   >
     <div class="w-full"></div>
     <svg
@@ -43,10 +91,13 @@ onMounted(() => {
     </svg>
 
     <div
-      class="w-[50vw] h-[100vh] fixed left-0 top-0 z-[100]"
-      v-if="showMore"
-      @pointerdown="toogleMoreActions"
-    ></div>
+      id="scrollHandler"
+      class="w-[100vw] h-[100vh] fixed left-0 top-0 z-[100] overflow-auto"
+      v-if="showScrollMask"
+      @scroll="handleScroll"
+    >
+      <div class="w-[100vw] h-[200vh]" @pointerup="close"></div>
+    </div>
 
     <div
       ref="listRef"
