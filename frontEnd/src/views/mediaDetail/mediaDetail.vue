@@ -4,8 +4,13 @@ import { useRouter, useRoute } from "vue-router";
 import scrollView from "@/viewComponents/scrollView.vue";
 import scrollHeader from "@/components/common/scrollHeader.vue";
 import backword from "@/components/common/backword.vue";
+import moreActions from "@/components/common/moreActions.vue";
 import creditCard from "@/components/cards/creditCard.vue";
 import videoCardBasic from "@/components/cards/videoCardBasic.vue";
+import addLibrary from "./components/addLibrary.vue";
+import addFavorite from "./components/addFavorite.vue";
+import share from "./components/share.vue";
+import toSeries from "./components/toSeries.vue";
 import backdropArea from "./components/backdropArea.vue";
 import optButton from "./components/optButton.vue";
 import subTitle from "./components/subTitle.vue";
@@ -13,7 +18,7 @@ import seasonsView from "./components/seasonsView.vue";
 import { useTaskStore } from "@/stores/tasks";
 
 import { tmdbApi } from "@/APIs/tmdbApi.js";
-import { mediasApi } from "@/APIs/medias.js";  
+import { mediasApi } from "@/APIs/medias.js";
 const route = useRoute();
 const router = useRouter();
 
@@ -22,7 +27,7 @@ const tasks = useTaskStore();
 const defaultArray = ["", "", "", "", "", "", "", "", "", "", "", ""];
 
 const backdropAreaRef = ref(null);
-const optButtonRef = ref(null)
+const optButtonRef = ref(null);
 const mediaId = ref(null);
 const similar = ref(defaultArray);
 const selectedId = ref(null);
@@ -41,6 +46,27 @@ const guestStars = ref(defaultArray);
 const cast = ref([]);
 const crew = ref(defaultArray);
 
+const actions = [
+  [
+    {
+      title: "addToLibrary",
+    },
+    {
+      title: "addToFavorite",
+    },
+  ],
+  [
+    {
+      title: 'toSeries'
+    }
+  ],
+  [
+    {
+      title: 'share'
+    }
+  ]
+]
+
 const direcotors = computed(() => {
   return crew.value.filter((crewMember) => crewMember.job === "Director");
 });
@@ -57,14 +83,13 @@ const credits = computed(() => {
     ...writers.value,
   ];
   if (creditArray.length) {
-    console.log(creditArray.map((credit) => credit.name));
     return creditArray;
   } else {
     return defaultArray;
   }
 });
 
-provide('tvDetail', TVDetail)
+provide("tvDetail", TVDetail);
 provide("seasonNum", seasonNum);
 provide("episodeNum", episodeNum);
 provide("mediaType", mediaType);
@@ -145,8 +170,8 @@ const getTVDetail = async (id) => {
     backdropUrl.value = tmdbApi.tmdbImgPrefix + detail?.backdrop_path;
     generes.value = detail?.genres;
     mediaTitle.value = detail?.name;
-  } 
-}; 
+  }
+};
 
 const getMovieCredits = async (id) => {
   const response = await tmdbApi.getMovieCredits(id);
@@ -169,13 +194,13 @@ const getSimilar = async (id, media_type) => {
 const render = async (id, media_type) => {
   if (media_type == "tv") {
     await getTVDetail(id);
-    seasonsViewRef.value.render(id, seasons.value)  
+    seasonsViewRef.value.render(id, seasons.value);
   }
   if (media_type == "movie") {
     await getMovieDetail(id);
-    getMovieCredits(id);  
+    getMovieCredits(id);
   }
-}; 
+};
 
 const addTask = () => {
   if (mediaType.value == "movie") {
@@ -203,14 +228,14 @@ onMounted(async () => {
 
   const { media_type, year } = route.query;
   mediaType.value = media_type;
-  await nextTick()
+  await nextTick();
   let id = route.query?.id;
   if (!id) {
     id = await searchMedia(title, media_type, year);
   }
   mediaId.value = id;
-  calSeasonAndEpisodeNumber(id, media_type); 
-  console.log(id, media_type); 
+  calSeasonAndEpisodeNumber(id, media_type);
+  console.log(id, media_type);
   render(id, media_type);
   getSimilar(id, media_type);
 });
@@ -227,13 +252,21 @@ onMounted(async () => {
             {{ mediaTitle }}
           </h1>
         </template>
+        <template v-slot:right>
+          <moreActions :actions="actions">
+            <template v-slot:addToLibrary><addLibrary /></template>
+            <template v-slot:addToFavorite><addFavorite /></template>
+            <template v-slot:share><share /></template>
+            <template v-slot:toSeries><toSeries /></template>
+          </moreActions>
+        </template>
       </scrollHeader>
     </template>
     <template v-slot:content>
       <div class="bgLightPrimary scroll">
-        <backdropArea ref="backdropAreaRef"/>
+        <backdropArea ref="backdropAreaRef" />
 
-        <optButton class="showOnMobilePortrait h-12 pt-2" ref="optButtonRef"/>
+        <optButton class="showOnMobilePortrait h-12 pt-2" ref="optButtonRef" />
 
         <seasonsView
           v-if="mediaType == 'tv'"
@@ -302,4 +335,16 @@ onMounted(async () => {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.actionItem {
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  cursor: pointer;
+  text {
+    white-space: nowrap;
+  } 
+} 
 </style>

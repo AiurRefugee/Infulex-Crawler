@@ -30,6 +30,7 @@ onMounted(() => {});
   <div class="scrollView">
     <slot name="header"></slot>
     <div
+      id="scrollContainer"
       ref="scrollArea"
       class="scrollViewArea w-full h-full overflow-x-hidden overflow-y-auto"
       @scroll="toogleTitle"

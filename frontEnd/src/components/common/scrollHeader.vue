@@ -33,7 +33,7 @@ watch(showTitle, (newVal, oldVal) => {
 </script>
 <template>
   <div 
-    class="scrollHeader w-full h-[45px] flex-shrink-0 trans"
+    class="scrollHeader w-full h-[40px] flex-shrink-0 trans"
     :class="showTitle ? 'scrollHeaderBg' : ''"
   >
     <div class="headerLeft w-full">
@@ -44,10 +44,8 @@ watch(showTitle, (newVal, oldVal) => {
       :style="{ opacity: showTitle ? 1 : 0 }"
     >
       <slot name="center"></slot>
-    </div>
-    <div class="right w-full h-full">
-      <slot name="right"></slot>
-    </div>
+    </div> 
+    <slot name="right"></slot> 
   </div>
 </template>
 <style scoped lang="scss">

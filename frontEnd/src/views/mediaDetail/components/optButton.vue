@@ -65,7 +65,7 @@ onMounted( async () => {
 </template>
 <style scoped lang="scss">
 .playOpt {
-  box-shadow: 0 0 10px 0px #444444b8;
+  box-shadow: 0 0 5px 0px #444444b8;
 }
 
 .favorite {

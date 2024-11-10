@@ -24,8 +24,7 @@ const selectEpisode = async (num) => {
   media.value = episodes.value[num - 1];
   await nextTick();
   crew.value = media.value?.crew || defaultArray;
-  guestStars.value = media.value?.guest_stars || defaultArray;
-  console.log(media.value);
+  guestStars.value = media.value?.guest_stars || defaultArray; 
 }
 
 const selectSeason = (num) => {
