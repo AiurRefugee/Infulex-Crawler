@@ -1,16 +1,16 @@
 @import "@/style/variables.scss";
 html {
     // overflow: hidden;
-    color: var(--textColor_Primary); 
+    color: var(--textColor_Primary);
     overscroll-behavior: none;
 }
 body {
-    background: var(--bg_light_primary); 
+    background: var(--bg_light_primary);
 }
 * {
     box-sizing: border-box;
-    user-select: none; 
-} 
+    user-select: none;
+}
 input {
     background: transparent;
 }
@@ -111,7 +111,6 @@ input:focus-visible {
     align-items: center;
 }
 
-
 // 搜索页class button
 .searchClassButton {
     width: calc(100% / var(--search_genre_card_num));
@@ -159,9 +158,21 @@ input:focus-visible {
     font-size: 1.1rem;
     font-weight: bold;
     font-style: italic;
-    
 }
 
 .placeholderBg {
     background: var(--placeholderBg);
+}
+
+// 更多操作
+.actionItem {
+    height: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    text {
+        white-space: nowrap;
+    }
 }

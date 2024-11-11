@@ -15,7 +15,7 @@ const { mediaDetail, inLibrary, toggleLibrary } = useFavoriteToggle(
 <template>
   <div class="actionItem" @click="toggleLibrary">
     <text class="text-red-500" v-if="inLibrary">从资料库移除</text>
-    <text v-else>加入资料库</text>
+    <text v-else>添加到资料库</text>
     <svg class="icon h-[15px] aspect-square" viewBox="0 0 1024 1024">
       <path
         d="M170.666667 469.333333h682.666666v85.333334H170.666667z"

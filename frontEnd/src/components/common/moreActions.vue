@@ -15,9 +15,7 @@ let scrollStart = false
 let scrollTopOrigin = null
 let scrollTimeout = null
 
-const inBox = (event) => {
-  event.stopPropagation();
-  event.preventDefault();
+const inBox = (event) => { 
   const boundibgBox = listRef.value.getBoundingClientRect();
   if (
     event.clientX < boundibgBox.left ||
@@ -34,9 +32,15 @@ const inBox = (event) => {
 
 const closeMask = (event) => {
   if (!inBox(event)) {
-    showMore.value = false
+    // 关闭更多
+    close()
     event.stopPropagation()
   } 
+}
+
+const close = () => {
+  console.log('close')
+  showMore.value = false
 }
 
 const toogleMoreActions = () => { 
@@ -64,6 +68,7 @@ onMounted(() => {
       @click="toogleMoreActions"
     >
       <path
+        class="trans"
         d="M213.333333 512a85.333333 85.333333 0 1 1-85.333333-85.333333 85.333333 85.333333 0 0 1 85.333333 85.333333z m298.666667-85.333333a85.333333 85.333333 0 1 0 85.333333 85.333333 85.333333 85.333333 0 0 0-85.333333-85.333333z m384 0a85.333333 85.333333 0 1 0 85.333333 85.333333 85.333333 85.333333 0 0 0-85.333333-85.333333z"
         :fill="
           scrollTop < 40 ? 'gray' : 'var(--bg_dark_primary)'
@@ -100,7 +105,9 @@ onMounted(() => {
             class="divider w-full h-[1px] bgDarkBasic opacity-20"
             v-if="index"
           ></div>
-          <slot :name="action.title"></slot>
+          <div @click="close">
+            <slot :name="action.title" ></slot>
+          </div>
         </div>
       </div>
     </div>

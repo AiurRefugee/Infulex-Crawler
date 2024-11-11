@@ -61,6 +61,11 @@ const router = createRouter({
       meta: {
         transition: 'fade'
       }
+    },
+    {
+      path: '/imageWall',
+      name: 'imageWall',
+      component: () => import('../views/imageWall/imageWall.vue'),
     }
 
     

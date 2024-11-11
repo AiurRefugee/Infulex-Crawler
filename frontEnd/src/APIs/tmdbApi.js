@@ -119,5 +119,19 @@ export const tmdbApi = {
         return similarTVSeries
     },
 
+    getImages: async (id, type) => {
+        let mediaType = null
+        if (type === 'movie') {
+            mediaType = 'movie'
+        }
+        if (type === 'tv') {
+            mediaType = 'tv'
+        }
+        const url = tmdbAPIPrefix + `/${mediaType}/${id}/images`
+        const images = await get(url, {}, tmdbHeaders)
+        console.log('getImages', images)
+        return images
+    }
+
     
 }

@@ -51,6 +51,9 @@ html {
 
     // 分割线背景色
     --dividerBg: rgb(107 107 107 / 30%);
+
+    // imageWall
+    --imageBrickCount: 4;
     
 
     background-color: var(--bg_Primary);
@@ -73,6 +76,9 @@ html {
 
         // 演职员card
         --credit_card_num: 5.2;  
+
+        // imageWall
+        --imageBrickCount: 2;
     }
 
     // 手机横屏
@@ -92,8 +98,13 @@ html {
 
         // 媒体类别
         --genreNum: 4.6;
+
+        // imageWall
+        --imageBrickCount: 3;
+        
     }
     
+    // 平板
     @media (width > $breakPointSmall) and (width < $breakpointMedium) and (height > $breakPointSmall) { 
 
         // 基础卡片 

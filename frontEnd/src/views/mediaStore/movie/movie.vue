@@ -8,7 +8,7 @@ import creditCard from "@/components/cards/creditCard.vue";
 import videoListBasic from "@/components/common/videoListBasic.vue";
 import videoCardBasic from "@/components/cards/videoCardBasic.vue";
 
-import { infulexApi } from "@/APIs/medias.js";
+import { mediasApi } from "@/APIs/medias.js";
 import { toDetail } from "@/computeFunc/index.js";
 
 const router = useRouter();
@@ -16,7 +16,7 @@ const defaultArray = ["", "", "", "", "", "", "", "", "", ""];
 const favoriteList = ref(defaultArray);
 
 const getFavoriteList = async () => {
-    favoriteList.value = await infulexApi.getFavoriteList("movie"); 
+    favoriteList.value = await mediasApi.getFavoriteList("movie"); 
 };
 
 onMounted(() => {
@@ -36,7 +36,9 @@ onMounted(() => {
       </scrollHeader>
     </template>
     <template v-slot:content>
+      <div class="h-[40px]"></div>
       <h1 class="px-4 text-[1.6em] font-bold mb-2 txtDarkPrimary">电影</h1>
+      
       <videoListBasic :list="favoriteList" :title="'我的收藏'">
         <template #card="{ media }">
           <videoCardBasic

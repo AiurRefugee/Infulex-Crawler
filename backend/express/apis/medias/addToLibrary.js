@@ -27,6 +27,12 @@ const listenPOSTAddToLibrary = (app) => {
     
     app.post('/addToLibrary', async (req, res) => {
         const { media, mediaType } = req.body
+        if (!media || !mediaType) {
+            res.json({
+                code: 400,
+                message: '参数错误'
+            })
+        }
         const insertRes = await addToLibrary(media, mediaType)
         if (insertRes) {
             res.json({

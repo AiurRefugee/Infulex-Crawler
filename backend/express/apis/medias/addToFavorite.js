@@ -3,6 +3,7 @@ const mongoConfig = require('../../../config/mongo/index.js');
 const { databaseUrl, dbName, favoriteMovieCollection, favoriteTvCollection } = mongoConfig;
 
 const addToFavorite = async (media, mediaType) => {
+    
     // TODO: 获取任务列表
     const mongoManager = new MongoManager(databaseUrl, dbName);
 
@@ -27,6 +28,12 @@ const listenPOSTaddToFavorite = (app) => {
     
     app.post('/addToFavorite', async (req, res) => {
         const { media, mediaType } = req.body
+        if (!media || !mediaType) {
+            res.json({
+                code: 400,
+                message: '参数错误'
+            })
+        }
         const insertRes = await addToFavorite(media, mediaType)
         if (insertRes) {
             res.json({

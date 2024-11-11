@@ -10,6 +10,7 @@ import videoCardBasic from "@/components/cards/videoCardBasic.vue";
 import addLibrary from "./components/addLibrary.vue";
 import addFavorite from "./components/addFavorite.vue";
 import share from "./components/share.vue";
+import moreImages from "./components/moreImages.vue";
 import toSeries from "./components/toSeries.vue";
 import backdropArea from "./components/backdropArea.vue";
 import optButton from "./components/optButton.vue";
@@ -18,7 +19,7 @@ import seasonsView from "./components/seasonsView.vue";
 import { useTaskStore } from "@/stores/tasks";
 
 import { tmdbApi } from "@/APIs/tmdbApi.js";
-import { mediasApi } from "@/APIs/medias.js";
+import { mediasApi } from "@/APIs/medias.js"; 
 const route = useRoute();
 const router = useRouter();
 
@@ -58,6 +59,9 @@ const actions = [
   [
     {
       title: 'toSeries'
+    },
+    {
+      title: 'moreImages'
     }
   ],
   [
@@ -258,6 +262,7 @@ onMounted(async () => {
             <template v-slot:addToFavorite><addFavorite /></template>
             <template v-slot:share><share /></template>
             <template v-slot:toSeries><toSeries /></template>
+            <template v-slot:moreImages><moreImages /></template>
           </moreActions>
         </template>
       </scrollHeader>
@@ -336,15 +341,5 @@ onMounted(async () => {
   text-overflow: ellipsis;
 }
 
-.actionItem {
-  height: 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 1rem;
-  cursor: pointer;
-  text {
-    white-space: nowrap;
-  } 
-} 
+
 </style>
