@@ -3,14 +3,14 @@ const mongoConfig = require('../../../config/mongo/index.js');
 const { removeGenres } = require('./updateGenres.js')
 const { databaseUrl, dbName, movieLibraryCollection, tvLibraryCollection } = mongoConfig;
 
-const removeFromLibrary = async (mediaId, mediaType) => {
-    // TODO: 获取任务列表
+const removeFromLibrary = async (media, mediaType) => {
+    const mediaId = media.id
     const mongoManager = new MongoManager(databaseUrl, dbName);
 
     let collection = null 
     if (mediaType === 'movie') {
         collection = mongoManager.getCollection(movieLibraryCollection);
-        removeGenres()
+        removeGenres(media)
     } 
     if (mediaType === 'tv') {
         collection = mongoManager.getCollection(tvLibraryCollection);

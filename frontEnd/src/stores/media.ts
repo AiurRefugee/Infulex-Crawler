@@ -11,7 +11,7 @@ export const useMediaStore = defineStore('films', {
     favoriteTVs: [],
     movieLibrary: [],
     tvLibrary: [],
-    genres
+    genres: {...genres}
   }),
   getters: {
     // double: (state) => state.count * 2,
@@ -117,17 +117,20 @@ export const useMediaStore = defineStore('films', {
     },
 
     updateGenre() {
-      mediasApi.getGenres().then((res) => { 
+      mediasApi.getGenres().then((res) => {
+        for (const id in this.genres) {
+          const genre = this.genres[id]
+          genre.backgroundImage = genre.background
+        }
         for (const genre of res) {
           const backgroundImage = genre.media?.backdrop_path
           const genreObj = this.genres[String(genre.id)]
-         
-          if (genreObj) {
-            const url = tmdbImgPrefix + backgroundImage
-            genreObj.background += `, url(${url})`
-             
-          }      
-        }  
+          const url = tmdbImgPrefix + backgroundImage
+          genreObj.backgroundImage = genreObj.background + `, url(${url})`
+          genreObj.latest = genre.media?.title || genre.media?.name
+            
+        }
+        console.log('updateGenre', this.genres)
       }).catch(err => {
         console.log(err)
       })

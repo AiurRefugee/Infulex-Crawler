@@ -30,7 +30,7 @@ export default function useFavoriteToggle(media, mediaType, tvDetail) {
     }
     console.log('toggleLibrary', mediaDetail.value, mediaType.value);
     if (inLibrary.value) {
-      mediaStore.removeFromLibrary(mediaDetail.value.id, mediaType.value);
+      mediaStore.removeFromLibrary(mediaDetail.value, mediaType.value);
     } else {
       mediaStore.addToLibrary(mediaDetail.value, mediaType.value);
     }

@@ -7,7 +7,6 @@ const genres = computed(() => mediaStore.genres);
 
 
 onMounted(async () => {
-  getGenres()
 });
 </script>
 <template>
@@ -18,7 +17,7 @@ onMounted(async () => {
     <div ref="list" class="w-full flex pl-4 gap-3 overflow-auto hideScroll">
       <div
         class="browseClassButton browseButtonSize rounded-lg center"
-        :style="{ backgroundImage: tag.background }"
+        :style="{ backgroundImage: tag.backgroundImage }"
         v-for="tag in genres"
         :key="tag"
       >
