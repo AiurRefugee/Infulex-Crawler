@@ -1,5 +1,6 @@
 const MongoManager = require('../../../classes/mongoManager.js')
 const mongoConfig = require('../../../config/mongo/index.js');
+const { addGenres } = require('./updateGenres.js')
 const { databaseUrl, dbName, movieLibraryCollection, tvLibraryCollection } = mongoConfig;
 
 const addToLibrary = async (media, mediaType) => {
@@ -9,6 +10,7 @@ const addToLibrary = async (media, mediaType) => {
     let collection = null 
     if (mediaType === 'movie') {
         collection = mongoManager.getCollection(movieLibraryCollection);
+        addGenres(media)
     } 
     if (mediaType === 'tv') {
         collection = mongoManager.getCollection(tvLibraryCollection);

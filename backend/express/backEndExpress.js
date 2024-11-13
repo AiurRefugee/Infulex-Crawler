@@ -7,6 +7,8 @@ const listenPOSTRemoveFavorite = require('./apis/medias/removeFromFavorite');
 const listenPOSTAddToLibrary = require('./apis/medias/addToLibrary');
 const listenGetLibraryList = require('./apis/medias/getLibraryList');
 const listenPOSTRemoveFromLibrary = require('./apis/medias/removeFromLibrary');
+const listenGetTops = require('./apis/medias/getTops');
+const listenGetGenres = require('./apis/medias/getGenres')
 const taskPool = new Set()
 
 const app = express();
@@ -84,6 +86,8 @@ listenPOSTRemoveFavorite(app)
 listenPOSTAddToLibrary(app)
 listenGetLibraryList(app)
 listenPOSTRemoveFromLibrary(app)
+listenGetTops(app)
+listenGetGenres(app)
 
 app.use(errorHandler);
 

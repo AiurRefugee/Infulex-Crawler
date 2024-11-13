@@ -31,7 +31,7 @@ const posterPath = computed(() => props.media?.poster_path || props.media?.backd
 
 </script>
 <template>
-  <div class="basicCard py-1 pr-2 flex-shrink-0 snap-start">
+  <div class="basicCard py-1 pr-2 flex-shrink-0 scroll-m-4">
     <div class="cardImage p-[3px] w-full rounded-lg trans" v-if="posterPath">
       <img class="w-full h-full overflow-hidden rounded-lg object-cover" :src="imageSrcPrefix + posterPath" />
     </div>
@@ -72,9 +72,9 @@ const posterPath = computed(() => props.media?.poster_path || props.media?.backd
 
 .basicCard {
   --border_color: transparent;
-  width: calc(100vw / var(--basc_card_num));
+  width: calc(100% / var(--basc_card_num));
   flex-shrink: 0;
-
+  font-size: 14px;
   .cardImage {
     outline: 3px var(--border_color) solid;
     border-color: var(--border_color);
@@ -92,7 +92,7 @@ const posterPath = computed(() => props.media?.poster_path || props.media?.backd
 }
 
 .basicCardRect {
-  width: calc(100vw / var(--basc_card_rect_num)) !important;
+  width: calc(100% / var(--basc_card_rect_num)) !important;
   scroll-snap-align: start;
   scroll-margin-left: 1rem;
   .cardImage {

@@ -1,6 +1,6 @@
 // useFavoriteToggle.js
 import { computed, watch } from 'vue';
-import { useMediaStore } from '@/stores/media'; // 假设这是你的store
+import { useMediaStore } from '@/stores/media';
 
 export default function useFavoriteToggle(media, mediaType, tvDetail) {
   const mediaStore = useMediaStore();

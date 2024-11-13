@@ -5,7 +5,6 @@ import { get, post } from "@/APIS/axiosWrapper.js";
 import scrollView from "@/viewComponents/scrollView.vue";
 import scrollHeader from "@/components/common/scrollHeader.vue";
 import videoCardBasic from "@/components/cards/videoCardBasic.vue";
-import divider from "@/components/common/divider.vue";
 
 import { layoutStore } from "@/stores/layout";
 import videoListBasic from "@/components/common/videoListBasic.vue";
@@ -101,41 +100,41 @@ onMounted(async () => {
             <videoCardBasic class="basicCardRect" :imageSrcPrefix="''" :media="media" :mediaType="'tv'" @click="toDetail(media, 'tv')"/>
           </template>
         </videoListBasic>
-        <divider class="mx-4"/>
+        <div class="divider"></div>
         <!-- <videoListBasic :card="videoCardBasicRect" :list="aiqiyi" :title="'电视剧热播榜'"/>  -->
         <videoListBasic :list="nowPlaying" :title="'正在热映'">
           <template #card="{ media }">
             <videoCardBasic :media="media" :mediaType="'movie'" @click="toDetail(media, 'movie')"/>
           </template>
         </videoListBasic>
-        <divider class="mx-4"/>
+        <div class="divider"></div>
         <videoListBasic :list="popularMovies" :title="'热门电影'">
           <template #card="{ media }">
             <videoCardBasic :media="media" :mediaType="'movie'" @click="toDetail(media, 'movie')"/>
           </template>
         </videoListBasic>
-        <divider class="mx-4"/>
+        <div class="divider"></div>
 
         <videoListBasic :list="popularTV" :title="'热门剧集'">
           <template #card="{ media }">
             <videoCardBasic :media="media" :mediaType="'tv'" @click="toDetail(media, 'tv')"/>
           </template>
         </videoListBasic>
-        <divider class="mx-4"/>
+        <div class="divider"></div>
 
         <videoListBasic :list="aiqiyiWangju" :title="'网剧热播榜'">
           <template #card="{ media }">
             <videoCardBasic class="basicCardRect" :imageSrcPrefix="''" :media="media" :mediaType="'tv'" @click="toDetail(media, 'tv')"/>
           </template>
         </videoListBasic>
-        <divider class="mx-4"/>
+        <div class="divider"></div>
 
         <videoListBasic :list="topRated" :title="'评分最高'">
           <template #card="{ media }">
             <videoCardBasic :media="media" :mediaType="'movie'" @click="toDetail(media, 'movie')"/>
           </template>
         </videoListBasic>
-        <divider class="mx-4"/>
+        <div class="divider"></div>
         
         <videoListBasic :list="aiqiyiUpcoming" :title="'即将到来'">
           <template #card="{ media }">
@@ -148,7 +147,14 @@ onMounted(async () => {
   </div>
 </template>
 <style lang="scss">
-
+.divider {
+  $space: 1rem;
+  height: 1px;
+  background-color: rgb(83 83 83 / 69%);
+  margin-left: $space;
+  margin-right: $space;
+  margin-bottom: 0.6rem;
+}
 .scrollViewArea:nth-child(1) {
   background: red;
   .borderB {

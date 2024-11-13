@@ -71,6 +71,22 @@ export const mediasApi = {
         const result = await post(url, data)
         console.log('removeFromLibrary', result)
         return result
+    },
+
+    // 评分最高的电影
+    getTopRatedMovies: async () => {
+        const url = infulexPrefix + `/getTops`
+        const topRatedMovies = await get(url)
+        console.log('getTopRatedMovies', topRatedMovies)
+        return topRatedMovies
+    },
+
+    // 获取类别
+    getGenres: async () => {
+        const url = infulexPrefix + `/getGenres`
+        const genres = await get(url)
+        console.log('getGenres', genres)
+        return genres
     }
 
 }

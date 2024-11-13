@@ -1,5 +1,6 @@
 const MongoManager = require('../../../classes/mongoManager.js')
 const mongoConfig = require('../../../config/mongo/index.js');
+const { removeGenres } = require('./updateGenres.js')
 const { databaseUrl, dbName, movieLibraryCollection, tvLibraryCollection } = mongoConfig;
 
 const removeFromLibrary = async (mediaId, mediaType) => {
@@ -9,6 +10,7 @@ const removeFromLibrary = async (mediaId, mediaType) => {
     let collection = null 
     if (mediaType === 'movie') {
         collection = mongoManager.getCollection(movieLibraryCollection);
+        removeGenres()
     } 
     if (mediaType === 'tv') {
         collection = mongoManager.getCollection(tvLibraryCollection);

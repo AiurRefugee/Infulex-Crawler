@@ -67,21 +67,20 @@ onMounted(() => {
   </scrollView>
 </template>
 <style lang="scss">
-$gap: 1.5vmax;
+$gap: 1rem;
 .imagesWall {
   columns: var(--imageBrickCount);
-  break-inside: avoid-column;
+  
   column-gap: 0;
 }
 .imageBrickWrap {
   overflow: hidden;
   padding: $gap / 2;
-  
+  break-inside: avoid-column;
 }
 .imageBrick {
-  
   object-fit: contain;
-  border-radius: 10px;
-  border: 1px solid rgba(211, 211, 211, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(211, 211, 211, 0.15);
 }
 </style>

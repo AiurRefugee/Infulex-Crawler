@@ -108,10 +108,10 @@ html {
     @media (width > $breakPointSmall) and (width < $breakpointMedium) and (height > $breakPointSmall) { 
 
         // 基础卡片 
-        --basc_card_num: 8.6;
+        --basc_card_num: 9.2;
 
         // 基础card　横向
-        --basc_card_rect_num: 4.6;
+        --basc_card_rect_num: 5.2;
 
         // 演职员card
         --credit_card_num: 12;
@@ -120,7 +120,7 @@ html {
         --search_genre_card_num: 3;  
 
         // 媒体类别
-        --genreNum: 6;
+        --genreNum: 3.8;
     }
 }
 html {
