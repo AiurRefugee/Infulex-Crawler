@@ -7,7 +7,7 @@ import backword from "@/components/common/backword.vue";
 import creditCard from "@/components/cards/creditCard.vue";
 import videoListBasic from "@/components/common/videoListBasic.vue";
 import videoCardBasic from "@/components/cards/videoCardBasic.vue"; 
-import classButtonList from "@/components/classButtonList.vue";
+import genresList from "../components/genresList.vue"
 import { useMediaStore } from "@/stores/media";
 import { mediasApi } from "@/APIs/medias.js";
 const mediaStore = useMediaStore();
@@ -74,7 +74,7 @@ onMounted(() => {
         </template>
       </videoListBasic>
 
-      <classButtonList/>
+      <genresList/>
 
       <videoListBasic :list="topRatedMovies" :title="'最受好评的电影'">
         <template #card="{ media }">

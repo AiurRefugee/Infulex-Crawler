@@ -3,6 +3,7 @@ import SearchView from "@/viewComponents/searchView.vue";
 import { ref, computed, onMounted } from "vue";
 import { layoutStore } from "@/stores/layout";
 import searchItem from "./components/searchItem.vue";
+import classButtonList from "@/components/common/classButtonList.vue";
 import { tmdbApi } from "@/APIs/tmdbApi";
 
 const store = layoutStore();
@@ -13,7 +14,7 @@ const size = computed(() => store.size);
 const scrollArea = ref(null);
 const searchText = ref("复仇者联盟 3");
 const showTitle = ref(false);
-const focused = ref(false)
+const focused = ref(false);
 const searchResult = ref([]); // 搜索结果
 
 const toogleStyle = () => {
@@ -39,17 +40,15 @@ const cancel = () => {
 };
 
 onMounted(() => {
-  if (size.value == 'small') {
+  if (size.value == "small") {
     // store.setTabIconVisible(false)
   }
-})
+});
 </script>
 <template>
   <div class="w-full h-full flex flex-col flex-shrink-0">
     <!-- 顶部占位 -->
-    <div
-      class="bgLightPrimary trans center flex-shrink-0 h-[35px]"
-    >
+    <div class="bgLightPrimary trans center flex-shrink-0 h-[35px]">
       <text
         class="transSlow text-xl txtDarkPrimary"
         :style="{
@@ -73,16 +72,15 @@ onMounted(() => {
         搜索
       </h1>
 
-      <div 
+      <div
         class="flex sticky top-0 z-[2000]"
         :style="{
-            borderBottom: showTitle ? '1px solid #ccc' : 'none',
-            // background: tabIconVisible ? '#e9e9e9' : 'white',
+          borderBottom: showTitle ? '1px solid #ccc' : 'none',
+          // background: tabIconVisible ? '#e9e9e9' : 'white',
         }"
       >
         <div
           class="inputRow w-full h-[60px] pl-4 pt-[5px] pb-[15px] flex bgLightPrimary transSlow"
-          
         >
           <div
             class="inputArea w-full px-2 flex items-center bg-gray-500 rounded-lg"
@@ -118,14 +116,7 @@ onMounted(() => {
           <h1>按类别浏览</h1>
         </div>
         <div class="buttonGrid w-full h-full">
-          <button
-            class="browseClassButton rounded-xl font-bold text-white text-[2em] tracking-widest center"
-            :style="{ background: genre.background }"
-            v-for="genre in genres"
-            :key="genre.id"
-          >
-            <text>{{ genre.name }}</text>
-          </button>
+          <classButtonList class="searchGenre"/>
         </div>
         <div class="h-[20vh]"></div>
       </div>
@@ -144,7 +135,7 @@ onMounted(() => {
     </div>
   </div>
 </template>
-<style lang="scss" scoped>
+<style lang="scss">
 @import "@/style/variables.scss";
 
 .searchTitle {
@@ -161,6 +152,9 @@ $gridNumSmall: 2;
   grid-template-columns: repeat($gridNumLarge, 1fr);
   // grid-template-rows: repeat(auto-fill, 15vh);
   grid-gap: 20px;
+  button {
+    width: 100% !important;
+  }
   @media (width <=1440px) {
     grid-template-columns: repeat($gridNumBase, 1fr);
   }
@@ -169,7 +163,7 @@ $gridNumSmall: 2;
     grid-template-columns: repeat($gridNumSmall, 1fr);
     gap: 15px;
   }
-}
+} 
 .inputRow {
   // width: calc(100% - 1rem);
 }

@@ -104,20 +104,20 @@ onMounted(async () => {
         <!-- <videoListBasic :card="videoCardBasicRect" :list="aiqiyi" :title="'电视剧热播榜'"/>  -->
         <videoListBasic :list="nowPlaying" :title="'正在热映'">
           <template #card="{ media }">
-            <videoCardBasic :media="media" :mediaType="'movie'" @click="toDetail(media, 'movie')"/>
+            <videoCardBasic class="pr-4" :media="media" :mediaType="'movie'" @click="toDetail(media, 'movie')"/>
           </template>
         </videoListBasic>
         <div class="divider"></div>
         <videoListBasic :list="popularMovies" :title="'热门电影'">
           <template #card="{ media }">
-            <videoCardBasic :media="media" :mediaType="'movie'" @click="toDetail(media, 'movie')"/>
+            <videoCardBasic class="pr-4" :media="media" :mediaType="'movie'" @click="toDetail(media, 'movie')"/>
           </template>
         </videoListBasic>
         <div class="divider"></div>
 
         <videoListBasic :list="popularTV" :title="'热门剧集'">
           <template #card="{ media }">
-            <videoCardBasic :media="media" :mediaType="'tv'" @click="toDetail(media, 'tv')"/>
+            <videoCardBasic class="pr-4" :media="media" :mediaType="'tv'" @click="toDetail(media, 'tv')"/>
           </template>
         </videoListBasic>
         <div class="divider"></div>
@@ -131,14 +131,14 @@ onMounted(async () => {
 
         <videoListBasic :list="topRated" :title="'评分最高'">
           <template #card="{ media }">
-            <videoCardBasic :media="media" :mediaType="'movie'" @click="toDetail(media, 'movie')"/>
+            <videoCardBasic class="pr-4" :media="media" :mediaType="'movie'" @click="toDetail(media, 'movie')"/>
           </template>
         </videoListBasic>
         <div class="divider"></div>
         
         <videoListBasic :list="aiqiyiUpcoming" :title="'即将到来'">
           <template #card="{ media }">
-            <videoCardBasic :media="media" :imageSrcPrefix="''" :mediaType="'tv'" @click="toDetail(media, 'tv')"/>
+            <videoCardBasic class="pr-4" :media="media" :imageSrcPrefix="''" :mediaType="'tv'" @click="toDetail(media, 'tv')"/>
           </template>
         </videoListBasic>
         <div class="h-20"></div>
@@ -150,7 +150,7 @@ onMounted(async () => {
 .divider {
   $space: 1rem;
   height: 1px;
-  background-color: rgb(83 83 83 / 69%);
+  background-color: rgb(83 83 83 / 50%);
   margin-left: $space;
   margin-right: $space;
   margin-bottom: 0.6rem;

@@ -1,5 +1,7 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
+import scrollView from "@/viewComponents/scrollView.vue";
+import scrollHeader from "@/components/common/scrollHeader.vue";
 import { layoutStore } from "@/stores/layout";
 import gsap from "gsap";
 import { useRouter, useRoute } from "vue-router";
@@ -21,6 +23,7 @@ function navigate(item) {
       path: item.path,
       replace: true,
     });
+    store.toogleTab()
   }
 }
 
@@ -72,56 +75,66 @@ onMounted(() => {
     class="tabNavWrapper trans overflow-auto txtDarkPrimary"
     :class="showTab ? '' : 'hideTab'"
     :style="{
-      borderRight: showTab ? '1px solid lightgray' : '',
+      borderRight: showTab ? 'var(--tabBorder)' : '',
       width: showTab ? 'var(--tabWidth)' : '0',
     }"
   >
-    <div class="h-[30px] flex-shrink-0"></div>
-    <header class="navHeader">
-      <h1 id="scrollTitle" class="text-2xl">{{ title }}</h1>
-    </header>
-    <div
-      v-for="(item, index) in layoutContent"
-      :key="index"
-      @click="navigate(item)"
-      class="w-full"
-    >
-      <div class="w-full">
-        <button class="tabItem singleLine" @click="toogleItem(item, index)">
-          <div class="flex">
-            <img class="icon" :src="item.image" />
-            <text>{{ item.text }}</text>
+    <scrollView>
+      <template v-slot:header>
+        <scrollHeader :showTab="showTab">
+          <template v-slot:center>
+            <h1 class="txtDarkPrimary select-none text-xl whitespace-nowrap font-bold">Infulex-Crawler</h1>
+          </template>
+        </scrollHeader>
+      </template>
+      <template v-slot:content>
+        <header class="navHeader">
+          <h1 id="scrollTitle" class="text-3xl">{{ title }}</h1>
+        </header>
+        <div
+          v-for="(item, index) in layoutContent"
+          :key="index"
+          @click="navigate(item)"
+          class="w-full"
+        >
+          <div class="w-full">
+            <button class="tabItem text-[1.2em] singleLine" @click="toogleItem(item, index)">
+              <div class="flex">
+                <img class="icon" :src="item.image" />
+                <text>{{ item.text }}</text>
+              </div>
+              <div v-if="item.children">
+                <button>
+                  <img
+                    class="icon"
+                    :style="{ rotate: item.showChild ? '90deg' : '' }"
+                    src="/src/assets/icons/arrow.svg"
+                  />
+                </button>
+              </div>
+            </button>
+            <div class="divider" v-if="item.children"></div>
           </div>
-          <div v-if="item.children">
-            <button>
-              <img
-                class="icon"
-                :style="{ rotate: item.showChild ? '90deg' : '' }"
-                src="/src/assets/icons/arrow.svg"
-              />
+          <div
+            class="subWrapper"
+            :style="{
+              // height: item.children && item.showChild == false ? '0' : ''
+            }"
+          >
+            <button
+              v-for="child in item.children"
+              :key="child.text"
+              class="tabNavChild singleLine"
+              @click="navigate(child)"
+            >
+              <img class="icon" :src="child.image" />
+              <text>{{ child.text }}</text>
             </button>
           </div>
-        </button>
-        <div class="divider" v-if="item.children"></div>
-      </div>
-      <div
-        class="subWrapper"
-        :style="{
-          // height: item.children && item.showChild == false ? '0' : ''
-        }"
-      >
-        <button
-          v-for="child in item.children"
-          :key="child.text"
-          class="tabNavChild singleLine"
-          @click="navigate(child)"
-        >
-          <img class="icon" :src="child.image" />
-          <text>{{ child.text }}</text>
-        </button>
-      </div>
-    </div>
-    <div class="w-full h-4/5 flex-shrink-0"></div>
+        </div>
+        <div class="w-full h-4/5 flex-shrink-0"></div>
+      </template>
+    </scrollView>
   </div>
 </template>
 <style scoped lang="scss">
@@ -130,7 +143,7 @@ $tabHeight: 2px;
 $navTxSize: 16px;
 $itemHeight: 35px;
 ::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 @import "@/style/variables.scss";
 // * {
@@ -157,17 +170,22 @@ $itemHeight: 35px;
   border-right: none;
   translate: -100%;
 }
-.tabNavWrapper { 
+.tabNavWrapper {
   background: var(--nav_bg_primary);
   width: var(--tabWidth);
   height: 100dvh;
-  
+  will-change: width;
   transform: translate(0, 0);
   display: flex;
   flex-direction: column;
   left: 0;
   // z-index: 998;
   // padding: 0 1rem;
+  @media (width <= 500px) {
+    position: fixed;
+    left: 0;
+    z-index: 99;
+  }
   .navHeader {
     width: 100%;
     height: 6vh;
