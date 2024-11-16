@@ -1,6 +1,5 @@
-const { get, post } = require('../../axios/axiosWrapper')
-const { getShareToken } = require('./auth');
-const { sleep } = require('../utils')
+const { get, post } = require('../../axios/axiosWrapper') 
+const { sleep } = require('../../utils/index.js')
 const { searchMulti } = require('../../tmdbAPIs/tmdbAPI')
 
 const isVideo = (name) => {
@@ -32,6 +31,31 @@ function isRelated(name, titleObj) {
     return titleRelated.length >= titleArray.length / 2 || originalTitleRelated.length >= originalTitleArray.length / 2
 }
 
+// 获取shareToken
+const getShareToken = async (shareLink) => {
+    const res = await getShareCode(shareLink)
+    if (!res) {
+        console.log('getShareTokenFailed')
+        return false
+    }
+    const { share_id, share_pwd } = res
+    const getShareTokenUrl = `https://api.aliyundrive.com/v2/share_link/get_share_token`
+    const data = await post(getShareTokenUrl, {
+        share_id,
+        share_pwd
+    })
+    console.log('getShareToken', data?.share_token)
+    const share_token = data?.share_token
+    if (share_token) {
+        return {
+            share_token,
+            share_id,
+            share_pwd
+        }
+    }
+    return false
+}
+
 const updateShareToken = async (shareLink) => {
     const response = await getShareToken(shareLink);
     if (response) {
@@ -51,11 +75,8 @@ const updateShareToken = async (shareLink) => {
 
 }
 
-async function findVideo(titleObj, shareObj, parent_file_id, parentName, layer, nameList = [], taskManager) {
+async function findVideo(titleObj, shareObj, parent_file_id, parentName, layer) {
     const { share_id, share_token } = shareObj
-    if (taskManager && taskManager.canceled) {
-        return false
-    }
     if (layer == maxLayer) {
         crawledSet.add(share_id)
         return false
@@ -87,15 +108,13 @@ async function findVideo(titleObj, shareObj, parent_file_id, parentName, layer, 
                     }
                 }
                 console.log(msg)
-                taskManager.sendSSE(msg)
             }
             console.log('findItems in ', parentName, names)
             for (const child of res.items) {
                 console.log('searching', child.name)
                 const { parent_file_id, type, name, file_id } = child
-                nameList.push(name)
                 if (type == 'folder') {
-                    const hasVideoInChild = await findVideo(titleObj, shareObj, file_id, name, layer + 1, nameList, taskManager)
+                    const hasVideoInChild = await findVideo(titleObj, shareObj, file_id, name, layer + 1)
 
                     if (hasVideoInChild) {
                         console.log(`find video in ${name}`)
@@ -109,18 +128,14 @@ async function findVideo(titleObj, shareObj, parent_file_id, parentName, layer, 
                 }
 
                 if (type == 'file' && isVideo(name)) {
-                    const related = nameList.some(name => isRelated(name, titleObj))
-                    if (related) {
-                        console.log(`find video in ${name}`)
-                        crawledSet.add(share_id)
-                        return {
-                            file_id: parent_file_id,
-                            share_id,
-                            name
-                        }
+                    console.log(`find video in ${name}`)
+                    crawledSet.add(share_id)
+                    return {
+                        file_id: parent_file_id,
+                        share_id,
+                        name
                     }
                 }
-
             }
             if (layer == 0) {
                 crawledSet.add(share_id)
@@ -144,7 +159,7 @@ async function findVideo(titleObj, shareObj, parent_file_id, parentName, layer, 
 }
 
 
-async function crawlShareLink(shareLink, keywordObj, taskManager) { 
+async function crawlShareLink(shareLink, keywordObj) { 
     const { title, original_title } = keywordObj
     const result = await updateShareToken(shareLink)
     if (!result) {
@@ -157,7 +172,7 @@ async function crawlShareLink(shareLink, keywordObj, taskManager) {
         share_pwd
     } = result
     if (share_id && share_token) {
-        const findVideoRes = await findVideo({ title, original_title }, { share_id, share_token }, 'root', 'root', 0, [], taskManager)
+        const findVideoRes = await findVideo({ title, original_title }, { share_id, share_token }, 'root', 'root', 0, [])
         const {
             file_id,
             name

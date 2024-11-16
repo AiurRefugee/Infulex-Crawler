@@ -36,13 +36,14 @@ html {
     --search_genre_card_num: 4;   
 
     // 基础卡片 
-    --basc_card_num: 16.6; 
+    --basc_card_num: 13.2; 
+    --browse_Pr: 1rem;
 
     // 媒体类别
     --genreNum: 10;
 
     // 基础卡牌　横向
-    --basc_card_rect_num: 9.6;
+    --basc_card_rect_num: 6.2;
 
     // 演职员card
     --credit_card_num: 15;   
@@ -74,6 +75,7 @@ html {
 
         // 基础卡牌　横向
         --basc_card_rect_num: 2.1;
+        --browse_Pr: 10px;
 
         // 演职员card
         --credit_card_num: 5.2;  
@@ -93,6 +95,7 @@ html {
 
         // 基础卡牌　横向
         --basc_card_rect_num: 4.1;
+        --browse_Pr: 10px;
         
         // 演职员card
         --credit_card_num: 10;  

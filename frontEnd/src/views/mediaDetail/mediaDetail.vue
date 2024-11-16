@@ -18,8 +18,8 @@ import subTitle from "./components/subTitle.vue";
 import seasonsView from "./components/seasonsView.vue";
 import { useTaskStore } from "@/stores/tasks";
 
-import { tmdbApi } from "@/APIs/tmdbApi.js";
-import { mediasApi } from "@/APIs/medias.js"; 
+import { tmdbApi } from "@/apis/tmdbApi.js";
+import { mediasApi } from "@/apis/medias.js"; 
 const route = useRoute();
 const router = useRouter();
 

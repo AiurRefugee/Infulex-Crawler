@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { get, post } from "@/APIS/axiosWrapper.js";
+import { get, post } from "@/apis/axiosWrapper.js";
 import { layoutStore } from "@/stores/layout";
 import gsap from "gsap";
 import ScrollView from "@/viewComponents/ScrollView.vue";

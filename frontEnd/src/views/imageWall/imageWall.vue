@@ -1,7 +1,7 @@
 <script setup>
 import scrollView from "@/viewComponents/scrollView.vue";
 import scrollHeader from "@/components/common/scrollHeader.vue";
-import { tmdbApi } from "@/APIs/tmdbApi.js";
+import { tmdbApi } from "@/apis/tmdbApi.js";
 import { ref, onMounted, inject, nextTick, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
 const route = useRoute();

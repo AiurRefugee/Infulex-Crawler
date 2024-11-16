@@ -1,6 +1,6 @@
 <script setup>
 import { computed, inject } from 'vue'
-import { tmdbApi } from '@/APIs/tmdbApi.js'
+import { tmdbApi } from '@/apis/tmdbApi.js'
 
 const props = defineProps({
   "person": {

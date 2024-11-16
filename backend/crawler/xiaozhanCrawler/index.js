@@ -2,7 +2,7 @@ const Crawler = require('crawler')
 const { get, post } = require('../../axios/axiosWrapper.js') 
 const { crawlShareLink } = require('../alipanCrawler/share')
 const { share_file_save_all_to_drive } = require('../alipanCrawler/fileOpt')
-const { sleep } = require('../utils')
+const { sleep } = require('../../utils/index.js')
 
 const c = new Crawler()
 

@@ -9,7 +9,7 @@ import videoListBasic from "@/components/common/videoListBasic.vue";
 import videoCardBasic from "@/components/cards/videoCardBasic.vue"; 
 import genresList from "../components/genresList.vue"
 import { useMediaStore } from "@/stores/media";
-import { mediasApi } from "@/APIs/medias.js";
+import { mediasApi } from "@/apis/medias.js";
 const mediaStore = useMediaStore();
 const router = useRouter();
 
@@ -85,6 +85,7 @@ onMounted(() => {
           />
         </template>
       </videoListBasic>
+      <div class="h-24"></div>
     </template>
   </scrollView>
 </template>

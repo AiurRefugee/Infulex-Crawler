@@ -4,7 +4,7 @@ import { ref, computed, onMounted } from "vue";
 import { layoutStore } from "@/stores/layout";
 import searchItem from "./components/searchItem.vue";
 import classButtonList from "@/components/common/classButtonList.vue";
-import { tmdbApi } from "@/APIs/tmdbApi";
+import { tmdbApi } from "@/apis/tmdbApi";
 
 const store = layoutStore();
 // 可以在组件中的任意位置访问 `store` 变量 ✨

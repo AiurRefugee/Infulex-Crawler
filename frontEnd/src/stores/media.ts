@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import { genres } from '@/config/genre'
 import { tmdbImgPrefix } from "@/config/tmdbConfig.js";
 
-import { mediasApi } from "@/APIs/medias.js";
+import { mediasApi } from "@/apis/medias.js";
 
 export const useMediaStore = defineStore('films', {
   state: () => ({

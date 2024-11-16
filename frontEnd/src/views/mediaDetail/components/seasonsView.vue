@@ -3,7 +3,7 @@ import subTitle from "./subTitle.vue";
 import videoCardBasic from "@/components/cards/videoCardBasic.vue";
 
 import { useRouter, useRoute } from "vue-router";
-import { tmdbApi } from "@/APIs/tmdbApi.js";
+import { tmdbApi } from "@/apis/tmdbApi.js";
 import { ref, onMounted, inject, nextTick } from "vue";
 
 

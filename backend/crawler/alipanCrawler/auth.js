@@ -74,32 +74,6 @@ const readAccessToken = async (fileName) => {
     const access_token = data?.access_token
     return access_token
 }
-
-
-// 获取shareToken
-const getShareToken = async (shareLink) => {
-    const res = await getShareCode(shareLink)
-    if (!res) {
-        console.log('getShareTokenFailed')
-        return false
-    }
-    const { share_id, share_pwd } = res
-    const getShareTokenUrl = `https://api.aliyundrive.com/v2/share_link/get_share_token`
-    const data = await post(getShareTokenUrl, {
-        share_id,
-        share_pwd
-    })
-    console.log('getShareToken', data?.share_token)
-    const share_token = data?.share_token
-    if (share_token) {
-        return {
-            share_token,
-            share_id,
-            share_pwd
-        }
-    }
-    return false
-}
  
 
 // 获取 AccessToken
@@ -116,8 +90,7 @@ const getAccessToken = async () => {
 }
 
 
-module.exports = {  
-    getShareToken,
+module.exports = {   
     getAccessToken,
     readAccessToken,
     saveAccessToken, 
