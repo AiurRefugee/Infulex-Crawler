@@ -176,3 +176,15 @@ input:focus-visible {
         white-space: nowrap;
     }
 }
+
+.showAllButton {
+    color: orange;
+    font-weight: 500;
+}
+
+.showAllGridRect{
+    display: grid;
+    grid-template-columns: repeat(var(--showAllGridRectColumns), 1fr);
+    justify-content: center;
+
+}

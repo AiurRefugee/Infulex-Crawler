@@ -93,13 +93,18 @@ const posterPath = computed(() => props.media?.poster_path || props.media?.backd
 
 .basicCardRect {
   width: calc(100% / var(--basc_card_rect_num)) !important;
-  scroll-snap-align: start;
-  scroll-margin-left: 1rem;
+  // scroll-snap-align: start;
+  // scroll-margin-left: 1rem;
   .cardImage {
     aspect-ratio: 16 / 9 !important;
   }
 }
-
+.basicCardRectInGrid {
+  width: 100%; 
+  .cardImage {
+    aspect-ratio: 16 / 9 !important;
+    }
+}
 .selected {
   --border_color: #f97316;
 }

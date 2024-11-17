@@ -40,12 +40,7 @@ onMounted(() => {});
       <h1 class="listTitle text-[1.2em] font-bold py-1 txtDarkPrimary">
         {{ title || "--" }}
       </h1>
-      <button
-        class="showAllButton text-[0.8em] font-medium text-orange-400"
-        @click="toAll"
-      >
-        查看全部
-      </button>
+      <slot name="showAll"></slot>
     </div>
     <!-- <div class="listWrap relative" :class="scrolling ? 'scrolling' : ''"> -->
     <div
@@ -53,10 +48,16 @@ onMounted(() => {});
       class="list flex pl-4 justify-stretch items-start overflow-x-auto snap-x"
       @scroll="calFading"
     >
-      <slot name="card" class="" :media="media" v-for="media in list" :key="media">
+      <slot
+        name="card"
+        class=""
+        :media="media"
+        v-for="media in list"
+        :key="media"
+      >
       </slot>
     </div>
-    <!-- </div> --> 
+    <!-- </div> -->
   </div>
 </template>
 <style lang="scss" scoped>
@@ -87,7 +88,7 @@ onMounted(() => {});
     );
   }
 }
-.borderB { 
+.borderB {
   background: rgba(164, 163, 163, 0.368);
 }
 .scrolling.listWrap::after {

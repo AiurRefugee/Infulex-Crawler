@@ -6,6 +6,7 @@ import scrollView from "@/viewComponents/scrollView.vue";
 import scrollHeader from "@/components/common/scrollHeader.vue";
 import videoCardBasic from "@/components/cards/videoCardBasic.vue";
 import videoListBasic from "@/components/common/videoListBasic.vue";
+import aiqiyiVideos from "./components/aiqiyiVideo.vue";
 // 可以在组件中的任意位置访问 `store` 变量 ✨
 
 import { tmdbApi } from "@/apis/tmdbApi.js";
@@ -48,9 +49,9 @@ const getTVTrending = async () => {
 
 const getAiqiyiVideos = async () => {
   const videos = await aiqiyiApi.getVideos()
-  aiqiyiTVTrending.value = videos?.tvTrending
-  aiqiyiUpcoming.value = videos?.upcoming
-  aiqiyiWangju.value = videos?.wangju
+  aiqiyiTVTrending.value = videos?.tvTrending?.slice(0, 20)
+  aiqiyiUpcoming.value = videos?.upcoming?.slice(0, 20)
+  aiqiyiWangju.value = videos?.wangju?.slice(0, 20)
 }
 
 const toDetail = (media, mediaType) => {
@@ -86,11 +87,12 @@ onMounted(async () => {
       </template>
       <template v-slot:content>
         <h1 class="px-4 text-[1.6em] font-bold mb-2 txtDarkPrimary">浏览</h1>
-        <videoListBasic :list="aiqiyiTVTrending" :title="'电视剧热播榜'">
+        <!-- <videoListBasic :list="aiqiyiTVTrending" :title="'电视剧热播榜'">
           <template #card="{ media }">
             <videoCardBasic class="basicCardRect browsePr" :imageSrcPrefix="''" :media="media" :mediaType="'tv'" @click="toDetail(media, 'tv')"/>
           </template>
-        </videoListBasic>
+        </videoListBasic> -->
+        <aiqiyiVideos :title="'电视剧热播榜'" :path="'/aiqiyiTVsTrending'" :videoPath="'tvTrending'" :aiqiyiList="aiqiyiTVTrending"/>
         <div class="divider"></div>
         <!-- <videoListBasic :card="videoCardBasicRect" :list="aiqiyiTVTrending" :title="'电视剧热播榜'"/>  -->
         <videoListBasic :list="nowPlayingMovie" :title="'正在热映'">
@@ -113,11 +115,8 @@ onMounted(async () => {
         </videoListBasic>
         <div class="divider"></div>
 
-        <videoListBasic :list="aiqiyiWangju" :title="'网剧热播榜'">
-          <template #card="{ media }">
-            <videoCardBasic class="basicCardRect  browsePr" :imageSrcPrefix="''" :media="media" :mediaType="'tv'" @click="toDetail(media, 'tv')"/>
-          </template>
-        </videoListBasic>
+        <aiqiyiVideos :title="'网剧热播榜'" :path="'/aiqiyiWangju'" :videoPath="'wangju'" :aiqiyiList="aiqiyiWangju"/>
+
         <div class="divider"></div>
 
         <videoListBasic :list="topRatedMovie" :title="'评分最高'">
