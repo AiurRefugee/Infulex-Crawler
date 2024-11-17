@@ -4,16 +4,13 @@ import { defineStore } from 'pinia'
 import { fetchEventSource } from '@microsoft/fetch-event-source';
 
 import { task } from '@/mocData/task'
-
-const baseUrl = '/api'
+import { taskApi } from '@/apis/tasks'
 
 const defaultTasks = [...task, ...task, ...task, ...task]
 
 export const useTaskStore = defineStore('tasks', {
     state: () => ({
-        loading: ref(false),
-        error: ref(null),
-        taskPools: ref(defaultTasks),
+        taskPools: [],
         selectedTask: null
     }),
     actions: {
@@ -28,60 +25,37 @@ export const useTaskStore = defineStore('tasks', {
             console.log(task)
             this.selectedTask = task
         },
-        createTask(media, mediaType) {
+        createTask(media, mediaType, backdropPath) {
             const {
-                id,
+                id: mediaId,
                 name,
-                title,
-                original_name,
-                original_title
+                title, 
             } = media
-            const keyword = name || title
-            const keywordObj = {
-                title: keyword,
-                original_title: original_name || original_title || keyword,
-            }
-            const postData = {
-                keywordObj,
-                media,
-                mediaType
-            }
-
-            const ctrl = new AbortController()
-            const msgs = []
             const taskObj = {
                 status: '进行中',
-                media,
+                msgs: [],
+                mediaId,
                 mediaType,
-                msgs,
-                ctrl
+                backdropPath,
+                title: title || name,
             }
-            this.taskPools[`${mediaType}${id}`] = taskObj
-            this.selectedTask = taskObj
+            taskApi.createTask(media, mediaType, backdropPath).then((res) => {
 
-            fetchEventSource('/api/crawlKeyword', {
-                method: 'POST',
-                openWhenHidden: false,
-                body: JSON.stringify(postData),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                onmessage: (event) => {
-                    const data = JSON.parse(event.data);
-                    msgs.push(data)
-                    console.log(data);
-                },
-                onerror: (err) => {
-                    console.log('error', err);
-                    ctrl.abort()
-                },
-                signal: ctrl.signal,
+                this.taskPools.push(taskObj)
             })
+            
+
         },
         stopTask(mediaId: Number, mediaType: String) {
             const key = mediaType + String(mediaId)
             const task = this.taskPools[key]
             task.ctrl.abort()
+        },
+        fetchTaskList () {
+            taskApi.getTaskList().then( taskList => { 
+                this.taskPools = taskList
+            })
+            
         }
     }
 })

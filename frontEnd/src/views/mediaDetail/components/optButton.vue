@@ -1,16 +1,22 @@
 <script setup>
 import { ref, onMounted, computed, watch, inject } from "vue";
 import useFavoriteToggle from "../composables/favorite";
-
+import { useTaskStore } from "@/stores/tasks";
 const media = inject("media");
 const mediaType = inject("mediaType");
 const tvDetail = inject("tvDetail");
+const backdropUrl = inject("backdropUrl");
+const taskStore = useTaskStore();
 
 const { mediaDetail, isFavorite, toggleFavorite } = useFavoriteToggle(
   media,
   mediaType,
   tvDetail
 );
+
+const createTask = () => {
+  taskStore.createTask(media.value, mediaType.value, backdropUrl.value);
+}
 
 
 onMounted(async () => {});
@@ -21,6 +27,7 @@ onMounted(async () => {});
     <div class="h-full flex gap-3 flex-shrink-0">
       <button
         class="w-full playOpt h-full text-[1.1em] tracking-wider bg-orange-500 text-white rounded-[10px]"
+        @click="createTask"
       >
         添加任务
       </button>
@@ -38,7 +45,6 @@ onMounted(async () => {});
         </svg>
       </button>
     </div>
-    <!-- <addTaskButton/>  -->
   </div>
 </template>
 <style scoped lang="scss">

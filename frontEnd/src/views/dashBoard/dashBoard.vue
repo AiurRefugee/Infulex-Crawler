@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useTaskStore } from "@/stores/tasks";
 import { computed } from "vue";
 import { layoutStore } from "@/stores/layout";
@@ -8,14 +8,14 @@ import scrollHeader from "@/components/common/scrollHeader.vue";
 import taskOverview from "./components/taskOverview.vue"; 
 import { useRouter } from "vue-router";
 const router = useRouter()
-const tasks = useTaskStore();
+const taskStore = useTaskStore();
 const layout = layoutStore();
 const size = computed(() => layout.size);
 console.log(size.value);
 
-const selectedTask = computed(() => tasks.selectedTask);
+const selectedTask = computed(() => taskStore.selectedTask);
 console.log(selectedTask.value);
-const taskPools = computed(() => tasks.taskPools);
+const taskPools = computed(() => taskStore.taskPools);
 
 const sliding = ref(false);
 
@@ -27,6 +27,9 @@ function slideOpt(value) {
 const navToTaskDetail = () => {
   router.push('/dashBoard/taskDetail/114')
 }
+onMounted( () => {
+  taskStore.fetchTaskList()
+})
 </script>
 <template>
   <div class="dashBoard flex h-full">

@@ -25,6 +25,7 @@ const props = defineProps(['title'])
 .showAllGrid .gridArea{
   display: grid;
   grid-template-columns: repeat(var(--showAllGridColumns), calc(100% / var(--showAllGridColumns)));
+  grid-gap: 15px 0;
 }
 
 .showAllGridRect .gridArea{

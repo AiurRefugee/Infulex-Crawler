@@ -9,6 +9,7 @@ const listenGetLibraryList = require('./apis/medias/getLibraryList');
 const listenPOSTRemoveFromLibrary = require('./apis/medias/removeFromLibrary');
 const listenGetTops = require('./apis/medias/getTops');
 const listenGetGenres = require('./apis/medias/getGenres')
+const listenPOSTCreateTask = require('./apis/tasks/createTask')
 const taskPool = new Set()
 
 const app = express();
@@ -28,12 +29,6 @@ app.use(express.json());
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
-
-app.post('/createTask', (req, res) => {
-    const { media, mediaType, keywordObj } = req.body;
-    console.log(media, mediaType, keywordObj) 
-})
-
 
 app.post('/crawlKeyword', (req, res) => {
     console.log('received request')
@@ -74,10 +69,6 @@ app.post('/crawlKeyword', (req, res) => {
     });
 });
 
-app.post('cancelTask', (req, res) => {
-    const { title, original_title} = req.body; 
-    taskPool[title + '/' + original_title]['canceled'] = true
-})
 
 listenGetTaskList(app)
 listenPOSTaddToFavorite(app)
@@ -88,6 +79,7 @@ listenGetLibraryList(app)
 listenPOSTRemoveFromLibrary(app)
 listenGetTops(app)
 listenGetGenres(app)
+listenPOSTCreateTask(app)
 
 app.use(errorHandler);
 

@@ -1,8 +1,6 @@
 const databaseUrl = 'mongodb://localhost:27017'
 const dbName = 'infulex_craweler'
 
-const taskCollectionName = 'task'
-
 const mediaCollectionName = 'media'
 
 const favoriteMovieCollection = 'favorite_movie'
@@ -16,6 +14,8 @@ const tvLibraryCollection = 'tv_library'
 
 const generesCollectionName = 'generes'
 
+const taskCollectionName = 'tasks'
+
 const mongoConfig = {
     databaseUrl,
     dbName,
@@ -26,7 +26,8 @@ const mongoConfig = {
     favoriteTvCollection,
     movieLibraryCollection,
     tvLibraryCollection,
-    generesCollectionName
+    generesCollectionName,
+    taskCollectionName
 }
 
 module.exports = mongoConfig

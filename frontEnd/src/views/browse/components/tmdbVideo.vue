@@ -2,7 +2,6 @@
 import { onMounted, ref, nextTick } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { tmdbApi } from "@/apis/tmdbApi.js";
-import tmdbVideo from "./tmdbVideo.vue";
 import basicPage from "./basicPage.vue";
 import videoCardBasic from "@/components/cards/videoCardBasic.vue";
 import videoListBasic from "@/components/common/videoListBasic.vue";
@@ -49,11 +48,7 @@ const getVideos = async (apiPath) => {
 };
 
 const showAll = () => {
-  const path = props.path;
-  router.addRoute({
-    path: path,
-    component: tmdbVideo,
-  });
+  const path = props.path; 
   router.push({
     path: path,
     query: {
@@ -79,6 +74,7 @@ const toDetail = (media, mediaType) => {
 onMounted(() => {
   const { apiPath, title } = route.query;
   videosTitle.value = title || props.title;
+  console.log(apiPath);
   if (props.tmdbList.length > 0) {
     listView.value = true;
   } else {
@@ -103,7 +99,7 @@ onMounted(() => {
   </videoListBasic>
   <basicPage class="showAllGrid" v-if="pageView" :title="videosTitle">
     <videoCardBasic
-      class="basicCardInGrid"
+      class="basicCardInGrid pr-3"
       :media="media"
       :mediaType="mediaType"
       @click="toDetail(media, mediaType)"

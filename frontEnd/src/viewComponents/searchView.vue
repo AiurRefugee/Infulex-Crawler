@@ -26,7 +26,7 @@ function calScroll(scrollView, event) {
   const normalBgColor = "var(--bg_light_primary)";
   const secBgColor = "var(--bg_light_secondary)";
   const height = scrollView.scrollTop;
-  console.log(height);
+
   const header = scrollView.querySelector("header");
   const title = header.querySelector("h1");
   const searchBar = scrollView.querySelector("#searchBar");

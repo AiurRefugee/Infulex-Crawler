@@ -99,7 +99,7 @@ const slideStart = (event) => {
             <!-- poster -->
             <div class="poster h-full aspect-square center">
               <img
-                :src="imgPrefix + task.poster_path"
+                :src="task?.backdropPath"
                 alt="poster"
                 class="h-full aspect-square object-cover rounded-lg"
               />

@@ -2,7 +2,6 @@
 import { onMounted, ref, nextTick } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { aiqiyiApi } from "@/apis/aiqiyiApi.js";
-import aiqiyiVideo from "./aiqiyiVideo.vue";
 import basicPage from "./basicPage.vue";
 import videoCardBasic from "@/components/cards/videoCardBasic.vue";
 import videoListBasic from "@/components/common/videoListBasic.vue";
@@ -64,11 +63,7 @@ const getVideos = async (videoPath) => {
 };
 
 const showAll = () => {
-  const path = props.path
-  router.addRoute({
-    path: path,
-    component: aiqiyiVideo,
-  });
+  const path = props.path 
   router.push({ 
     path: path,
     query: {
