@@ -38,6 +38,7 @@ html {
     // 基础卡片 
     --basc_card_num: 13.2; 
     --browse_Pr: 1rem;
+    --dividerMy: 10px;
 
     // 媒体类别
     --genreNum: 10;
@@ -57,6 +58,7 @@ html {
     // imageWall
     --imageBrickCount: 4;
     
+    --showAllGridColumns: 13;
     --showAllGridRectColumns: 6;
 
     background-color: var(--bg_Primary);
@@ -76,7 +78,8 @@ html {
 
         // 基础卡牌　横向
         --basc_card_rect_num: 2.1;
-        --browse_Pr: 10px;
+        --browse_Pr: 5px;
+        --dividerMy: 5px;
 
         // 演职员card
         --credit_card_num: 5.2;  
@@ -84,6 +87,7 @@ html {
         // imageWall
         --imageBrickCount: 2;
         --showAllGridRectColumns: 2;
+        --showAllGridColumns: 3;
     }
 
     // 手机横屏
@@ -110,8 +114,35 @@ html {
         
     }
     
-    // 平板
-    @media (width > $breakPointSmall) and (width < $breakpointMedium) and (height > $breakPointSmall) { 
+    // 平板 竖屏
+    @media 
+        (width > $breakPointSmall) and 
+        (width < $breakpointMedium) and 
+        (height > $breakPointSmall) and 
+        (orientation: portrait){ 
+
+        // 基础卡片 
+        --basc_card_num: 7.2;
+
+        // 基础card　横向
+        --basc_card_rect_num: 4.2;
+
+        // 演职员card
+        --credit_card_num: 7.4;
+
+        // 搜索页genre卡片
+        --search_genre_card_num: 3;  
+
+        // 媒体类别
+        --genreNum: 3.8;
+    }
+
+    // 平板 横屏
+    @media 
+        (width > $breakPointSmall) and 
+        (width < $breakpointMedium) and 
+        (height > $breakPointSmall) and 
+        (orientation: landscape){ 
 
         // 基础卡片 
         --basc_card_num: 9.2;
@@ -120,7 +151,7 @@ html {
         --basc_card_rect_num: 5.2;
 
         // 演职员card
-        --credit_card_num: 12;
+        --credit_card_num: 10.8;
 
         // 搜索页genre卡片
         --search_genre_card_num: 3;  

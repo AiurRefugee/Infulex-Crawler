@@ -27,10 +27,10 @@ const imageSrc = computed(() => props.person?.profile_path)
       </svg>
     </div>
     <div class="info h-[5em] pt-2">
-      <p class="filmTitle font-bold singleLine txtDarkPrimary" v-if="name">
+      <p class="filmTitle font-bold text-[0.8em] singleLine txtDarkPrimary" v-if="name">
         {{ name }}
       </p>
-      <p class="subFilmTitle text-[0.8em] h-[3em] maxLine txtDarkBasic" v-if="character">
+      <p class="subFilmTitle text-[0.7em] h-[3em] maxLine txtDarkBasic" v-if="character">
         {{ character }}
       </p>
     </div>
@@ -46,7 +46,7 @@ const imageSrc = computed(() => props.person?.profile_path)
   }
 
   @media (width < 500px) or (height < 500px) {
-    font-size: 12px;
+    font-size: 14px;
   }
 }
 

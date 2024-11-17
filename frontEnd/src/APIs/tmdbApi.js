@@ -14,7 +14,15 @@ export const GETParams = {
 }
 
 export const tmdbApi = {
+    tmdbImgPrefix,
 
+    tmdbAPIPrefix,
+
+    tmdbHeaders,
+
+    GETParams,
+
+    // search
     searchMulti: async (keyword) => {
         const url = tmdbAPIPrefix + '/search/multi'
         const params = {
