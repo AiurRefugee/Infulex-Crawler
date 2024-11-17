@@ -53,7 +53,7 @@ export const useTaskStore = defineStore('tasks', {
         },
         fetchTaskList () {
             taskApi.getTaskList().then( taskList => { 
-                this.taskPools = taskList
+                this.taskPools = taskList.reverse()
             })
             
         }

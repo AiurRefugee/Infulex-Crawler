@@ -273,7 +273,16 @@ onMounted(async () => {
 
         <optButton class="showOnMobilePortrait h-12 pt-2" ref="optButtonRef" />
 
-        <seasonsView
+        <subTitle class="hideOverview showOnMobilePortrait pt-2">介绍</subTitle>
+
+        <p
+          class="overviewWrap overview mt-2 h-[3.6em] px-4 leading-[1.2em] text-[0.9em] txtDarkSecondary"
+        >
+          {{ mediaDetail?.overview }}
+        </p>
+
+
+        <seasonsView 
           v-if="mediaType == 'tv'"
           ref="seasonsViewRef"
           v-model:media="mediaDetail"
@@ -282,16 +291,6 @@ onMounted(async () => {
           v-model:crew="crew"
           v-model:guestStars="guestStars"
         />
-
-        <subTitle class="hideOverview showOnMobilePortrait pt-2">介绍</subTitle>
-
-        <div class="overviewWrap overflow-hidden showOnMobilePortrait">
-          <p
-            class="overview px-4 h-[3.6em] leading-[1.2em] text-[0.9em] txtDarkSecondary"
-          >
-            {{ mediaDetail?.overview }}
-          </p>
-        </div>
 
         <subTitle class="py-2">演员和工作人员</subTitle>
         <div class="flex pl-4 overflow-x-auto overflow-y-hidden">
@@ -321,7 +320,7 @@ onMounted(async () => {
 ::-webkit-scrollbar {
   display: none;
 }
-.showOnMobilePortrait {
+.showOnMobilePortrait, .overviewWrap {
   display: none;
 }
 
@@ -329,13 +328,16 @@ onMounted(async () => {
   .showOnMobilePortrait {
     display: block;
   }
+  .overviewWrap {
+    display: flex;
+  }
 }
 
 .overview {
   max-width: 100%;
   -webkit-line-clamp: 3;
   /* 限制为3行 */
-  line-clamp: 4;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;

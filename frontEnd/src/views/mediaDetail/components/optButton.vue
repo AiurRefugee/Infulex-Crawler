@@ -2,6 +2,7 @@
 import { ref, onMounted, computed, watch, inject } from "vue";
 import useFavoriteToggle from "../composables/favorite";
 import { useTaskStore } from "@/stores/tasks";
+import { tmdbImgPrefix } from '@/config/tmdbConfig'
 const media = inject("media");
 const mediaType = inject("mediaType");
 const tvDetail = inject("tvDetail");
@@ -15,7 +16,15 @@ const { mediaDetail, isFavorite, toggleFavorite } = useFavoriteToggle(
 );
 
 const createTask = () => {
-  taskStore.createTask(media.value, mediaType.value, backdropUrl.value);
+  if (mediaType.value === "movie") {
+    const backdrop_path = tmdbImgPrefix + mediaDetail.value?.backdrop_path || mediaDetail.value?.poster_url
+    taskStore.createTask(media.value, mediaType.value, backdrop_path);
+  }
+  if (mediaType.value === "tv") {
+    const backdrop_path = tmdbImgPrefix + tvDetail.value?.poster_path || tvDetail.value?.backdrop_path
+    taskStore.createTask(tvDetail.value, mediaType.value, backdrop_path);
+  }
+  
 }
 
 

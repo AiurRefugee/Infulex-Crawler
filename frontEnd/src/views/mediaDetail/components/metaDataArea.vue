@@ -25,7 +25,7 @@ const generesStr = computed( () => generes.value.map(item => item.name).join(', 
   <div class="title txtLightPrimary">
     <div class="flex items-center" v-if="mediaType == 'tv'">
       <h1 class="whitespace-nowrap">第{{ seasonNum }}季</h1>
-      <span class="dot bg-white w-2 h-2 mx-2 rounded-full"></span>
+      <span class="dot flex-shrink-0 bg-white w-2 h-2 mx-2 rounded-full"></span>
       <h1 class="whitespace-nowrap">第{{ episodeNum }}集</h1>
       <span class="bg-white whitespace-nowrap w-3 overflow-hidden text-ellipsis h-1 mx-2 "></span>
       <h1 class="singleLine">{{ title }}</h1>
