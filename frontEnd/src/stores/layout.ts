@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 
 const smallBreakPoint = 500
 const mediumBreakPoint = 1440
+const animateDuration = 250
 
 export const layoutStore = defineStore('layout', {
   state: () => ({
@@ -55,9 +56,7 @@ export const layoutStore = defineStore('layout', {
         path: '/dashboard'
       },
     ],
-    imgRatio: '21/9',
-    imgScale: 1,
-    imgY: 0,
+    tabAnimating: false,
     tabIconVisible: true,  // tabIcon是否显示
     showTab: false
   }),
@@ -73,9 +72,17 @@ export const layoutStore = defineStore('layout', {
     },
     toogleTab() {
       this.showTab = !this.showTab
+      this.tabAnimating = true
+      setTimeout(() => {
+        this.tabAnimating = false
+      }, animateDuration)
     },
     setTabIconVisible(value) {
       this.tabIconVisible = value
+      this.tabAnimating = true
+      setTimeout(() => {
+        this.tabAnimating = false
+      }, animateDuration)
     },
     calSize() { 
       const store = layoutStore()

@@ -17,7 +17,7 @@ const { mediaDetail, isFavorite, toggleFavorite } = useFavoriteToggle(
 
 const createTask = () => {
   if (mediaType.value === "movie") {
-    const backdrop_path = tmdbImgPrefix + mediaDetail.value?.backdrop_path || mediaDetail.value?.poster_url
+    const backdrop_path = tmdbImgPrefix + mediaDetail.value?.poster_path || mediaDetail.value?.backdrop_path
     taskStore.createTask(media.value, mediaType.value, backdrop_path);
   }
   if (mediaType.value === "tv") {

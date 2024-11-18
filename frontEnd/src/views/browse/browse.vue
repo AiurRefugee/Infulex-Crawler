@@ -81,83 +81,90 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <div class="browseWrapper w-full h-full">
-    <scrollView>
-      <template v-slot:header>
-        <scrollHeader>
-          <template v-slot:center>
-            <h1 class="txtDarkPrimary select-none text-xl font-bold">浏览</h1>
-          </template>
-        </scrollHeader>
-      </template>
-      <template v-slot:content>
-        <h1 class="px-4 text-[1.6em] font-bold mb-2 txtDarkPrimary">浏览</h1>
+  <scrollView>
+    <template v-slot:header>
+      <scrollHeader>
+        <template v-slot:center>
+          <h1 class="txtDarkPrimary select-none text-xl font-bold">浏览</h1>
+        </template>
+      </scrollHeader>
+    </template>
+    <template v-slot:content>
+      <h1 class="px-4 text-[1.6em] font-bold mb-2 txtDarkPrimary">浏览</h1>
 
-        <aiqiyiVideos
-          :title="'电视剧热播榜'"
-          :path="'/aiqiyiTVsTrending'"
-          :videoPath="'tvTrending'"
-          :aiqiyiList="aiqiyiTVTrending"
-        />
+      <aiqiyiVideos
+        :title="'电视剧热播榜'"
+        :path="'/aiqiyiTVsTrending'"
+        :videoPath="'tvTrending'"
+        :aiqiyiList="aiqiyiTVTrending"
+      />
 
-        <div class="divider mx-4"></div>
+      <div class="h-4"></div>
+      <!-- <div class="divider mx-4"></div> -->
 
-        <tmdbVideo
-          :title="'正在热映'"
-          :path="'/tmdbNowPlaying'"
-          :apiPath="'getNowPlayingMovies'"
-          :tmdbList="nowPlayingMovie"
-        />
+      <tmdbVideo
+        :title="'正在热映'"
+        :path="'/tmdbNowPlaying'"
+        :apiPath="'getNowPlayingMovies'"
+        :tmdbList="nowPlayingMovie"
+      />
 
-        <div class="divider mx-4"></div>
+      <div class="h-4"></div>
+      <!-- <div class="divider mx-4"></div> -->
 
-        <tmdbVideo
-          :title="'热门电影'"
-          :path="'/tmdbTrendingMovie'"
-          :apiPath="'getTrendingMovies'"
-          :tmdbList="movieTrending"
-        />
+      <tmdbVideo
+        :title="'热门电影'"
+        :path="'/tmdbTrendingMovie'"
+        :apiPath="'getTrendingMovies'"
+        :tmdbList="movieTrending"
+      />
 
-        <div class="divider mx-4"></div>
+      <div class="h-4"></div>
+      <!-- <div class="divider mx-4"></div> -->
 
-        <tmdbVideo
-          :title="'热门剧集'"
-          :mediaType="'tv'"
-          :path="'/tmdbTrendingTV'"
-          :apiPath="'getTrendingTVSeries'"
-          :tmdbList="tvTrending"
-        />
+      <tmdbVideo
+        :title="'热门剧集'"
+        :mediaType="'tv'"
+        :path="'/tmdbTrendingTV'"
+        :apiPath="'getTrendingTVSeries'"
+        :tmdbList="tvTrending"
+      />
 
-        <div class="divider mx-4"></div>
+      <div class="h-4"></div>
+      <!-- <div class="divider mx-4"></div> -->
 
-        <aiqiyiVideos
-          :title="'网剧热播榜'"
-          :path="'/aiqiyiWangju'"
-          :videoPath="'wangju'"
-          :aiqiyiList="aiqiyiWangju"
-        />
+      <aiqiyiVideos
+        :title="'网剧热播榜'"
+        :path="'/aiqiyiWangju'"
+        :videoPath="'wangju'"
+        :aiqiyiList="aiqiyiWangju"
+      />
 
-        <div class="divider mx-4"></div>
+      <div class="h-4"></div>
+      <!-- <div class="divider mx-4"></div> -->
 
-        <tmdbVideo
-          :title="'评分最高'"
-          :path="'/topRatedMovie'"
-          :apiPath="'getTopRatedMovies'"
-          :tmdbList="topRatedMovie"
-        />
+      <tmdbVideo
+        :title="'评分最高'"
+        :path="'/topRatedMovie'"
+        :apiPath="'getTopRatedMovies'"
+        :tmdbList="topRatedMovie"
+      />
 
-        <div class="h-20"></div>
-      </template>
-    </scrollView>
-  </div>
+      <div class="h-20"></div>
+    </template>
+  </scrollView>
 </template>
 <style lang="scss" scoped>
 .divider {
   $space: 1rem;
   height: 1px;
+  display: none;
   background-color: rgba(172, 172, 172, 0.5);
   margin-top: var(--dividerMy);
   margin-bottom: var(--dividerMy);
+  @media (prefers-color-scheme: dark) {
+    background-color: rgba(77, 77, 77, 0.5);
+  }
 }
 .scrollViewArea:nth-child(1) {
   background: red;

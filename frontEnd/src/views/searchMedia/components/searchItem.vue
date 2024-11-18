@@ -14,8 +14,11 @@ const props = defineProps({
   },
 });
 
-const crawlKeyWord = () => {
-  tasks.createTask(props.data);
+const createTask = () => {
+  const media = props.data;
+  const mediaType = media.media_type;
+  const posterPath = media.poster_path;
+  tasks.createTask(media, mediaType, posterPath);
 };
 
 const toDetail = () => {
@@ -63,7 +66,7 @@ const handleClick = (event) => {
         <a
           id="addTaskBtn"
           class=" text-orange-500 text-[1.2em] whitespace-nowrap cursor-pointer"
-          @click="crawlKeyWord"
+          @click="createTask"
           >添加任务</a
         >
       </div>

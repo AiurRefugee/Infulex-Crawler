@@ -29,8 +29,8 @@ html {
     // color
     --color_Primary: #f19109;
 
-    --tabBorder: 1px solid lightgray;
-    --tabWidth: max(18vw, 220px);  
+    --tabBorder: 1px solid rgba(211, 211, 211, 0.621);
+    --tabWidth: min(23vw, 300px);  
 
     // 搜索页genre卡片
     --search_genre_card_num: 4;   
@@ -97,7 +97,7 @@ html {
         --search_genre_card_num: 3; 
 
         // 基础卡片 
-        --basc_card_num: 7.3; 
+        --basc_card_num: 7.2; 
 
         // 基础卡牌　横向
         --basc_card_rect_num: 4.1;
@@ -121,11 +121,12 @@ html {
         (height > $breakPointSmall) and 
         (orientation: portrait){ 
 
+        --tabWidth: 300px;  
         // 基础卡片 
-        --basc_card_num: 7.2;
+        --basc_card_num: 6.2;
 
         // 基础card　横向
-        --basc_card_rect_num: 4.2;
+        --basc_card_rect_num: 3.5;
 
         // 演职员card
         --credit_card_num: 7.4;
@@ -148,13 +149,13 @@ html {
         (orientation: landscape){ 
 
         // 基础卡片 
-        --basc_card_num: 9.2;
+        --basc_card_num: 8.2;
 
         // 基础card　横向
-        --basc_card_rect_num: 5.2;
+        --basc_card_rect_num: 5.1;
 
         // 演职员card
-        --credit_card_num: 10.8;
+        --credit_card_num: 10.1;
 
         // 搜索页genre卡片
         --search_genre_card_num: 3;  
@@ -183,7 +184,7 @@ html {
 
         --text_dark_primary: #e1e1e1;
         --text_dark_secondary: #dfdfdfe8;
-        --text_dark_basic: #9b9a9a;
+        --text_dark_basic: #e1e1e1;
 
         // background color
         --bg_dark_primary: #f5f5f5;
@@ -192,7 +193,7 @@ html {
 
         --bg_light_primary: #191919;
         --bg_light_secondary: #202020;
-        --bg_light_basic: #4f4e4e;
+        --bg_light_basic: #323232d3;
 
         --nav_bg_primary: #181818;  
 
@@ -223,7 +224,7 @@ html {
 
         --bg_light_primary: #f5f5f5;
         --bg_light_secondary: #e7e7e7;
-        --bg_light_basic: #b4b3b3b7;
+        --bg_light_basic: #e9e9e9b7;
 
         --nav_bg_primary: #f5f5f5;
     }

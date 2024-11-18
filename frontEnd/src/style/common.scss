@@ -61,6 +61,7 @@ input:focus-visible {
 // bg dark
 .bgDarkPrimary {
     background: var(--bg_dark_primary);
+    fill: var(--bg_dark_primary);
 }
 .bgDarkSecondary {
     background: var(--bg_dark_secondary);
@@ -190,5 +191,9 @@ input:focus-visible {
 }
 .browsePr {
     padding-right: var(--browse_Pr);
-
+}
+.tabAnimated {
+    transition: scale 0.25s ease-in-out;
+    scale: 0.8;
+    transform-origin: right top;
 }

@@ -9,11 +9,7 @@ const router = useRouter();
 const store = layoutStore();
 
 const layoutContent = computed(() => store.layoutContent);
-const showTab = computed(() => store.showTab);
-const size = computed(() => store.size);
-const typeWidth = 50;
-const activeMediaIndex = ref(0);
-const title = "Influlex-Crawler";
+const showTab = computed(() => store.showTab); 
 var standAlone = ref(false);
 
 function navigate(item) {
@@ -79,17 +75,17 @@ onMounted(() => {
       width: showTab ? 'var(--tabWidth)' : '0',
     }"
   >
-    <scrollView>
+    <scrollView class="tabList">
       <template v-slot:header>
         <scrollHeader :showTab="showTab">
           <template v-slot:center>
-            <h1 class="txtDarkPrimary select-none text-xl whitespace-nowrap font-bold">Infulex-Crawler</h1>
+            <h1 class="txtDarkPrimary select-none text-lg whitespace-nowrap font-bold">Infulex-Crawler</h1>
           </template>
         </scrollHeader>
       </template>
       <template v-slot:content>
         <header class="navHeader">
-          <h1 id="scrollTitle" class="text-3xl">{{ title }}</h1>
+          <h1 id="scrollTitle" class="text-2xl">Influlex-Crawler</h1>
         </header>
         <div
           v-for="(item, index) in layoutContent"
@@ -171,7 +167,7 @@ $itemHeight: 35px;
   translate: -100%;
 }
 .tabNavWrapper {
-  background: var(--nav_bg_primary);
+  // background: var(--nav_bg_primary);
   width: var(--tabWidth);
   height: 100dvh;
   will-change: width;
@@ -181,11 +177,11 @@ $itemHeight: 35px;
   left: 0;
   // z-index: 998;
   // padding: 0 1rem;
-  @media (width <= 500px) {
+  // @media (width <= 1000px) {
     position: fixed;
     left: 0;
     z-index: 99;
-  }
+  // }
   .navHeader {
     width: 100%;
     height: 6vh;

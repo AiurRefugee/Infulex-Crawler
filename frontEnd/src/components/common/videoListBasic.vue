@@ -35,30 +35,28 @@ const calFading = (e) => {
 onMounted(() => {});
 </script>
 <template>
-  <div ref="listWrap" class="listWrapper">
-    <div class="listHead px-4 flex justify-between items-center">
-      <h1 class="listTitle text-[1.2em] font-bold txtDarkPrimary">
-        {{ title || "--" }}
-      </h1>
-      <slot name="showAll"></slot>
-    </div>
-    <!-- <div class="listWrap relative" :class="scrolling ? 'scrolling' : ''"> -->
-    <div
-      ref="list"
-      class="list flex pl-4 justify-stretch items-start overflow-x-auto snap-x"
-      @scroll="calFading"
-    >
-      <slot
-        name="card"
-        class=""
-        :media="media"
-        v-for="media in list"
-        :key="media"
-      >
-      </slot>
-    </div>
-    <!-- </div> -->
+  <div class="listHead px-4 pb-1 flex justify-between items-center">
+    <h1 class="listTitle text-[1.2em] font-bold txtDarkPrimary">
+      {{ title || "--" }}
+    </h1>
+    <slot name="showAll"></slot>
   </div>
+  <!-- <div class="listWrap relative" :class="scrolling ? 'scrolling' : ''"> -->
+  <div
+    ref="list"
+    class="list flex pl-4 justify-stretch items-start overflow-x-auto snap-x"
+    @scroll="calFading"
+  >
+    <slot
+      name="card"
+      class=""
+      :media="media"
+      v-for="media in list"
+      :key="media"
+    >
+    </slot>
+  </div>
+  <!-- </div> -->
 </template>
 <style lang="scss" scoped>
 ::-webkit-scrollbar {
@@ -66,6 +64,7 @@ onMounted(() => {});
   z-index: 9999;
   display: none;
 }
+
 .listWrap::after {
   content: "";
   position: absolute;

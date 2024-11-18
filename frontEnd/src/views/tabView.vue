@@ -1,7 +1,6 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import { layoutStore } from "@/stores/layout";
-import NavList from "@/components/navList.vue";
 
 const layout = layoutStore(); 
 const tabIconVisible = computed(() => layout.tabIconVisible);  

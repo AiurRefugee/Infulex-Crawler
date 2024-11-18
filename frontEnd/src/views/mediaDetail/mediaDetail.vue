@@ -302,8 +302,9 @@ onMounted(async () => {
         </div>
 
         <subTitle class="py-1" v-if="similar.length">更多相似</subTitle>
-        <div class="flex pl-4 overflow-x-auto" v-if="similar.length">
+        <div class="flex pl-4 overflow-x-auto overflow-y-hidden" v-if="similar.length">
           <videoCardBasic
+            class="pr-4"
             v-for="media in similar"
             :key="media.id"
             :media="media"

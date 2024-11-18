@@ -65,7 +65,7 @@ onMounted(() => {
   }
 
   .tabcontent {
-    width: 100%;
+    width: 100vw;
     // height: 100vh;
     flex: 1;
     position: relative;

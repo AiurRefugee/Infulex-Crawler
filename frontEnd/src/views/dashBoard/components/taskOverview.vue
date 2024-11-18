@@ -92,7 +92,7 @@ const slideStart = (event) => {
 
 </script>
 <template>
-  <div class="taskItemWrap bgLightSecondary rounded-lg overflow-hidden">
+  <div class="taskItemWrap bgLightBasic rounded-xl overflow-hidden">
     <liItem :liClassName="'liItem'" :afterfixW="afterfixW">
       <template v-slot:content>
         <div class="taskOverview h-full center p-3" ref="liWrap"> 

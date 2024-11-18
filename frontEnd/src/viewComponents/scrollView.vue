@@ -58,6 +58,10 @@ $paddingSize: 2%;
   overflow-x: hidden;
   overflow-y: auto; 
 }
+.tabList {
+  background: #191919c2 !important;
+  backdrop-filter: blur(20px);
+}
 .scrollViewArea {
   scroll-timeline: --scrollTimeline y;
 }
