@@ -18,11 +18,10 @@ onMounted(async () => {});
   </button>
 </template>
 <style lang="scss" scoped>
-$height: 130px;
 //浏览页class button
 .browseButtonSize {
-  width: calc(100% / var(--genreNum));
-  height: $height;
+  width: calc(100vw / var(--genreNum));
+  height: 100%;
   @media (width <= 500px) {
     height: '';
     aspect-ratio: 1;
@@ -30,7 +29,7 @@ $height: 130px;
 }
 .searchButton .browseButtonSize {
   width: 100%;
-  height: $height;
+  height: 100%;
 }
 .browseClassButton {
   flex-shrink: 0;

@@ -7,7 +7,7 @@ const { idMap } = require('../../../config/generes/index.js')
 const addGenres = async (media) => {
     const generes = media.genres
     const mediaId = media.id
-    const mongoManager = new MongoManager(databaseUrl, dbName);
+    const mongoManager = new MongoManager();
     console.log('addGenres', mediaId, generes, generesCollectionName)
     const collection = mongoManager.getCollection(generesCollectionName)
     if (generes && generes.length > 0) {
@@ -23,7 +23,7 @@ const addGenres = async (media) => {
 const removeGenres = async (media) => {
     const generes = media.genres;
     const mediaId = media.id;
-    const mongoManager = new MongoManager(databaseUrl, dbName);
+    const mongoManager = new MongoManager();
     console.log('removeGenres', mediaId, generes, generesCollectionName);
     const collection = mongoManager.getCollection(generesCollectionName);
 

@@ -36,15 +36,15 @@ html {
     --search_genre_card_num: 4;   
 
     // 基础卡片 
-    --basc_card_num: 13.2; 
+    --basc_card_num: 14.1; 
     --browse_Pr: 1rem;
     --dividerMy: 2vh;
 
     // 媒体类别
-    --genreNum: 10;
+    --genreNum: 7;
 
     // 基础卡牌　横向
-    --basc_card_rect_num: 6.2;
+    --basc_card_rect_num: 8.1;
 
     // 演职员card
     --credit_card_num: 15;   
@@ -77,7 +77,7 @@ html {
         --genreNum: 1.1;
 
         // 基础卡牌　横向
-        --basc_card_rect_num: 2.1;
+        --basc_card_rect_num: 2.2;
         --browse_Pr: 5px;
         --dividerMy: 6px;
 
@@ -96,8 +96,10 @@ html {
         // 搜索页genre卡片
         --search_genre_card_num: 3; 
 
+        --tabWidth: 30vw;  
+
         // 基础卡片 
-        --basc_card_num: 7.2; 
+        --basc_card_num: 6.2; 
 
         // 基础卡牌　横向
         --basc_card_rect_num: 4.1;
@@ -149,10 +151,10 @@ html {
         (orientation: landscape){ 
 
         // 基础卡片 
-        --basc_card_num: 8.2;
+        --basc_card_num: 9.4;
 
         // 基础card　横向
-        --basc_card_rect_num: 5.1;
+        --basc_card_rect_num: 5.3;
 
         // 演职员card
         --credit_card_num: 10.1;

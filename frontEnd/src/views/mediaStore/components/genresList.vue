@@ -6,7 +6,7 @@ import classButtonList from "@/components/common/classButtonList.vue";
     <div class="genreTitle w-full px-4 flex txtDarkSecondary">
       <h1 class="text-xl font-bold py-2">影片类型</h1>
     </div>
-    <div ref="list" class="w-full flex pl-4 gap-3 overflow-auto hideScroll">
+    <div ref="list" class="genreList w-full flex pl-4 gap-4 overflow-auto hideScroll">
       <classButtonList />
     </div>
   </div>
@@ -21,5 +21,8 @@ import classButtonList from "@/components/common/classButtonList.vue";
   @media (width < 500px) {
     margin-bottom: 1rem;
   }
+}
+.genreList {
+  height: min(15vh, 120px);
 }
 </style>

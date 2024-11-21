@@ -2,10 +2,11 @@ const { MongoClient } = require('mongodb');
 const path = require('path');
 const configPath = path.resolve(__dirname, '../config/mongo/index.js');
 const mongoConfig = require(configPath); 
+const { databaseUrl, dbName } = mongoConfig;
 
 // 单例类
 class MongoManager {
-    constructor(databaseUrl, dbName) {
+    constructor() {
         // 确保只创建一个实例
         if (!MongoManager.instance) {
             this.databaseUrl = databaseUrl 

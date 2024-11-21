@@ -5,7 +5,7 @@ const { databaseUrl, dbName, movieLibraryCollection, tvLibraryCollection } = mon
 
 const removeFromLibrary = async (media, mediaType) => {
     const mediaId = media.id
-    const mongoManager = new MongoManager(databaseUrl, dbName);
+    const mongoManager = new MongoManager();
 
     let collection = null 
     if (mediaType === 'movie') {

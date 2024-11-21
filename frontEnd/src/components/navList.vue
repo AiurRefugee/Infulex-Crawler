@@ -71,7 +71,7 @@ onMounted(() => {
     class="tabNavWrapper trans overflow-auto txtDarkPrimary"
     :class="showTab ? '' : 'hideTab'"
     :style="{
-      borderRight: showTab ? 'var(--tabBorder)' : '',
+      // borderRight: showTab ? 'var(--tabBorder)' : '',
       width: showTab ? 'var(--tabWidth)' : '0',
     }"
   >
@@ -152,7 +152,10 @@ $itemHeight: 35px;
   margin: 0 0.5rem;
   transition: $transBase;
 }
-
+.tabList {
+  background: rgba(211, 211, 211, 0.505) !important;
+  backdrop-filter: blur(20px);
+}
 .mask {
   width: 100vw;
   height: 100vh;
@@ -177,11 +180,11 @@ $itemHeight: 35px;
   left: 0;
   // z-index: 998;
   // padding: 0 1rem;
-  // @media (width <= 1000px) {
+  @media (width <= 1000px) {
     position: fixed;
     left: 0;
     z-index: 99;
-  // }
+  }
   .navHeader {
     width: 100%;
     height: 6vh;

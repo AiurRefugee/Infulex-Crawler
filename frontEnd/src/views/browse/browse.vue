@@ -99,8 +99,7 @@ onMounted(async () => {
         :aiqiyiList="aiqiyiTVTrending"
       />
 
-      <div class="h-4"></div>
-      <!-- <div class="divider mx-4"></div> -->
+      <div class="divider"></div>
 
       <tmdbVideo
         :title="'正在热映'"
@@ -109,8 +108,7 @@ onMounted(async () => {
         :tmdbList="nowPlayingMovie"
       />
 
-      <div class="h-4"></div>
-      <!-- <div class="divider mx-4"></div> -->
+      <div class="divider"></div>
 
       <tmdbVideo
         :title="'热门电影'"
@@ -119,8 +117,7 @@ onMounted(async () => {
         :tmdbList="movieTrending"
       />
 
-      <div class="h-4"></div>
-      <!-- <div class="divider mx-4"></div> -->
+      <div class="divider"></div> 
 
       <tmdbVideo
         :title="'热门剧集'"
@@ -130,8 +127,7 @@ onMounted(async () => {
         :tmdbList="tvTrending"
       />
 
-      <div class="h-4"></div>
-      <!-- <div class="divider mx-4"></div> -->
+      <div class="divider"></div> 
 
       <aiqiyiVideos
         :title="'网剧热播榜'"
@@ -140,8 +136,7 @@ onMounted(async () => {
         :aiqiyiList="aiqiyiWangju"
       />
 
-      <div class="h-4"></div>
-      <!-- <div class="divider mx-4"></div> -->
+      <div class="divider"></div> 
 
       <tmdbVideo
         :title="'评分最高'"
@@ -156,12 +151,17 @@ onMounted(async () => {
 </template>
 <style lang="scss" scoped>
 .divider {
-  $space: 1rem;
+  $space: 0.25rem;
   height: 1px;
-  display: none;
+  // display: none;
   background-color: rgba(172, 172, 172, 0.5);
-  margin-top: var(--dividerMy);
-  margin-bottom: var(--dividerMy);
+  margin-left: $space * 4;
+  margin-right: $space * 4;
+  margin-top: $space;
+  margin-bottom: $space * 3;
+  @media (width <= 1440px) {
+    background-color: transparent;
+  }
   @media (prefers-color-scheme: dark) {
     background-color: rgba(77, 77, 77, 0.5);
   }

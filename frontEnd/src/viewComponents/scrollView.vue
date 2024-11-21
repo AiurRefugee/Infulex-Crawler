@@ -54,14 +54,11 @@ $paddingSize: 2%;
   height: 100%;
   display: flex;
   flex-direction: column; 
-  background: var(--bg_light_primary);
+  // background: var(--bg_light_primary);
   overflow-x: hidden;
   overflow-y: auto; 
 }
-.tabList {
-  background: #191919c2 !important;
-  backdrop-filter: blur(20px);
-}
+
 .scrollViewArea {
   scroll-timeline: --scrollTimeline y;
 }

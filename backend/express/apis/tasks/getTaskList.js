@@ -4,7 +4,7 @@ const { databaseUrl, dbName, taskCollectionName } = mongoConfig;
 
 const getTaskList = async () => {
     // TODO: 获取任务列表
-    const mongoManager = new MongoManager(databaseUrl, dbName);
+    const mongoManager = new MongoManager();
     const tasks = mongoManager.getCollection(taskCollectionName);
     const query = {}
     const listPromise = await tasks.find(query)

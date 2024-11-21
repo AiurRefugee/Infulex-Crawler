@@ -79,7 +79,7 @@ const posterPath = computed(() => props.media?.poster_path || props.media?.backd
 
 .basicCard {
   --border_color: transparent;
-  width: calc(100% / var(--basc_card_num));
+  width: calc(100vw / var(--basc_card_num));
   flex-shrink: 0;
   font-size: 14px;
   .cardImage {
@@ -99,7 +99,7 @@ const posterPath = computed(() => props.media?.poster_path || props.media?.backd
 }
 
 .basicCardRect {
-  width: calc(100% / var(--basc_card_rect_num)) !important;
+  width: calc(100vw / var(--basc_card_rect_num)) !important;
   // scroll-snap-align: start;
   // scroll-margin-left: 1rem;
   .cardImage {

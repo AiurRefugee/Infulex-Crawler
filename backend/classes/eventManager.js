@@ -1,6 +1,14 @@
 class EventManager {
     constructor() {
-        this.subscribers = {};
+        
+        // 确保只创建一个实例
+        if (!EventManager.instance) {
+            this.subscribers = {};
+            EventManager.instance = this;
+
+        }
+        return EventManager.instance;
+
     }
 
     subscribe(topic, callback) {
@@ -9,14 +17,8 @@ class EventManager {
         }
         this.subscribers[topic].push(callback);
     }
-
-    unsubscribe(topic, callback) {
-        if (this.subscribers[topic]) {
-            this.subscribers[topic] = this.subscribers[topic].filter(sub => sub !== callback);
-        }
-    }
-
-    publish(topic, data) {
+ 
+    addMsg(topic, data) {
         if (this.subscribers[topic]) {
             this.subscribers[topic].forEach(callback => {
                 callback(data);

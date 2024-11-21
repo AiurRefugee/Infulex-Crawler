@@ -40,35 +40,13 @@ const getRefreshTokenFromJSON = () => {
     return data.refresh_token;
 }
 
-
-
-// 获取分享信息
-const getShareCode = async (shareLink) => {
-    const getSharePwdUrl = `https://api.aliyundrive.com/adrive/v2/share_link/extract_code`
-    const response = await post(getSharePwdUrl, {
-        content: shareLink
-    })
-    console.log('getShareCode', response)
-    if (response?.data) {
-        const { share_id, share_pwd } = response?.data
-        return {
-            share_id,
-            share_pwd
-        }
-    } else {
-        return false
-    }
-    
-    
-} 
-
 // 保存accessToken
 const saveAccessToken = async (fileName, data) => {
     fs.writeFileSync(fileName, JSON.stringify(data), 'utf-8')
 }
 
 // 读取accessToken
-const readAccessToken = async (fileName) => {
+const readAccessTokenFromFile = async (fileName) => {
     const json = await fs.readFileSync(fileName)
     const data = JSON.parse(json)
     const access_token = data?.access_token
@@ -77,8 +55,7 @@ const readAccessToken = async (fileName) => {
  
 
 // 获取 AccessToken
-const getAccessToken = async () => {
-    const refreshToken = getRefreshTokenFromJSON() 
+const getAccessToken = async (refreshToken) => { 
     const data = await post(refreshUrl, {
         'refresh_token': refreshToken,
         'grant_type': 'refresh_token'
@@ -89,9 +66,12 @@ const getAccessToken = async () => {
     return access_token
 }
 
+const aliAuthApi = {
+    getAccessToken,
+    readAccessTokenFromFile
+}
 
 module.exports = {   
     getAccessToken,
-    readAccessToken,
-    saveAccessToken, 
+    readAccessTokenFromFile,
 }

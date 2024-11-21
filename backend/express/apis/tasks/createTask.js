@@ -1,5 +1,8 @@
 const MongoManager = require('../../../classes/mongoManager.js')
 const mongoConfig = require('../../../config/mongo/index.js');
+const EventManager = require('../../../classes/eventManager.js')
+const searchKeyword = require('../../../crawler/xiaozhanCrawler/index.js')
+
 const { databaseUrl, dbName, taskCollectionName } = mongoConfig;
 
 const createTask = async (mediaId, mediaType, backdropPath, title) => {
@@ -13,7 +16,7 @@ const createTask = async (mediaId, mediaType, backdropPath, title) => {
         title
     }
     // TODO: 获取任务列表
-    const mongoManager = new MongoManager(databaseUrl, dbName);
+    const mongoManager = new MongoManager();
 
     const collection = mongoManager.getCollection(taskCollectionName);
     const filter = { mediaId, mediaType }
@@ -24,6 +27,11 @@ const createTask = async (mediaId, mediaType, backdropPath, title) => {
     const insertRes = await collection.updateOne(filter, updateDoc, options) 
     console.log('createTask', insertRes)
     return insertRes
+}
+
+const startTask = (keywordObj) => {
+    const eventManager = new EventManager()
+    searchKeyword(keywordObj, eventManager)
 }
 
 const listenPOSTCreateTask = (app) => {

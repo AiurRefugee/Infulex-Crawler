@@ -2,17 +2,18 @@ const MongoManager = require('./mongoManager')
 const path = require('path');
 const configPath = path.resolve(__dirname, '../config/mongo/index.js');
 const mongoConfig = require(configPath);
+const EventManager = require('../../../classes/eventManager.js')
 
-const { databaseUrl, dbName, taskCollectionName } = mongoConfig;
+const { taskCollectionName } = mongoConfig;
 
 
 class Task {
-    constructor(media, mediaType) {
+    constructor(mediaId, mediaType, title, backdrop_path) {
 
-        this.id = media.id;
-        this.mediaType = mediaType;
-        this.media = media;
-        this.title = media?.title || media?.name;
+        this.mediaId = mediaId
+        this.mediaType = mediaType; 
+        this.title = title
+        this.backdropPath = backdrop_path
         const msgs = []
         msgs.push({
             type: 'Task Created',
@@ -21,7 +22,7 @@ class Task {
         this.msgs = msgs
         this.status = '进行中'
         this.insertTask()
-        
+        this.subscribeProxy()
     }
 
     // Getters
@@ -33,13 +34,31 @@ class Task {
         return this.status;
     }
 
-    getTask() {
-        const { id, title, status, msgs, mediaType, media } = this;
-        return { id, title, status, msgs, mediaType, media };
+    getTaskInDb() {
+        const { mediaId, mediaType} = this;
+        
+        const mongoManager = new MongoManager();
+        const taskCollection = mongoManager.getCollection(taskCollectionName);
+
+        return taskCollection.findOne({ id, mediaType });
+    }
+
+    addMsg(msg) {
+        this.msgs.push(msg);
+        const mongoManager = new MongoManager();
+        const taskCollection = mongoManager.getCollection(taskCollectionName);
+        taskCollection.updateOne({ id: this.id }, { $push: { msgs: msg } });
+
+    }
+
+    subscribeProxy() {
+        const eventManager = new EventManager();
+        const topicId = this.mediaType + '_' + this.mediaId
+        eventManager.subscribe(topicId, this.addMsg);
     }
 
     insertTask() {
-        const mongoManager = new MongoManager(databaseUrl, dbName);
+        const mongoManager = new MongoManager();
         const taskCollection = mongoManager.getCollection(taskCollectionName);
         const task = this.getTask()
         taskCollection.insertOne(task).then( res => {

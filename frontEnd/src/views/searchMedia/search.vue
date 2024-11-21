@@ -115,7 +115,7 @@ onMounted(() => {
         <div class="text-xl h-10 flex self-start txtDarkPrimary">
           <h1>按类别浏览</h1>
         </div>
-        <div class="buttonGrid w-full h-full">
+        <div class="buttonGrid">
           <classButtonList class="searchGenre"/>
         </div>
         <div class="h-[20vh]"></div>
@@ -149,7 +149,9 @@ $gridNumSmall: 2;
 
 .buttonGrid {
   display: grid;
+  --gridHeight: min(15vh, 150px);
   grid-template-columns: repeat($gridNumLarge, 1fr);
+  grid-template-rows: repeat(4, var(--gridHeight));
   // grid-template-rows: repeat(auto-fill, 15vh);
   grid-gap: 20px;
   button {
@@ -157,10 +159,12 @@ $gridNumSmall: 2;
   }
   @media (width <=1440px) {
     grid-template-columns: repeat($gridNumBase, 1fr);
+    grid-template-rows: repeat(6, var(--gridHeight));
   }
 
   @media (width <=720px) {
     grid-template-columns: repeat($gridNumSmall, 1fr);
+    grid-template-rows: repeat(9, var(--gridHeight));
     gap: 15px;
   }
 } 

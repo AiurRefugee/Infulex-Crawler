@@ -5,7 +5,7 @@ const { databaseUrl, dbName, movieLibraryCollection, tvLibraryCollection } = mon
 
 const addToLibrary = async (media, mediaType) => {
     // TODO: 获取任务列表
-    const mongoManager = new MongoManager(databaseUrl, dbName);
+    const mongoManager = new MongoManager();
 
     let collection = null 
     if (mediaType === 'movie') {

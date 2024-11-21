@@ -4,7 +4,7 @@ const { databaseUrl, dbName, movieLibraryCollection, tvLibraryCollection } = mon
 
 const getTops = async (topNum) => {
     // TODO: 获取任务列表
-    const mongoManager = new MongoManager(databaseUrl, dbName); 
+    const mongoManager = new MongoManager(); 
     const collection = mongoManager.getCollection(movieLibraryCollection)
     const filter = {} 
     let insertRes = []

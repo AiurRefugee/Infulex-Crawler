@@ -46,18 +46,17 @@ const handleClick = (event) => {
 }
 </script>
 <template>
-  <div class="searchItem w-full h-[12em] flex px-4 py-2" @click="handleClick">
-    <div class="imageArea mr-4">
+  <div class="searchItem w-full h-[12em] flex px-4 py-2 mb-2" @click="handleClick">
       <img
         :src="imageSrcPrefix + data.poster_path"
         alt="image"
-        class="h-full object-cover rounded-lg"
+        class="imageArea h-full mr-4 object-cover rounded-lg"
       />
-    </div>
+
     <div
       class="w-full h-full pr-2 hasDivider"
     >
-      <div class="flex justify-between items-center gap-4 overflow-hidden">
+      <div class="flex h-[3em] justify-between items-center gap-4 overflow-hidden">
         <h1
           class="title text-[1.5em] overflow-hidden whitespace-nowrap text-ellipsis txtDarkPrimary"
         >
@@ -71,10 +70,10 @@ const handleClick = (event) => {
         >
       </div>
 
-      <p class="overview txtDarkSecondary">{{ data.overview }}</p>
+      <p class="overview h-[6em] txtDarkSecondary">{{ data.overview }}</p>
 
       <p
-        class="w-full h-[25px] flex justify-between gap-6 opacity-60 txtDarkSecondary"
+        class="w-full h-[1em] flex justify-between gap-6 opacity-60 txtDarkSecondary"
       >
         <span>{{ data?.first_air_date || data?.release_date }}</span>
         <span>{{ data.genre_ids }}</span>
@@ -87,16 +86,13 @@ const handleClick = (event) => {
 .imageArea {
   height: 100%;
   aspect-ratio: 2 / 3;
-  img {
-    box-shadow: $videoCardBasicBoxShadow;
-  }
+  box-shadow: $videoCardBasicBoxShadow;
 }
 .overview {
   display: -webkit-box;
   -webkit-line-clamp: 4;
   line-height: 1.5em;
   /* height: 6em; */
-  margin: 1em 0;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;

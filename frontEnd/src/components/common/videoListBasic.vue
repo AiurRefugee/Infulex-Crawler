@@ -35,7 +35,7 @@ const calFading = (e) => {
 onMounted(() => {});
 </script>
 <template>
-  <div class="listHead px-4 pb-1 flex justify-between items-center">
+  <div class="listHead px-4 flex justify-between items-center">
     <h1 class="listTitle text-[1.2em] font-bold txtDarkPrimary">
       {{ title || "--" }}
     </h1>

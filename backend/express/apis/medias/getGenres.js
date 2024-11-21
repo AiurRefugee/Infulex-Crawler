@@ -4,7 +4,7 @@ const { databaseUrl, dbName, generesCollectionName } = mongoConfig;
 
 const getGenres = async () => {
     
-    const mongoManager = new MongoManager(databaseUrl, dbName);
+    const mongoManager = new MongoManager();
     const collection = mongoManager.getCollection(generesCollectionName)
     const pipline = [
         {

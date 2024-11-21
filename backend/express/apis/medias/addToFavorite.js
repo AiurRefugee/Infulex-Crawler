@@ -5,7 +5,7 @@ const { databaseUrl, dbName, favoriteMovieCollection, favoriteTvCollection } = m
 const addToFavorite = async (media, mediaType) => {
     
     // TODO: 获取任务列表
-    const mongoManager = new MongoManager(databaseUrl, dbName);
+    const mongoManager = new MongoManager();
 
     let collection = null 
     if (mediaType === 'movie') {
