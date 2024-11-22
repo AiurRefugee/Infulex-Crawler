@@ -64,7 +64,9 @@ const getFolderDetail = async (share_id, share_token, parent_file_id) => {
             'x-share-token': share_token
         }
     }
+    console.log('getFolderDetail params', share_id, share_token, parent_file_id)
     const folder = await post(list_by_shareUrl, data, shareHeaders)
+    console.log('getFolderDetail', folder)
     return folder?.items
 
 }
@@ -75,22 +77,22 @@ const travelFolder = async (topicId, share_id, share_token, parent_file_id, laye
     }
     const eventManager = new EventManager()
     getFolderDetail(share_id, share_token, parent_file_id).then(res => {
-        console.log('res', res)
-        const children = res.items
-        const type = children.some(isVideo) ? 'GET video' : 'GET files'
-        eventManager.addMsg(topicId, {
-            type,
-            data: children
-        })
-        children.forEach(child => {
-            if (child.type === 'folder') {
-                travelFolder(share_id, share_token, child.file_id, layer + 1)
-            } else if (child.type === 'file') {
-                console.log('child', child)
-            }
-        })
+        if (res?.length) {
+            const type = res.some(isVideo) ? 'GET video' : 'GET files'
+            eventManager.addMsg(topicId, {
+                type,
+                data: res
+            })
+            res.forEach(child => {
+                if (child.type === 'folder') {
+                    travelFolder(topicId, share_id, share_token, child.file_id, layer + 1)
+                } else if (child.type === 'file') {
+                    console.log('child', child)
+                }
+            })
+        } 
     }).catch(err => {
-        console.log('err', err)
+        console.log('getFolderDetail err', err)
     })
 }
 
@@ -99,7 +101,6 @@ const crawlLink = async (topicId, link) => {
         console.log('getShareCode', res)
         const { share_id, share_pwd } = res
         getShareToken(share_id, share_pwd).then(res => {
-            console.log('getShareToken', res)
             const { share_token } = res
             travelFolder(topicId, share_id, share_token, 'root')
         })
@@ -109,52 +110,17 @@ const crawlLink = async (topicId, link) => {
     )
 }
 
-
-// async function crawlShareLink(shareLink, keywordObj) { 
-//     const { title, original_title } = keywordObj
-//     const result = await updateShareToken(shareLink)
-//     if (!result) {
-//         console.log('updateShareToken is null')
-//         return false
-//     }
-//     const {
-//         share_id,
-//         share_token,
-//         share_pwd
-//     } = result
-//     if (share_id && share_token) {
-//         const findVideoRes = await findVideo({ title, original_title }, { share_id, share_token }, 'root', 'root', 0, [])
-//         const {
-//             file_id,
-//             name
-//         } = findVideoRes
-//         console.log('findVideoRes', findVideoRes)
-//         if (findVideoRes && findVideoRes.file_id) {
-//             return {
-//                 file_id,
-//                 name,
-//                 share_token,
-//                 share_pwd,
-//                 share_id
-//             }
-//         } else {
-//             false
-//         }
-
-//     } else {
-//         return false
-//     }
-// }
-
 async function test() {
-    get('https://iflight.eatuo.com:30125/flightQuery?flightNumber=GS7588').then(res => {
-        console.log(res)
-    })
+    crawlLink('tv_94605', 'https://www.alipan.com/s/KrHZo7Eqkhx')
 }
 
 // test()
 
-module.exports = {
-    // updateShareToken,
-    // crawlShareLink
+const alipanApi = {
+    getShareToken,
+    getFolderDetail,
+    travelFolder,
+    crawlLink
 }
+
+module.exports = alipanApi

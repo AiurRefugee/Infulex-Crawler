@@ -9,7 +9,7 @@ axios.interceptors.response.use(
     async (error) => {
         const { config, response } = error
         console.log('response', response?.data || response, 'error', error, config)
-        return null
+        return response?.data || response
     }
 )
 

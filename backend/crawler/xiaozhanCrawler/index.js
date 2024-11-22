@@ -100,7 +100,7 @@ const searchKeyword = async (mediaId, mediaType, keywordObj, pageNum = 1) => {
 
 }
 
-searchKeyword(94605, 'tv', { title: '英雄联盟：双城之战'}, 1 )
+// searchKeyword(94605, 'tv', { title: '英雄联盟：双城之战'}, 1 )
 module.exports = {
     searchKeyword
 }

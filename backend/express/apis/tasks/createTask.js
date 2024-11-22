@@ -1,32 +1,19 @@
 const MongoManager = require('../../../classes/mongoManager.js')
 const mongoConfig = require('../../../config/mongo/index.js');
 const EventManager = require('../../../classes/eventManager.js')
-const searchKeyword = require('../../../crawler/xiaozhanCrawler/index.js')
+const searchKeyword = require('../../../crawler/xiaozhanCrawler/index.js');
+const { Task } = require('../../../classes/task.js');
 
-const { databaseUrl, dbName, taskCollectionName } = mongoConfig;
+const alipanApi = require('../../../wangpan/alipan/share.js');
 
 const createTask = async (mediaId, mediaType, backdropPath, title) => {
     console.log('createTask', mediaId, mediaType, backdropPath, title)
-    const task = {
-        status: '进行中',
-        msgs: [],
-        mediaId,
-        mediaType,
-        backdropPath,
-        title
-    }
-    // TODO: 获取任务列表
-    const mongoManager = new MongoManager();
+    const task = new Task(mediaId, mediaType, title, backdropPath)
+    const eventManager = new EventManager()
+    const topicId = mediaType + '_' + mediaId
+    task.subscribeProxy(topicId, eventManager)
 
-    const collection = mongoManager.getCollection(taskCollectionName);
-    const filter = { mediaId, mediaType }
-    const updateDoc = {
-        $set: task
-    }
-    const options = { upsert: true }
-    const insertRes = await collection.updateOne(filter, updateDoc, options) 
-    console.log('createTask', insertRes)
-    return insertRes
+    alipanApi.crawlLink(topicId, 'https://www.alipan.com/s/KrHZo7Eqkhx')
 }
 
 const startTask = (keywordObj) => {
