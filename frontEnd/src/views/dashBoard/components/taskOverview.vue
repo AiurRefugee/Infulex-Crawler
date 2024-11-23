@@ -137,7 +137,7 @@ const slideStart = (event) => {
             <p
               class="h-1/3 max-w-[200px] overflow-hidden text-ellipsis txtDarkBasic"
             >
-              {{ task.msgs?.[0]?.data }}
+              <!-- {{ task.msgs?.[0]?.data }} -->
             </p>
           </div>
         </div>
@@ -157,6 +157,7 @@ const slideStart = (event) => {
     transform: rotate(360deg);
   }
 }
+
 .overview > * {
   // touch-action: none;
 }
@@ -172,7 +173,7 @@ const slideStart = (event) => {
 .overview {
   font-size: 18px;
 }
-@media (height < 628px) and (orientation: landscape) {
+@media (height < 628px) or (height < 628px) {
   .title {
     max-width: 5em;
   }

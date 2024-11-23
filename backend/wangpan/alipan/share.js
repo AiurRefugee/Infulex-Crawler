@@ -78,10 +78,12 @@ const travelFolder = async (topicId, share_id, share_token, parent_file_id, laye
     const eventManager = new EventManager()
     getFolderDetail(share_id, share_token, parent_file_id).then(res => {
         if (res?.length) {
-            const type = res.some(isVideo) ? 'GET video' : 'GET files'
+            const type = res.some(isVideo) ? 'GET Video' : 'GET Files'
+            const time = new Date()
             eventManager.addMsg(topicId, {
                 type,
-                data: res
+                data: res,
+                time: time.toLocaleString()
             })
             res.forEach(child => {
                 if (child.type === 'folder') {

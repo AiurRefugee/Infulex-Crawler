@@ -2,20 +2,13 @@
 import { onMounted, ref } from "vue";
 import { useTaskStore } from "@/stores/tasks";
 import { computed } from "vue";
-import { layoutStore } from "@/stores/layout";
-import scrollView from "@/viewComponents/scrollView.vue";
-import scrollHeader from "@/components/common/scrollHeader.vue";
-import taskOverview from "./components/taskOverview.vue"; 
+import { layoutStore } from "@/stores/layout"; 
 import { useRouter } from "vue-router";
-const router = useRouter()
-const taskStore = useTaskStore();
+import taskList from "./components/taskList.vue";
+import taskDetail from "./components/taskDetail.vue";
 const layout = layoutStore();
 const size = computed(() => layout.size);
 console.log(size.value);
-
-const selectedTask = computed(() => taskStore.selectedTask);
-console.log(selectedTask.value);
-const taskPools = computed(() => taskStore.taskPools);
 
 const sliding = ref(false);
 
@@ -23,12 +16,9 @@ function slideOpt(value) {
   console.log("slideOpt", value);
   sliding.value = value;
 }
- 
-const navToTaskDetail = () => {
-  router.push('/dashBoard/taskDetail/114')
-}
+
 onMounted( () => {
-  taskStore.fetchTaskList()
+  
 })
 </script>
 <template>
@@ -41,30 +31,7 @@ onMounted( () => {
         translate: size == 'small' && selectedTask ? '-100%' : '0'
       }"
     >
-      <scrollView>
-        <template v-slot:header>
-          <scrollHeader>
-            <template v-slot:center>
-              <h1 class="txtDarkPrimary select-none text-xl font-bold">
-                全部任务
-              </h1>
-            </template>
-          </scrollHeader>
-        </template>
-        <template v-slot:content>
-          <h1 class="txtDarkPrimary px-4 text-[2em] font-bold mb-2">全部任务</h1>
-          <div class="px-4">
-            <taskOverview
-              class="cursor-pointer"
-              v-for="task in taskPools"
-              :key="task"
-              :task="task" 
-              @click="navToTaskDetail(task)"
-            />
-          </div>
-          <div class="h-32"></div>
-        </template>
-      </scrollView>
+      <taskList/>
     </div>
 
     <!-- 任务详情 -->
@@ -74,15 +41,15 @@ onMounted( () => {
         // translate: size == 'small' && !selectedTask ? 'var(--taskW)' : '0'
       }"
     >
-      <RouterView/>
+      <taskDetail/>
     </div>
   </div>
 </template>
 <style scoped lang="scss">
 
 .tasks {
-  --taskW: max(30vw, 302px);
-  width: var(--taskW);
+  // --taskW: 30vw;
+  // min-width: 300px;
   flex-shrink: 0;
   // border-right: 1px solid gray;
 }

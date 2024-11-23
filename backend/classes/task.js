@@ -41,16 +41,22 @@ class Task {
     }
 
     addMsg(msg) {
+        
         const task = this.task
+        const { mediaId, mediaType } = task;
+        console.log('addMsg', this, msg)
         task.msgs.push(msg);
         const mongoManager = new MongoManager();
         const taskCollection = mongoManager.getCollection(taskCollectionName);
-        taskCollection.updateOne({ id: this.id }, { $push: { msgs: msg } });
+        taskCollection.updateOne({ mediaId, mediaType}, { $push: { msgs: msg } });
 
     }
 
     subscribeProxy(topicId, eventManager) {
-        eventManager.subscribe(topicId, this.addMsg);
+        const taskObj = this
+        eventManager.subscribe(topicId, (data) => {
+            taskObj.addMsg(data)
+        });
     }
 
     getTask() {

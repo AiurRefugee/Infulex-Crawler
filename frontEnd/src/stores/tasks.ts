@@ -14,48 +14,45 @@ export const useTaskStore = defineStore('tasks', {
         selectedTask: null
     }),
     actions: {
-        async fetchTasks() {
-            this.loading = true
-            try {
-            } catch (error) {
-                console.log(error)
-            }
+        async getTaskDetail(mediaType, mediaId) {
+            this.selectedTask = null
+            taskApi.getTaskDetail(mediaType, mediaId).then(task => {
+                this.selectedTask = task
+            }).catch((err) => {
+                console.log('getTaskDetail err', err)
+            })
+
         },
-        setCurrentTask(task) {
-            console.log(task)
-            this.selectedTask = task
-        },
+        
         createTask(media, mediaType, backdropPath) {
             const {
                 id: mediaId,
                 name,
-                title, 
+                title,
             } = media
-            const taskObj = {
-                status: '进行中',
-                msgs: [],
-                mediaId,
-                mediaType,
-                backdropPath,
-                title: title || name,
-            }
-            taskApi.createTask(media, mediaType, backdropPath).then((res) => {
-
-                this.taskPools.push(taskObj)
+            const mediaTitle = title || name
+            taskApi.createTask(mediaType, mediaId, mediaTitle, backdropPath).then((res) => {
+                this.getTaskList()
+            }).catch((err) => {
+                console.log('createTask err', err)
             })
-            
-
+    
+    
         },
+        
         stopTask(mediaId: Number, mediaType: String) {
             const key = mediaType + String(mediaId)
             const task = this.taskPools[key]
             task.ctrl.abort()
         },
-        fetchTaskList () {
-            taskApi.getTaskList().then( taskList => { 
+        getTaskList() {
+            taskApi.getTaskList().then(taskList => {
                 this.taskPools = taskList.reverse()
             })
-            
+    
         }
-    }
+    },
+
+    
+
 })

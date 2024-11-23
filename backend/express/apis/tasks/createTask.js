@@ -1,5 +1,3 @@
-const MongoManager = require('../../../classes/mongoManager.js')
-const mongoConfig = require('../../../config/mongo/index.js');
 const EventManager = require('../../../classes/eventManager.js')
 const searchKeyword = require('../../../crawler/xiaozhanCrawler/index.js');
 const { Task } = require('../../../classes/task.js');

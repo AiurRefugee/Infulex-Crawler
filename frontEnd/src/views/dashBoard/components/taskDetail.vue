@@ -1,10 +1,10 @@
 <script setup>
 import scrollView from "@/viewComponents/scrollView.vue";
-import taskHeader from "./components/taskHeader.vue";
-import msgListView from "./components/msgListView.vue";
+import taskHeader from "./taskHeader.vue";
 import { useTaskStore } from "@/stores/tasks";
 import { layoutStore } from "@/stores/layout";
 import { computed, onMounted } from "vue";
+import msgListView from "./msgListView.vue";
 const tasks = useTaskStore();
 const selectedTask = computed(() => tasks.selectedTask);
 const layout = layoutStore();
@@ -21,9 +21,10 @@ onMounted( () => {
 
 </script>
 <template>
-  <div class="taskDetail w-full h-full">
+  <div class="taskDetail w-full h-full txtDarkPrimary">
     <taskHeader :task="selectedTask" />
-    <msgListView :task="selectedTask" />
+    <msgListView/>
+    <!-- {{ selectedTask?.msgs }} -->
   </div>
 </template>
 <style scoped lang="scss">

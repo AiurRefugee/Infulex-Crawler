@@ -18,7 +18,7 @@ const scrollArea = ref();
 const showTitle = ref(false);
 
 const toogleTitle = (event) => {
-  console.log("scroll", event);
+  // console.log("scroll", event);
   scrollTop.value = event.target.scrollTop;
   showTitle.value = event.target.scrollTop > 30;
 };

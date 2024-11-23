@@ -1,19 +1,13 @@
 import { get, post } from './axiosWrapper.js'
 const apiPrefix = '/api'
 
-const createTask = async (media, mediaType, backdropPath) => {
-    console.log('createTask', media, mediaType, backdropPath)
-    const {
-        id: mediaId,
-        name,
-        title, 
-    } = media
-
+const createTask = async (mediaType, mediaId, title, backdropPath) => {
+    console.log('createTask', mediaType, mediaId, title, backdropPath)
     const taskObj = { 
         mediaId,
         mediaType,
         backdropPath,
-        title: title || name,
+        title
     }
     const createResult = await post(apiPrefix + '/createTask', taskObj)
     return createResult
@@ -27,7 +21,15 @@ const getTaskList = async () => {
     return taskList
 }
 
+const getTaskDetail = async (mediaType, mediaId) => {
+    const url = apiPrefix + '/getTaskDetail'
+    const taskDetail = await post(url, { mediaType, mediaId })
+    console.log('getTaskDetail', taskDetail)
+    return taskDetail
+}
+
 export const taskApi = {
     createTask,
-    getTaskList
+    getTaskList,
+    getTaskDetail
 }

@@ -3,21 +3,17 @@ import scrollView from "@/viewComponents/scrollView.vue";
 import backword from "@/components/common/backword.vue";
 import scrollHeader from "@/components/common/scrollHeader.vue";
 import { layoutStore } from "@/stores/layout";
+import { useTaskStore } from "@/stores/tasks";
 import { computed } from "vue";
-import space from "@/components/common/space.vue";
-import linkMsg from '../../dashBoard/components/linkMsg.vue';
-import fileMsg from "../../dashBoard/components/msgItem.vue";
+import space from "@/components/common/space.vue"; 
+import msgItem from "./msgItem.vue";
 const layout = layoutStore();
-
+const tasks = useTaskStore();
+const selectedTask = computed(() => tasks.selectedTask);
 const size = computed(() => {
   return layout.size;
 });
-const props = defineProps({
-  task: {
-    type: Object,
-    Required: true,
-  },
-});
+
 
 const toLink = (event, url) => {
   event.preventDefault();
@@ -27,15 +23,15 @@ const toLink = (event, url) => {
 
 </script>
 <template>
-  <div class="msgListView w-full px-6 overflow-x-hidden overflow-y-auto">
-    <div class="mb-4" v-for="i in 10" :key="i">
-      <div class="" v-for="msg in task?.msgs" :key="msg">
+  <div class="msgListView w-full px-4 pt-2 overflow-x-hidden overflow-y-auto txtDarkPrimary">
+    <div class="mb-4" v-for="msg in selectedTask?.msgs" :key="msg">
+
         <!-- getLink --> 
-        <linkMsg :msg="msg" v-if="msg.type != 'getFile'"></linkMsg>
+        <!-- <linkMsg :msg="msg" v-if="msg.type != 'getFile'"></linkMsg> -->
 
         <!-- getFile -->
-        <fileMsg :msg="msg" v-else></fileMsg>
-      </div>
+        <msgItem :msg="msg"></msgItem>
+
     </div>
   </div>
 </template>
@@ -52,4 +48,5 @@ const toLink = (event, url) => {
     display: none;
   }
 }
+
 </style>

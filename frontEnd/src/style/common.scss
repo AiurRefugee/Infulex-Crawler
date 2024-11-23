@@ -150,16 +150,6 @@ input:focus-visible {
     aspect-ratio: 1;
     margin-right: 0.5em;
 }
-.type {
-    display: inline-flex;
-    flex-shrink: 0;
-    width: $typeW;
-    height: $cellHeight;
-    align-items: center;
-    font-size: 1.1rem;
-    font-weight: bold;
-    font-style: italic;
-}
 
 .placeholderBg {
     background: var(--placeholderBg);

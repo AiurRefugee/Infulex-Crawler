@@ -10,6 +10,7 @@ const listenPOSTRemoveFromLibrary = require('./apis/medias/removeFromLibrary');
 const listenGetTops = require('./apis/medias/getTops');
 const listenGetGenres = require('./apis/medias/getGenres')
 const listenPOSTCreateTask = require('./apis/tasks/createTask')
+const listenPOSTaskDetail = require('./apis/tasks/getTaskDetail')
 const taskPool = new Set()
 
 const app = express();
@@ -80,6 +81,7 @@ listenPOSTRemoveFromLibrary(app)
 listenGetTops(app)
 listenGetGenres(app)
 listenPOSTCreateTask(app)
+listenPOSTaskDetail(app)
 
 app.use(errorHandler);
 
