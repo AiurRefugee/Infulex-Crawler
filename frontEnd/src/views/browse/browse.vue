@@ -154,7 +154,7 @@ onMounted(async () => {
   $space: 0.25rem;
   height: 1px;
   // display: none;
-  background-color: rgba(172, 172, 172, 0.5);
+  background-color: rgba(172, 172, 172, 0.4);
   margin-left: $space * 4;
   margin-right: $space * 4;
   margin-top: $space;

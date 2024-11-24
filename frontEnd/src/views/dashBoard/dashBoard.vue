@@ -46,7 +46,7 @@ onMounted( () => {
   </div>
 </template>
 <style scoped lang="scss">
-
+@import "@/style/color.scss";
 .tasks {
   // --taskW: 30vw;
   min-width: 300px;
