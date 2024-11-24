@@ -89,7 +89,7 @@ const slideStart = (event) => {
 };
 </script>
 <template>
-  <div class="taskItemWrap bgLightBasic mb-5 rounded-xl overflow-hidden">
+  <div class="taskItemWrap fastTrans mb-4 rounded-xl overflow-hidden">
     <liItem :liClassName="'liItem'" :afterfixW="afterfixW">
       <template v-slot:content>
         <div class="taskOverview h-full flex gap-4 p-2" ref="liWrap">
@@ -104,7 +104,7 @@ const slideStart = (event) => {
           <div class="overview w-full h-full flex flex-col justify-around">
             <div class="w-full h-1/3 flex justify-between items-center">
               <h1
-                class="title font-bold txtDarkPrimary whitespace-nowrap overflow-hidden text-ellipsis"
+                class="title font-bold text-dark-900 whitespace-nowrap overflow-hidden text-ellipsis"
               >
                 {{ task.title }}
               </h1>
@@ -133,7 +133,7 @@ const slideStart = (event) => {
               </div>
             </div>
 
-            <p class="h-1/3 txtDarkBasic opacity-50">getLink</p>
+            <p class="h-1/3 text-dark-800 opacity-50">getLink</p>
             <p
               class="h-1/3 max-w-[200px] overflow-hidden text-ellipsis txtDarkBasic"
             >
@@ -145,7 +145,8 @@ const slideStart = (event) => {
     </liItem>
   </div>
 </template>
-<style scoped lang="scss">
+<style lang="scss">
+@import "@/style/color.scss";
 @keyframes loading {
   0% {
     transform: rotate(0deg);
@@ -156,10 +157,15 @@ const slideStart = (event) => {
   100% {
     transform: rotate(360deg);
   }
-}
-
-.overview > * {
-  // touch-action: none;
+} 
+$borderW: 4px;
+$borderColor: rgba(118, 118, 118, 0.3);
+.selected {
+  @extend .bg-light-800;
+  // border: $borderW solid $borderColor !important;  
+} 
+.taskItemWrap {
+  border: $borderW solid transparent;
 }
 .liItem {
   height: max(12vh, 100px);

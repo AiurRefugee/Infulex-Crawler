@@ -1,0 +1,54 @@
+
+$light_min: hsl(0, 0%, 50%);
+$light_max: hsl(0, 0%, 100%);
+
+$dark_min: hsl(0, 0%, 75%);
+$dark_max: hsl(0, 0%, 0%);
+
+$base_color: gray;
+$space: 8%;
+
+$max: 9;
+
+
+// mix(color1, color2, weight) = color1 * (1-weight) + color2 * weight
+@media (prefers-color-scheme: light) {
+
+    @for $i from 1 through $max { 
+        $weight: (10 - $i) * 10%;
+        .bg-light-#{$i * 100} {
+            background-color: mix($light_min, $light_max, $weight);
+        }
+        .text-light-#{$i * 100} {
+            color: mix($light_min, $light_max, $weight);
+        }
+
+        .bg-dark-#{$i * 100} {
+            background-color: mix($dark_min, $dark_max, $weight);
+        }
+        .text-dark-#{$i * 100} {
+            color: mix($dark_min, $dark_max, $weight);
+        }
+    } 
+
+}
+
+// 黑夜模式
+@media (prefers-color-scheme: dark) {
+    @for $i from 1 through $max { 
+        $weight: (10 - $i) * 10%; 
+        .bg-light-#{$i * 100} {
+            background-color: mix($dark_min, $dark_max, $weight);
+        }
+        .text-light-#{$i * 100} {
+            color: mix($dark_min, $dark_max, $weight);
+        }
+        .bg-dark-#{$i * 100} {
+            background-color: mix($light_min, $light_max, $weight);
+        }
+        .text-dark-#{$i * 100} {
+            color: mix($light_min, $light_max, $weight);
+        }
+    }
+ 
+}

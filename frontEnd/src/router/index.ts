@@ -4,15 +4,6 @@ const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'tabView',
-      component: () => import('../views/tabView.vue'),
-      meta: {
-        transition: 'fade'
-      },
-      
-    },
-    {
       path: '/browse',
       name: 'browse',
       component: () => import('../views/browse/browse.vue'),

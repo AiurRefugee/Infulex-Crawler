@@ -16,11 +16,11 @@ const props = defineProps({
 </script>
 <template>
   <div class="">
-    <div class="flex justify-between items-center flex-wrap">
+    <div class="flex justify-between px-4 items-center flex-wrap">
       <p class="type text-[1.3em] getFile">{{ msg?.type }}</p>
       <text class=" tracking-wider">{{ msg?.time }}</text> 
     </div>
-    <div class="filesArea txtDarkSecondary">
+    <div class="filesArea w-full txtDarkSecondary">
       <fileMsg :files="msg?.data" />
     </div>
   </div>

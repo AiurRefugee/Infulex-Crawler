@@ -6,6 +6,9 @@ import { useMediaStore } from "@/stores/media";
 const mediaStore = useMediaStore();
 const layout = layoutStore();
 const tabIconVisible = computed(() => layout.tabIconVisible);
+const showTab = computed(() => layout.showTab);
+const size = computed(() => layout.size);
+const shouldTrans = computed(() => showTab.value && size.value != 'small');
 
 onMounted(() => {
   mediaStore.initMediaStore();
@@ -32,7 +35,12 @@ onMounted(() => {
     </div>
     <NavList />
 
-    <div class="tabcontent">
+    <div 
+      class="tabcontent trans"
+      :style="{
+        transform: showTab ? 'translate(var(--tabWidth), 0)' : ''
+      }"
+    >
       <router-view></router-view>
     </div>
   </div>
@@ -68,8 +76,7 @@ onMounted(() => {
     width: 100vw;
     // height: 100vh;
     flex: 1;
-    position: relative;
-    transition: $transBase;
+    position: relative; 
     // transform: translate(0, 0);
     overflow: hidden;
     translate: 0 0;

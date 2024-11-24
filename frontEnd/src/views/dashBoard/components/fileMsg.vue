@@ -13,7 +13,9 @@ const props = defineProps({
         <img src="@/assets/icons/fileIcon.svg" alt="file" v-if="file?.type == 'folder'"/>
         <img src="@/assets/icons/play.svg" alt="video" v-if="file?.type == 'file'"/>
     </div>
-    <p class="title my-1 text-center overflow-hidden text-ellipsis px-2">{{ file?.name }}</p>
+    <div class="w-4/5 center m-auto">
+      <p class="title my-1 text-center overflow-hidden text-ellipsis px-2">{{ file?.name }}</p>
+    </div>
   </p>
 </template>
 <style lang="scss" scoped>

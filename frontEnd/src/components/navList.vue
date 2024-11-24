@@ -178,7 +178,8 @@ $itemHeight: 35px;
   display: flex;
   flex-direction: column;
   left: 0;
-  // z-index: 998;
+  position: fixed;
+  z-index: 99;
   // padding: 0 1rem;
   @media (width <= 1000px) {
     position: fixed;

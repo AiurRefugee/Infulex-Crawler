@@ -25,7 +25,7 @@ onMounted( () => {
   <div class="dashBoard flex h-full">
     <!-- 任务列表 -->
     <div
-      class="tasks bgLightSecondary h-full overflow-x-hidden trans"
+      class="tasks bg-light-800 h-full overflow-x-hidden trans"
       :style="{
         width: size == 'small' && selectedTask ? '0' : '',
         translate: size == 'small' && selectedTask ? '-100%' : '0'
@@ -49,9 +49,9 @@ onMounted( () => {
 
 .tasks {
   // --taskW: 30vw;
-  // min-width: 300px;
+  min-width: 300px;
   flex-shrink: 0;
-  // border-right: 1px solid gray;
+  // border-right: 1px solid rgba(128, 128, 128, 0.508);
 }
 @media (width < 500px) {
   .tasks {

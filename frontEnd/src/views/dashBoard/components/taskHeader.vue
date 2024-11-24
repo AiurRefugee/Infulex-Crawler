@@ -30,7 +30,7 @@ const props = defineProps({
           <img class="h-[2vh] aspect-square" src="@/assets/icons/error.svg" v-if="task?.status === '错误'"/> 
         </div>
         <text>{{ task?.title }}</text>
-        <div class="opt ml-8 text-bold text-sm text-red-500 cursor-pointer" v-if="task?.status === '进行中'">取消任务</div>
+        <!-- <div class="opt ml-8 text-bold text-sm text-red-500 cursor-pointer" v-if="task?.status === '进行中'">取消任务</div> -->
       </h1>
     </template>
     <template v-slot:center>
