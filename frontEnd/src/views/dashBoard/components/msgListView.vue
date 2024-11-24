@@ -36,10 +36,8 @@ const toLink = (event, url) => {
   </div>
 </template>
 <style scoped lang="scss">
-@import "@/style/variables.scss";
-
 .msgListView { 
-  height: calc(100% - $headerH);
+  height: calc(100% - 50px);
 }
  
 @media (width >= 1080px) {

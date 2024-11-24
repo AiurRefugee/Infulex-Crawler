@@ -33,7 +33,7 @@ watch(showTitle, (newVal, oldVal) => {
 </script>
 <template>
   <div 
-    class="scrollHeader w-full h-[40px] flex-shrink-0 trans"
+    class="scrollHeader w-full flex-shrink-0 trans"
     :class="showTitle ? 'scrollHeaderBg' : ''"
   >
     <div class="headerLeft w-full">
@@ -51,7 +51,7 @@ watch(showTitle, (newVal, oldVal) => {
 <style scoped lang="scss">
 .scrollHeader {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 33.3%);
   justify-content: center;
   justify-items: center;
   border-bottom: 1px solid #c1c1c100;

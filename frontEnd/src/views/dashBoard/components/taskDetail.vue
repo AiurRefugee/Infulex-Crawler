@@ -3,11 +3,13 @@ import scrollView from "@/viewComponents/scrollView.vue";
 import taskHeader from "./taskHeader.vue";
 import { useTaskStore } from "@/stores/tasks";
 import { layoutStore } from "@/stores/layout";
-import { computed, onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
 import msgListView from "./msgListView.vue";
+import FileListView from "./fileListView.vue";
 const tasks = useTaskStore();
 const selectedTask = computed(() => tasks.selectedTask);
 const layout = layoutStore();
+const listStype = ref(0)
 
 const size = computed(() => {
   return layout.size;
@@ -20,12 +22,10 @@ onMounted( () => {
 })
 
 </script>
-<template>
-  <div class="taskDetail w-full h-full txtDarkPrimary">
-    <taskHeader :task="selectedTask" />
-    <msgListView/>
-    <!-- {{ selectedTask?.msgs }} -->
-  </div>
+<template> 
+    <taskHeader :task="selectedTask" v-model:listStype="listStype"/>
+    <msgListView :style="{ display: listStype == 0 ? '' : 'none'}"/>
+    <FileListView :style="{ display: listStype == 1 ? '' : 'none'}"/> 
 </template>
 <style scoped lang="scss">
 @media (width >= 1080px) {

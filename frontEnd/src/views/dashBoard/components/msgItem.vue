@@ -16,13 +16,11 @@ const props = defineProps({
 </script>
 <template>
   <div class="">
-    <div class="flex justify-between px-4 items-center flex-wrap">
+    <div class="min-h-8 flex justify-between px-4 items-center flex-wrap">
       <p class="type text-[1.3em] getFile">{{ msg?.type }}</p>
       <text class=" tracking-wider">{{ msg?.time }}</text> 
-    </div>
-    <div class="filesArea w-full txtDarkSecondary">
-      <fileMsg :files="msg?.data" />
-    </div>
+    </div> 
+    <fileMsg :files="msg?.data" /> 
   </div>
 </template>
 <style scoped lang="scss"> 
@@ -41,11 +39,5 @@ const props = defineProps({
 .getFile {
   color: #579cd6;
 }
-.filesArea {
-  display: grid;
-  gap: 10px 0;
-  // flex-wrap: wrap;
-  grid-template-columns: repeat(auto-fill, 180px);
-  justify-content: space-around;
-}
+
 </style>
