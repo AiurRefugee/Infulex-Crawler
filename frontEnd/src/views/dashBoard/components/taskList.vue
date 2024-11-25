@@ -24,7 +24,7 @@ onMounted(() => {
 <template>
   <scrollView>
     <template v-slot:header>
-      <scrollHeader>
+      <scrollHeader class="h-[45px]">
         <template v-slot:center>
           <h1 class="text-dark-900 select-none text-xl font-bold">
             全部任务

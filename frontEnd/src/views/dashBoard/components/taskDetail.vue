@@ -9,7 +9,7 @@ import FileListView from "./fileListView.vue";
 const tasks = useTaskStore();
 const selectedTask = computed(() => tasks.selectedTask);
 const layout = layoutStore();
-const listStype = ref(0)
+const listStype = computed(() => tasks.listStype);
 
 const size = computed(() => {
   return layout.size;

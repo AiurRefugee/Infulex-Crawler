@@ -19,6 +19,8 @@ export const useTaskStore = defineStore('tasks', {
         topChildren: null,
         nodes: {}, // 存储task msg的所有file节点 
         topTitle: "",
+        selectedFiles: {},
+        listStype: 0,
     }),
     actions: {
         resetSelectedTask() { 
@@ -28,6 +30,22 @@ export const useTaskStore = defineStore('tasks', {
             this.topFiles = []
             this.topChildren = null
             this.nodes = {}
+            this.selectedFiles = {}
+        },
+
+        switchListStype(type) {
+            this.selectedFiles = {}
+            this.listStype = type
+        },
+
+        switchSelectFile(file) {
+            const { file_id } = file
+            if (this.selectedFiles[file_id]) {
+                this.selectedFiles[file_id] = false 
+            } else {
+                this.selectedFiles[file_id] = true 
+            }
+            
         },
 
         buildFileTree(task) {

@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import { layoutStore } from "@/stores/layout";
 import fileMsg from "./fileMsg.vue";
+import fileItem from "./fileItem.vue";
 const layout = layoutStore();
 const size = computed(() => {
   return layout.size;
@@ -19,8 +20,12 @@ const props = defineProps({
     <div class="min-h-8 flex justify-between px-4 items-center flex-wrap">
       <p class="type text-[1.3em] getFile">{{ msg?.type }}</p>
       <text class=" tracking-wider">{{ msg?.time }}</text> 
-    </div> 
-    <fileMsg :files="msg?.data" /> 
+    </div>  
+    <fileMsg>
+      <template v-slot:list>
+        <fileItem v-for="file in msg?.data" :key="file" :file="file"/>
+      </template>
+    </fileMsg> 
   </div>
 </template>
 <style scoped lang="scss"> 

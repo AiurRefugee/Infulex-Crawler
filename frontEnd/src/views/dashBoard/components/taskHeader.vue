@@ -2,8 +2,10 @@
 import scrollView from "@/viewComponents/scrollView.vue";
 import backword from "@/components/common/backword.vue";
 import scrollHeader from "@/components/common/scrollHeader.vue";
+import { useTaskStore } from "@/stores/tasks";
 import { layoutStore } from "@/stores/layout";
 import { ref, computed } from "vue";
+const tasks = useTaskStore();
 const layout = layoutStore();
 
 const size = computed(() => {
@@ -17,6 +19,10 @@ const props = defineProps({
 });
 
 const listStype = defineModel('listStype')
+
+const switchListStype = (type) => {
+  tasks.switchListStype(type);
+}
 
 </script>
 <template>
@@ -46,14 +52,14 @@ const listStype = defineModel('listStype')
     </template>
     <template v-slot:right>
       <div class="right pr-4 w-full h-full flex justify-end items-center gap-4">
-        <div :class="listStype == 0 ? 'selected' : ''" class="iconWrap" @click="listStype = 0">
+        <div :class="listStype == 0 ? 'bg-light-500' : ''" class="iconWrap" @click="switchListStype(0)">
           <img
             class="h-[30px] aspect-square"
             src="@/assets/icons/messageList.svg"
             alt=""
           />
         </div>
-        <div :class="listStype == 1 ? 'selected' : ''" class="iconWrap" @click="listStype = 1">
+        <div :class="listStype == 1 ? 'bg-light-500' : ''" class="iconWrap" @click="switchListStype(1)">
           <img
             class="h-[30px] aspect-square"
             src="@/assets/icons/fileList.svg"
@@ -88,7 +94,7 @@ const listStype = defineModel('listStype')
   background-color: rgba(128, 128, 128, 0.21);
 }
 .iconWrap {
-  border-radius: 8px;
-  padding: 5px;
+  border-radius: 6px;
+  padding: 2px;
 }
 </style>
