@@ -1,23 +1,19 @@
-const { get, post } = require('../axios/axiosWrapper')
-const Crawler = require('crawler')
-const c = new Crawler()
+const { chromium } = require('playwright');
 
-const fs = require('fs') 
-const url = 'https://pan666.net/d/291798-si-fang-guan-2024'
+(async () => {
+  const browser = await chromium.launch({
+    headless: false
+  });
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  await page.goto('https://cdn.yiso.fun/');
+  await page.getByRole('button', { name: '不再弹出' }).click();
+  await page.getByRole('combobox').selectOption('ali');
+  await page.getByPlaceholder('输入关键词，回车/换行即可 搜索全网云盘资源').click();
+  await page.getByPlaceholder('输入关键词，回车/换行即可 搜索全网云盘资源').fill('双城之战');
+  await page.getByPlaceholder('输入关键词，回车/换行即可 搜索全网云盘资源').press('Enter');
 
-c.queue({
-    uri: url,
-    callback: function (error, res, done) {
-        if (error) {
-            console.log(error)
-        } else {
-            var $ = res.$
-            $('a').each( (index, item) => {
-                const href = $(item).attr('href')
-                console.log(href)
-            })
-        }
-        done()
-    }
-
-})
+  // ---------------------
+  await context.close();
+  await browser.close();
+})();

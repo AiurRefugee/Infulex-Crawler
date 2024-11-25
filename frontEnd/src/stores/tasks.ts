@@ -101,7 +101,8 @@ export const useTaskStore = defineStore('tasks', {
             this.topChildren = this.fileTree.children
             if (this.filePaths && this.filePaths.length > 0) {
                 const length = this.filePaths.length
-                const last_file_id = this.filePaths[length - 1]
+                const lastFile = this.filePaths[length - 1]
+                const { file_id: last_file_id } = lastFile
                 this.topChildren = this.nodes[last_file_id].children
             }
             return this.topChildren
@@ -111,11 +112,17 @@ export const useTaskStore = defineStore('tasks', {
             this.topFiles = Object.values(this.topChildren).map(node => node.file)
         },
 
+        updateFilePaths(index) {
+            this.filePaths = this.filePaths.slice(0, index + 1)
+            this.getTopChildren()
+            this.getTopFiles()
+        },
+
         pushFilePath(file) { 
             const { file_id, name } = file
             if (Object.keys(this.topChildren[file_id].children).length) { 
                 this.topTitle = name
-                this.filePaths.push(file_id)
+                this.filePaths.push(file)
                 this.getTopChildren()
                 this.getTopFiles()
             } 

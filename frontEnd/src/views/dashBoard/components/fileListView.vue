@@ -6,7 +6,7 @@ import fileItem from './fileItem.vue'
 const tasks = useTaskStore();
 const topFiles = computed(() => tasks.topFiles);
 const topTitle = computed(() => tasks.topTitle)
-
+const filePaths = computed(() => tasks.filePaths)
 const handleClick = (file) => {
     const { file_id } = file
     console.log(file_id)
@@ -17,6 +17,11 @@ const back = () => {
     tasks.popFilePath()
 }
 
+const updateFile = (index) => {
+    if (index == filePaths.value.length - 1) return
+    tasks.updateFilePaths(index)
+}
+
 onMounted(async () => {
     await nextTick()
 })
@@ -24,7 +29,19 @@ onMounted(async () => {
 <template>
     <div class="msgListView">
         <div class="min-h-8 px-4 flex justify-between items-center flex-wrap">
-            <p class="title text-dark-800 text-left overflow-hidden text-ellipsis font-bold">{{ topTitle }}</p>
+            <div
+                class="title flex gap-2 text-dark-800 text-left overflow-hidden text-ellipsis font-bold"
+            >
+                <p 
+                    v-for="(file, index) in filePaths" 
+                    :key="file.file_id" 
+                    class="text-dark-800 center"
+                    @click="updateFile(index)"
+                >
+                    <span class="fileTitleGap px-2 center" v-if="index"> > </span>
+                    <text class="fileTitle">{{ file?.name }}</text>
+                </p>
+            </div>
             <button class="back" @click="back">Back</button>
         </div>
         <div class="h-full overflow-y-auto overflow-x-hidden">
@@ -43,5 +60,12 @@ onMounted(async () => {
 }
 .back {
     color: #f59305fa;
+}
+.fileTitle, .fileTitleGap {
+    opacity: 50%;
+    cursor: pointer;
+}
+.title p:last-of-type .fileTitle {
+    opacity: 100%;
 }
 </style>
