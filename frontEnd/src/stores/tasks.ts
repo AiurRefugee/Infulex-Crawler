@@ -109,16 +109,26 @@ export const useTaskStore = defineStore('tasks', {
         },
 
         getTopFiles() {
+            this.selectedFiles = {}
             this.topFiles = Object.values(this.topChildren).map(node => node.file)
         },
 
         updateFilePaths(index) {
+            this.selectedFiles = {}
             this.filePaths = this.filePaths.slice(0, index + 1)
             this.getTopChildren()
             this.getTopFiles()
         },
 
+        resetFilePath() { 
+            if (this.filePaths.length == 0) return false
+            this.filePaths = []
+            this.getTopChildren()
+            this.getTopFiles()
+        },
+
         pushFilePath(file) { 
+            this.selectedFiles = {}
             const { file_id, name } = file
             if (Object.keys(this.topChildren[file_id].children).length) { 
                 this.topTitle = name

@@ -22,6 +22,10 @@ const updateFile = (index) => {
     tasks.updateFilePaths(index)
 }
 
+const resetFilePath = () => {
+    tasks.resetFilePath()
+}
+
 onMounted(async () => {
     await nextTick()
 })
@@ -31,7 +35,9 @@ onMounted(async () => {
         <div class="min-h-8 px-4 flex justify-between items-center flex-wrap">
             <div
                 class="title flex gap-2 text-dark-800 text-left overflow-hidden text-ellipsis font-bold"
-            >
+            > 
+                <text :class="!filePaths.length ? '' : 'opacity-50'" @click="resetFilePath">全部文件</text>
+                <span :class="!filePaths.length ? '' : 'opacity-50'" class="fileTitleGap px-2 center"> > </span>
                 <p 
                     v-for="(file, index) in filePaths" 
                     :key="file.file_id" 
@@ -40,9 +46,10 @@ onMounted(async () => {
                 >
                     <span class="fileTitleGap px-2 center" v-if="index"> > </span>
                     <text class="fileTitle">{{ file?.name }}</text>
+                    
                 </p>
             </div>
-            <button class="back" @click="back">Back</button>
+            <!-- <button class="back" @click="back">Back</button> -->
         </div>
         <div class="h-full overflow-y-auto overflow-x-hidden">
             <fileMsg class="px-4 pt-2" :handleClick="handleClick">
@@ -54,7 +61,7 @@ onMounted(async () => {
     </div>
 
 </template>
-<style scoped>
+<style scoped lang="scss">
 .msgListView { 
   height: calc(100% - 120px);
 }
@@ -64,6 +71,11 @@ onMounted(async () => {
 .fileTitle, .fileTitleGap {
     opacity: 50%;
     cursor: pointer;
+}
+.title {
+    p, text {
+        cursor: pointer;
+    }
 }
 .title p:last-of-type .fileTitle {
     opacity: 100%;
