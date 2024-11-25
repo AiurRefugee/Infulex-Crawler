@@ -81,7 +81,7 @@ const posterPath = computed(() => props.media?.poster_path || props.media?.backd
   --border_color: transparent;
   width: calc(100vw / var(--basc_card_num));
   flex-shrink: 0;
-  font-size: 14px;
+  // font-size: 14px;
   .cardImage {
     outline: 3px var(--border_color) solid;
     border-color: var(--border_color);

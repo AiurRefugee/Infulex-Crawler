@@ -9,11 +9,13 @@ import videoListBasic from "@/components/common/videoListBasic.vue";
 import aiqiyiVideos from "./components/aiqiyiVideo.vue";
 import tmdbVideo from "./components/tmdbVideo.vue";
 // 可以在组件中的任意位置访问 `store` 变量 ✨
-
+import { layoutStore } from "@/stores/layout";
 import { tmdbApi } from "@/apis/tmdbApi.js";
 import { aiqiyiApi } from "@/apis/aiqiyiApi.js";
 
 const router = useRouter();
+const layout = layoutStore();
+const showTab = computed(() => layout.showTab); 
 
 const defaultArray = [
   "",
@@ -81,9 +83,12 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <scrollView>
+  <scrollView 
+    class="bg-light-800 trans" 
+    :class="showTab ? '' : ''"
+  >
     <template v-slot:header>
-      <scrollHeader>
+      <scrollHeader class="h-[45px]">
         <template v-slot:center>
           <h1 class="txtDarkPrimary select-none text-xl font-bold">浏览</h1>
         </template>
@@ -151,14 +156,14 @@ onMounted(async () => {
 </template>
 <style lang="scss" scoped>
 .divider {
-  $space: 0.25rem;
+  $space: 1em;
   height: 1px;
   // display: none;
   background-color: rgba(172, 172, 172, 0.4);
-  margin-left: $space * 4;
-  margin-right: $space * 4;
+  margin-left: 1rem;
+  margin-right: 1rem;
   margin-top: $space;
-  margin-bottom: $space * 3;
+  margin-bottom: $space * 2;
   @media (width <= 1440px) {
     background-color: transparent;
   }

@@ -29,6 +29,7 @@ html {
 
     --tabBorder: 1px solid rgba(211, 211, 211, 0.621);
     --tabWidth: min(23vw, 300px);  
+    --taskW: min(30vw, 500px);
 
     // 搜索页genre卡片
     --search_genre_card_num: 4;   
@@ -174,6 +175,11 @@ html {
 
         --showAllGridColumns: 8;
         --showAllGridRectColumns: 6;
+    }
+
+    // PC
+    @media (width >= 1440px) {
+        --browse_Pr: 1.5rem;
     }
 }
 html {

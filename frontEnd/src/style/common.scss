@@ -185,3 +185,13 @@ input:focus-visible {
     scale: 0.8;
     transform-origin: right top;
 }
+.navWidth {
+    width: var(--tabWidth);
+}
+.transNavWidth {
+    width: calc(100% - var(--tabWidth)) !important;
+}
+
+.transNav {
+    transform: translate(var(--tabWidth), 0);
+}

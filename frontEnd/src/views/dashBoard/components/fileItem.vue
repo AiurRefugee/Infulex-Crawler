@@ -26,7 +26,7 @@ const selectFile = (event) => {
     class="fileWrap rounded-lg py-2 relative"
   >
     <div
-      class="selectArea center bg-light-700 rounded-lg absolute"
+      class="selectArea center bg-light-500 rounded-lg absolute"
       @click="selectFile"
     >
       <div class="outside selectedCenter">

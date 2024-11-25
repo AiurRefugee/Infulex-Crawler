@@ -6,10 +6,10 @@ import { layoutStore } from "@/stores/layout";
 import gsap from "gsap";
 import { useRouter, useRoute } from "vue-router";
 const router = useRouter();
-const store = layoutStore();
+const layout = layoutStore();
 
-const layoutContent = computed(() => store.layoutContent);
-const showTab = computed(() => store.showTab); 
+const layoutContent = computed(() => layout.layoutContent);
+const showTab = computed(() => layout.showTab); 
 var standAlone = ref(false);
 
 function navigate(item) {
@@ -19,7 +19,7 @@ function navigate(item) {
       path: item.path,
       replace: true,
     });
-    store.toogleTab()
+    // layout.toogleTab()
   }
 }
 
@@ -68,18 +68,15 @@ onMounted(() => {
 </script>
 <template>
   <div
-    class="tabNavWrapper overflow-auto txtDarkPrimary" 
+    class="tabNavWrapper trans overflow-auto bg-light-900 txtDarkPrimary"
     :style="{
-      // borderRight: showTab ? 'var(--tabBorder)' : '',
-      width: showTab ? 'var(--tabWidth)' : '0',
+      width: showTab ? 'var(--tabWidth)' : '0'
     }"
   >
     <scrollView class="tabList">
       <template v-slot:header>
-        <scrollHeader :showTab="showTab">
-          <template v-slot:center>
-            <h1 class="txtDarkPrimary select-none text-lg whitespace-nowrap font-bold">Infulex-Crawler</h1>
-          </template>
+        <scrollHeader class="h-[45px]" :showTab="showTab">
+
         </scrollHeader>
       </template>
       <template v-slot:content>
@@ -151,8 +148,10 @@ $itemHeight: 35px;
   margin: 0 0.5rem;
   transition: $transBase;
 }
+.transNav {
+  transform: translate(calc( -1 * var(--tabWidth)), 0);
+}
 .tabList {
-  background: rgba(211, 211, 211, 0.505) !important;
   backdrop-filter: blur(20px);
 }
 .mask {
@@ -168,13 +167,12 @@ $itemHeight: 35px;
   // background: var(--nav_bg_primary);
   width: var(--tabWidth);
   height: 100dvh;
-  transition: width 0.25s linear;
-  will-change: width;
-  transform: translate(0, 0);
+  // transition: width 0.25s linear;
+  // will-change: width;
   display: flex;
   flex-direction: column;
   left: 0;
-  position: fixed;
+  // position: fixed;
   z-index: 99;
   // padding: 0 1rem;
   @media (width <= 1000px) {
@@ -184,7 +182,6 @@ $itemHeight: 35px;
   }
   .navHeader {
     width: 100%;
-    height: 6vh;
     padding: 0 1rem;
     flex-shrink: 0;
   }

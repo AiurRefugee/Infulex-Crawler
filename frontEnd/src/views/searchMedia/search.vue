@@ -6,10 +6,11 @@ import searchItem from "./components/searchItem.vue";
 import classButtonList from "@/components/common/classButtonList.vue";
 import { tmdbApi } from "@/apis/tmdbApi";
 
-const store = layoutStore();
-// 可以在组件中的任意位置访问 `store` 变量 ✨
-const genres = computed(() => store.genres);
-const size = computed(() => store.size);
+const layout = layoutStore();
+const showTab = computed(() => layout.showTab); 
+// 可以在组件中的任意位置访问 `layout` 变量 ✨
+const genres = computed(() => layout.genres);
+const size = computed(() => layout.size);
 
 const scrollArea = ref(null);
 const searchText = ref("复仇者联盟 3");
@@ -36,19 +37,19 @@ const search = async () => {
 // 取消
 const cancel = () => {
   searchText.value = "";
-  store.setSearchFocused(false);
+  layout.setSearchFocused(false);
 };
 
 onMounted(() => {
   if (size.value == "small") {
-    // store.setTabIconVisible(false)
+    // layout.setTabIconVisible(false)
   }
 });
 </script>
 <template>
-  <div class="w-full h-full flex flex-col flex-shrink-0">
+  <div class="w-full h-full bg-light-800 trans">
     <!-- 顶部占位 -->
-    <div class="bgLightPrimary trans center flex-shrink-0 h-[35px]">
+    <div class=" trans center flex-shrink-0 h-[35px]">
       <text
         class="transSlow text-xl txtDarkPrimary"
         :style="{
@@ -59,12 +60,12 @@ onMounted(() => {
     </div>
 
     <div
-      class="w-full h-full overflow-y-auto overflow-x-hidden bgLightPrimary"
+      class="w-full h-full overflow-y-auto overflow-x-hidden"
       ref="scrollArea"
       @scroll="toogleStyle"
     >
       <h1
-        class="searchTitle h-[45px] px-4 txtDarkPrimary trans"
+        class="searchTitle h-[45px] px-4 text-dark-900"
         :style="{
           height: focused ? '0' : '',
         }"

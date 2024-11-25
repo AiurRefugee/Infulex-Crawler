@@ -36,10 +36,7 @@ onMounted(() => {
     <NavList />
 
     <div 
-      class="tabcontent trans"
-      :style="{
-        transform: showTab ? 'translate(var(--tabWidth), 0)' : ''
-      }"
+      class="tabcontent flex justify-end"
     >
       <router-view></router-view>
     </div>
