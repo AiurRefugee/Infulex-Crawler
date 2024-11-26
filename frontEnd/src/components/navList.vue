@@ -10,6 +10,7 @@ const layout = layoutStore();
 
 const layoutContent = computed(() => layout.layoutContent);
 const showTab = computed(() => layout.showTab); 
+const size = computed(() => layout.size);
 var standAlone = ref(false);
 
 function navigate(item) {
@@ -19,7 +20,10 @@ function navigate(item) {
       path: item.path,
       replace: true,
     });
-    // layout.toogleTab()
+    if (window.innerWidth < 628) {
+      layout.toogleTab()
+    }
+    
   }
 }
 
@@ -70,7 +74,7 @@ onMounted(() => {
   <div
     class="tabNavWrapper trans overflow-auto bg-light-900 txtDarkPrimary"
     :style="{
-      width: showTab ? 'var(--tabWidth)' : '0'
+      width: showTab ? 'var(--tab_width)' : '0'
     }"
   >
     <scrollView class="tabList">
@@ -149,7 +153,7 @@ $itemHeight: 35px;
   transition: $transBase;
 }
 .transNav {
-  transform: translate(calc( -1 * var(--tabWidth)), 0);
+  transform: translate(calc( -1 * var(--tab_width)), 0);
 }
 .tabList {
   backdrop-filter: blur(20px);
@@ -165,7 +169,7 @@ $itemHeight: 35px;
 } 
 .tabNavWrapper {
   // background: var(--nav_bg_primary);
-  width: var(--tabWidth);
+  width: var(--tab_width);
   height: 100dvh;
   // transition: width 0.25s linear;
   // will-change: width;

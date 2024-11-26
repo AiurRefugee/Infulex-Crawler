@@ -173,7 +173,7 @@ input:focus-visible {
 
 .showAllGridRect{
     display: grid;
-    grid-template-columns: repeat(var(--showAllGridRectColumns), 1fr);
+    grid-template-columns: repeat(var(--show_all_grid_rect_columns), 1fr);
     justify-content: center;
 
 }
@@ -186,12 +186,12 @@ input:focus-visible {
     transform-origin: right top;
 }
 .navWidth {
-    width: var(--tabWidth);
+    width: var(--tab_width);
 }
 .transNavWidth {
-    width: calc(100% - var(--tabWidth)) !important;
+    width: calc(100% - var(--tab_width)) !important;
 }
 
 .transNav {
-    transform: translate(var(--tabWidth), 0);
+    transform: translate(var(--tab_width), 0);
 }

@@ -42,7 +42,7 @@ onMounted(() => {});
 <style scoped lang="scss">
 @import "@/style/color.scss";
 .navW {
-  width: calc(100% - var(--taskW) - var(--tabWidth));
+  width: calc(100% - var(--taskW) - var(--tab_width));
 }
 
 .tasks {

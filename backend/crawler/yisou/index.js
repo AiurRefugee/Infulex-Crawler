@@ -14,6 +14,6 @@ const { chromium } = require('playwright');
   await page.getByPlaceholder('输入关键词，回车/换行即可 搜索全网云盘资源').press('Enter');
 
   // ---------------------
-  await context.close();
-  await browser.close();
+  // await context.close();
+  // await browser.close();
 })();

@@ -57,6 +57,7 @@ export const layoutStore = defineStore('layout', {
       },
     ],
     tabAnimating: false,
+    tabFixed: false,
     tabIconVisible: true,  // tabIcon是否显示
     showTab: false
   }),
@@ -64,6 +65,9 @@ export const layoutStore = defineStore('layout', {
     // double: (state) => state.count * 2,
   },
   actions: {
+    setFixed(value) {
+      this.tabFixed = value
+    },
     setSize(newSize) {
       this.size = newSize
     },

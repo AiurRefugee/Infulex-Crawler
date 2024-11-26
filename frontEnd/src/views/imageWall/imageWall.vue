@@ -69,7 +69,7 @@ onMounted(() => {
 <style lang="scss">
 $gap: 1rem;
 .imagesWall {
-  columns: var(--imageBrickCount);
+  columns: var(--image_brick_count);
   
   column-gap: 0;
 }

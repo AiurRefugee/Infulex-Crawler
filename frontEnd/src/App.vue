@@ -58,7 +58,7 @@ onMounted(() => {
     height: 100vh;
 
     .tablist {
-      width: var(--tabWidth);
+      width: var(--tab_width);
       height: 100dvh;
       border-right: $borderSize solid lightgray;
       border-collapse: separate;

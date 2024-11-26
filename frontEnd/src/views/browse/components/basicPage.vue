@@ -6,7 +6,7 @@ const props = defineProps(['title'])
 <template>
     <scrollView>
     <template v-slot:header>
-      <scrollHeader>
+      <scrollHeader class="h-[45px]">
         <template v-slot:center>
           <h1 class="txtDarkPrimary select-none text-xl font-bold">{{ title }}</h1>
         </template>
@@ -22,16 +22,23 @@ const props = defineProps(['title'])
   </scrollView>
 </template>
 <style lang="scss" scoped>
+
 .showAllGrid .gridArea{
+  $minw: 120px;
   display: grid;
-  grid-template-columns: repeat(var(--showAllGridColumns), calc(100% / var(--showAllGridColumns)));
+  grid-template-columns: repeat(auto-fill, max(calc(100% / var(--show_all_grid_columns)), $minw));
   grid-gap: 15px 0;
+  justify-content: space-around;
+  justify-items: center;
 }
 
 .showAllGridRect .gridArea{
+  $minw: 160px;
   display: grid;
-  grid-template-columns: repeat(var(--showAllGridRectColumns), calc(100% / var(--showAllGridRectColumns)));
-  justify-content: center;
+  grid-template-columns: repeat(auto-fit, max(calc(100% / var(--show_all_grid_rect_columns)), $minw));
+  justify-content: space-around;
+  justify-items: center;
+  gap: 15px 0;
 
 }
 </style>

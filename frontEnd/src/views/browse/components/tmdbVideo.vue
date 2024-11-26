@@ -99,7 +99,7 @@ onMounted(() => {
   </videoListBasic>
   <basicPage class="showAllGrid" v-if="pageView" :title="videosTitle">
     <videoCardBasic
-      class="basicCardInGrid pr-3"
+      class="basicCardInGrid pr-4"
       :media="media"
       :mediaType="mediaType"
       @click="toDetail(media, mediaType)"

@@ -26,9 +26,7 @@ $cellHeight: 2rem;
 html {
     // color
     --color_Primary: #f19109;
-
-    --tabBorder: 1px solid rgba(211, 211, 211, 0.621);
-    --tabWidth: min(23vw, 300px);  
+    --tab_width: min(23vw, 300px);  
     --taskW: min(30vw, 500px);
 
     // 搜索页genre卡片
@@ -43,7 +41,7 @@ html {
     --genreNum: 7;
 
     // 文件夹列数
-    --fileGridColumns: 9;
+    --file_grid_columns: 9;
 
     // 基础卡牌　横向
     --basc_card_rect_num: 8.1;
@@ -58,17 +56,16 @@ html {
     --dividerBg: rgb(107 107 107 / 30%);
 
     // imageWall
-    --imageBrickCount: 4;
+    --image_brick_count: 4;
     
-    --showAllGridColumns: 13;
-    --showAllGridRectColumns: 6;
+    --show_all_grid_columns: 14;
+    --show_all_grid_rect_columns: 8;
 
     background-color: var(--bg_Primary);
 
     // 手机竖屏
     @media (width < $breakPointSmall) and (orientation: portrait) {
-        --tabBorder: none;
-        --tabWidth: 100vw;
+        --tab_width: 100vw;
         // 搜索页genre卡片
         --search_genre_card_num: 2; 
 
@@ -87,12 +84,12 @@ html {
         --credit_card_num: 5.2;  
 
         // imageWall
-        --imageBrickCount: 2;
-        --showAllGridRectColumns: 2;
-        --showAllGridColumns: 3;
+        --image_brick_count: 2;
+        --show_all_grid_rect_columns: 2;
+        --show_all_grid_columns: 3;
 
         // 文件夹列数
-        --fileGridColumns: 3;
+        --file_grid_columns: 3;
     }
 
     // 手机横屏
@@ -101,7 +98,7 @@ html {
         // 搜索页genre卡片
         --search_genre_card_num: 3; 
 
-        --tabWidth: 30vw;  
+        --tab_width: 30vw;  
 
         // 基础卡片 
         --basc_card_num: 6.2; 
@@ -117,7 +114,7 @@ html {
         --genreNum: 4.6;
 
         // imageWall
-        --imageBrickCount: 3;
+        --image_brick_count: 3;
         
     }
     
@@ -128,7 +125,7 @@ html {
         (height > $breakPointSmall) and 
         (orientation: portrait){ 
 
-        --tabWidth: 300px;  
+        --tab_width: 300px;  
         // 基础卡片 
         --basc_card_num: 6.2;
 
@@ -144,8 +141,8 @@ html {
         // 媒体类别
         --genreNum: 3.8;
 
-        --showAllGridColumns: 6;
-        --showAllGridRectColumns: 4;
+        --show_all_grid_columns: 6;
+        --show_all_grid_rect_columns: 3;
     }
 
     // 平板 横屏
@@ -171,10 +168,10 @@ html {
         --genreNum: 3.8;
 
         // 文件夹列数
-        --fileGridColumns: 6;
+        --file_grid_columns: 6;
 
-        --showAllGridColumns: 8;
-        --showAllGridRectColumns: 6;
+        --show_all_grid_columns: 10;
+        --show_all_grid_rect_columns: 6;
     }
 
     // PC

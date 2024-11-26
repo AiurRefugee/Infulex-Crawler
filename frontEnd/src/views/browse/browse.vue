@@ -166,6 +166,9 @@ onMounted(async () => {
   margin-bottom: $space * 2;
   @media (width <= 1440px) {
     background-color: transparent;
+    $space: 5px;
+    margin-top: $space;
+    margin-bottom: $space;
   }
   @media (prefers-color-scheme: dark) {
     background-color: rgba(77, 77, 77, 0.5);
