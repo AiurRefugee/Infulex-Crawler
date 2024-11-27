@@ -40,6 +40,16 @@ const cancel = () => {
   layout.setSearchFocused(false);
 };
 
+const handleFocus = () => {
+  focused.value = true;
+  layout.setTabIconVisible(false)
+}
+
+const handleBlur = () => {
+  focused.value = false;
+  layout.setTabIconVisible(true)
+}
+
 onMounted(() => {
   if (size.value == "small") {
     // layout.setTabIconVisible(false)
@@ -49,24 +59,29 @@ onMounted(() => {
 <template>
   <div class="w-full h-full bg-light-800 trans">
     <!-- 顶部占位 -->
-    <div class=" trans center flex-shrink-0 h-[35px]">
+    <div 
+      class=" trans center flex-shrink-0"
+      :style="{height: focused ? '0' : '35px',}"
+    >
       <text
         class="transSlow text-xl txtDarkPrimary"
         :style="{
-          opacity: showTitle || focused ? '1' : '0',
+          opacity: showTitle ? '1' : '0',
         }"
         >搜索</text
       >
     </div>
 
     <div
+      :class="focused ? 'bg-light-700' : ''"
       class="w-full h-full overflow-y-auto overflow-x-hidden"
       ref="scrollArea"
       @scroll="toogleStyle"
     >
       <h1
-        class="searchTitle h-[45px] px-4 text-dark-900"
+        class="searchTitle h-[45px] px-4 text-dark-800 trans"
         :style="{
+          transform: focused ? 'translateY(-100%)' : '',
           height: focused ? '0' : '',
         }"
       >
@@ -74,17 +89,17 @@ onMounted(() => {
       </h1>
 
       <div
+        :class="showTitle || focused ? 'showBorderB' : ''"
         class="flex sticky top-0 z-[2000]"
         :style="{
-          borderBottom: showTitle ? '1px solid #ccc' : 'none',
           // background: tabIconVisible ? '#e9e9e9' : 'white',
         }"
       >
         <div
-          class="inputRow w-full h-[60px] pl-4 pt-[5px] pb-[15px] flex bgLightPrimary transSlow"
+          class="inputRow w-full h-[60px] pl-4 py-3 flex transSlow bg-light-800"
         >
           <div
-            class="inputArea w-full px-2 flex items-center bg-gray-500 rounded-lg"
+            class="inputArea bg-light-700 w-full px-2 flex items-center rounded-lg"
           >
             <img
               class="searchIcon h-[15px] fill-slate-200"
@@ -94,7 +109,7 @@ onMounted(() => {
               v-model="searchText"
               class="w-full px-2 text-[1.2em] text-white"
               placeholder="电影，剧集"
-              @focus="focused = true"
+              @focus="handleFocus"
               @input="search"
               @keydown.enter="search"
             />
@@ -104,15 +119,18 @@ onMounted(() => {
               width: focused ? '50px' : '0',
             }"
             class="center whitespace-nowrap text-red-600 overflow-hidden trans cursor-pointer"
-            @click="focused = false"
+            @click="handleBlur"
             >取消</text
           >
         </div>
-        <div class="w-4"></div>
+        <div class="w-4 bg-light-800"></div>
       </div>
 
       <!-- 按类别浏览 -->
-      <div class="w-full h-full px-4" v-if="!focused">
+      <div 
+        class="w-full h-full px-4 trans" 
+        v-if="!focused"
+      >
         <div class="text-xl h-10 flex self-start txtDarkPrimary">
           <h1>按类别浏览</h1>
         </div>
@@ -124,8 +142,9 @@ onMounted(() => {
 
       <!-- 搜索结果 -->
       <div
+        :class="focused ? 'bg-light-700' : ''"
         class="searchResult w-full h-full"
-        v-if="searchResult.length && searchText"
+        v-if="focused && searchResult.length && searchText"
       >
         <ul>
           <li v-for="item in searchResult" :key="item.id">
@@ -138,7 +157,9 @@ onMounted(() => {
 </template>
 <style lang="scss">
 @import "@/style/variables.scss";
-
+.showBorderB {
+  border-bottom: 1px solid rgba(128, 128, 128, 0.4) ;
+}
 .searchTitle {
   font-size: 2em;
   font-weight: bold;
@@ -150,7 +171,7 @@ $gridNumSmall: 2;
 
 .buttonGrid {
   display: grid;
-  --gridHeight: min(15vh, 150px);
+  --gridHeight: max(15vh, 120px);
   grid-template-columns: repeat($gridNumLarge, 1fr);
   grid-template-rows: repeat(4, var(--gridHeight));
   // grid-template-rows: repeat(auto-fill, 15vh);

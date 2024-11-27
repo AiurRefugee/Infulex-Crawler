@@ -49,7 +49,17 @@ const router = createRouter({
       component: () => import('../views/dashBoard/dashBoard.vue'),
       meta: {
         transition: 'fade'
-      }
+      },
+      children: [
+        {
+          path: '/dashBoard/taskDetail',
+          component: () => import('../views/dashBoard/components/taskDetail.vue'),
+        }
+      ]
+    },
+    {
+      path: '/taskDetail/:mediaType/:mediaId',
+      component: () => import('../views/dashBoard/components/taskDetail.vue'),
     },
     {
       path: '/mediaDetail/:title',

@@ -70,14 +70,14 @@ html {
         --search_genre_card_num: 2; 
 
         // 基础卡片 
-        --basc_card_num: 3.6; 
+        --basc_card_num: 3.4; 
 
         // 媒体类别
-        --genreNum: 1.1;
+        --genreNum: 1.15;
 
         // 基础卡牌　横向
-        --basc_card_rect_num: 2.2;
-        --browse_Pr: 5px;
+        --basc_card_rect_num: 1.5;
+        --browse_Pr: 10px;
         --dividerMy: 6px;
 
         // 演职员card
@@ -171,7 +171,7 @@ html {
         --file_grid_columns: 6;
 
         --show_all_grid_columns: 10;
-        --show_all_grid_rect_columns: 6;
+        --show_all_grid_rect_columns: 5;
     }
 
     // PC
@@ -213,7 +213,7 @@ html {
         --list_bg: #242424;
 
         // 分割线背景色
-        --dividerBg: rgba(211, 211, 211, 0.3);
+        --dividerBg: rgba(156, 154, 154, 0.2);
     }
     /* 明亮模式样式 */
     @media (prefers-color-scheme: light) {

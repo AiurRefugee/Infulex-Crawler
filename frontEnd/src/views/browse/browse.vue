@@ -170,9 +170,6 @@ onMounted(async () => {
     margin-top: $space;
     margin-bottom: $space;
   }
-  @media (prefers-color-scheme: dark) {
-    background-color: rgba(77, 77, 77, 0.5);
-  }
 }
 .scrollViewArea:nth-child(1) {
   background: red;

@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, computed, watch, provide, nextTick } from "vue";
+import { onMounted, ref, computed, inject, provide, nextTick } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import scrollView from "@/viewComponents/scrollView.vue";
 import scrollHeader from "@/components/common/scrollHeader.vue";
@@ -101,6 +101,7 @@ provide("backdropUrl", backdropUrl);
 provide("media", mediaDetail);
 provide("generes", generes);
 
+const scrollTopModel = ref(0) 
 const clearCredits = () => {
   cast.value = [];
   crew.value = defaultArray;
@@ -245,15 +246,15 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <scrollView>
+  <scrollView v-model:scrollTopModel="scrollTopModel">
     <template v-slot:header>
-      <scrollHeader class="fixed top-0 z-10">
+      <scrollHeader class="fixed top-0 z-10" :class="scrollTopModel > 45 ? 'bg-light-800' : ''">
         <template v-slot:left>
           <!-- <backword @click="router.go(-1)"></backword> -->
         </template>
         <template v-slot:center>
-          <h1 class="font-bold text-[1.2em] txtDarkPrimary whitespace-nowrap">
-            {{ mediaTitle }}
+          <h1 class="font-bold text-[1.2em] text-dark-900 whitespace-nowrap">
+            {{ mediaTitle }} {{ scrollTop }}
           </h1>
         </template>
         <template v-slot:right>
@@ -333,7 +334,6 @@ onMounted(async () => {
     display: flex;
   }
 }
-
 .overview {
   max-width: 100%;
   -webkit-line-clamp: 3;

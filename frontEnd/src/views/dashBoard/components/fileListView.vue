@@ -6,7 +6,7 @@ import fileItem from './fileItem.vue'
 const tasks = useTaskStore();
 const topFiles = computed(() => tasks.topFiles);
 const topTitle = computed(() => tasks.topTitle)
-const filePaths = computed(() => tasks.filePaths)
+const filePaths = computed(() => tasks.filePaths.slice(-2))
 const handleClick = (file) => {
     const { file_id } = file
     console.log(file_id)
@@ -52,7 +52,7 @@ onMounted(async () => {
             <!-- <button class="back" @click="back">Back</button> -->
         </div>
         <div class="h-full overflow-y-auto overflow-x-hidden">
-            <fileMsg class="px-4 pt-2" :handleClick="handleClick">
+            <fileMsg class="pt-2" :handleClick="handleClick">
                 <template v-slot:list>
                     <fileItem v-for="file in topFiles" :key="file.file_id" :file="file" @click="handleClick(file)"/>
                 </template>
@@ -75,6 +75,15 @@ onMounted(async () => {
 .title {
     p, text {
         cursor: pointer;
+        
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    @media(width < 500px) {
+        p, text { 
+            max-width: 100px;
+        }
     }
 }
 .title p:last-of-type .fileTitle {

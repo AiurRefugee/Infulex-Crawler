@@ -36,7 +36,7 @@ onMounted(() => {
     <NavList />
 
     <div 
-      class="tabcontent flex justify-end"
+      class="tabcontent flex"
     >
       <router-view></router-view>
     </div>

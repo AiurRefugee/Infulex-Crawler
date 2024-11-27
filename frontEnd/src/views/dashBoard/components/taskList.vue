@@ -6,6 +6,8 @@ import scrollView from "@/viewComponents/scrollView.vue";
 import scrollHeader from "@/components/common/scrollHeader.vue";
 import taskOverview from "./taskOverview.vue";
 import { useRouter } from "vue-router";
+import { layoutStore } from "@/stores/layout";
+const layout = layoutStore();
 const router = useRouter()
 const taskStore = useTaskStore();
 const taskPools = computed(() => taskStore.taskPools);
@@ -15,6 +17,9 @@ const navToTaskDetail = (task, index) => {
   choosed.value = index
   const { mediaType, mediaId } = task
   taskStore.getTaskDetail(mediaType, mediaId)
+  if (window.innerWidth < 628 || window.innerHeight < 628) {
+    router.push('/taskDetail/' + mediaType + '/' + mediaId)
+  }
 }
 
 onMounted(() => {

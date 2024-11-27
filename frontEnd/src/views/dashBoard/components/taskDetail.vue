@@ -1,31 +1,39 @@
 <script setup>
 import scrollView from "@/viewComponents/scrollView.vue";
 import taskHeader from "./taskHeader.vue";
+import { useRoute } from "vue-router";
 import { useTaskStore } from "@/stores/tasks";
 import { layoutStore } from "@/stores/layout";
 import { ref, computed, onMounted } from "vue";
 import msgListView from "./msgListView.vue";
 import FileListView from "./fileListView.vue";
-const tasks = useTaskStore();
-const selectedTask = computed(() => tasks.selectedTask);
+const taskStore = useTaskStore();
+const route = useRoute();
+const selectedTask = computed(() => taskStore.selectedTask);
 const layout = layoutStore();
-const listStype = computed(() => tasks.listStype);
+const listStype = computed(() => taskStore.listStype);
 
 const size = computed(() => {
   return layout.size;
 });
 
-onMounted( () => {
-  if (size.value == 'small') {
-    layout.setTabIconVisible(false)
+onMounted(() => {
+  const { mediaType, mediaId } = route.params;
+  if (mediaType && mediaId) {
+    taskStore.getTaskDetail(mediaType, mediaId);
   }
-})
 
+  if (size.value == "small") {
+    layout.setTabIconVisible(false);
+  }
+});
 </script>
-<template> 
-    <taskHeader :task="selectedTask" v-model:listStype="listStype"/>
-    <msgListView :style="{ display: listStype == 0 ? '' : 'none'}"/>
-    <FileListView :style="{ display: listStype == 1 ? '' : 'none'}"/> 
+<template>
+  <div class="w-full h-full bg-light-700 trans">
+    <taskHeader :task="selectedTask" v-model:listStype="listStype" />
+    <msgListView :style="{ display: listStype == 0 ? '' : 'none' }" />
+    <FileListView :style="{ display: listStype == 1 ? '' : 'none' }" />
+  </div>
 </template>
 <style scoped lang="scss">
 @media (width >= 1080px) {

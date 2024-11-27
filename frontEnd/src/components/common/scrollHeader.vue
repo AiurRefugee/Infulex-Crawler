@@ -54,6 +54,7 @@ watch(showTitle, (newVal, oldVal) => {
   justify-content: center;
   justify-items: center;
   border-bottom: 1px solid #c1c1c100;
+
 }
 .showBorderB {
   border-bottom: 1px solid #c1c1c1ad;

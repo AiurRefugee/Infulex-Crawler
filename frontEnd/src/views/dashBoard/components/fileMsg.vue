@@ -8,7 +8,7 @@ const clickFile = (file) =>{
 }
 </script>
 <template>
-  <div class="filesArea text-dark-800">
+  <div class="filesArea px-4 text-dark-800">
     <slot name="list"></slot>
   </div>
 
@@ -18,9 +18,9 @@ const clickFile = (file) =>{
 
 .filesArea {
   display: grid;
-  gap: 20px;
+  gap: 20px 0;
   // flex-wrap: wrap;
-  grid-template-columns: repeat(auto-fill, 180px);
+  grid-template-columns: repeat(auto-fill, 160px);
   justify-content: space-around;
 }
 </style>

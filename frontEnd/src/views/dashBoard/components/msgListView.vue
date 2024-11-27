@@ -23,7 +23,7 @@ const toLink = (event, url) => {
 
 </script>
 <template>
-  <div class="msgListView w-full px-4 pt-2 overflow-x-hidden overflow-y-auto txtDarkPrimary">
+  <div class="msgListView w-full px-2 pt-2 overflow-x-hidden overflow-y-auto txtDarkPrimary">
     <div class="mb-4" v-for="msg in selectedTask?.msgs" :key="msg">
 
         <!-- getLink --> 

@@ -10,6 +10,7 @@ const layout = layoutStore();
 const size = computed(() => layout.size);
 
 const scrollTop = ref(0)
+const scrollTopModel = defineModel('scrollTopModel')
 provide("scrollTop", scrollTop);
 const headerTitle = ref();
 const divider = ref();
@@ -20,6 +21,7 @@ const showTitle = ref(false);
 const toogleTitle = (event) => {
   // console.log("scroll", event);
   scrollTop.value = event.target.scrollTop;
+  scrollTopModel.value = scrollTop.value;
   showTitle.value = event.target.scrollTop > 30;
 };
 

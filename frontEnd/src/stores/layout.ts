@@ -19,10 +19,6 @@ export const layoutStore = defineStore('layout', {
             image: "src/assets/icons/mediaType.svg",
           },
           {
-            text: "最近添加",
-            image: "src/assets/icons/recent.svg",
-          },
-          {
             text: "电影",
             image: "src/assets/icons/movie.svg",
             path: '/movie'
@@ -30,10 +26,6 @@ export const layoutStore = defineStore('layout', {
           {
             text: "剧集",
             image: "src/assets/icons/tv.svg",
-          },
-          {
-            text: "导演",
-            image: "src/assets/icons/record.svg",
           },
         ],
       },
@@ -58,6 +50,7 @@ export const layoutStore = defineStore('layout', {
     ],
     tabAnimating: false,
     tabFixed: false,
+    showTaskDetailOnMobile: false,
     tabIconVisible: true,  // tabIcon是否显示
     showTab: false
   }),
@@ -74,12 +67,12 @@ export const layoutStore = defineStore('layout', {
     setSearchFocused (flag) {
       this.tabIconVisible = flag
     },
+    setShowTaskDetailOnMobile (value) {
+      this.showTaskDetailOnMobile = value
+    },
     toogleTab() {
       this.showTab = !this.showTab
-      this.tabAnimating = true
-      setTimeout(() => {
-        this.tabAnimating = false
-      }, animateDuration)
+      
     },
     setTabIconVisible(value) {
       this.tabIconVisible = value

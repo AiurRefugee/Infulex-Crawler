@@ -1,6 +1,7 @@
 <script setup>
 import { useRouter, useRoute } from "vue-router";
 import { useTaskStore } from "@/stores/tasks";
+import { genres } from '@/config/genre'
 
 const imageSrcPrefix = "https://image.tmdb.org/t/p/original";
 const route = useRoute();
@@ -44,6 +45,11 @@ const handleClick = (event) => {
     toDetail()
   }
 }
+
+const mapGenre = (genreIds) => {
+  const ids = genreIds.filter((id) => genres[id + '']?.name)
+  return ids.map(id => genres[id + '']?.name).join(', ')
+}
 </script>
 <template>
   <div class="searchItem w-full h-[12em] flex px-4 py-2 mb-2" @click="handleClick">
@@ -54,9 +60,9 @@ const handleClick = (event) => {
       />
 
     <div
-      class="w-full h-full pr-2 hasDivider"
+      class="w-full h-full hasDivider relative"
     >
-      <div class="flex h-[3em] justify-between items-center gap-4 overflow-hidden">
+      <div class="flex h-[2.2em] justify-between items-center gap-4 overflow-hidden">
         <h1
           class="title text-[1.5em] overflow-hidden whitespace-nowrap text-ellipsis txtDarkPrimary"
         >
@@ -73,10 +79,10 @@ const handleClick = (event) => {
       <p class="overview h-[6em] txtDarkSecondary">{{ data.overview }}</p>
 
       <p
-        class="w-full h-[1em] flex justify-between gap-6 opacity-60 txtDarkSecondary"
+        class="w-full flex absolute bottom-2 justify-between gap-6 opacity-60 txtDarkSecondary"
       >
         <span>{{ data?.first_air_date || data?.release_date }}</span>
-        <span>{{ data.genre_ids }}</span>
+        <span>{{ mapGenre(data.genre_ids) }}</span>
       </p>
     </div>
   </div>
@@ -88,12 +94,11 @@ const handleClick = (event) => {
   aspect-ratio: 2 / 3;
   box-shadow: $videoCardBasicBoxShadow;
 }
-.overview {
-  display: -webkit-box;
+.overview { 
   -webkit-line-clamp: 4;
+  /* height: 6em; */ 
+  font-size: 1em;
   line-height: 1.5em;
-  /* height: 6em; */
-  -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -107,10 +112,8 @@ const handleClick = (event) => {
   .title {
     max-width: 180px;
   }
-  .overview {
-    margin: 0.5em 0;
-    height: 4.5em;
-    -webkit-line-clamp: 3;
+  .overview { 
+    // -webkit-line-clamp: 3;
   }
 }
 </style>

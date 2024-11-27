@@ -20,6 +20,9 @@ function navigate(item) {
       path: item.path,
       replace: true,
     });
+    setTimeout( () => {
+      layout.setShowTaskDetailOnMobile(false)
+    }, 500)
     if (window.innerWidth < 628) {
       layout.toogleTab()
     }
