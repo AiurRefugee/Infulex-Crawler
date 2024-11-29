@@ -5,7 +5,6 @@ const mongoConfig = require(configPath);
 
 const { taskCollectionName } = mongoConfig;
 
-
 class Task {
     constructor(mediaId, mediaType, title, backdropPath) {
         const task = {
@@ -41,7 +40,6 @@ class Task {
     }
 
     addMsg(msg) {
-        
         const task = this.task
         const { mediaId, mediaType } = task;
         console.log('addMsg', this, msg)
@@ -49,7 +47,11 @@ class Task {
         const mongoManager = new MongoManager();
         const taskCollection = mongoManager.getCollection(taskCollectionName);
         taskCollection.updateOne({ mediaId, mediaType}, { $push: { msgs: msg } });
-
+        const { type } = msg
+        if (type == 'TASK Done') {
+            task.status = '已完成'
+            taskCollection.updateOne({ mediaId, mediaType}, { $set: { status: '已完成' } });
+        }
     }
 
     subscribeProxy(topicId, eventManager) {

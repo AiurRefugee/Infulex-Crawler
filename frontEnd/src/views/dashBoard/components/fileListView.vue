@@ -6,7 +6,7 @@ import fileItem from './fileItem.vue'
 const tasks = useTaskStore();
 const topFiles = computed(() => tasks.topFiles);
 const topTitle = computed(() => tasks.topTitle)
-const filePaths = computed(() => tasks.filePaths.slice(-2))
+const filePaths = computed(() => tasks.filePaths)
 const handleClick = (file) => {
     const { file_id } = file
     console.log(file_id)
@@ -37,7 +37,7 @@ onMounted(async () => {
                 class="title flex gap-2 text-dark-800 text-left overflow-hidden text-ellipsis font-bold"
             > 
                 <text :class="!filePaths.length ? '' : 'opacity-50'" @click="resetFilePath">全部文件</text>
-                <span :class="!filePaths.length ? '' : 'opacity-50'" class="fileTitleGap px-2 center"> > </span>
+                <span :class="!filePaths.length ? '' : 'opacity-50'" class="fileTitleGap center"> > </span>
                 <p 
                     v-for="(file, index) in filePaths" 
                     :key="file.file_id" 

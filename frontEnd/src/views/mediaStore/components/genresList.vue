@@ -23,6 +23,6 @@ import classButtonList from "@/components/common/classButtonList.vue";
   }
 }
 .genreList {
-  height: min(15vh, 120px);
+  height: max(12vh, 120px);
 }
 </style>

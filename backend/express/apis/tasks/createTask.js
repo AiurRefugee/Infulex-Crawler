@@ -1,8 +1,7 @@
 const EventManager = require('../../../classes/eventManager.js')
 const searchKeyword = require('../../../crawler/xiaozhanCrawler/index.js');
 const { Task } = require('../../../classes/task.js');
-
-const alipanApi = require('../../../wangpan/alipan/share.js');
+const browserCrawler = require('../../../crawler/index.js');
 
 const createTask = async (mediaId, mediaType, backdropPath, title) => {
     console.log('createTask', mediaId, mediaType, backdropPath, title)
@@ -10,8 +9,8 @@ const createTask = async (mediaId, mediaType, backdropPath, title) => {
     const eventManager = new EventManager()
     const topicId = mediaType + '_' + mediaId
     task.subscribeProxy(topicId, eventManager)
-
-    alipanApi.crawlLink(topicId, 'https://www.alipan.com/s/KrHZo7Eqkhx')
+    const crawler = new browserCrawler(eventManager)
+    crawler.crawlKeyword(topicId, title)
 }
 
 const startTask = (keywordObj) => {

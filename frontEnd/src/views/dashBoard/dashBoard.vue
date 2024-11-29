@@ -25,7 +25,7 @@ onMounted(() => {});
   <!-- 任务列表 -->
   <div
     :class="showTaskDetailOnMobile ? 'showDetailTasksList' : ''"
-    class="tasks bg-light-800 w-full h-full overflow-x-hidden trans"
+    class="tasks bg-light-800 h-full overflow-x-hidden trans"
     :style="{
       width: size == 'small' && selectedTask ? '0' : '',
       translate: size == 'small' && selectedTask ? '-100%' : '0',
@@ -39,13 +39,11 @@ onMounted(() => {});
 </template>
 <style scoped lang="scss">
 @import "@/style/color.scss";
-.navW {
-  width: calc(100% - var(--taskW) - var(--tab_width));
-}
 
 .tasks {
+  --taskW: max(20vw, 450px);
   width: var(--taskW);
-  min-width: var(--taskW);
+  min-width: 400px;
   flex-shrink: 0;
   // border-right: 1px solid rgba(128, 128, 128, 0.508);
 }

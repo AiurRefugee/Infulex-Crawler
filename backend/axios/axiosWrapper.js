@@ -8,8 +8,8 @@ axios.interceptors.response.use(
     },
     async (error) => {
         const { config, response } = error
-        console.log('response', response?.data || response, 'error', error, config)
-        return response?.data || response
+        console.log('response err')
+        return response?.data
     }
 )
 

@@ -92,7 +92,7 @@ const slideStart = (event) => {
   <div class="taskItemWrap fastTrans mb-4 rounded-xl overflow-hidden">
     <liItem :liClassName="'liItem'" :afterfixW="afterfixW">
       <template v-slot:content>
-        <div class="taskOverview h-full flex gap-4 p-2" ref="liWrap">
+        <div class="taskOverview h-full flex items-center gap-4 p-2" ref="liWrap">
           <!-- poster -->
           <img
             :src="task?.backdropPath"
@@ -102,13 +102,13 @@ const slideStart = (event) => {
 
           <!-- overview -->
           <div class="overview w-full h-full flex flex-col justify-around">
-            <div class="w-full h-1/3 flex justify-between items-center">
+            <div class="w-full h-1/3 flex justify-between">
               <h1
-                class="title font-bold text-dark-900 whitespace-nowrap overflow-hidden text-ellipsis"
+                class="title text-[1.2em] font-bold text-dark-900 whitespace-nowrap overflow-hidden text-ellipsis"
               >
                 {{ task.title }}
               </h1>
-              <div class="statusArea h-full flex items-center gap-1">
+              <div class="statusArea flex gap-1">
                 <img
                   class="h-[2vh] aspect-square loading"
                   src="@/assets/icons/loading.svg"

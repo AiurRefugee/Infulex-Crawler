@@ -23,10 +23,10 @@ const selectFile = (event) => {
 <template>
   <div
     :class="selected ? 'selected' : ''"
-    class="fileWrap rounded-lg py-2 relative"
+    class="fileWrap rounded-lg m-2 py-2 relative"
   >
     <div
-      class="selectArea center bg-light-500 rounded-lg absolute"
+      class="selectArea center bg-light-800 rounded-lg absolute"
       @click="selectFile"
     >
       <div class="outside selectedCenter">
@@ -73,7 +73,7 @@ const selectFile = (event) => {
   width: $size;
   aspect-ratio: 1;
   cursor: pointer;
-  $space: 6px;
+  $space: 5px;
   left: $space;
   top: $space;
 }

@@ -1,5 +1,4 @@
 const { get, post } = require('../../axios/axiosWrapper')
-const { sleep } = require('../../utils/index.js')
 const EventManager = require('../../classes/eventManager.js')
 
 
@@ -71,47 +70,6 @@ const getFolderDetail = async (share_id, share_token, parent_file_id) => {
 
 }
 
-const travelFolder = async (topicId, share_id, share_token, parent_file_id, layer = 1) => {
-    if (layer > maxLayer) {
-        return
-    }
-    const eventManager = new EventManager()
-    getFolderDetail(share_id, share_token, parent_file_id).then(res => {
-        if (res?.length) {
-            const type = res.some(isVideo) ? 'GET Video' : 'GET Files'
-            const time = new Date()
-            eventManager.addMsg(topicId, {
-                type,
-                data: res,
-                time: time.toLocaleString()
-            })
-            res.forEach(child => {
-                if (child.type === 'folder') {
-                    travelFolder(topicId, share_id, share_token, child.file_id, layer + 1)
-                } else if (child.type === 'file') {
-                    console.log('child', child)
-                }
-            })
-        } 
-    }).catch(err => {
-        console.log('getFolderDetail err', err)
-    })
-}
-
-const crawlLink = async (topicId, link) => {
-    getShareCode(link).then(res => {
-        console.log('getShareCode', res)
-        const { share_id, share_pwd } = res
-        getShareToken(share_id, share_pwd).then(res => {
-            const { share_token } = res
-            travelFolder(topicId, share_id, share_token, 'root')
-        })
-    }).catch(err => {
-        console.log('err', err)
-    }
-    )
-}
-
 async function test() {
     crawlLink('tv_94605', 'https://www.alipan.com/s/KrHZo7Eqkhx')
 }
@@ -119,10 +77,10 @@ async function test() {
 // test()
 
 const alipanApi = {
+    isVideo,
+    getShareCode,
     getShareToken,
-    getFolderDetail,
-    travelFolder,
-    crawlLink
+    getFolderDetail
 }
 
 module.exports = alipanApi

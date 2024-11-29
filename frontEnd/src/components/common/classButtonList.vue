@@ -9,7 +9,7 @@ onMounted(async () => {});
 </script>
 <template>
   <button
-    class="browseClassButton browseButtonSize mr-3 rounded-lg center"
+    class="browseClassButton browseButtonSize rounded-lg center"
     :style="{ backgroundImage: tag.backgroundImage }"
     v-for="tag in genres"
     :key="tag"
@@ -40,6 +40,7 @@ onMounted(async () => {});
   font-weight: bold;
   background-size: cover;
   letter-spacing: 10px;
+  margin-right: var(--browse_Pr);
   // margin-right: calc(var(--browse_Pr) * 1.2);
 }
 </style>
