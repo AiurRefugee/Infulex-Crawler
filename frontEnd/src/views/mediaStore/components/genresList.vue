@@ -3,8 +3,8 @@ import classButtonList from "@/components/common/classButtonList.vue";
 </script>
 <template>
   <div ref="listWrap" class="genreWrapper">
-    <div class="genreTitle w-full px-4 flex txtDarkSecondary">
-      <h1 class="text-xl font-bold py-2">影片类型</h1>
+    <div class="genreTitle w-full px-4 mb-2 flex txtDarkSecondary">
+      <h1 class="listTitle text-xl font-bold">影片类型</h1>
     </div>
     <div ref="list" class="genreList w-full flex pl-4 overflow-auto hideScroll">
       <classButtonList />

@@ -13,9 +13,7 @@ const selectedTask = computed(() => taskStore.selectedTask);
 const layout = layoutStore();
 const listStype = computed(() => taskStore.listStype);
 
-const size = computed(() => {
-  return layout.size;
-});
+const size = computed(() => layout.size);
 
 onMounted(() => {
   const { mediaType, mediaId } = route.params;
@@ -23,7 +21,7 @@ onMounted(() => {
     taskStore.getTaskDetail(mediaType, mediaId);
   }
 
-  if (size.value == "small") {
+  if (window.innerWidth < 628) {
     layout.setTabIconVisible(false);
   }
 });

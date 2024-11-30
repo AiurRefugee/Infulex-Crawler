@@ -51,8 +51,8 @@ export const layoutStore = defineStore('layout', {
     tabAnimating: false,
     tabFixed: false,
     showTaskDetailOnMobile: false,
-    tabIconVisible: true,  // tabIcon是否显示
-    showTab: false
+    tabIconVisible: false,  // tabIcon是否显示
+    showTab: false // 是否显示边栏
   }),
   getters: {
     // double: (state) => state.count * 2,
@@ -71,27 +71,26 @@ export const layoutStore = defineStore('layout', {
       this.showTaskDetailOnMobile = value
     },
     toogleTab() {
-      this.showTab = !this.showTab
-      
+      this.showTab = !this.showTab 
+    },
+    toogleTabIconVisible() {
+      this.tabIconVisible = !this.tabIconVisible
     },
     setTabIconVisible(value) {
-      this.tabIconVisible = value
-      this.tabAnimating = true
-      setTimeout(() => {
-        this.tabAnimating = false
-      }, animateDuration)
+      console.log('setTabIconVisible', value)
+      this.tabIconVisible = value 
     },
     calSize() { 
-      const store = layoutStore()
-      const width = document.body.clientWidth
-      console.log('resize', width)
+      
+      const width = document.body.clientWidth 
       if (width <= smallBreakPoint) {
-        store.setSize('small')
+        this.setSize('small')
       } else if (width <= mediumBreakPoint) {
-        store.setSize('normal')
+        this.setSize('normal')
       } else {
-        store.setSize('large')
+        this.setSize('large')
       } 
+      console.log('size', this.size)
     }
   },
 })

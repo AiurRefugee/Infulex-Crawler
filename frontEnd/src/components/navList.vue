@@ -25,6 +25,7 @@ function navigate(item) {
     }, 500)
     if (window.innerWidth < 628) {
       layout.toogleTab()
+      // layout.toogleTabIconVisible()
     }
     
   }
@@ -83,7 +84,9 @@ onMounted(() => {
     <scrollView class="tabList">
       <template v-slot:header>
         <scrollHeader class="h-[45px]" :showTab="showTab">
-
+          <!-- <template #center>
+            <h1 id="scrollTitle" class="text-lg">Influlex-Crawler</h1>
+          </template> -->
         </scrollHeader>
       </template>
       <template v-slot:content>

@@ -8,7 +8,10 @@ const topFiles = computed(() => tasks.topFiles);
 const topTitle = computed(() => tasks.topTitle)
 const filePaths = computed(() => tasks.filePaths)
 const handleClick = (file) => {
-    const { file_id } = file
+    const { file_id, type } = file
+    if (type != 'folder') {
+        return
+    }
     console.log(file_id)
     tasks.pushFilePath(file)
 }

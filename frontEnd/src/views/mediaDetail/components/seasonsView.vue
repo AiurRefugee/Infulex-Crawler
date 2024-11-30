@@ -54,10 +54,10 @@ defineExpose({
   <!-- <select>
         <option v-for="(season, index) in seasons" :key="season.id">第{{ index + 1 }}季</option>
     </select> -->
-  <div class="pl-4 mb-4 flex overflow-x-auto overflow-y-hidden">
+  <div class="rect pl-4 mb-4 flex overflow-x-auto overflow-y-hidden">
     <videoCardBasic
       v-for="(episode, index) in episodes"
-      class="basicCardRect episode"
+      class="seasonW pr-2 episode"
       :key="episode.id"
       :index="index"
       :class="episodeNum == index + 1 ? 'selected' : ''"
@@ -67,3 +67,8 @@ defineExpose({
     />
   </div>
 </template>
+<style lang="scss" scoped>
+.seasonW {
+  width: calc(100vw / var(--season_card_num));
+}
+</style>

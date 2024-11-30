@@ -32,37 +32,36 @@ const calFading = (e) => {
   }
 };
 
-onMounted(() => {});
+onMounted(() => { });
 </script>
 <template>
-  <div class="listHead px-4 flex justify-between items-center">
-    <h1 class="listTitle h-[1.5em] text-[1.4em] font-bold txtDarkPrimary">
-      {{ title || "--" }}
-    </h1>
-    <slot name="showAll"></slot>
-  </div>
-  <!-- <div class="listWrap relative" :class="scrolling ? 'scrolling' : ''"> -->
-  <div
-    ref="list"
-    class="list flex pl-4 justify-stretch items-start overflow-x-auto snap-x"
-    @scroll="calFading"
-  >
-    <slot
-      name="card"
-      class=""
-      :media="media"
-      v-for="media in list"
-      :key="media"
-    >
-    </slot>
+  <div>
+    <div class="listHead px-4 flex justify-between items-center">
+      <h1 class="listTitle font-bold txtDarkPrimary">
+        {{ title || "--" }}
+      </h1>
+      <slot name="showAll"></slot>
+    </div>
+    <div ref="list" class="list flex pl-4 justify-stretch items-start overflow-x-auto snap-x" @scroll="calFading">
+      <slot name="card" class="" :media="media" v-for="media in list" :key="media">
+      </slot>
+    </div>
   </div>
   <!-- </div> -->
 </template>
-<style lang="scss" scoped>
+<style lang="scss">
 ::-webkit-scrollbar {
   position: relative;
   z-index: 9999;
   display: none;
+}
+
+.rect .list>div {
+  width: calc(100vw / var(--basc_card_rect_num)) !important;
+}
+
+.list>div {
+  width: calc(100vw / var(--basc_card_num));
 }
 
 .listWrap::after {
@@ -73,23 +72,22 @@ onMounted(() => {});
   width: 30px;
   height: 100%;
   transition: all 0.2s ease-in-out;
-  background-image: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0) 0,
-    #fff 100%
-  );
-  will-change: opacity;
-  @media (prefers-color-scheme: dark) {
-    background-image: linear-gradient(
-      to right,
+  background-image: linear-gradient(to right,
       rgba(255, 255, 255, 0) 0,
-      #000 100%
-    );
+      #fff 100%);
+  will-change: opacity;
+
+  @media (prefers-color-scheme: dark) {
+    background-image: linear-gradient(to right,
+        rgba(255, 255, 255, 0) 0,
+        #000 100%);
   }
 }
+
 .borderB {
   background: rgba(164, 163, 163, 0.368);
 }
+
 .scrolling.listWrap::after {
   opacity: 0;
 }

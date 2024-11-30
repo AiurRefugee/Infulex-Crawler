@@ -1,11 +1,14 @@
 <script setup>
-import { onMounted, ref, nextTick } from "vue";
+import { onMounted, ref, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { tmdbApi } from "@/apis/tmdbApi.js";
 import basicPage from "./basicPage.vue";
 import videoCardBasic from "@/components/cards/videoCardBasic.vue";
 import videoListBasic from "@/components/common/videoListBasic.vue";
-
+import backword from "@/components/common/backword.vue";
+import { layoutStore } from "@/stores/layout";
+const layout = layoutStore();
+const size = computed(() => layout.size)
 const props = defineProps({
   title: {
     default: "",
@@ -47,7 +50,8 @@ const getVideos = async (apiPath) => {
   tmdbVideos.value = tmdbVideos.value.concat(videos);
 };
 
-const showAll = () => {
+const showAll = () => { 
+  // layout.setTabIconVisible(false)
   const path = props.path; 
   router.push({
     path: path,
@@ -57,6 +61,11 @@ const showAll = () => {
     },
   });
 };
+
+const back = () => {
+  router.go(-1);
+}
+
 
 const toDetail = (media, mediaType) => {
   const title = media.title || media.name;
@@ -90,7 +99,7 @@ onMounted(() => {
     </template>
     <template #card="{ media }">
       <videoCardBasic
-        class="browsePr"
+        class="pr-1"
         :media="media"
         :mediaType="mediaType"
         @click="toDetail(media, mediaType)"
@@ -98,8 +107,11 @@ onMounted(() => {
     </template>
   </videoListBasic>
   <basicPage class="showAllGrid" v-if="pageView" :title="videosTitle">
+    <template #back>
+      <backword :title="'浏览'" @click="back"/>
+    </template>
     <videoCardBasic
-      class="basicCardInGrid"
+      class="w-full"
       :media="media"
       :mediaType="mediaType"
       @click="toDetail(media, mediaType)"

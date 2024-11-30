@@ -30,7 +30,7 @@ $cellHeight: 2rem;
 html {
     // color
     --color_Primary: #f19109;
-    --tab_width: min(23vw, 300px);  
+    --tab_width: max(23vw, 250px);  
 
     // 搜索页genre卡片
     --search_genre_card_num: 4;   
@@ -39,6 +39,8 @@ html {
     --basc_card_num: 12.4; 
     --browse_Pr: 1rem;
     --dividerMy: 2vh;
+
+    --season_card_num: 6.2;
 
     // 媒体类别
     --genreNum: 7;
@@ -61,8 +63,8 @@ html {
     // imageWall
     --image_brick_count: 6;
     
-    --show_all_grid_columns: 14;
-    --show_all_grid_rect_columns: 8;
+    --show_all_grid_columns: 10;
+    --show_all_grid_rect_columns: 6;
 
     background-color: var(--bg_Primary);
 
@@ -80,6 +82,9 @@ html {
 
         // 基础卡牌　横向
         --basc_card_rect_num: 1.2;
+
+        --season_card_num: 2.2;
+
         --browse_Pr: 10px;
         --dividerMy: 6px;
 
@@ -109,9 +114,11 @@ html {
         // 基础卡牌　横向
         --basc_card_rect_num: 4.1;
         --browse_Pr: 10px;
+
+        --season_card_num: 4.2;
         
         // 演职员card
-        --credit_card_num: 10;  
+        --credit_card_num: 9;  
 
         // 媒体类别
         --genreNum: 4.6;
@@ -135,6 +142,8 @@ html {
         // 基础card　横向
         --basc_card_rect_num: 3.5;
 
+        --season_card_num: 3.2;
+
         // 演职员card
         --credit_card_num: 7.4;
 
@@ -144,7 +153,7 @@ html {
         // 媒体类别
         --genreNum: 3.8;
 
-        --show_all_grid_columns: 6;
+        --show_all_grid_columns: 5;
         --show_all_grid_rect_columns: 3;
     }
 
@@ -161,6 +170,8 @@ html {
         // 基础card　横向
         --basc_card_rect_num: 3.3;
 
+        --season_card_num: 4.2;
+
         // 演职员card
         --credit_card_num: 10.1;
 
@@ -175,8 +186,8 @@ html {
 
         --image_brick_count: 4;
 
-        --show_all_grid_columns: 10;
-        --show_all_grid_rect_columns: 5;
+        --show_all_grid_columns: 8;
+        --show_all_grid_rect_columns: 4;
     }
 
     // PC

@@ -4,11 +4,10 @@ import { ref, computed, onMounted } from "vue";
 import { layoutStore } from "@/stores/layout";
 import searchItem from "./components/searchItem.vue";
 import classButtonList from "@/components/common/classButtonList.vue";
-import { tmdbApi } from "@/apis/tmdbApi";
+import { tmdbApi } from "@/apis/tmdbApi"; 
 
 const layout = layoutStore();
-const showTab = computed(() => layout.showTab); 
-// 可以在组件中的任意位置访问 `layout` 变量 ✨
+const showTab = computed(() => layout.showTab);  
 const genres = computed(() => layout.genres);
 const size = computed(() => layout.size);
 
@@ -42,18 +41,20 @@ const cancel = () => {
 
 const handleFocus = () => {
   focused.value = true;
-  layout.setTabIconVisible(false)
+  if (layout.size == 'small') {
+    layout.setTabIconVisible(false)
+  }
 }
 
 const handleBlur = () => {
   focused.value = false;
-  layout.setTabIconVisible(true)
+  if (layout.size == 'small') {
+    setTimeout( () => layout.setTabIconVisible(true), 200)
+  }
 }
 
-onMounted(() => {
-  if (size.value == "small") {
-    // layout.setTabIconVisible(false)
-  }
+onMounted(() => { 
+  layout.setTabIconVisible(true)
 });
 </script>
 <template>

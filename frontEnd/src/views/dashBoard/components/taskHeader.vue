@@ -5,11 +5,17 @@ import scrollHeader from "@/components/common/scrollHeader.vue";
 import { useTaskStore } from "@/stores/tasks";
 import { layoutStore } from "@/stores/layout";
 import { ref, computed } from "vue";
+import { useRoute, useRouter } from "vue-router";
+const route = useRoute();
+const router = useRouter();
 const tasks = useTaskStore();
 const layout = layoutStore();
 
-const size = computed(() => {
-  return layout.size;
+const size = computed(() => layout.size);
+const showBack = computed(() => {
+  const { path } = route;
+  console.log(path);
+  return path.includes('taskDetail') || size.value == 'small'
 });
 const props = defineProps({
   task: {
@@ -33,12 +39,8 @@ const switchListStype = (type) => {
         class="h-full pl-4 flex items-center txtDarkPrimary select-none text-xl font-bold whitespace-nowrap"
         v-else
       >
-        <!-- <div class="status">
-          <div class="h-[2vh] aspect-square loading rounded-full" src="@/assets/icons/loading.svg" v-if="task?.status === '进行中'"></div>
-          <img class="h-[2vh] aspect-square" src="@/assets/icons/canceled.svg" v-if="task?.status === '已取消'"/>
-          <img class="h-[2vh] aspect-square" src="@/assets/icons/error.svg" v-if="task?.status === '错误'"/> 
-        </div> -->
-        <text>{{ task?.title }}</text>
+        <backword :title="'全部任务'" v-if="showBack" @click="router.go(-1)" />
+        <text v-else>{{ task?.title }}</text>
         <!-- <div class="opt ml-8 text-bold text-sm text-red-500 cursor-pointer" v-if="task?.status === '进行中'">取消任务</div> -->
       </h1>
     </template>

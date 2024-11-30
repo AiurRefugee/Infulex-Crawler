@@ -75,6 +75,7 @@ const getAiqiyiVideos = async () => {
 };
 
 onMounted(async () => {
+  layout.setTabIconVisible(true)
   getNowPlayingMovie();
   getMovieTrending();
   getTopRatedMovie();

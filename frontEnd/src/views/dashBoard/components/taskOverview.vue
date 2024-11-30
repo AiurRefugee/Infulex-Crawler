@@ -102,7 +102,7 @@ const slideStart = (event) => {
 
           <!-- overview -->
           <div class="overview w-full h-full flex flex-col justify-around">
-            <div class="w-full h-1/3 flex justify-between">
+            <div class="w-full h-1/3 flex justify-between items-center">
               <h1
                 class="title text-[1.2em] font-bold text-dark-900 whitespace-nowrap overflow-hidden text-ellipsis"
               >

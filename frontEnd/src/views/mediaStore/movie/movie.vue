@@ -58,7 +58,7 @@ onMounted(() => {
       <videoListBasic :list="movieLibrary" :title="'最近添加'">
         <template #card="{ media }">
           <videoCardBasic
-            class="browsePr"
+            class="pr-1"
             :media="media"
             :mediaType="'movie'"
             @click="toDetail(router, media, 'movie')"
@@ -69,7 +69,7 @@ onMounted(() => {
       <videoListBasic :list="favoriteMovies" :title="'我的收藏'">
         <template #card="{ media }">
           <videoCardBasic
-            class="browsePr"
+            class="pr-1"
             :media="media"
             :mediaType="'movie'"
             @click="toDetail(router, media, 'movie')"
@@ -84,7 +84,7 @@ onMounted(() => {
       <videoListBasic :list="topRatedMovies" :title="'最受好评的电影'">
         <template #card="{ media }">
           <videoCardBasic
-            class="browsePr"
+            class="pr-1"
             :media="media"
             :mediaType="'movie'"
             @click="toDetail(router, media, 'movie')"

@@ -19,7 +19,9 @@ function slideOpt(value) {
   sliding.value = value;
 }
 
-onMounted(() => {});
+onMounted(() => {
+  layout.setTabIconVisible(true)
+});
 </script>
 <template>
   <!-- 任务列表 -->

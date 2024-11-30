@@ -5,7 +5,10 @@ import { aiqiyiApi } from "@/apis/aiqiyiApi.js";
 import basicPage from "./basicPage.vue";
 import videoCardBasic from "@/components/cards/videoCardBasic.vue";
 import videoListBasic from "@/components/common/videoListBasic.vue";
+import backword from "@/components/common/backword.vue";
+import { layoutStore } from "@/stores/layout";
 
+const layout = layoutStore();
 const defaultArray = [
   "",
   "",
@@ -62,7 +65,7 @@ const getVideos = async (videoPath) => {
   aiqiyiVideos.value = videos?.[videoPath];
 };
 
-const showAll = () => {
+const showAll = () => { 
   const path = props.path 
   router.push({ 
     path: path,
@@ -73,6 +76,10 @@ const showAll = () => {
   });
 };
 
+const back = () => {
+  router.go(-1);
+}
+
 const toDetail = (media, mediaType) => {
   const title = media.title || media.name;
   const time = media.release_date || media.first_air_date;
@@ -82,6 +89,10 @@ const toDetail = (media, mediaType) => {
       id: media?.id,
       media_type: media?.media_type || mediaType,
       year: time.split("-")[0],
+      back: {
+        path: route.path,
+        name: '浏览'
+      }
     },
   });
 };
@@ -98,14 +109,14 @@ onMounted(() => {
 });
 </script>
 <template>
-  <videoListBasic :list="aiqiyiList" :title="videosTitle" v-if="listView">
+  <videoListBasic class="rect" :list="aiqiyiList" :title="videosTitle" v-if="listView">
     <template v-slot:showAll v-if="showButton">
       <button class="showAllButton" @click="showAll">查看全部</button>
     </template>
     <template #card="{ media }">
       <videoCardBasic
         :class="cardClassName"
-        class="basicCardRect browsePr"
+        class="pr-1"
         :imageSrcPrefix="''"
         :media="media"
         :mediaType="'tv'"
@@ -113,9 +124,12 @@ onMounted(() => {
       />
     </template>
   </videoListBasic>
-  <basicPage class="showAllGridRect" v-if="pageView" :title="videosTitle">
+  <basicPage class="rect" v-if="pageView" :title="videosTitle">
+    <template #back>
+      <backword :title="'浏览'" @click="back"/>
+    </template>
     <videoCardBasic  
-      class="basicCardRectInGrid browsePr"
+      class="basicCardRectInGrid"
       :imageSrcPrefix="''"
       :media="media"
       :mediaType="'tv'"

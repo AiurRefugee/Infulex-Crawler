@@ -12,25 +12,17 @@ const shouldTrans = computed(() => showTab.value && size.value != 'small');
 
 onMounted(() => {
   mediaStore.initMediaStore();
+  window.addEventListener("resize", layout.calSize);
 });
 </script>
 <template>
   <div class="tabViewWrapper">
     <div
-      class="tabIcon h-[40px] aspect-square flex items-center fixed top-0 left-3 z-[100] cursor-pointer"
+      class="tabIcon h-[45px] w-[40px] flex items-center fixed top-0 left-3 z-[100] cursor-pointer"
       @click="layout.toogleTab"
       v-if="tabIconVisible"
     > 
-      <svg 
-        class="h-[35px] aspect-square"
-        viewBox="0 0 1024 1024" 
-      >
-        <path
-          fill="#f59305fa"
-          d="M384 213.333333a42.666667 42.666667 0 1 0 0 85.333334 42.666667 42.666667 0 0 0 0-85.333334zM263.253333 213.333333a128.042667 128.042667 0 0 1 241.493334 0H810.666667a42.666667 42.666667 0 1 1 0 85.333334h-305.92a128.042667 128.042667 0 0 1-241.493334 0H213.333333a42.666667 42.666667 0 0 1 0-85.333334h49.92zM640 469.333333a42.666667 42.666667 0 1 0 0 85.333334 42.666667 42.666667 0 0 0 0-85.333334z m-120.746667 0a128.042667 128.042667 0 0 1 241.493334 0H810.666667a42.666667 42.666667 0 1 1 0 85.333334h-49.92a128.042667 128.042667 0 0 1-241.493334 0H213.333333a42.666667 42.666667 0 1 1 0-85.333334h305.92zM384 725.333333a42.666667 42.666667 0 1 0 0 85.333334 42.666667 42.666667 0 0 0 0-85.333334z m-120.746667 0a128.042667 128.042667 0 0 1 241.493334 0H810.666667a42.666667 42.666667 0 1 1 0 85.333334h-305.92a128.042667 128.042667 0 0 1-241.493334 0H213.333333a42.666667 42.666667 0 1 1 0-85.333334h49.92z"
-          p-id="4204"
-        ></path>
-      </svg>
+      <img src="@/assets/icons/sideBar.svg"/>
       <!-- <h1 class="whitespace-nowrap text-xl font-bold text-black">Infulex-Crawler</h1> -->
     </div>
     <NavList />

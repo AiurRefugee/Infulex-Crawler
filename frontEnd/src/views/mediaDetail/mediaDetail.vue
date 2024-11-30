@@ -17,12 +17,12 @@ import optButton from "./components/optButton.vue";
 import subTitle from "./components/subTitle.vue";
 import seasonsView from "./components/seasonsView.vue";
 import { useTaskStore } from "@/stores/tasks";
-
+import { layoutStore } from "@/stores/layout";
 import { tmdbApi } from "@/apis/tmdbApi.js";
-import { mediasApi } from "@/apis/medias.js"; 
+import { mediasApi } from "@/apis/medias.js";  
 const route = useRoute();
 const router = useRouter();
-
+const layout = layoutStore();
 const tasks = useTaskStore();
 
 const defaultArray = ["", "", "", "", "", "", "", "", "", "", "", ""];
@@ -229,6 +229,7 @@ const addToFavorite = async () => {
 provide("addToFavorite", addToFavorite);
 
 onMounted(async () => {
+  layout.setTabIconVisible(false)
   const { title } = route.params;
 
   const { media_type, year } = route.query;
@@ -246,12 +247,12 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <scrollView v-model:scrollTopModel="scrollTopModel">
+  <scrollView v-model:scrollTopModel="scrollTopModel" class="bg-light-800">
     <template v-slot:header>
       <scrollHeader class="fixed top-0 z-10" :class="scrollTopModel > 45 ? 'bg-light-800' : ''">
-        <template v-slot:left>
-          <!-- <backword @click="router.go(-1)"></backword> -->
-        </template>
+        <template #left>
+          <backword @click="router.go(-1)"/>
+        </template> 
         <template v-slot:center>
           <h1 class="font-bold text-[1.2em] text-dark-900 whitespace-nowrap">
             {{ mediaTitle }} {{ scrollTop }}
@@ -269,7 +270,7 @@ onMounted(async () => {
       </scrollHeader>
     </template>
     <template v-slot:content>
-      <div class="bgLightPrimary scroll">
+      <div class="scroll">
         <backdropArea ref="backdropAreaRef" />
 
         <optButton class="showOnMobilePortrait h-12 pt-2" ref="optButtonRef" />
@@ -305,7 +306,7 @@ onMounted(async () => {
         <subTitle class="py-1" v-if="similar.length">更多相似</subTitle>
         <div class="flex pl-4 overflow-x-auto overflow-y-hidden" v-if="similar.length">
           <videoCardBasic
-            class=""
+            class="basicW pr-2"
             v-for="media in similar"
             :key="media.id"
             :media="media"
@@ -343,6 +344,5 @@ onMounted(async () => {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 
 </style>

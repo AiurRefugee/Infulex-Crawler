@@ -31,11 +31,11 @@ const posterPath = computed(() => props.media?.poster_path || props.media?.backd
 
 </script>
 <template>
-  <div class="basicCard py-1 pr-2 flex-shrink-0 scroll-m-4">
-    <div class="cardImage p-[3px] w-full rounded-lg trans" v-if="posterPath">
+  <div class="basicCard flex-shrink-0 scroll-m-4">
+    <div class="cardImage w-full rounded-lg trans" v-if="posterPath">
       <img loading="lazy " class="w-full h-full overflow-hidden rounded-lg object-cover" :src="imageSrcPrefix + posterPath" />
     </div>
-    <div class="cardImage p-[3px] w-full rounded-lg trans " v-else>
+    <div class="cardImage w-full rounded-lg trans " v-else>
       <div class="w-full h-full defaultImage overflow-hidden rounded-lg center">
         <svg t="1730601813477" class="icon" viewBox="0 0 1024 1024" version="1.1" p-id="8940">
           <path
@@ -47,7 +47,7 @@ const posterPath = computed(() => props.media?.poster_path || props.media?.backd
         </svg>
       </div>
     </div>
-    <div class="info h-[3em] pt-1">
+    <div class="info h-[3em]">
       <p class="filmTitle  font-medium singleLine txtDarkPrimary" v-if="title">
         <span v-if="index != null">{{ index + 1 + '. ' }}</span>
         <span>{{ title }}</span>
@@ -60,7 +60,8 @@ const posterPath = computed(() => props.media?.poster_path || props.media?.backd
 </template>
 <style scoped lang="scss">
 @import '@/style/variables.scss';
-
+$padding: 5px;
+$margin: 5px;
 .defaultImage {
   svg {
     $size: 50%;
@@ -69,52 +70,38 @@ const posterPath = computed(() => props.media?.poster_path || props.media?.backd
   }
   box-shadow: $videoCardBasicBoxShadow;
   
-}
-.cardImage {
-  cursor: pointer;
-}
+} 
 .selected .defaultImage {
   box-shadow: none;
 }
 
 .basicCard {
   --border_color: transparent;
-  width: calc(100vw / var(--basc_card_num));
+  // width: calc(100vw / var(--basc_card_num));
   flex-shrink: 0;
   // font-size: 14px;
   .cardImage {
+    
     outline: 3px var(--border_color) solid;
     border-color: var(--border_color);
     aspect-ratio: 2 / 3;
-
-    // background-color: #141414;
+    padding: $padding;
+    margin: $margin 0;
+    cursor: pointer; 
     img {
       box-shadow: $videoCardBasicBoxShadow;
     }
   }
 }
 
-.episode .info {
-  height: 1.8em;
+.info {
+  padding-left: $padding; 
 }
 
-.basicCardRect {
-  width: calc(100vw / var(--basc_card_rect_num)) !important;
-  // scroll-snap-align: start;
-  // scroll-margin-left: 1rem;
-  .cardImage {
-    aspect-ratio: 16 / 9 !important;
-  }
+.rect .cardImage {
+  aspect-ratio: 16 / 9 !important;
 }
-.basicCardRectInGrid {
-  width: 100%; 
-  .cardImage {
-    aspect-ratio: 16 / 9 !important;
-    }
-}
-.basicCardInGrid {
-  width: 100%;  
-}
+
 .selected {
   --border_color: #f97316;
 }

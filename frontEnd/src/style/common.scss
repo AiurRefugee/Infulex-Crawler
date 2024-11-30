@@ -195,3 +195,14 @@ input:focus-visible {
 .transNav {
     transform: translate(var(--tab_width), 0);
 }
+.basicW {
+    width: calc(100vw / var(--basc_card_num));
+}
+.basicRectW {
+    width: calc(100vw / var(--basc_card_rect_num));
+} 
+
+.listTitle {
+    font-size: 1.25em;
+    height: 1.4em;
+}

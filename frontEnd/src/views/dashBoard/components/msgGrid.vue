@@ -18,7 +18,7 @@ const clickFile = (file) =>{
 
 .filesArea {
   display: grid;
-  gap: 20px 0;
+  gap: 10px 0;
   // flex-wrap: wrap;
   grid-template-columns: repeat(auto-fill, 160px);
   justify-content: space-around;
