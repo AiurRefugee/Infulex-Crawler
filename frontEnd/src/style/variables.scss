@@ -17,6 +17,10 @@ $transBase: all 0.25s ease-in-out;
 $transSlow: all 0.5s ease-in-out;
 $transFast: all 0.1s ease-in-out;
 $videoCardBasicBoxShadow: 0 0 5px rgb(123 123 123 / 50%);
+$item_hover_color: hsla(0, 0%, 70%, 0.4);
+
+$item_normal_color: #67c23a;
+$item_failed_color: hsl(0, 99%, 35%);
 $zindex: 100;
 
 // dashBoard 
@@ -32,7 +36,7 @@ html {
     --search_genre_card_num: 4;   
 
     // 基础卡片 
-    --basc_card_num: 14.1; 
+    --basc_card_num: 12.4; 
     --browse_Pr: 1rem;
     --dividerMy: 2vh;
 
@@ -43,7 +47,7 @@ html {
     --file_grid_columns: 9;
 
     // 基础卡牌　横向
-    --basc_card_rect_num: 8.1;
+    --basc_card_rect_num: 6.2;
 
     // 演职员card
     --credit_card_num: 15;   
@@ -55,7 +59,7 @@ html {
     --dividerBg: rgb(107 107 107 / 30%);
 
     // imageWall
-    --image_brick_count: 4;
+    --image_brick_count: 6;
     
     --show_all_grid_columns: 14;
     --show_all_grid_rect_columns: 8;
@@ -75,7 +79,7 @@ html {
         --genreNum: 1.15;
 
         // 基础卡牌　横向
-        --basc_card_rect_num: 1.5;
+        --basc_card_rect_num: 1.2;
         --browse_Pr: 10px;
         --dividerMy: 6px;
 
@@ -152,10 +156,10 @@ html {
         (orientation: landscape){ 
 
         // 基础卡片 
-        --basc_card_num: 9.4;
+        --basc_card_num: 6.4;
 
         // 基础card　横向
-        --basc_card_rect_num: 5.3;
+        --basc_card_rect_num: 3.3;
 
         // 演职员card
         --credit_card_num: 10.1;
@@ -169,13 +173,15 @@ html {
         // 文件夹列数
         --file_grid_columns: 6;
 
+        --image_brick_count: 4;
+
         --show_all_grid_columns: 10;
         --show_all_grid_rect_columns: 5;
     }
 
     // PC
     @media (width >= 1440px) {
-        --browse_Pr: 1.5rem;
+        // --browse_Pr: 1.5rem;
     }
 }
 html {

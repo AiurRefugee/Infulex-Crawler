@@ -60,23 +60,30 @@ export const useTaskStore = defineStore('tasks', {
                 children: {}
             }
             msgs.forEach(msg => {
+                
+                if (msg.type != 'GET File' && msg.type != 'GET Video') {
+                    return
+                } 
                 for (const file of msg.data) {
                     const { file_id, parent_file_id, name } = file 
-                    const node = {
-                        file,
-                        children: {}
+                    if (file_id) {
+
+                        const node = {
+                            file,
+                            children: {}
+                        } 
+                        
+                        const hasParentInNodes = parent_file_id in this.nodes
+                        // 如果所有叶子节点中有节点是node的父节点
+                        if (hasParentInNodes) {
+                            const parent_node = this.nodes[parent_file_id]
+                            parent_node.children[file_id] = node
+                        } else {  
+                            root.children[file_id] = node 
+                        }
+                        this.nodes[file_id] = node
                     }
                     
-                    
-                    const hasParentInNodes = parent_file_id in this.nodes
-                    // 如果所有叶子节点中有节点是node的父节点
-                    if (hasParentInNodes) {
-                        const parent_node = this.nodes[parent_file_id]
-                        parent_node.children[file_id] = node
-                    } else {  
-                        root.children[file_id] = node 
-                    }
-                    this.nodes[file_id] = node
                     
                 }
             })
@@ -130,13 +137,11 @@ export const useTaskStore = defineStore('tasks', {
 
         pushFilePath(file) { 
             this.selectedFiles = {}
-            const { file_id, name } = file
-            if (Object.keys(this.topChildren[file_id].children).length) { 
-                this.topTitle = name
-                this.filePaths.push(file)
-                this.getTopChildren()
-                this.getTopFiles()
-            } 
+            const { file_id, name } = file 
+            this.topTitle = name
+            this.filePaths.push(file)
+            this.getTopChildren()
+            this.getTopFiles()
         },
 
         popFilePath() {

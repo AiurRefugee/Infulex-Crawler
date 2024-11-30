@@ -41,17 +41,44 @@ class Task {
 
     addMsg(msg) {
         const task = this.task
-        const { mediaId, mediaType } = task;
-        console.log('addMsg', this, msg)
+        const { mediaId, mediaType } = task; 
         task.msgs.push(msg);
         const mongoManager = new MongoManager();
         const taskCollection = mongoManager.getCollection(taskCollectionName);
         taskCollection.updateOne({ mediaId, mediaType}, { $push: { msgs: msg } });
         const { type } = msg
+        console.log('add msg', type)
         if (type == 'TASK Done') {
             task.status = '已完成'
             taskCollection.updateOne({ mediaId, mediaType}, { $set: { status: '已完成' } });
         }
+        if (type == 'Share_Token Error') {
+            const failedLink = msg.data[0]
+            console.log('failedLink', failedLink)
+            for (const msg of task.msgs) {
+                if (msg.type == 'GET Links') {
+                    const index = msg.data.findIndex(item => item.link == failedLink)
+                    msg.data[index].status = 'failed'
+                    break
+                }
+            } 
+            this.updateLink(failedLink, 'failed')
+        }
+    }
+
+    async updateLink (link, status) { 
+        console.log(link, 'failed')
+        const { mediaId, mediaType } = this.task;
+        const mongoManager = new MongoManager();
+        const taskCollection = mongoManager.getCollection(taskCollectionName);
+        taskCollection.updateOne(
+            { mediaId, mediaType }, 
+            { $set: { "msgs.$[elem].data.$[item].status": status} }, 
+            { arrayFilters: [ { "elem.type": "GET Links" }, { "item.link": link } ] }
+        ).then(updateRes => {
+            console.log('updateLink', updateRes)
+        }) 
+         
     }
 
     subscribeProxy(topicId, eventManager) {
@@ -79,9 +106,7 @@ class Task {
             console.log('insertTask', res)
         })
     }
-}
-
-
+} 
 
 module.exports = { Task }
 

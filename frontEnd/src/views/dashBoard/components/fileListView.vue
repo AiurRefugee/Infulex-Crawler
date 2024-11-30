@@ -1,7 +1,7 @@
 <script setup>
 import { useTaskStore } from "@/stores/tasks";
 import { ref, computed, watch, onMounted, nextTick, provide } from "vue";
-import fileMsg from "./fileMsg.vue";
+import msgGrid from "./msgGrid.vue";
 import fileItem from './fileItem.vue'
 const tasks = useTaskStore();
 const topFiles = computed(() => tasks.topFiles);
@@ -52,11 +52,11 @@ onMounted(async () => {
             <!-- <button class="back" @click="back">Back</button> -->
         </div>
         <div class="h-full overflow-y-auto overflow-x-hidden">
-            <fileMsg class="pt-2" :handleClick="handleClick">
+            <msgGrid class="pt-2" :handleClick="handleClick">
                 <template v-slot:list>
                     <fileItem v-for="file in topFiles" :key="file.file_id" :file="file" @click="handleClick(file)"/>
                 </template>
-            </fileMsg>
+            </msgGrid>
         </div>
     </div>
 

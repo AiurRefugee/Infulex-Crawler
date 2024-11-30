@@ -69,8 +69,7 @@ class alipanProxy {
                     console.log('no share_token')
                     this.eventManager.addMsg(topicId, {
                         type: 'Share_Token Error',
-                        data: [],
-                        link,
+                        data: [link],
                         msg: "GET share_token failed",
                         time: new Date().toLocaleString()
                     })
@@ -92,7 +91,7 @@ class alipanProxy {
         }
         getFolderDetail(share_id, share_token, parent_file_id).then(res => {
             if (res?.length) {
-                const type = res.some(isVideo) ? 'GET Video' : 'GET Files'
+                const type = res.some(isVideo) ? 'GET Video' : 'GET File'
                 const time = new Date()
                 this.eventManager.addMsg(topicId, {
                     type,

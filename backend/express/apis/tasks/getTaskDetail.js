@@ -46,8 +46,7 @@ const test = () => {
         console.log(err)
     })
 }
-
-test()
+ 
  
 
 module.exports = listenPOSTaskDetail

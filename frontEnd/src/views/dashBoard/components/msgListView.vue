@@ -8,8 +8,8 @@ import { computed } from "vue";
 import space from "@/components/common/space.vue"; 
 import msgItem from "./msgItem.vue";
 const layout = layoutStore();
-const tasks = useTaskStore();
-const selectedTask = computed(() => tasks.selectedTask);
+const tasks = useTaskStore(); 
+const taskMsgs = computed(() => tasks.selectedTask?.msgs?.filter((msg) => msg.type != "Share_Token Error"));
 const size = computed(() => {
   return layout.size;
 });
@@ -24,7 +24,7 @@ const toLink = (event, url) => {
 </script>
 <template>
   <div class="msgListView w-full px-2 pt-2 overflow-x-hidden overflow-y-auto txtDarkPrimary">
-    <div class="mb-4" v-for="msg in selectedTask?.msgs" :key="msg">
+    <div class="mb-4" v-for="msg in taskMsgs" :key="msg">
 
         <!-- getLink --> 
         <!-- <linkMsg :msg="msg" v-if="msg.type != 'getFile'"></linkMsg> -->

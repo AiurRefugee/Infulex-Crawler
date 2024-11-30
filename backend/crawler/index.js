@@ -28,22 +28,27 @@ class browserCrawler {
         });
         this.context = await this.browser.newContext();
         await this.context.addInitScript("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+        this.inited = true
+    }
+
+    crawlLinks(topicId, links) {
+        const msg = {
+            type: 'GET Links',
+            data:  links,
+            time: new Date().toLocaleString()
+          }
+        this.eventManager.addMsg(topicId, msg)
+        for (const item of links) {
+            this.alipanProxy.queueLink(topicId, item.link)
+        }
     }
 
     async crawlKeyword(topicId, keyword) {
         if (this.inited == false) {
             await this.init()
         }
-        yisouScript(this.context, keyword, (alilinks) => {
-            const msg = {
-                type: 'GET Links',
-                data:  alilinks,
-                time: new Date().toLocaleString()
-              }
-            this.eventManager.addMsg(topicId, msg)
-            for (const link of alilinks) {
-                this.alipanProxy.queueLink(topicId, link)
-            }
+        yisouScript(this.context, keyword, (links) => {
+            this.crawlLinks(topicId, links)
         })
     }
 

@@ -19,6 +19,10 @@ const selectFile = (event) => {
   tasks.switchSelectFile(props.file);
   console.log("select file", event, props.file);
 };
+
+const calSize = (size) => {
+  return (size / 1024 / 1024).toFixed(2)
+}
 </script>
 <template>
   <div
@@ -47,7 +51,7 @@ const selectFile = (event) => {
         </svg>
       </div>
     </div>
-    <div class="center">
+    <div class="center pt-4">
       <img
         src="@/assets/icons/fileIcon.svg"
         alt="file"
@@ -59,14 +63,22 @@ const selectFile = (event) => {
         v-if="file?.type == 'file'"
       />
     </div>
-    <div class="w-4/5 center m-auto">
-      <p class="title text-center overflow-hidden text-ellipsis px-2">
+    <div class="w-4/5 text-center m-auto">
+      <p class="title text-center overflow-hidden text-ellipsis px-2 my-1">
         {{ file?.name }}
+      </p>
+      <p class="size text-sm text-dark-800 opacity-60" v-if="file.size">
+        {{ calSize(file.size) + ' MB'}}
       </p>
     </div>
   </div>
 </template>
 <style scoped lang="scss">
+@import "@/style/variables.scss";
+.size {
+  word-break: break-all;
+  overflow-wrap: break-word;
+}
 .selectArea {
   display: none;
   $size: 25px;
@@ -109,7 +121,7 @@ const selectFile = (event) => {
   cursor: pointer;
 }
 .fileWrap:hover {
-  background-color: hsla(0, 0%, 72%, 0.3);
+  background-color: $item_hover_color;
 }
 .fileWrap:hover .selectArea {
   display: flex;
@@ -121,6 +133,7 @@ img {
 }
 
 .title {
+  word-break: break-all;
   $line-height: 1.2em;
   line-height: $line-height;
   height: $line-height * 2;

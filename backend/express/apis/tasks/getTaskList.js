@@ -9,7 +9,7 @@ const getTaskList = async () => {
     const query = {}
     const listPromise = await tasks.find(query)
     const list = await listPromise.toArray()
-    console.log('getTaskList', list)
+    // console.log('getTaskList', list)
     return list
 }
 

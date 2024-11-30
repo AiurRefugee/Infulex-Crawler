@@ -27,20 +27,7 @@ const render = async (mediaId, mediaType) => {
       ...imageArray.backdrops.slice(0, imageLength),
       ...imageArray.posters.slice(0, imageLength),
     ];
-    shuffle(imageWall);
-
-    for (const img of imageWall) {
-      const imgWrapper = document.createElement("div");
-      imgWrapper.className = "imageBrickWrap";
-      const newImage = document.createElement("img");
-      newImage.className = "imageBrick";
-      newImage.src = tmdbApi.tmdbImgPrefix + img.file_path;
-      newImage.height = img.height;
-      newImage.width = img.height / img.aspect_ratio;
-      newImage.loading = "lazy";
-      imagesWall.value.appendChild(imgWrapper);
-      imgWrapper.appendChild(newImage);
-    }
+    images.value = shuffle(imageWall); 
   }
 };
 
@@ -53,7 +40,7 @@ onMounted(() => {
 <template>
   <scrollView>
     <template v-slot:header>
-      <scrollHeader>
+      <scrollHeader class="h-[45px]">
         <template v-slot:center>
           <h1 class="txtDarkPrimary font-bold tracking-wider">
             {{ mediaTitle }}
@@ -62,7 +49,11 @@ onMounted(() => {
       </scrollHeader>
     </template>
     <template v-slot:content>
-      <div class="imagesWall px-4" ref="imagesWall"></div>
+      <div class="imagesWall px-4" ref="imagesWall">
+        <div class="imageBrickWrap" v-for="img in images" :key="img" :style="{ aspectRatio: img.aspect_ratio }">
+          <img class="imageBrick" loading="lazy" :src="tmdbApi.tmdbImgPrefix + img.file_path" alt="" /> 
+        </div>
+      </div>
     </template>
   </scrollView>
 </template>
@@ -71,15 +62,15 @@ $gap: 1rem;
 .imagesWall {
   columns: var(--image_brick_count);
   
-  column-gap: 0;
+  column-gap: $gap;
 }
 .imageBrickWrap {
-  overflow: hidden;
-  padding: $gap / 2;
-  break-inside: avoid-column;
+  overflow: hidden; 
+  break-inside: avoid-column; 
+  margin-bottom: $gap;
 }
 .imageBrick {
-  object-fit: contain;
+  object-fit: contain; 
   border-radius: 8px;
   border: 1px solid rgba(211, 211, 211, 0.15);
 }
