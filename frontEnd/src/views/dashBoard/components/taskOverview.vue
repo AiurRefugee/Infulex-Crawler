@@ -108,19 +108,19 @@ const slideStart = (event) => {
               >
                 {{ task.title }}
               </h1>
-              <div class="statusArea flex gap-1">
+              <div class="statusArea flex items-center gap-1">
                 <img
-                  class="h-[2vh] aspect-square loading"
+                  class="h-[1em] aspect-square loading"
                   src="@/assets/icons/loading.svg"
                   v-if="task.status === '进行中'"
                 />
                 <img
-                  class="h-[2vh] aspect-square"
+                  class="h-[1em] aspect-square"
                   src="@/assets/icons/canceled.svg"
                   v-if="task.status === '已取消'"
                 />
                 <img
-                  class="h-[2vh] aspect-square"
+                  class="h-[1em] aspect-square"
                   src="@/assets/icons/error.svg"
                   v-if="task.status === '错误'"
                 />
@@ -179,7 +179,7 @@ $borderColor: rgba(118, 118, 118, 0.3);
 .overview {
   font-size: 18px;
 }
-@media (height < 628px) or (height < 628px) {
+@media (width < 628px) {
   .title {
     max-width: 5em;
   }

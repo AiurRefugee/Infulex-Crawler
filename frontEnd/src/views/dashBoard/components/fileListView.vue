@@ -67,6 +67,8 @@ onMounted(async () => {
 <style scoped lang="scss">
 .msgListView { 
   height: calc(100% - 120px);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .back {
     color: #f59305fa;

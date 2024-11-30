@@ -5,10 +5,10 @@ import scrollHeader from "@/components/common/scrollHeader.vue";
 import { layoutStore } from "@/stores/layout";
 import { useTaskStore } from "@/stores/tasks";
 import { computed } from "vue";
-import space from "@/components/common/space.vue"; 
+import space from "@/components/common/space.vue";
 import msgItem from "./msgItem.vue";
 const layout = layoutStore();
-const tasks = useTaskStore(); 
+const tasks = useTaskStore();
 const taskMsgs = computed(() => tasks.selectedTask?.msgs?.filter((msg) => msg.type != "Share_Token Error"));
 const size = computed(() => {
   return layout.size;
@@ -23,27 +23,20 @@ const toLink = (event, url) => {
 
 </script>
 <template>
-  <div class="msgListView w-full px-2 pt-2 overflow-x-hidden overflow-y-auto txtDarkPrimary">
+  <div class="px-2">
     <div class="mb-4" v-for="msg in taskMsgs" :key="msg">
-
-        <!-- getLink --> 
-        <!-- <linkMsg :msg="msg" v-if="msg.type != 'getFile'"></linkMsg> -->
-
-        <!-- getFile -->
-        <msgItem :msg="msg"></msgItem>
-
+      <msgItem :msg="msg"></msgItem>
     </div>
   </div>
 </template>
 <style scoped lang="scss">
-.msgListView { 
+.msgListView {
   height: calc(100% - 50px);
 }
- 
-@media (width >= 1080px) {
+
+@media (width >=1080px) {
   .navWrap {
     display: none;
   }
 }
-
 </style>

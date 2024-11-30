@@ -19,7 +19,7 @@ const props = defineProps({
 <template>
   <div class="min-h-8 flex justify-between px-4 items-center flex-wrap">
     <p class="type text-[1.3em] getFile">{{ msg?.type }}</p>
-    <text class="tracking-wider">{{ msg?.time }}</text>
+    <text class="tracking-wider text-dark-700">{{ msg?.time }}</text>
   </div>
   <msgGrid v-if="msg.type == 'GET Links'">
     <template #list>

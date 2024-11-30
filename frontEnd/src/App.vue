@@ -12,6 +12,7 @@ const shouldTrans = computed(() => showTab.value && size.value != 'small');
 
 onMounted(() => {
   mediaStore.initMediaStore();
+  layout.calSize()
   window.addEventListener("resize", layout.calSize);
 });
 </script>

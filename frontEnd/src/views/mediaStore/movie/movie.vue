@@ -41,6 +41,7 @@ const getTopRatedMovies = async () => {
 }
 
 onMounted(() => {
+  layout.setTabIconVisible(true)
   getTopRatedMovies()
 });
 </script>

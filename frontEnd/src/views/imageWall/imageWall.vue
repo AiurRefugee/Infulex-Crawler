@@ -4,7 +4,9 @@ import scrollHeader from "@/components/common/scrollHeader.vue";
 import { tmdbApi } from "@/apis/tmdbApi.js";
 import { ref, onMounted, inject, nextTick, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
+import Backword from "@/components/common/backword.vue";
 const route = useRoute();
+const router = useRouter();
 const imageLength = 50;
 const mediaTitle = ref("");
 const images = ref([]);
@@ -39,16 +41,19 @@ onMounted(() => {
 </script>
 <template>
   <scrollView>
-    <template v-slot:header>
+    <template #header>
       <scrollHeader class="h-[45px]">
-        <template v-slot:center>
+        <template #left>
+          <Backword @click="router.go(-1)"/>
+        </template>
+        <template #center>
           <h1 class="txtDarkPrimary font-bold tracking-wider">
             {{ mediaTitle }}
           </h1>
         </template>
       </scrollHeader>
     </template>
-    <template v-slot:content>
+    <template #content>
       <div class="imagesWall px-4" ref="imagesWall">
         <div class="imageBrickWrap" v-for="img in images" :key="img" :style="{ aspectRatio: img.aspect_ratio }">
           <img class="imageBrick" loading="lazy" :src="tmdbApi.tmdbImgPrefix + img.file_path" alt="" /> 

@@ -51,7 +51,7 @@ const calSize = (size) => {
         </svg>
       </div>
     </div>
-    <div class="center pt-4">
+    <div class="center">
       <img
         src="@/assets/icons/fileIcon.svg"
         alt="file"
