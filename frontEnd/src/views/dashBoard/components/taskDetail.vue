@@ -42,7 +42,7 @@ onMounted(() => {
     <template #header>
       <scrollHeader :show="true" class="h-[50px]">
         <template v-slot:left>
-          <div class="h-full flex items-center pl-4">
+          <div class="h-full flex items-center pl-[2%]">
             <backword :title="'全部任务'" v-if="showBack" @click="router.go(-1)" />
             <text class="text-xl font-bold whitespace-nowrap overflow-hidden text-ellipsis" v-else>{{
               selectedTask?.title }}</text>

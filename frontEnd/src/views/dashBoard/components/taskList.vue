@@ -41,7 +41,7 @@ onMounted(() => {
       <h1 class="text-dark-900 px-4 text-[1.6em] font-bold mb-2">全部任务</h1>
       <div class="px-4">
         <taskOverview 
-          :class="choosed == index ? 'bg-light-600' : 'bg-light-900'"
+          :class="choosed == index ? 'bg-light-600' : 'bg-light-800'"
           class="cursor-pointer" 
           v-for="(task, index) in taskPools" 
           :key="task" 

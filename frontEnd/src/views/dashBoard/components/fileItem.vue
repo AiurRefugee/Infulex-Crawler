@@ -63,8 +63,8 @@ const calSize = (size) => {
         v-if="file?.type == 'file'"
       />
     </div>
-    <div class="w-4/5 text-center m-auto">
-      <p class="title text-center overflow-hidden text-ellipsis px-2 my-1">
+    <div class="w-full text-center">
+      <p class="filetitle w-full overflow-hidden text-ellipsis px-2 my-1">
         {{ file?.name }}
       </p>
       <p class="size text-sm text-dark-800 opacity-60" v-if="file.size">
@@ -132,8 +132,8 @@ img {
   cursor: pointer;
 }
 
-.title {
-  word-break: break-all;
+.filetitle {
+  // word-break: break-all;
   $line-height: 1.2em;
   line-height: $line-height;
   height: $line-height * 2;

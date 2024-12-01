@@ -66,7 +66,7 @@ onMounted(async () => {
 </template>
 <style scoped lang="scss">
 .msgListView { 
-  height: calc(100% - 120px);
+  height: calc(100%);
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -87,7 +87,7 @@ onMounted(async () => {
     }
     @media(width < 500px) {
         p, text { 
-            max-width: 100px;
+            // max-width: 100px;
         }
     }
 }
