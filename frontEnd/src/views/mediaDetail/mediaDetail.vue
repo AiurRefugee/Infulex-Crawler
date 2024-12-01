@@ -70,7 +70,7 @@ const actions = [
     }
   ]
 ]
-
+const tabIconVisible = computed(() => layout.tabIconVisible) 
 const direcotors = computed(() => {
   return crew.value.filter((crewMember) => crewMember.job === "Director");
 });
@@ -229,7 +229,9 @@ const addToFavorite = async () => {
 provide("addToFavorite", addToFavorite);
 
 onMounted(async () => {
-  layout.setTabIconVisible(false)
+  if (layout.showTab == false) {
+    layout.setTabIconVisible(false)
+  }
   const { title } = route.params;
 
   const { media_type, year } = route.query;
@@ -251,7 +253,7 @@ onMounted(async () => {
     <template v-slot:header>
       <scrollHeader class="fixed top-0 z-10" :class="scrollTopModel > 45 ? 'bg-light-800' : ''">
         <template #left>
-          <backword @click="router.go(-1)"/>
+          <backword :class="tabIconVisible && !layout.showTab ? 'pl-[50px]' : ''" @click="router.go(-1)"/>
         </template> 
         <template v-slot:center>
           <h1 class="font-bold text-[1.2em] text-dark-900 whitespace-nowrap">

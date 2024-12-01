@@ -85,7 +85,7 @@ onMounted(async () => {
 </script>
 <template>
   <scrollView 
-    class="bg-light-800 trans" 
+    class="bg-light-900 trans" 
     :class="showTab ? '' : ''"
   >
     <template v-slot:header>

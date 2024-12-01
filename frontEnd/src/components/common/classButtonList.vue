@@ -19,8 +19,7 @@ onMounted(async () => {});
 </template>
 <style lang="scss" scoped>
 //浏览页class button
-.browseButtonSize {
-  width: calc(100vw / var(--genreNum));
+.browseButtonSize { 
   height: 100%;
   @media (width <= 500px) {
     height: '';
@@ -39,8 +38,7 @@ onMounted(async () => {});
   text-align: center;
   font-weight: bold;
   background-size: cover;
-  letter-spacing: 10px;
-  margin-right: var(--browse_Pr);
+  letter-spacing: 10px; 
   // margin-right: calc(var(--browse_Pr) * 1.2);
 }
 </style>

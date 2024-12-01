@@ -46,7 +46,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <scrollView class="bg-light-800 trans">
+  <scrollView class="bg-light-900 trans">
     <template v-slot:header>
       <scrollHeader class="h-[45px]">
         <template v-slot:center>

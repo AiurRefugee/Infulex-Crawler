@@ -30,7 +30,7 @@ $cellHeight: 2rem;
 html {
     // color
     --color_Primary: #f19109;
-    --tab_width: max(23vw, 250px);  
+    --tab_width: max(20vw, 250px);  
 
     // 搜索页genre卡片
     --search_genre_card_num: 4;   
@@ -43,7 +43,7 @@ html {
     --season_card_num: 6.2;
 
     // 媒体类别
-    --genreNum: 7;
+    --genreNum: 5;
 
     // 文件夹列数
     --file_grid_columns: 9;
@@ -78,7 +78,7 @@ html {
         --basc_card_num: 3.4; 
 
         // 媒体类别
-        --genreNum: 1.15;
+        --genreNum: 1.2;
 
         // 基础卡牌　横向
         --basc_card_rect_num: 1.2;
@@ -121,7 +121,7 @@ html {
         --credit_card_num: 9;  
 
         // 媒体类别
-        --genreNum: 4.6;
+        --genreNum: 2.2;
 
         // imageWall
         --image_brick_count: 3;

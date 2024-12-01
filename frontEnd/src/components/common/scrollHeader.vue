@@ -1,6 +1,11 @@
 <script setup>
 import { inject, watch } from "vue";
 import gsap from "gsap";
+const props = defineProps({
+  show: {
+    default: false
+  }
+})
 const lightMask = '#e1e1e1'
 const lightNormal = "#f5f5f5"
 
@@ -13,22 +18,22 @@ watch(showTitle, (newVal, oldVal) => {
   ).matches;
   let meta;
   // 黑暗模式
-  if (prefersDarkMode) {
-    meta = document.getElementById("darkThemeColor");
-    // 显示遮罩层
-    if (newVal) {
-      meta.setAttribute("content", darkMask);
-    } else {
-      meta.setAttribute("content", darkNormal);
-    }
-  } else {
-    meta = document.getElementById("lightThemeColor");
-    if (newVal) {
-      meta.setAttribute("content", lightMask);
-    } else {
-      meta.setAttribute("content", lightNormal);
-    }
-  }
+  // if (prefersDarkMode) {
+  //   meta = document.getElementById("darkThemeColor");
+  //   // 显示遮罩层
+  //   if (newVal) {
+  //     meta.setAttribute("content", darkMask);
+  //   } else {
+  //     meta.setAttribute("content", darkNormal);
+  //   }
+  // } else {
+  //   meta = document.getElementById("lightThemeColor");
+  //   if (newVal) {
+  //     meta.setAttribute("content", lightMask);
+  //   } else {
+  //     meta.setAttribute("content", lightNormal);
+  //   }
+  // }
 });
 </script>
 <template>
@@ -40,7 +45,7 @@ watch(showTitle, (newVal, oldVal) => {
     </div>
     <div
       class="headerCenter w-full center trans"
-      :style="{ opacity: showTitle ? 1 : 0 }"
+      :style="{ opacity: showTitle || show ? 1 : 0 }"
     >
       <slot name="center"></slot>
     </div> 

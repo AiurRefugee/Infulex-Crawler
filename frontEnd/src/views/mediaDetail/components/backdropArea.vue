@@ -12,12 +12,19 @@ const props = defineProps({
 });
 const backdropUrl = inject('backdropUrl')
 const media = inject('media')
+const loading = ref(true)
 </script>
 <template>
   <div class="backdropWrap flex center gap-2 pb-2">
 
     <div class="w-full h-full relative overflow-hidden">
-      <img class="backdropImage" :src="backdropUrl" draggable="false"/>
+      <img 
+        class="backdropImage" 
+        :class="loading ? 'hidden' : ''"
+        :src="backdropUrl" 
+        draggable="false"
+        @load="loading = false"
+      />
 
       <div class="w-full flex bgMask">
         <optButton class="w-[400px] h-10 showOpt hideOnMobileLandscape" />

@@ -30,14 +30,14 @@ const props = defineProps({
 }
 .normal {
   color: #56b725;
-  background-color: rgb(240 249 235 / 50%);
+  background-color: rgb(225 231 222 / 50%);
 }
 .normal:hover {
   background-color: hsl(from $item_normal_color h s l/  0.1);
 }
 .failed {
-  color: hsl(350.36deg 88.74% 45.54%);
-  background-color: rgba(232, 210, 210, 0.5);
+  color: hsl(350.36deg 79.99% 50.94%);
+  background-color: rgb(229 222 222 / 50%);
 }
 @media (prefers-color-scheme: dark) {
   .normal {

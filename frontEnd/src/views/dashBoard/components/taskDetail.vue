@@ -38,9 +38,9 @@ onMounted(() => {
 });
 </script>
 <template>
-  <scrollView>
+  <scrollView class="bg-light-800">
     <template #header>
-      <scrollHeader class="h-[50px]">
+      <scrollHeader :show="true" class="h-[50px]">
         <template v-slot:left>
           <div class="h-full flex items-center pl-4">
             <backword :title="'全部任务'" v-if="showBack" @click="router.go(-1)" />
@@ -56,10 +56,10 @@ onMounted(() => {
         </template>
         <template v-slot:right>
           <div class="right pr-4 w-full h-full flex justify-end items-center gap-4">
-            <div :class="listStype == 0 ? 'bg-light-500' : ''" class="iconWrap" @click="switchListStype(0)">
+            <div :class="listStype == 0 ? 'bg-light-600' : ''" class="iconWrap" @click="switchListStype(0)">
               <img class="h-[30px] aspect-square" src="@/assets/icons/messageList.svg" alt="" />
             </div>
-            <div :class="listStype == 1 ? 'bg-light-500' : ''" class="iconWrap" @click="switchListStype(1)">
+            <div :class="listStype == 1 ? 'bg-light-600' : ''" class="iconWrap" @click="switchListStype(1)">
               <img class="h-[30px] aspect-square" src="@/assets/icons/fileList.svg" alt="" />
             </div>
 

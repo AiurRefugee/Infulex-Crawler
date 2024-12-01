@@ -9,6 +9,8 @@ import backword from "@/components/common/backword.vue";
 import { layoutStore } from "@/stores/layout";
 const layout = layoutStore();
 const size = computed(() => layout.size)
+const showTab = computed(() => layout.showTab)
+const tabIconVisible = computed(() => layout.tabIconVisible)
 const props = defineProps({
   title: {
     default: "",
@@ -108,7 +110,12 @@ onMounted(() => {
   </videoListBasic>
   <basicPage class="showAllGrid" v-if="pageView" :title="videosTitle">
     <template #back>
-      <backword :title="'浏览'" @click="back"/>
+      <backword 
+        class=" trans" 
+        :class="tabIconVisible && !showTab ? 'pl-[50px]' : ''"
+        :title="'浏览'" 
+        @click="back"
+      />
     </template>
     <videoCardBasic
       class="w-full"

@@ -37,7 +37,7 @@ const props = defineProps({
       </div>
 
       <div
-        class="afterfix h-full px-[10px] flex-shrink-0 flex items-center bg-red-500 overflow-hidden"
+        class="afterfix h-full flex-shrink-0 flex items-center bg-red-500 overflow-hidden"
         :style="{
           width: `${afterfixW}px`,
           translate: `-${afterfixW}px`,

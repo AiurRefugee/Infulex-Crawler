@@ -13,9 +13,9 @@ onMounted(() => {
 })
 </script>
 <template>
-  <scrollView class="bg-light-800">
+  <scrollView class="bg-light-900">
     <template v-slot:header>
-      <scrollHeader class="h-[45px]">
+      <scrollHeader :show="true" class="h-[45px]">
         <template #left>
           <slot name="back"></slot>
         </template>
@@ -26,11 +26,8 @@ onMounted(() => {
         </template>
       </scrollHeader>
     </template>
-    <template #content>
-      <h1 class="px-4 text-[1.6em] font-bold mb-2 txtDarkPrimary">
-        {{ title }}
-      </h1>
-      <div class="gridArea px-4">
+    <template #content> 
+      <div class="gridArea">
         <slot></slot>
       </div>
       <div class="h-20"></div>
@@ -42,6 +39,7 @@ $gap: 0.5rem;
 .gridArea {
   $minw: 120px;
   display: grid; 
+  padding: 0 min(2%, 1rem);
   grid-template-columns: repeat(
     var(--show_all_grid_columns),
     calc(calc(100% - $gap * (var(--show_all_grid_columns) - 1)) / var(--show_all_grid_columns))

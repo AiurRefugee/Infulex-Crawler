@@ -11,7 +11,7 @@ import classButtonList from "@/components/common/classButtonList.vue";
     </div>
   </div>
 </template>
-<style scoped lang="scss">
+<style lang="scss">
 @import "@/style/variables.scss";
 ::-webkit-scrollbar {
   display: none;
@@ -23,6 +23,10 @@ import classButtonList from "@/components/common/classButtonList.vue";
   }
 }
 .genreList {
-  height: max(12vh, 120px);
+  height: max(12vh, 150px);
+}
+.genreList > * {
+  width: calc(100vw / var(--genreNum));
+  margin-right: 1rem;
 }
 </style>

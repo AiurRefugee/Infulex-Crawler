@@ -5,6 +5,7 @@ import { tmdbApi } from "@/apis/tmdbApi.js";
 import { ref, onMounted, inject, nextTick, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import Backword from "@/components/common/backword.vue";
+import loadImg from "@/components/common/loadImg.vue";
 const route = useRoute();
 const router = useRouter();
 const imageLength = 50;
@@ -56,13 +57,14 @@ onMounted(() => {
     <template #content>
       <div class="imagesWall px-4" ref="imagesWall">
         <div class="imageBrickWrap" v-for="img in images" :key="img" :style="{ aspectRatio: img.aspect_ratio }">
-          <img class="imageBrick" loading="lazy" :src="tmdbApi.tmdbImgPrefix + img.file_path" alt="" /> 
+          <loadImg class="imageBrick w-full h-full" :src="tmdbApi.tmdbImgPrefix + img.file_path" alt="" /> 
         </div>
       </div>
     </template>
   </scrollView>
 </template>
 <style lang="scss">
+@import '@/style/variables.scss';
 $gap: 1rem;
 .imagesWall {
   columns: var(--image_brick_count);
@@ -77,6 +79,6 @@ $gap: 1rem;
 .imageBrick {
   object-fit: contain; 
   border-radius: 8px;
-  border: 1px solid rgba(211, 211, 211, 0.15);
+  box-shadow: $videoCardBasicBoxShadow;
 }
 </style>
