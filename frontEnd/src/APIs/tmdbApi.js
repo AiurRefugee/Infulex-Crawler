@@ -143,7 +143,7 @@ export const tmdbApi = {
         const nowPlayingUrl = tmdbAPIPrefix + "/discover/movie?include_video=false&sort_by=popularity.desc&with_release_type=2|3&release_date.gte={min_date}&release_date.lte={max_date}";
         const nowPlayingMovies = await get(nowPlayingUrl, params || GETParams, tmdbHeaders)
         console.log('getNowPlayingMovies', nowPlayingMovies)
-        return nowPlayingMovies?.results
+        return nowPlayingMovies
     },
 
     // 每周电影趋势
@@ -151,7 +151,7 @@ export const tmdbApi = {
         const trendingUrl = tmdbAPIPrefix + "/trending/movie/week";
         const trendingMovies = await get(trendingUrl, params || GETParams, tmdbHeaders)
         console.log('getTrendingMovies', trendingMovies)
-        return trendingMovies?.results
+        return trendingMovies
     },
 
     // topRated 电影
@@ -159,7 +159,7 @@ export const tmdbApi = {
         const topRatedUrl = tmdbAPIPrefix + "/discover/movie?include_adult=false&include_video=false&page=1&sort_by=vote_average.desc&without_genres=99,10755&vote_count.gte=200";
         const topRatedMovies = await get(topRatedUrl, params || GETParams, tmdbHeaders)
         console.log('getTopRatedMovies', topRatedMovies)
-        return topRatedMovies?.results
+        return topRatedMovies
     },
 
     // 每周 TV 趋势
@@ -167,7 +167,7 @@ export const tmdbApi = {
         const trendingUrl = tmdbAPIPrefix + "/trending/tv/week";
         const trendingTVSeries = await get(trendingUrl, params || GETParams, tmdbHeaders)
         console.log('getTrendingTVSeries', trendingTVSeries)
-        return trendingTVSeries?.results
+        return trendingTVSeries
     },
 
     

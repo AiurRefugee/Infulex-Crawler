@@ -17,20 +17,7 @@ const defaultArrays = ["", "", "", "", "", "", "", "", "", ""]
 const topRatedMovies = ref([""]);
 
 const favoriteMovies = computed(() => mediaStore.favoriteMovies);
-const movieLibrary = computed(() => mediaStore.movieLibrary);
-
-const toDetail = (router, media, mediaType) => {
-  const title = media.title || media.name;
-  const time = media.release_date || media.first_air_date;
-  router.push({
-    path: "/mediaDetail/" + title,
-    query: {
-      id: media?.id,
-      media_type: media?.media_type || mediaType,
-      year: time.split("-")[0],
-    },
-  });
-};
+const movieLibrary = computed(() => mediaStore.movieLibrary); 
 
 const getTopRatedMovies = async () => {
   mediasApi.getTopRatedMovies().then((res) => {
@@ -62,7 +49,7 @@ onMounted(() => {
             class="pr-2"
             :media="media"
             :mediaType="'movie'"
-            @click="toDetail(router, media, 'movie')"
+            :toDetail="true"
           />
         </template>
       </videoListBasic>
@@ -73,7 +60,7 @@ onMounted(() => {
             class="pr-2"
             :media="media"
             :mediaType="'movie'"
-            @click="toDetail(router, media, 'movie')"
+            :toDetail="true"
           />
         </template>
       </videoListBasic>

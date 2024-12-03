@@ -9,13 +9,7 @@ const filmStore = useFilmStore();
 
 const router = useRouter();
 const props = defineProps(["medias", "title"]);
-
-function toDetail() {
-  router.push("/detail/" + props.item.film._id);
-  filmStore.filmDetail = props.item;
-  localStorage.setItem("filmDetail", JSON.stringify(props.item));
-  document.documentElement.style.setProperty("--headerOpacity", 0);
-}
+ 
 </script>
 <template>
   <div class="basicWrapper flex flex-col justify-around">

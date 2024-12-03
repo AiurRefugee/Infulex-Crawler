@@ -245,6 +245,19 @@ input:focus-visible {
     justify-content: space-around;
     justify-items: center;
 }
+.rect .gridArea {
+    $minw: 120px;
+    
+    display: grid;
+    padding: 0 min(2%, 1rem);
+    grid-template-columns: repeat(
+        var(--show_all_grid_rect_columns),
+        calc(calc(100% - $gap * (var(--show_all_grid_rect_columns) - 1)) / var(--show_all_grid_rect_columns))
+    );
+    grid-gap: $gap 0;
+    justify-content: space-around;
+    justify-items: center;
+}
 .showBorderB {
     border-bottom: 1px solid rgba(171, 170, 170, 0.288);
 }

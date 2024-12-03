@@ -34,10 +34,7 @@ const defaultArray = [
   "",
   "",
   "",
-];
-
-// const router = useRouter();
-// const route = useRoute();
+]; 
 
 const nowPlayingMovie = ref(defaultArray); // 正在热映
 const movieTrending = ref(defaultArray); // 热门电影
@@ -48,23 +45,36 @@ const aiqiyiUpcoming = ref(defaultArray); // 爱奇艺 即将带来
 const aiqiyiWangju = ref(defaultArray); // 爱奇艺 网剧
 
 const getNowPlayingMovie = async () => {
-  const videos = await tmdbApi.getNowPlayingMovies();
-  nowPlayingMovie.value = videos;
+  tmdbApi.getNowPlayingMovies().then((videos) => {
+    nowPlayingMovie.value = videos.results;
+  }).catch(err => {
+    console.log('getNowPlayingMovie', err)
+  })
 };
 
-const getMovieTrending = async () => {
-  const videos = await tmdbApi.getTrendingMovies();
-  movieTrending.value = videos;
+const getMovieTrending = () => {
+  tmdbApi.getTrendingMovies().then((videos) => {
+    movieTrending.value = videos.results;
+  }).catch(err => {
+    console.log('getMovieTrending', err)
+  })
+  
 };
 
-const getTopRatedMovie = async () => {
-  const videos = await tmdbApi.getTopRatedMovies();
-  topRatedMovie.value = videos;
+const getTopRatedMovie = () => {
+  tmdbApi.getTopRatedMovies().then((videos) => {
+    topRatedMovie.value = videos.results;
+  }).catch(err => {
+    console.log('getTopRatedMovie', err)
+  })
 };
 
-const getTVTrending = async () => {
-  const videos = await tmdbApi.getTrendingTVSeries();
-  tvTrending.value = videos;
+const getTVTrending = () => {
+  tmdbApi.getTrendingTVSeries().then((videos) => {
+    tvTrending.value = videos.results;
+  }).catch(err => {
+    console.log('getTVTrending', err)
+  })
 };
 
 const getAiqiyiVideos = async () => {
@@ -73,6 +83,15 @@ const getAiqiyiVideos = async () => {
   aiqiyiUpcoming.value = videos?.upcoming?.slice(0, 20);
   aiqiyiWangju.value = videos?.wangju?.slice(0, 20);
 };
+
+const showAll = (apiName, title) => {
+  router.push({ 
+    path: '/browse/' + title,
+    query: {
+      apiName
+    }
+  });
+}
 
 onMounted(async () => {
   layout.setTabIconVisible(true)
@@ -107,31 +126,60 @@ onMounted(async () => {
 
       <div class="divider"></div>
 
-      <tmdbVideo
-        :title="'正在热映'"
-        :path="'/tmdbNowPlaying'"
-        :apiPath="'getNowPlayingMovies'"
-        :tmdbList="nowPlayingMovie"
-      />
+      <videoListBasic :list="nowPlayingMovie" :title="'正在上映'" >
+        <template #showAll>
+          <button 
+            class="showAllButton" 
+            @click="showAll('getNowPlayingMovies', '正在上映')"
+          >查看全部</button>
+        </template>
+        <template #card="{ media }">
+          <videoCardBasic
+            class="pr-2"
+            :media="media"
+            :mediaType="'movie'"
+            :toDetail="true"
+          />
+        </template>
+      </videoListBasic>
 
       <div class="divider"></div>
 
-      <tmdbVideo
-        :title="'热门电影'"
-        :path="'/tmdbTrendingMovie'"
-        :apiPath="'getTrendingMovies'"
-        :tmdbList="movieTrending"
-      />
+      <videoListBasic :list="movieTrending" :title="'热门电影'" >
+        <template #showAll>
+          <button 
+            class="showAllButton" 
+            @click="showAll('getTrendingMovies', '热门电影')"
+          >查看全部</button>
+        </template>
+        <template #card="{ media }">
+          <videoCardBasic
+            class="pr-2"
+            :media="media"
+            :mediaType="'movie'"
+            :toDetail="true"
+          />
+        </template>
+      </videoListBasic> 
 
       <div class="divider"></div> 
 
-      <tmdbVideo
-        :title="'热门剧集'"
-        :mediaType="'tv'"
-        :path="'/tmdbTrendingTV'"
-        :apiPath="'getTrendingTVSeries'"
-        :tmdbList="tvTrending"
-      />
+      <videoListBasic :list="tvTrending" :title="'热门剧集'" >
+        <template #showAll>
+          <button 
+            class="showAllButton" 
+            @click="showAll('getTrendingTVSeries', '热门剧集')"
+          >查看全部</button>
+        </template>
+        <template #card="{ media }">
+          <videoCardBasic
+            class="pr-2"
+            :media="media"
+            :mediaType="'tv'"
+            :toDetail="true"
+          />
+        </template>
+      </videoListBasic>  
 
       <div class="divider"></div> 
 
@@ -144,12 +192,22 @@ onMounted(async () => {
 
       <div class="divider"></div> 
 
-      <tmdbVideo
-        :title="'评分最高'"
-        :path="'/topRatedMovie'"
-        :apiPath="'getTopRatedMovies'"
-        :tmdbList="topRatedMovie"
-      />
+      <videoListBasic :list="topRatedMovie" :title="'高分电影'" >
+        <template #showAll>
+          <button 
+            class="showAllButton" 
+            @click="showAll('getTopRatedMovies', '高分电影')"
+          >查看全部</button>
+        </template>
+        <template #card="{ media }">
+          <videoCardBasic
+            class="pr-2"
+            :media="media"
+            :mediaType="'movie'"
+            :toDetail="true"
+          />
+        </template>
+      </videoListBasic>   
 
       <div class="h-20"></div>
     </template>
@@ -157,7 +215,7 @@ onMounted(async () => {
 </template>
 <style lang="scss" scoped>
 .divider {
-  $space: 1em;
+  $space: 0.6em;
   height: 1px;
   // display: none;
   background-color: rgba(172, 172, 172, 0.4);
@@ -167,7 +225,7 @@ onMounted(async () => {
   margin-bottom: $space * 2;
   @media (width <= 1440px) {
     background-color: transparent;
-    $space: 5px;
+    // $space: 5px;
     margin-top: $space;
     margin-bottom: $space;
   }

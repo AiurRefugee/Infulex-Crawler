@@ -82,23 +82,6 @@ const back = () => {
   router.go(-1);
 }
 
-const toDetail = (media, mediaType) => {
-  const title = media.title || media.name;
-  const time = media.release_date || media.first_air_date;
-  router.push({
-    path: "/mediaDetail/" + title,
-    query: {
-      id: media?.id,
-      media_type: media?.media_type || mediaType,
-      year: time.split("-")[0],
-      back: {
-        path: route.path,
-        name: '浏览'
-      }
-    },
-  });
-};
-
 onMounted(() => {
   const { videoPath, title } = route.query;
   videosTitle.value = title || props.title;
@@ -122,7 +105,7 @@ onMounted(() => {
         :imageSrcPrefix="''"
         :media="media"
         :mediaType="'tv'"
-        @click="toDetail(media, 'tv')"
+        :toDetail="true"
       />
     </template>
   </videoListBasic>
@@ -138,7 +121,7 @@ onMounted(() => {
       :imageSrcPrefix="''"
       :media="media"
       :mediaType="'tv'"
-      @click="toDetail(media, 'tv')"
+      :toDetail="true"
       v-for="media in aiqiyiVideos"
       :key="media.id"
     />

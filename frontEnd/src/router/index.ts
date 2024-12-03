@@ -12,6 +12,13 @@ const router = createRouter({
       }
     }, 
     {
+      path: '/browse/:title',
+      component: () => import('../views/browse/components/browseDetail.vue'),
+      meta: {
+        transition: 'fade'
+      }
+    },
+    {
       path: '/aiqiyiTVsTrending',
       component: () => import('../views/browse/components/aiqiyiVideo.vue'),
     },

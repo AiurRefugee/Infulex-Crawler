@@ -25,7 +25,6 @@ const tvList = ref([])
 const type = ref('movie')
 const scrollTop = ref(0)
 const scrollWrap = ref(null)
-const today = new Date().toLocaleString().split(' ')[0]
 const queryParam = {
     page: 0,
     language: 'zh-CN', 
@@ -44,7 +43,7 @@ const calHeight = () => {
     
 }
 
-const search = () => {
+const search = async () => {
     if (!canSearch) return
     canSearch = false 
     const genreId = type.value == 'movie' ? movieTag.value.id : tvTag.value.id
@@ -77,8 +76,10 @@ const search = () => {
         const listPointer = type.value == 'movie' ? list : tvList
         listPointer.value = listPointer.value.concat(res.results)
         await nextTick()
-        calHeight()
         canSearch = true 
+        if (lastCardCanBeSeen()) {
+            search()
+        }
     }).catch( err => {
         canSearch = true
         console.log('discover err', err)
@@ -92,40 +93,28 @@ watch(scrollTop, async (newVal) => {
     calHeight()
     if (newVal + windowHeight > maxHeight - maxHeight / 5) {
         search()
-    } else {
-        
-
     }
 })
 
 watch(type, async (newVal) => {
     init(newVal)
-    if (newVal + windowHeight > maxHeight - maxHeight / 5) {
-        search()
-    }
 })
 
-const init = (type) => {
+const lastCardCanBeSeen = () => {
+    const lastCard = document.querySelector('.basicCard:last-child')
+    console.log(lastCard)
+    if (lastCard) {
+        const lastCardRect = lastCard.getBoundingClientRect()
+        return lastCardRect.top < windowHeight
+    }
+    return false
+}
+
+const init = async (type) => {
     const param = type == 'movie' ? queryParam : tvQueryParam
     if (param.page == 0) {
         search()
-        if (layout.size == 'small') {
-            canSearch = true
-            search()
-        }
     }
-}
-
-const toDetail = (media) => {
-  console.log("toDetail");  
-  const title = media.title || media.name 
-  router.push({
-    path: '/mediaDetail/' + title,
-    query: {
-      id: media?.id,
-      media_type: type.value
-    },
-  })
 }
 
 onMounted( () => {
@@ -160,10 +149,10 @@ onMounted( () => {
         <template #content>
             <div ref="scrollWrap">
                 <div class="gridArea" v-if="type == 'movie'">
-                <videoCardBasic :media="media" v-for="media in list" :key="media.id" @click="toDetail(media)"/>
+                <videoCardBasic :toDetail="true" :media="media" v-for="media in list" :key="media.id"/>
                 </div>
                 <div class="gridArea" v-if="type == 'tv'">
-                    <videoCardBasic :media="media" v-for="media in tvList" :key="media.id" @click="toDetail(media)"/>
+                    <videoCardBasic :toDetail="true" :media="media" v-for="media in tvList" :key="media.id"/>
                 </div>
             </div>
         </template>

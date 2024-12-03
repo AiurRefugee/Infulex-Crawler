@@ -5,6 +5,9 @@ import { tmdbImgPrefix } from '@/config/tmdbConfig'
 import loadImg from "@/components/common/loadImg.vue";
 const router = useRouter() 
 const props = defineProps({
+  "toDetail": {
+    default: false,
+  },
   "media": {
     Required: true
   },
@@ -27,13 +30,26 @@ const time = computed(() => props.media?.release_date || props.media?.first_air_
 const year = computed(() => time.value?.split('-')[0])
 const posterPath = computed(() => props.media?.poster_path || props.media?.backdrop_path || props.media?.still_path)
 
-const loading = ref(true)
+const toDetail = () => {
+  if (!props.toDetail) return
+  const media = props.media
+  const mediaType = props.mediaType
+  console.log("toDetail");   
+  router.push({
+    path: '/mediaDetail/' + title.value,
+    query: {
+      id: media?.id,
+      media_type: mediaType
+    },
+  })
+}
+
 onMounted(() => {
 
 })
 </script>
 <template>
-  <div class="basicCard w-full flex-shrink-0 scroll-m-4">
+  <div class="basicCard w-full flex-shrink-0 scroll-m-4" @click="toDetail">
     <div class="cardImage center w-full rounded-lg trans">
        <loadImg :src="imageSrcPrefix + posterPath"/>
     </div>

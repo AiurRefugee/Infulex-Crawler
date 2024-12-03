@@ -27,10 +27,6 @@ const filtered = computed(() => {
   }
 })
 
-function toDetail() {
-  router.push("/detail");
-}
-
 function toAll() {
   const duration = 0.3;
   list.value.style.scrollTop = 0
