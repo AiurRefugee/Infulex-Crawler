@@ -13,6 +13,7 @@ const route = useRoute();
 const router = useRouter()
 const selectedTask = computed(() => taskStore.selectedTask);
 const layout = layoutStore();
+const pageMode = ref(false)
 
 const listStype = computed(() => taskStore.listStype);
 const size = computed(() => layout.size);
@@ -30,6 +31,7 @@ onMounted(() => {
   const { mediaType, mediaId } = route.params;
   if (mediaType && mediaId) {
     taskStore.getTaskDetail(mediaType, mediaId);
+    pageMode.value = true
   }
 
   if (showBack.value) {
@@ -39,21 +41,13 @@ onMounted(() => {
 </script>
 <template>
   <scrollView class="bg-light-800">
-    <template #header>
+    <template #header v-if="selectedTask">
       <scrollHeader :show="true" class="h-[50px]">
         <template v-slot:left>
-          <div class="h-full flex items-center pl-[2%]">
-            <backword :title="'全部任务'" v-if="showBack" @click="router.go(-1)" />
-            <text class="text-xl font-bold whitespace-nowrap overflow-hidden text-ellipsis" v-else>{{
-              selectedTask?.title }}</text>
+          <div class="h-full flex items-center pl-[2%]" >
+            <backword :pl="pageMode" :title="selectedTask?.title" @click="router.go(-1)" />
           </div>
-        </template>
-        <template v-slot:center>
-          <h1 v-if="showBack"
-            class="text-dark-900 select-none text-xl font-bold overflow-hidden text-ellipsis whitespace-nowrap">
-            {{ selectedTask?.title }}
-          </h1>
-        </template>
+        </template> 
         <template v-slot:right>
           <div class="right pr-4 w-full h-full flex justify-end items-center gap-4">
             <div :class="listStype == 0 ? 'bg-light-600' : ''" class="iconWrap" @click="switchListStype(0)">

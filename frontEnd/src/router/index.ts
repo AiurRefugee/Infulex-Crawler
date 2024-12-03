@@ -19,28 +19,8 @@ const router = createRouter({
       }
     },
     {
-      path: '/aiqiyiTVsTrending',
+      path: '/browseAiqiyi/:title',
       component: () => import('../views/browse/components/aiqiyiVideo.vue'),
-    },
-    {
-      path: '/aiqiyiWangju',
-      component: () => import('../views/browse/components/aiqiyiVideo.vue')
-    },
-    {
-      path: '/tmdbNowPlaying',
-      component: () => import('../views/browse/components/tmdbVideo.vue'),
-    },
-    {
-      path: '/tmdbTrendingMovie',
-      component: () => import('../views/browse/components/tmdbVideo.vue')
-    },
-    {
-      path: '/tmdbTrendingTV',
-      component: () => import('../views/browse/components/tmdbVideo.vue')
-    },
-    {
-      path: '/topRatedMovie',
-      component: () => import('../views/browse/components/tmdbVideo.vue')
     },
     {
       path: '/search',

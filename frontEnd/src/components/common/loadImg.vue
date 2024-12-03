@@ -34,7 +34,7 @@ img {
     box-shadow: $videoCardBasicBoxShadow;
 }
 .loadImg {
-    // border: 1px solid rgba(128, 128, 128, 0.504);
-    box-shadow: $videoCardBasicBoxShadow;
+    border: 1px solid rgba(174, 174, 174, 0.2);
+    // box-shadow: $videoCardBasicBoxShadow;
 }
 </style> 

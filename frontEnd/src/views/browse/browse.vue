@@ -1,13 +1,11 @@
 <script setup>
 import { onMounted, ref, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { get, post } from "@/apis/axiosWrapper.js";
 import scrollView from "@/viewComponents/scrollView.vue";
 import scrollHeader from "@/components/common/scrollHeader.vue";
 import videoCardBasic from "@/components/cards/videoCardBasic.vue";
 import videoListBasic from "@/components/common/videoListBasic.vue";
 import aiqiyiVideos from "./components/aiqiyiVideo.vue";
-import tmdbVideo from "./components/tmdbVideo.vue";
 // 可以在组件中的任意位置访问 `store` 变量 ✨
 import { layoutStore } from "@/stores/layout";
 import { tmdbApi } from "@/apis/tmdbApi.js";
@@ -84,6 +82,15 @@ const getAiqiyiVideos = async () => {
   aiqiyiWangju.value = videos?.wangju?.slice(0, 20);
 };
 
+const showAllAiqiyi = (videoPath, title) => {
+  router.push({ 
+    path: '/browseAiqiyi/' + title,
+    query: {
+      videoPath
+    }
+  });
+}
+
 const showAll = (apiName, title) => {
   router.push({ 
     path: '/browse/' + title,
@@ -117,12 +124,25 @@ onMounted(async () => {
     <template v-slot:content>
       <h1 class="px-4 text-[1.6em] font-bold mb-2 text-dark-900">浏览</h1>
 
-      <aiqiyiVideos
-        :title="'电视剧热播榜'"
-        :path="'/aiqiyiTVsTrending'"
-        :videoPath="'tvTrending'"
-        :aiqiyiList="aiqiyiTVTrending"
-      />
+      <videoListBasic
+        class="rect"
+        :list="aiqiyiTVTrending"
+        :title="'电视剧热播榜'" 
+      >
+        <template v-slot:showAll>
+          <button class="showAllButton" @click="showAllAiqiyi('tvTrending', '电视剧热播榜')">查看全部</button>
+        </template>
+        <template #card="{ media }">
+          <videoCardBasic
+            :class="cardClassName"
+            class="pr-2"
+            :imageSrcPrefix="''"
+            :media="media"
+            :mediaType="'tv'"
+            :toDetail="true"
+          />
+        </template>
+      </videoListBasic>  
 
       <div class="divider"></div>
 
@@ -183,12 +203,25 @@ onMounted(async () => {
 
       <div class="divider"></div> 
 
-      <aiqiyiVideos
-        :title="'网剧热播榜'"
-        :path="'/aiqiyiWangju'"
-        :videoPath="'wangju'"
-        :aiqiyiList="aiqiyiWangju"
-      />
+      <videoListBasic
+        class="rect"
+        :list="aiqiyiWangju"
+        :title="'网剧热播榜'" 
+      >
+        <template v-slot:showAll>
+          <button class="showAllButton" @click="showAllAiqiyi('wangju', '网剧热播榜')">查看全部</button>
+        </template>
+        <template #card="{ media }">
+          <videoCardBasic
+            :class="cardClassName"
+            class="pr-2"
+            :imageSrcPrefix="''"
+            :media="media"
+            :mediaType="'tv'"
+            :toDetail="true"
+          />
+        </template>
+      </videoListBasic>   
 
       <div class="divider"></div> 
 

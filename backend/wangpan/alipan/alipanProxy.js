@@ -25,14 +25,15 @@ class alipanProxy {
         this.startCrawl()
     }
 
-    queueFile(topicId, share_id, share_token, parent_file_id, layer) {
+    queueFile(link, topicId, share_id, share_token, parent_file_id, layer) {
         const param = {
             type: 'file',
             topicId,
             share_id,
             share_token,
             parent_file_id,
-            layer
+            layer,
+            link
         }
         this.requestSequence.push(param)
     }
@@ -47,8 +48,8 @@ class alipanProxy {
                 this.crawlLink(topicId, link)
             }
             if (type === 'file') {
-                const { topicId, share_id, share_token, parent_file_id, layer } = task
-                this.travelFolder(topicId, share_id, share_token, parent_file_id, layer)
+                const { link, topicId, share_id, share_token, parent_file_id, layer } = task
+                this.travelFolder(link, topicId, share_id, share_token, parent_file_id, layer)
 
             }
             await sleep(alipanInterval)
@@ -64,7 +65,7 @@ class alipanProxy {
             getShareToken(share_id, share_pwd).then(res => {
                 const { share_token } = res
                 if (share_token) {
-                    this.queueFile(topicId, share_id, share_token, 'root', 1)
+                    this.queueFile(link, topicId, share_id, share_token, 'root', 1)
                 } else {
                     console.log('no share_token')
                     this.eventManager.addMsg(topicId, {
@@ -85,7 +86,7 @@ class alipanProxy {
         )
     }
 
-    travelFolder(topicId, share_id, share_token, parent_file_id, layer = 1) {
+    travelFolder(link, topicId, share_id, share_token, parent_file_id, layer = 1) {
         if (layer > maxLayer) {
             return
         }
@@ -96,11 +97,12 @@ class alipanProxy {
                 this.eventManager.addMsg(topicId, {
                     type,
                     data: res,
+                    link,
                     time: time.toLocaleString()
                 })
                 res.forEach(child => {
                     if (child.type === 'folder') {
-                        this.queueFile(topicId, share_id, share_token, child.file_id, layer + 1)
+                        this.queueFile(link, topicId, share_id, share_token, child.file_id, layer + 1)
                     } else if (child.type === 'file') {
                         console.log('child', child)
                     }

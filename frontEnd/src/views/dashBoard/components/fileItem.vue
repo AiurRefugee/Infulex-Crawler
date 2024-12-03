@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed } from "vue";
+import loadImg from "@/components/common/loadImg.vue";
 import { useTaskStore } from "@/stores/tasks";
 const tasks = useTaskStore();
 const props = defineProps({
@@ -22,15 +23,15 @@ const selectFile = (event) => {
 
 // size 为字节数
 const calSize = (size) => {
-  let res = size
-  let unit = ['B', 'KB', 'MB', 'GB']
-  let index = 0
-  while(res > 1024) {
-    res /= 1024
-    index++
+  let res = size;
+  let unit = ["B", "KB", "MB", "GB"];
+  let index = 0;
+  while (res > 1024) {
+    res /= 1024;
+    index++;
   }
-  return res.toFixed(2) + unit[index]
-}
+  return res.toFixed(2) + unit[index];
+};
 </script>
 <template>
   <div
@@ -42,10 +43,7 @@ const calSize = (size) => {
       @click="selectFile"
     >
       <div class="outside selectedCenter">
-        <svg 
-          class="icon w-full aspect-square"
-          viewBox="0 0 1024 1024" 
-        >
+        <svg class="icon w-full aspect-square" viewBox="0 0 1024 1024">
           <path
             d="M455.42 731.04c-8.85 0-17.75-3.05-24.99-9.27L235.14 553.91c-16.06-13.81-17.89-38.03-4.09-54.09 13.81-16.06 38.03-17.89 54.09-4.09l195.29 167.86c16.06 13.81 17.89 38.03 4.09 54.09-7.58 8.83-18.31 13.36-29.1 13.36z"
             p-id="4262"
@@ -59,17 +57,19 @@ const calSize = (size) => {
         </svg>
       </div>
     </div>
-    <div class="center">
-      <img
-        src="@/assets/icons/fileIcon.svg"
-        alt="file"
-        v-if="file?.type == 'folder'"
-      />
-      <img
-        src="@/assets/icons/play.svg"
-        alt="video"
-        v-if="file?.type == 'file'"
-      />
+    <div class="center aspect-square p-2">
+      <div class="w-full imgWrap">
+        <img
+          src="@/assets/icons/fileIcon.svg"
+          alt="file"
+          v-if="file?.type == 'folder'"
+        />
+        <loadImg
+          class="loadImg"
+          v-if="file?.type == 'file'"
+          :src="file?.thumbnail"
+        />
+      </div>
     </div>
     <div class="w-full text-center">
       <p class="filetitle w-full overflow-hidden text-ellipsis px-2 my-1">
@@ -83,6 +83,9 @@ const calSize = (size) => {
 </template>
 <style scoped lang="scss">
 @import "@/style/variables.scss";
+.imgWrap {
+  aspect-ratio: 16 / 9;
+}
 .size {
   word-break: break-all;
   overflow-wrap: break-word;
@@ -144,7 +147,7 @@ img {
   // word-break: break-all;
   $line-height: 1.2em;
   line-height: $line-height;
-  height: $line-height * 2;
+  max-height: $line-height * 2;
   -webkit-line-clamp: 2;
 }
 </style>
