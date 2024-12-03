@@ -13,8 +13,8 @@ const mediaStore = useMediaStore();
 const layout = layoutStore();
 const showTab = computed(() => layout.showTab); 
 const router = useRouter();
-
-const topRatedMovies = ref([]);
+const defaultArrays = ["", "", "", "", "", "", "", "", "", ""]
+const topRatedMovies = ref([""]);
 
 const favoriteMovies = computed(() => mediaStore.favoriteMovies);
 const movieLibrary = computed(() => mediaStore.movieLibrary);
@@ -34,7 +34,7 @@ const toDetail = (router, media, mediaType) => {
 
 const getTopRatedMovies = async () => {
   mediasApi.getTopRatedMovies().then((res) => {
-    topRatedMovies.value = res;
+    topRatedMovies.value = res ?.length > 0 ? res : [""];
   }).catch((err) => {
     console.log(err);
   })
@@ -59,7 +59,7 @@ onMounted(() => {
       <videoListBasic :list="movieLibrary" :title="'最近添加'">
         <template #card="{ media }">
           <videoCardBasic
-            class="pr-1"
+            class="pr-2"
             :media="media"
             :mediaType="'movie'"
             @click="toDetail(router, media, 'movie')"
@@ -70,7 +70,7 @@ onMounted(() => {
       <videoListBasic :list="favoriteMovies" :title="'我的收藏'">
         <template #card="{ media }">
           <videoCardBasic
-            class="pr-1"
+            class="pr-2"
             :media="media"
             :mediaType="'movie'"
             @click="toDetail(router, media, 'movie')"
@@ -85,7 +85,7 @@ onMounted(() => {
       <videoListBasic :list="topRatedMovies" :title="'最受好评的电影'">
         <template #card="{ media }">
           <videoCardBasic
-            class="pr-1"
+            class="pr-2"
             :media="media"
             :mediaType="'movie'"
             @click="toDetail(router, media, 'movie')"

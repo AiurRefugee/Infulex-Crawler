@@ -28,36 +28,41 @@ const queryParam = {
     language: 'zh-CN'
 }
 const windowHeight = window.innerHeight
-let maxHeight = 0, calHeightTimeout = null
+let maxHeight = 0, calHeightTimeout = null, canSearch = true
+let totalPage = 10
 
 const calHeight = () => {
     maxHeight = document.getElementsByClassName('gridArea')[0].scrollHeight
-    console.log(maxHeight)
+    canSearch = true 
 }
 
 const search = () => {
-    clearTimeout(calHeightTimeout)
+    if (!canSearch) return
+    canSearch = false 
     const genreId = type.value == 'movie' ? movieTag.value.id : tvTag.value.id
+    if (queryParam.page == totalPage) return false
     queryParam.page += 1
     const params = {
         ...queryParam,
         with_genres: genreId
     }
     tmdbApi.discover(type.value, params).then( res => {
+        totalPage = res.total_pages
         list.value = list.value.concat(res.results)
         setTimeout( calHeight, 100)
     })
 }
 
-// watch(scrollTop, (newVal) => {
-//     console.log(newVal, maxHeight)
-//     if (newVal + windowHeight > maxHeight - windowHeight / 3) {
-//         search()
-//     }
-// })
+watch(scrollTop, (newVal) => {
+    console.log(newVal, maxHeight)
+    if (newVal + windowHeight > maxHeight - maxHeight / 5) {
+        search()
+    }
+})
 
 watch(type, async (newVal) => {
     list.value = []
+    canSearch = true
     queryParam.page = 1
     console.log('mediaType', newVal)
     search()
@@ -76,9 +81,12 @@ const toDetail = (media) => {
 }
 
 onMounted( () => {
-    layout.setTabIconVisible(false)
+    if (layout.size == 'small') {
+        layout.setTabIconVisible(false)
+    }
     search()
     if (layout.size != 'small') { 
+        canSearch = true
         search()
     }
 })
@@ -95,13 +103,14 @@ onMounted( () => {
                 </template>
                 <template #right v-if="layout.size != 'small' && showTab">
                     <div class="w-full h-full flex justify-end items-center pr-4">
-                        <TypeTab class="h-[25px]" v-model:mediaType="type"/>
+                        <TypeTab class="h-[30px]" v-model:mediaType="type"/>
                     </div>
                 </template>
             </scrollHeader>
             <div class="pb-2 px-4 " v-if="layout.size == 'small' && showTab">
                 <TypeTab class="h-[30px]"  v-model:mediaType="type"/>
-            </div>
+            </div> 
+            
             
         </template>
         <template #content>

@@ -118,7 +118,7 @@ onMounted(() => {
     <template #card="{ media }">
       <videoCardBasic
         :class="cardClassName"
-        class="pr-1"
+        class="pr-2"
         :imageSrcPrefix="''"
         :media="media"
         :mediaType="'tv'"

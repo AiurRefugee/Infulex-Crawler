@@ -4,35 +4,44 @@ import { genres, tvGenre } from '@/config/genre'
 import { tmdbImgPrefix } from "@/config/tmdbConfig.js";
 
 import { mediasApi } from "@/apis/medias.js";
-
+const defaultArrays = ["", "", "", "", "", "", "", "", "", ""]
 export const useMediaStore = defineStore('films', {
   state: () => ({
-    favoriteMovies: [],
-    favoriteTVs: [],
-    movieLibrary: [],
-    tvLibrary: [],
+    favoriteMovies: [""],
+    favoriteTVs: [""],
+    movieLibrary: [""],
+    tvLibrary: [""],
     genres: genres,
     tvGenre
   }),
   getters: {
     // double: (state) => state.count * 2,
-    favoriteMoviesIs: (state) => {
-      const movies = state.favoriteMovies.map(movie => movie?.id);
-      return new Set(movies)
+    favoriteMoviesIs: (state) => { 
+      if (state.movieLibrary && state.movieLibrary?.length) {
+        return new Set(state.movieLibrary.map(movie => movie?.id))
+      } 
+      return new Set()
     },
     favoriteTVsIs: (state) => {
-      const tvs = state.favoriteTVs.map(tv => tv?.id);
-      return new Set(tvs)
+      if (state.favoriteTVs && state.favoriteTVs?.length) {
+        return new Set(state.favoriteTVs.map(tv => tv?.id))
+      } 
+      return new Set()
     },
     movieLibraryIs: (state) => {
-      if (state.movieLibrary?.length === 0) return new Set()
-      const movies = state.movieLibrary.map(movie => movie?.id);
-      return new Set(movies)
+      if (state.movieLibrary && state.movieLibrary?.length) {
+        const movies = state.movieLibrary?.map(movie => movie?.id);
+        return new Set(movies)
+      } 
+      return new Set()
     },
     tvLibraryIs: (state) => {
-      if (state.tvLibrary?.length === 0) return new Set()
-      const tvs = state.tvLibrary.map(tv => tv?.id);
-      return new Set(tvs)
+      if (state.tvLibrary && state.tvLibrary?.length) {
+        const tvs = state.tvLibrary?.map(tv => tv?.id);
+        return new Set(tvs)
+      } 
+      return new Set()
+      
     }
   },
   actions: {
@@ -92,23 +101,36 @@ export const useMediaStore = defineStore('films', {
     },
 
     async fetchFavoriteMovieList() {
-      const movies = await mediasApi.getFavoriteList('movie');
-      this.favoriteMovies = movies;
-    },
+      mediasApi.getFavoriteList('movie').then(res => {
+        this.favoriteMovies = res ?.length ? res : [""];
+      }).catch(err => {
+        console.log('fetchFavoriteMovieList', err)
+      })
+     },
 
     async fetchFavoriteTVList() {
-      const tvs = await mediasApi.getFavoriteList('tv');
-      this.favoriteTVs = tvs;
+      mediasApi.getFavoriteList('tv').then(tvs => {
+        this.favoriteTVs = tvs ?.length ? tvs : [""];
+      }).catch(err => {
+        console.log('fetchFavoriteTVList', err)
+      })
+      
     },
 
     async fetchLibraryMovieList() {
-      const movies = await mediasApi.getLibraryList('movie');
-      this.movieLibrary = movies;
+      mediasApi.getLibraryList('movie').then(res => {
+        this.movieLibrary = res?.length ? res : [""];
+      }).catch(err => {
+        console.log('fetchLibraryMovieList', err)
+      })
     },
 
     async fetchLibraryTVList() {
-      const tvs = await mediasApi.getLibraryList('tv');
-      this.tvLibrary = tvs;
+      mediasApi.getLibraryList('tv').then(res => {
+        this.tvLibrary = res ?.length ? res : [""];
+      }).catch(err => {
+        console.log('fetchLibraryTVList', err)
+      })
     },
 
     async initMediaStore() {

@@ -101,7 +101,7 @@ onMounted(() => {
     </template>
     <template #card="{ media }">
       <videoCardBasic
-        class="pr-1"
+        class="pr-2"
         :media="media"
         :mediaType="mediaType"
         @click="toDetail(media, mediaType)"

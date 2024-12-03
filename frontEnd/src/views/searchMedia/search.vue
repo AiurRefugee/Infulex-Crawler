@@ -67,24 +67,13 @@ onMounted(() => {
           <h1>按类别浏览</h1>
         </div>
         
-        <div class="buttonGrid" v-if="mediaType === 'movie'">
-          <button
-            class="browseClassButton browseButtonSize rounded-lg center"
-            :style="{ backgroundImage: tag.backgroundImage }"
-            v-for="tag in genres"
-            :key="tag"
-            @click="searchDetail('movie', tag.id, tag.name)"
-          >
-            <text>{{ tag.name }}</text>
-          </button>
-        </div>
-        <div class="buttonGrid" v-if="mediaType === 'tv'">
+        <div class="buttonGrid">
           <button
             class="browseClassButton browseButtonSize rounded-lg center"
             :style="{ backgroundImage: tag.background }"
-            v-for="tag in tvGenre"
-            :key="tag" 
-            @click="searchDetail('tv', tag.id, tag.name)"
+            v-for="tag in genres"
+            :key="tag"
+            @click="searchDetail('movie', tag.id, tag.name)"
           >
             <text>{{ tag.name }}</text>
           </button>

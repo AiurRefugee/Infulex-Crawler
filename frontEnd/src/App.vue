@@ -13,6 +13,7 @@ const shouldTrans = computed(() => showTab.value && size.value != 'small');
 onMounted(() => {
   mediaStore.initMediaStore();
   layout.calSize()
+  layout.setTabIconVisible(true)
   window.addEventListener("resize", layout.calSize);
 });
 </script>
