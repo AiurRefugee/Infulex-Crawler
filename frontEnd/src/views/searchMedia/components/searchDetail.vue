@@ -11,7 +11,7 @@ import { useMediaStore } from "@/stores/media";
 import TypeTab from './typeTab.vue'; 
 const route = useRoute() 
 const router = useRouter()
-const { mediaType, genreId, genreName } = route.params
+const { genreName } = route.params
 const layout = layoutStore();
 const mediaStore = useMediaStore();
 const genres = computed(() => mediaStore.genres)
@@ -24,37 +24,61 @@ const list = ref([])
 const tvList = ref([])
 const type = ref('movie')
 const scrollTop = ref(0)
+const scrollWrap = ref(null)
 const today = new Date().toLocaleString().split(' ')[0]
 const queryParam = {
     page: 0,
+    language: 'zh-CN', 
+}
+const tvQueryParam = {
+    page: 0,
     language: 'zh-CN',
-    // sort_by: 'primary_release_date.desc',
-    // 'release_date.lte': today
 }
 const windowHeight = window.innerHeight
 let maxHeight = 0, calHeightTimeout = null, canSearch = true
-let totalPage = 10
+let totalPage = 10, tvTotalPage = 10
 
 const calHeight = () => {
-    maxHeight = document.getElementsByClassName('gridArea')[0].scrollHeight
-    canSearch = true 
+    maxHeight = scrollWrap.value.scrollHeight
+    console.log(maxHeight)
+    
 }
 
 const search = () => {
     if (!canSearch) return
     canSearch = false 
     const genreId = type.value == 'movie' ? movieTag.value.id : tvTag.value.id
-    if (queryParam.page == totalPage) return false
-    queryParam.page += 1
-    const params = {
-        ...queryParam,
-        with_genres: genreId
+    let params
+    if (type.value == 'movie') {
+        if (queryParam.page >= totalPage) return
+        queryParam.page += 1
+        params = {
+            ...queryParam,
+            with_genres: genreId
+        }
     }
-    tmdbApi.discover(type.value, params).then( res => {
-        totalPage = res.total_pages
+    if (type.value == 'tv') {
+        if (tvQueryParam.page >= tvTotalPage) return
+        tvQueryParam.page += 1
+        params = {
+            ...tvQueryParam,
+            with_genres: genreId
+        }
+    }
+    
+    tmdbApi.discover(type.value, params).then(async res => {
+        if (type.value == 'movie') {
+            totalPage = res.total_pages
+        }
+        if (type.value == 'tv') {
+            tvTotalPage = res.total_pages
+        }
+
         const listPointer = type.value == 'movie' ? list : tvList
         listPointer.value = listPointer.value.concat(res.results)
-        setTimeout( calHeight, 100)
+        await nextTick()
+        calHeight()
+        canSearch = true 
     }).catch( err => {
         canSearch = true
         console.log('discover err', err)
@@ -62,18 +86,35 @@ const search = () => {
 }
 
 
-watch(scrollTop, (newVal) => { 
+watch(scrollTop, async (newVal) => { 
+    console.log('scrollTop', newVal, maxHeight)
+    await nextTick()
+    calHeight()
+    if (newVal + windowHeight > maxHeight - maxHeight / 5) {
+        search()
+    } else {
+        
+
+    }
+})
+
+watch(type, async (newVal) => {
+    init(newVal)
     if (newVal + windowHeight > maxHeight - maxHeight / 5) {
         search()
     }
 })
 
-watch(type, async (newVal) => {
-    canSearch = true
-    queryParam.page = 1
-    console.log('mediaType', newVal)
-    search()
-})
+const init = (type) => {
+    const param = type == 'movie' ? queryParam : tvQueryParam
+    if (param.page == 0) {
+        search()
+        if (layout.size == 'small') {
+            canSearch = true
+            search()
+        }
+    }
+}
 
 const toDetail = (media) => {
   console.log("toDetail");  
@@ -91,11 +132,7 @@ onMounted( () => {
     if (layout.size == 'small') {
         layout.setTabIconVisible(false)
     }
-    search()
-    if (layout.size != 'small') { 
-        canSearch = true
-        search()
-    }
+    init(type.value)
 })
 </script>
 <template>
@@ -121,11 +158,13 @@ onMounted( () => {
             
         </template>
         <template #content>
-            <div class="gridArea" v-if="type == 'movie'">
+            <div ref="scrollWrap">
+                <div class="gridArea" v-if="type == 'movie'">
                 <videoCardBasic :media="media" v-for="media in list" :key="media.id" @click="toDetail(media)"/>
-            </div>
-            <div class="gridArea" v-if="type == 'tv'">
-                <videoCardBasic :media="media" v-for="media in tvList" :key="media.id" @click="toDetail(media)"/>
+                </div>
+                <div class="gridArea" v-if="type == 'tv'">
+                    <videoCardBasic :media="media" v-for="media in tvList" :key="media.id" @click="toDetail(media)"/>
+                </div>
             </div>
         </template>
     </scrollView>
