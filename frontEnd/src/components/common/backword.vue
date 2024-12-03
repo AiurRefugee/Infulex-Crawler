@@ -1,4 +1,6 @@
 <script setup>
+import { layoutStore } from "@/stores/layout";
+const layout = layoutStore();
 const props = defineProps({
   title: {
     type: String,
@@ -7,7 +9,10 @@ const props = defineProps({
 });
 </script>
 <template>
-  <div class="backword h-full flex items-center">
+  <div 
+    :class="layout.tabIconVisible && !layout.showTab ? 'pl-[50px]' : ''"
+    class="backword h-full flex items-center cursor-pointer"
+  >
         <img class="h-[25px] aspect-square" src="@/assets/icons/back.svg"/>
         <p class="text-[1.1em] text-lg whitespace-nowrap">{{ title }}</p>
       </div>

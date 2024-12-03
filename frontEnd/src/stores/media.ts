@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import { genres } from '@/config/genre'
+import { genres, tvGenre } from '@/config/genre'
 import { tmdbImgPrefix } from "@/config/tmdbConfig.js";
 
 import { mediasApi } from "@/apis/medias.js";
@@ -11,7 +11,8 @@ export const useMediaStore = defineStore('films', {
     favoriteTVs: [],
     movieLibrary: [],
     tvLibrary: [],
-    genres: {...genres}
+    genres: genres,
+    tvGenre
   }),
   getters: {
     // double: (state) => state.count * 2,
@@ -24,10 +25,12 @@ export const useMediaStore = defineStore('films', {
       return new Set(tvs)
     },
     movieLibraryIs: (state) => {
+      if (state.movieLibrary?.length === 0) return new Set()
       const movies = state.movieLibrary.map(movie => movie?.id);
       return new Set(movies)
     },
     tvLibraryIs: (state) => {
+      if (state.tvLibrary?.length === 0) return new Set()
       const tvs = state.tvLibrary.map(tv => tv?.id);
       return new Set(tvs)
     }
@@ -118,18 +121,17 @@ export const useMediaStore = defineStore('films', {
 
     updateGenre() {
       mediasApi.getGenres().then((res) => {
-        for (const id in this.genres) {
-          const genre = this.genres[id]
+        for (const genre of this.genres) { 
           genre.backgroundImage = genre.background
         }
-        for (const genre of res) {
-          const backgroundImage = genre.media?.backdrop_path
-          const genreObj = this.genres[String(genre.id)]
-          const url = tmdbImgPrefix + backgroundImage
-          genreObj.backgroundImage = genreObj.background + `, url(${url})`
-          genreObj.latest = genre.media?.title || genre.media?.name
+        // for (const genre of res) {
+        //   const backgroundImage = genre.media?.backdrop_path
+        //   const genreObj = this.genres[String(genre.id)]
+        //   const url = tmdbImgPrefix + backgroundImage
+        //   genreObj.backgroundImage = genreObj.background + `, url(${url})`
+        //   genreObj.latest = genre.media?.title || genre.media?.name
             
-        }
+        // }
         console.log('updateGenre', this.genres)
       }).catch(err => {
         console.log(err)

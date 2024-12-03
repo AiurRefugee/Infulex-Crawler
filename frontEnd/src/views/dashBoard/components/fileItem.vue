@@ -20,8 +20,16 @@ const selectFile = (event) => {
   console.log("select file", event, props.file);
 };
 
+// size 为字节数
 const calSize = (size) => {
-  return (size / 1024 / 1024).toFixed(2)
+  let res = size
+  let unit = ['B', 'KB', 'MB', 'GB']
+  let index = 0
+  while(res > 1024) {
+    res /= 1024
+    index++
+  }
+  return res.toFixed(2) + unit[index]
 }
 </script>
 <template>
@@ -68,7 +76,7 @@ const calSize = (size) => {
         {{ file?.name }}
       </p>
       <p class="size text-sm text-dark-800 opacity-60" v-if="file.size">
-        {{ calSize(file.size) + ' MB'}}
+        {{ calSize(file.size) }}
       </p>
     </div>
   </div>

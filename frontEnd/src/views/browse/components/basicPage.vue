@@ -20,7 +20,7 @@ onMounted(() => {
           <slot name="back"></slot>
         </template>
         <template #center>
-          <h1 class="txtDarkPrimary select-none text-xl font-bold">
+          <h1 class="text-dark-900 select-none text-xl font-bold">
             {{ title }}
           </h1>
         </template>
@@ -35,19 +35,8 @@ onMounted(() => {
   </scrollView>
 </template>
 <style lang="scss" scoped>
-$gap: 0.5rem;
-.gridArea {
-  $minw: 120px;
-  display: grid; 
-  padding: 0 min(2%, 1rem);
-  grid-template-columns: repeat(
-    var(--show_all_grid_columns),
-    calc(calc(100% - $gap * (var(--show_all_grid_columns) - 1)) / var(--show_all_grid_columns))
-  );
-  grid-gap: $gap 0;
-  justify-content: space-around;
-  justify-items: center;
-}
+@import "@/style/variables.scss";
+
 
 .rect .gridArea {
   $minw: 160px;

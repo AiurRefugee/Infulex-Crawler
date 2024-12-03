@@ -38,7 +38,7 @@ onMounted(() => {
        <loadImg :src="imageSrcPrefix + posterPath"/>
     </div>
     <div class="info h-[3em]">
-      <p class="filmTitle  font-medium singleLine txtDarkPrimary" v-if="title">
+      <p class="filmTitle  font-medium singleLine text-dark-900" v-if="title">
         <span v-if="index != null">{{ index + 1 + '. ' }}</span>
         <span>{{ title }}</span>
       </p>

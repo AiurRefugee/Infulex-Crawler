@@ -91,12 +91,12 @@ onMounted(async () => {
     <template v-slot:header>
       <scrollHeader class="h-[45px]">
         <template v-slot:center>
-          <h1 class="txtDarkPrimary select-none text-xl font-bold">浏览</h1>
+          <h1 class="text-dark-900 select-none text-xl font-bold">浏览</h1>
         </template>
       </scrollHeader>
     </template>
     <template v-slot:content>
-      <h1 class="px-4 text-[1.6em] font-bold mb-2 txtDarkPrimary">浏览</h1>
+      <h1 class="px-4 text-[1.6em] font-bold mb-2 text-dark-900">浏览</h1>
 
       <aiqiyiVideos
         :title="'电视剧热播榜'"

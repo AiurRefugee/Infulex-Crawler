@@ -34,7 +34,7 @@ const loading = ref(true)
 
     <div class="mobileView w-full h-full flex flex-col justify-between">
       <div class="overviewArea flex flex-col">
-        <h1 class="creditTitle px-4 pt-2 pb-1 font-bold txtDarkPrimary">介绍</h1> 
+        <h1 class="creditTitle px-4 pt-2 pb-1 font-bold text-dark-900">介绍</h1> 
         <p class="px-4 text-sm txtDarkSecondary overflow-hidden text-ellipsis">
           {{ media?.overview }}
         </p> 

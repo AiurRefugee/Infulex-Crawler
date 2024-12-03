@@ -128,9 +128,7 @@ onMounted(() => {
   </videoListBasic>
   <basicPage class="rect" v-if="pageView" :title="videosTitle">
     <template #back>
-      <backword 
-        class=" trans" 
-        :class="tabIconVisible && !showTab ? 'pl-[50px]' : ''"
+      <backword  
         :title="'浏览'" 
         @click="back"
       />

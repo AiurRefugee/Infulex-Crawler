@@ -76,7 +76,7 @@ onMounted(() => {
 </script>
 <template>
   <div
-    class="tabNavWrapper trans overflow-auto bg-light-800 txtDarkPrimary"
+    class="tabNavWrapper trans overflow-auto bg-light-800 text-dark-900"
     :style="{
       width: showTab ? 'var(--tab_width)' : '0'
     }"

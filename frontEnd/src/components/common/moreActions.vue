@@ -97,7 +97,7 @@ onMounted(() => {
         :key="groupIndex"
       >
         <div
-          class="txtDarkPrimary bgLightPrimary"
+          class="text-dark-900 bgLightPrimary"
           v-for="(action, index) in group"
           :key="index"
         >

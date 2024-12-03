@@ -76,7 +76,7 @@ const mapGenre = (genreIds) => {
     >
       <div class="flex h-[2.2em] justify-between items-center gap-4 overflow-hidden">
         <h1
-          class="title text-[1.3em] overflow-hidden whitespace-nowrap text-ellipsis txtDarkPrimary"
+          class="title text-[1.3em] overflow-hidden whitespace-nowrap text-ellipsis text-dark-900"
         >
           {{ data?.name || data?.title }}
         </h1>

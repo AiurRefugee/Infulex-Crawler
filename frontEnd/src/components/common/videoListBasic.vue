@@ -37,7 +37,7 @@ onMounted(() => { });
 <template>
   <div>
     <div class="listHead px-4 flex justify-between items-center">
-      <h1 class="listTitle font-bold txtDarkPrimary">
+      <h1 class="listTitle font-bold text-dark-900">
         {{ title || "--" }}
       </h1>
       <slot name="showAll"></slot>

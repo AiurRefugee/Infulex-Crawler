@@ -1,21 +1,25 @@
 <script setup>
 import SearchView from "@/viewComponents/searchView.vue";
 import { ref, computed, inject, onMounted, watch } from "vue";
+import { useRouter } from "vue-router";
 import { layoutStore } from "@/stores/layout";
 import searchRow from "./components/searchRow.vue";
 import scrollView from "@/viewComponents/scrollView.vue";
-import classButtonList from "@/components/common/classButtonList.vue";
+import typeTab from "./components/typeTab.vue";
 import searchItem from "./components/searchItem.vue";
-import ScrollHeader from "@/components/common/scrollHeader.vue";
-
+import ScrollHeader from "@/components/common/scrollHeader.vue"; 
+import { useMediaStore } from "@/stores/media";
+const mediaStore = useMediaStore();
+const genres = computed(() => mediaStore.genres);
+const tvGenre = computed(() => mediaStore.tvGenre);
 const layout = layoutStore();
-
+const router = useRouter()
 const showTab = computed(() => layout.showTab);
-const genres = computed(() => layout.genres);
 const size = computed(() => layout.size);
 
 const showTitle = inject('showTitle') 
 
+const mediaType = ref('movie');
 const scrollArea = ref(null);
 const searchText = ref("复仇者联盟 3");
 const focused = ref(false);
@@ -27,14 +31,18 @@ const toogleStyle = () => {
   showTitle.value = scrollArea.value.scrollTop > 35;
 };
 
-watch(scrollTop, (newVal) => {
-  console.log('scrollTop', newVal);
-})
+// watch(scrollTop, (newVal) => {
+//   console.log('scrollTop', newVal);
+// })
 
+const searchDetail = (type, id, name) => {
+  router.push('/searchDetail/' + name);
+}
 
 
 
 onMounted(() => {
+  console.log(tvGenre.value)
   layout.setTabIconVisible(true)
 });
 </script>
@@ -43,23 +51,45 @@ onMounted(() => {
     <template #header>
       <ScrollHeader class="h-[45px]" v-if="!focused">
         <template v-slot:center>
-          <h1 class="txtDarkPrimary select-none text-xl font-bold">搜索</h1>
+          <h1 class="text-dark-900 select-none text-xl font-bold">搜索</h1>
         </template>
       </ScrollHeader> 
+      
     </template>
     <template #content>   
-      <h1 class="pageTitle pb-2 flex items-center bottom-0 px-4 text-dark-800 trans" v-if="!focused">搜索</h1>
+      <h1 class="pageTitle flex items-center bottom-0 px-4 text-dark-800 trans" v-if="!focused">搜索</h1>
  
-      <searchRow v-model:searchResult="searchResult" v-model:searchText="searchText" v-model:focused="focused" />
+      <searchRow class="py-2" v-model:searchResult="searchResult" v-model:searchText="searchText" v-model:focused="focused" /> 
+
       <!-- 按类别浏览 -->
       <div class="w-full h-full px-4 trans" v-if="!focused">
-        <div class="text-xl h-10 flex self-start txtDarkPrimary">
+        <div class="text-xl h-10 flex self-start text-dark-900">
           <h1>按类别浏览</h1>
         </div>
         
-        <div class="buttonGrid">
-          <classButtonList class="searchGenre" />
+        <div class="buttonGrid" v-if="mediaType === 'movie'">
+          <button
+            class="browseClassButton browseButtonSize rounded-lg center"
+            :style="{ backgroundImage: tag.backgroundImage }"
+            v-for="tag in genres"
+            :key="tag"
+            @click="searchDetail('movie', tag.id, tag.name)"
+          >
+            <text>{{ tag.name }}</text>
+          </button>
         </div>
+        <div class="buttonGrid" v-if="mediaType === 'tv'">
+          <button
+            class="browseClassButton browseButtonSize rounded-lg center"
+            :style="{ backgroundImage: tag.background }"
+            v-for="tag in tvGenre"
+            :key="tag" 
+            @click="searchDetail('tv', tag.id, tag.name)"
+          >
+            <text>{{ tag.name }}</text>
+          </button>
+        </div>
+
         <div class="h-[20vh]"></div>
       </div>
 
@@ -116,16 +146,16 @@ $gridNumSmall: 2;
 @keyframes hide {
   0% {
     // --backdropHeight: 50vmin;
-    transform: translateY(0);
+    height: 45px;
   } 
   100% {
     // --backdropHeight: 70vmin;
-    transform: translateY(30vh);
+    height: 0;
   }
 }
-.pageTitle {
+.searchRow {
   animation-timeline: --scrollTimeline;
-  animation-range: 45px;
+  animation-range: 0, 45px;
   animation-name: hide;
   animation-timing-function: linear;
 }

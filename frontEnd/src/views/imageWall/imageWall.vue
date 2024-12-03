@@ -48,7 +48,7 @@ onMounted(() => {
           <Backword @click="router.go(-1)"/>
         </template>
         <template #center>
-          <h1 class="txtDarkPrimary font-bold tracking-wider">
+          <h1 class="text-dark-900 font-bold tracking-wider">
             {{ mediaTitle }}
           </h1>
         </template>

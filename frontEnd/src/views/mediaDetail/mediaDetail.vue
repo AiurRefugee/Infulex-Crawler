@@ -253,7 +253,9 @@ onMounted(async () => {
     <template v-slot:header>
       <scrollHeader class="fixed top-0 z-10" :class="scrollTopModel > 45 ? 'bg-light-800' : ''">
         <template #left>
-          <backword :class="tabIconVisible && !layout.showTab ? 'pl-[50px]' : ''" @click="router.go(-1)"/>
+          <backword 
+            @click="router.go(-1)"
+          />
         </template> 
         <template v-slot:center>
           <h1 class="font-bold text-[1.2em] text-dark-900 whitespace-nowrap">

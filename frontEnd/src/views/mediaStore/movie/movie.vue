@@ -50,12 +50,12 @@ onMounted(() => {
     <template v-slot:header>
       <scrollHeader class="h-[45px]">
         <template v-slot:center>
-          <h1 class="font-bold text-[1.2em] txtDarkPrimary whitespace-nowrap">电影</h1>
+          <h1 class="font-bold text-[1.2em] text-dark-900 whitespace-nowrap">电影</h1>
         </template>
       </scrollHeader>
     </template>
     <template v-slot:content>
-      <h1 class="px-4 text-[1.6em] font-bold mb-2 txtDarkPrimary">电影</h1>
+      <h1 class="px-4 text-[1.6em] font-bold mb-2 text-dark-900">电影</h1>
       <videoListBasic :list="movieLibrary" :title="'最近添加'">
         <template #card="{ media }">
           <videoCardBasic

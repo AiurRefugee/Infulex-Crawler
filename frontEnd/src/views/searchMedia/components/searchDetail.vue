@@ -1,0 +1,116 @@
+<script setup> 
+import { useRoute, useRouter } from 'vue-router'
+import { ref, onMounted, watch, nextTick, computed } from 'vue' 
+import videoCardBasic from '@/components/cards/videoCardBasic.vue';
+import scrollView from '@/viewComponents/scrollView.vue';
+import scrollHeader from '@/components/common/scrollHeader.vue';
+import backword from '@/components/common/backword.vue';
+import { tmdbApi } from '@/apis/tmdbApi.js' 
+import { layoutStore } from "@/stores/layout";
+import { useMediaStore } from "@/stores/media";
+import TypeTab from './typeTab.vue'; 
+const route = useRoute() 
+const router = useRouter()
+const { mediaType, genreId, genreName } = route.params
+const layout = layoutStore();
+const mediaStore = useMediaStore();
+const genres = computed(() => mediaStore.genres)
+const tvGenre = computed(() => mediaStore.tvGenre)
+const movieTag = computed( () => genres.value.find( item => item.name == genreName))
+const tvTag = computed( () => tvGenre.value.find( item => item.name == genreName))
+const showTab = computed( () => movieTag.value && tvTag.value)
+const title = ref(genreName)
+const list = ref([]) 
+const type = ref('movie')
+const scrollTop = ref(0)
+const queryParam = {
+    page: 0,
+    language: 'zh-CN'
+}
+const windowHeight = window.innerHeight
+let maxHeight = 0, calHeightTimeout = null
+
+const calHeight = () => {
+    maxHeight = document.getElementsByClassName('gridArea')[0].scrollHeight
+    console.log(maxHeight)
+}
+
+const search = () => {
+    clearTimeout(calHeightTimeout)
+    const genreId = type.value == 'movie' ? movieTag.value.id : tvTag.value.id
+    queryParam.page += 1
+    const params = {
+        ...queryParam,
+        with_genres: genreId
+    }
+    tmdbApi.discover(type.value, params).then( res => {
+        list.value = list.value.concat(res.results)
+        setTimeout( calHeight, 100)
+    })
+}
+
+// watch(scrollTop, (newVal) => {
+//     console.log(newVal, maxHeight)
+//     if (newVal + windowHeight > maxHeight - windowHeight / 3) {
+//         search()
+//     }
+// })
+
+watch(type, async (newVal) => {
+    list.value = []
+    queryParam.page = 1
+    console.log('mediaType', newVal)
+    search()
+})
+
+const toDetail = (media) => {
+  console.log("toDetail");  
+  const title = media.title || media.name 
+  router.push({
+    path: '/mediaDetail/' + title,
+    query: {
+      id: media?.id,
+      media_type: type.value
+    },
+  })
+}
+
+onMounted( () => {
+    layout.setTabIconVisible(false)
+    search()
+    if (layout.size != 'small') { 
+        search()
+    }
+})
+</script>
+<template>
+    <scrollView v-model:scrollTopModel="scrollTop">
+        <template #header>
+            <scrollHeader :show="true" class="h-[45px]">
+                <template #left>
+                    <backword @click="router.back()"/>
+                </template>
+                <template #center>
+                    <h1 class="text-dark-900 select-none text-xl font-bold">{{ title }}</h1>
+                </template>
+                <template #right v-if="layout.size != 'small' && showTab">
+                    <div class="w-full h-full flex justify-end items-center pr-4">
+                        <TypeTab class="h-[25px]" v-model:mediaType="type"/>
+                    </div>
+                </template>
+            </scrollHeader>
+            <div class="pb-2 px-4 " v-if="layout.size == 'small' && showTab">
+                <TypeTab class="h-[30px]"  v-model:mediaType="type"/>
+            </div>
+            
+        </template>
+        <template #content>
+            <div class="gridArea">
+                <videoCardBasic :media="media" v-for="media in list" :key="media.id" @click="toDetail(media)"/>
+            </div>
+        </template>
+    </scrollView>
+</template>
+<style scoped>
+
+</style>

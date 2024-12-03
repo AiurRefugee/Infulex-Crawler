@@ -22,6 +22,12 @@ export const tmdbApi = {
 
     GETParams,
 
+    discover: async (mediaType, params) => {
+        const url = tmdbAPIPrefix + `/discover/${mediaType}` 
+        const medias = await get(url, params, tmdbHeaders)
+        console.log('discover', medias)
+        return medias
+    },
     // search
     searchMulti: async (keyword) => {
         const url = tmdbAPIPrefix + '/search/multi'

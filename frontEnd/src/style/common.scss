@@ -32,7 +32,7 @@ input:focus-visible {
 // trans
 .trans {
     transition: $transBase;
-} 
+}
 .fastTrans {
     transition: $transFast;
 }
@@ -69,7 +69,7 @@ input:focus-visible {
 }
 
 // txt深色
-.txtDarkPrimary {
+.text-dark-900 {
     color: var(--text_dark_primary);
 }
 .txtDarkSecondary {
@@ -171,11 +171,10 @@ input:focus-visible {
     font-weight: 500;
 }
 
-.showAllGridRect{
+.showAllGridRect {
     display: grid;
     grid-template-columns: repeat(var(--show_all_grid_rect_columns), 1fr);
     justify-content: center;
-
 }
 .browsePr {
     padding-right: var(--browse_Pr);
@@ -200,7 +199,7 @@ input:focus-visible {
 }
 .basicRectW {
     width: calc(100vw / var(--basc_card_rect_num));
-} 
+}
 
 .listTitle {
     font-size: 1.25em;
@@ -209,4 +208,43 @@ input:focus-visible {
 .pageTitle {
     font-size: 1.6em;
     font-weight: bold;
+}
+.browseButtonSize {
+    height: 100%;
+    @media (width <= 500px) {
+        height: "";
+        aspect-ratio: 1;
+    }
+}
+.searchButton .browseButtonSize {
+    width: 100%;
+    height: 100%;
+}
+.browseClassButton {
+    flex-shrink: 0;
+    color: white; 
+    font-size: 2em;
+    // letter-spacing: 1em;
+    text-align: center;
+    font-weight: bold;
+    background-size: cover;
+    letter-spacing: 10px;
+    // margin-right: calc(var(--browse_Pr) * 1.2);
+}
+
+.gridArea {
+    $minw: 120px;
+    
+    display: grid;
+    padding: 0 min(2%, 1rem);
+    grid-template-columns: repeat(
+        var(--show_all_grid_columns),
+        calc(calc(100% - $gap * (var(--show_all_grid_columns) - 1)) / var(--show_all_grid_columns))
+    );
+    grid-gap: $gap 0;
+    justify-content: space-around;
+    justify-items: center;
+}
+.showBorderB {
+    border-bottom: 1px solid rgba(128, 128, 128, 0.4);
 }

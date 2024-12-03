@@ -44,6 +44,13 @@ const router = createRouter({
       }
     }, 
     {
+      path: '/searchDetail/:genreName',
+      component: () => import('../views/searchMedia/components/searchDetail.vue'),
+      meta: {
+        transition: 'fade'
+      }
+    },
+    {
       path: '/dashBoard',
       name: 'dashBoard',
       component: () => import('../views/dashBoard/dashBoard.vue'),
