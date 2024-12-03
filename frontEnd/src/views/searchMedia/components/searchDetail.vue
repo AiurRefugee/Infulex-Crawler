@@ -21,11 +21,15 @@ const tvTag = computed( () => tvGenre.value.find( item => item.name == genreName
 const showTab = computed( () => movieTag.value && tvTag.value)
 const title = ref(genreName)
 const list = ref([]) 
+const tvList = ref([])
 const type = ref('movie')
 const scrollTop = ref(0)
+const today = new Date().toLocaleString().split(' ')[0]
 const queryParam = {
     page: 0,
-    language: 'zh-CN'
+    language: 'zh-CN',
+    // sort_by: 'primary_release_date.desc',
+    // 'release_date.lte': today
 }
 const windowHeight = window.innerHeight
 let maxHeight = 0, calHeightTimeout = null, canSearch = true
@@ -48,20 +52,23 @@ const search = () => {
     }
     tmdbApi.discover(type.value, params).then( res => {
         totalPage = res.total_pages
-        list.value = list.value.concat(res.results)
+        const listPointer = type.value == 'movie' ? list : tvList
+        listPointer.value = listPointer.value.concat(res.results)
         setTimeout( calHeight, 100)
+    }).catch( err => {
+        canSearch = true
+        console.log('discover err', err)
     })
 }
 
-watch(scrollTop, (newVal) => {
-    console.log(newVal, maxHeight)
+
+watch(scrollTop, (newVal) => { 
     if (newVal + windowHeight > maxHeight - maxHeight / 5) {
         search()
     }
 })
 
 watch(type, async (newVal) => {
-    list.value = []
     canSearch = true
     queryParam.page = 1
     console.log('mediaType', newVal)
@@ -114,8 +121,11 @@ onMounted( () => {
             
         </template>
         <template #content>
-            <div class="gridArea">
+            <div class="gridArea" v-if="type == 'movie'">
                 <videoCardBasic :media="media" v-for="media in list" :key="media.id" @click="toDetail(media)"/>
+            </div>
+            <div class="gridArea" v-if="type == 'tv'">
+                <videoCardBasic :media="media" v-for="media in tvList" :key="media.id" @click="toDetail(media)"/>
             </div>
         </template>
     </scrollView>
