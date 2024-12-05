@@ -48,6 +48,10 @@ export const useTaskStore = defineStore('tasks', {
             
         },
 
+        clearSelectedTask() {
+            this.selectedTask = null
+        },
+
         buildFileTree(task) {
             const msgs = task.msgs
             if (!msgs || msgs.length === 0) {

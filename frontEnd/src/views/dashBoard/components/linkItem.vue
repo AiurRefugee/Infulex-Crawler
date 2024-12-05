@@ -26,7 +26,11 @@ const props = defineProps({
   overflow-wrap: anywhere;
   padding: $padding 2 * $padding;
   margin: $margin;
+  user-select: none;
   // background-color: $item_hover_color;
+}
+.linkItem:hover {
+  background: none;
 }
 .normal {
   color: #56b725;

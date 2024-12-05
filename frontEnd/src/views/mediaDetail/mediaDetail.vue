@@ -7,7 +7,6 @@ import backword from "@/components/common/backword.vue";
 import moreActions from "@/components/common/moreActions.vue";
 import creditCard from "@/components/cards/creditCard.vue";
 import videoCardBasic from "@/components/cards/videoCardBasic.vue";
-import addLibrary from "./components/addLibrary.vue";
 import addFavorite from "./components/addFavorite.vue";
 import share from "./components/share.vue";
 import moreImages from "./components/moreImages.vue";

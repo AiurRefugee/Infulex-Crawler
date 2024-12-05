@@ -1,6 +1,5 @@
 <script setup>
 import { ref, onMounted, computed, watch, inject } from "vue";
-import useFavoriteToggle from "../composables/favorite";
 import { useTaskStore } from "@/stores/tasks";
 import { tmdbImgPrefix } from '@/config/tmdbConfig'
 const media = inject("media");
@@ -8,12 +7,7 @@ const mediaType = inject("mediaType");
 const tvDetail = inject("tvDetail");
 const backdropUrl = inject("backdropUrl");
 const taskStore = useTaskStore();
-
-const { mediaDetail, isFavorite, toggleFavorite } = useFavoriteToggle(
-  media,
-  mediaType,
-  tvDetail
-);
+const isFavorite = ref(false);
 
 const createTask = () => {
   if (mediaType.value === "movie") {

@@ -45,16 +45,16 @@ const generesStr = computed( () => generes.value.map(item => item.name).join(', 
         <text class="whitespace-nowrap">{{ media?.vote_average }}</text>
       </span>
       <text class="whitespace-nowrap">{{ release_date?.split("-")?.[0] }}</text>
-      <text v-if="runtime">{{ runtime }}</text>
+      <text class="whitespace-nowrap" v-if="runtime">{{ runtime }}</text>
       <text class="tag">4K</text>
       <text class="tag">HDR</text>
       <!-- genere -->
       <span class="hideControl">
-        <text>{{ generesStr }}</text>
+        <text class="whitespace-nowrap">{{ generesStr }}</text>
       </span>
     </div>
     <p class="text-[0.9em] onlyMobile">
-      <text>{{ generesStr }}</text>
+      <text class="whitespace-nowrap">{{ generesStr }}</text>
     </p>
     <p class="hideControl h-[3.6em] leading-[1.2em] text-[0.9em] overflow-hidden text-ellipsis">{{ media?.overview }}</p>
   </div>

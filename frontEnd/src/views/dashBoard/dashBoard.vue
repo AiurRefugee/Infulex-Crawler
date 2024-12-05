@@ -43,7 +43,7 @@ onMounted(() => {
 @import "@/style/color.scss";
 
 .tasks {
-  --taskW: max(20vw, 450px);
+  --taskW: max(20vw, 400px);
   width: var(--taskW);
   min-width: 400px;
   flex-shrink: 0;

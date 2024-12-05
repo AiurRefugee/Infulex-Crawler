@@ -27,6 +27,14 @@ const switchListStype = (type) => {
   taskStore.switchListStype(type);
 }
 
+const back = () => {
+  if (layout.size == 'small') {
+    router.go(-1)
+  } else {
+    taskStore.clearSelectedTask()
+  }
+}
+
 onMounted(() => {
   const { mediaType, mediaId } = route.params;
   if (mediaType && mediaId) {
@@ -45,9 +53,12 @@ onMounted(() => {
       <scrollHeader :show="true" class="h-[50px]">
         <template v-slot:left>
           <div class="h-full flex items-center pl-[2%]" >
-            <backword :pl="pageMode" :title="selectedTask?.title" @click="router.go(-1)" />
+            <backword :pl="pageMode" :title="layout.size == 'small' ? '全部任务' : 'Back'" @click="back" />
           </div>
         </template> 
+        <template #center>
+          <h1 class="text-dark-900 whitespace-nowrap overflow-hidden te select-none text-xl font-bold">{{ selectedTask?.title }}</h1>
+        </template>
         <template v-slot:right>
           <div class="right pr-4 w-full h-full flex justify-end items-center gap-4">
             <div :class="listStype == 0 ? 'bg-light-600' : ''" class="iconWrap" @click="switchListStype(0)">

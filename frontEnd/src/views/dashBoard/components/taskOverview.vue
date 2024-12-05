@@ -2,6 +2,7 @@
 import { ref, computed } from "vue";
 import { useTaskStore } from "@/stores/tasks";
 import liItem from "@/components/common/liItem.vue";
+import loadImg from "@/components/common/loadImg.vue";
 import gsap from "gsap";
 import { layoutStore } from "@/stores/layout";
 import { useRouter } from "vue-router";
@@ -9,6 +10,10 @@ const router = useRouter();
 const tasks = useTaskStore();
 const layout = layoutStore();
 const size = computed(() => layout.size);
+const lastMsg = computed(() => {
+  const len = props.task.msgs.length
+  return props.task.msgs[len - 1]
+})
 
 const imgPrefix = "https://image.tmdb.org/t/p/original";
 const emit = defineEmits(["slideOpt"]);
@@ -94,12 +99,10 @@ const slideStart = (event) => {
       <template v-slot:content>
         <div class="taskOverview h-full flex items-center gap-4 p-2" ref="liWrap">
           <!-- poster -->
-          <img
-            :src="task?.backdropPath"
-            alt="poster"
-            class="h-full flex-shrink-0 aspect-square object-cover rounded-lg"
-          />
-
+           <div class="h-full flex-shrink-0 aspect-square object-cover rounded-lg">
+            <loadImg :src="task?.backdropPath" /> 
+           </div>
+           
           <!-- overview -->
           <div class="overview w-full h-full flex flex-col justify-around">
             <div class="w-full h-1/3 flex justify-between items-center">
@@ -133,11 +136,11 @@ const slideStart = (event) => {
               </div>
             </div>
 
-            <p class="h-1/3 text-dark-800 opacity-50">getLink</p>
+            <p class="h-1/3 text-dark-800 opacity-50">{{ lastMsg.type }}</p>
             <p
-              class="h-1/3 max-w-[200px] overflow-hidden text-ellipsis txtDarkBasic"
+              class="h-1/3 overflow-hidden text-ellipsis text-dark-200"
             >
-              <!-- {{ task.msgs?.[0]?.data }} -->
+              {{ task.createdAt }}
             </p>
           </div>
         </div>
@@ -178,11 +181,9 @@ $borderColor: rgba(118, 118, 118, 0.3);
 }
 .overview {
   font-size: 18px;
-}
-@media (width < 628px) {
-  .title {
-    max-width: 5em;
-  }
+} 
+.title {
+  max-width: 8em;
 }
 @media (width > 1440px) {
   .overview {

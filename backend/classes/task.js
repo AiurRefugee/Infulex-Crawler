@@ -14,7 +14,7 @@ class Task {
             backdropPath,
             status: '进行中',
             msgs: [],
-            createdAt: new Date(),
+            createdAt: (new Date()).toLocaleString(),
 
         }
         this.task = task
@@ -31,12 +31,23 @@ class Task {
     }
 
     getTaskInDb() {
-        const { mediaId, mediaType } = this;
+        const task = this.task
+        const { mediaId, mediaType } = task;
 
         const mongoManager = new MongoManager();
         const taskCollection = mongoManager.getCollection(taskCollectionName);
 
         return taskCollection.findOne({ id, mediaType });
+    }
+
+    updateTaskStatus(status) {
+        const task = this.task
+        const { mediaId, mediaType } = task;
+
+        const mongoManager = new MongoManager();
+        const taskCollection = mongoManager.getCollection(taskCollectionName);
+
+        taskCollection.updateOne({ mediaId, mediaType }, { $set: { status } });
     }
 
     addMsg(msg) {

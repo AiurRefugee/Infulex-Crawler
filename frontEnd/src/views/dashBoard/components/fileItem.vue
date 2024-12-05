@@ -57,8 +57,8 @@ const calSize = (size) => {
         </svg>
       </div>
     </div>
-    <div class="center aspect-square p-2">
-      <div class="w-full imgWrap">
+    <div class="center p-2">
+      <div class="w-full imgWrap center">
         <img
           src="@/assets/icons/fileIcon.svg"
           alt="file"
@@ -68,6 +68,7 @@ const calSize = (size) => {
           class="loadImg"
           v-if="file?.type == 'file'"
           :src="file?.thumbnail"
+          :defaultSrc="'src/assets/icons/play.svg'"
         />
       </div>
     </div>

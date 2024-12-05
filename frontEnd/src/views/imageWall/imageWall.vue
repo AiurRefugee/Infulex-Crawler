@@ -79,6 +79,6 @@ $gap: 1rem;
 .imageBrick {
   object-fit: contain; 
   border-radius: 8px;
-  box-shadow: $videoCardBasicBoxShadow;
+  // box-shadow: $videoCardBasicBoxShadow;
 }
 </style>

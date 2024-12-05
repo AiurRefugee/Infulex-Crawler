@@ -14,35 +14,7 @@ export const useMediaStore = defineStore('films', {
     genres: genres,
     tvGenre
   }),
-  getters: {
-    // double: (state) => state.count * 2,
-    favoriteMoviesIs: (state) => { 
-      if (state.movieLibrary && state.movieLibrary?.length) {
-        return new Set(state.movieLibrary.map(movie => movie?.id))
-      } 
-      return new Set()
-    },
-    favoriteTVsIs: (state) => {
-      if (state.favoriteTVs && state.favoriteTVs?.length) {
-        return new Set(state.favoriteTVs.map(tv => tv?.id))
-      } 
-      return new Set()
-    },
-    movieLibraryIs: (state) => {
-      if (state.movieLibrary && state.movieLibrary?.length) {
-        const movies = state.movieLibrary?.map(movie => movie?.id);
-        return new Set(movies)
-      } 
-      return new Set()
-    },
-    tvLibraryIs: (state) => {
-      if (state.tvLibrary && state.tvLibrary?.length) {
-        const tvs = state.tvLibrary?.map(tv => tv?.id);
-        return new Set(tvs)
-      } 
-      return new Set()
-      
-    }
+  getters: { 
   },
   actions: {
     addToFavorite(media, type) {
