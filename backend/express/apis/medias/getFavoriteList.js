@@ -18,8 +18,13 @@ const getFavoriteList = async (mediaType, queryParam) => {
     const sortBy = queryParam.sortBy ? queryParam.sortBy : {}
     const listPromise = await collection.find({}).sort(sortBy).skip((pageNumber - 1) * pageSize).limit(pageSize)
     const list = await listPromise.toArray()
+    const total = await collection.countDocuments({})
+    const totalPage = Math.ceil(total / pageSize) 
     console.log('getFavoriteList', list)
-    return list
+    return {
+        data: list,
+        totalPage
+    }
 }
 
 const listenGetFavoriteList = (app) => {

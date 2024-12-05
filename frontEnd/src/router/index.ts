@@ -43,13 +43,7 @@ const router = createRouter({
       component: () => import('../views/dashBoard/dashBoard.vue'),
       meta: {
         transition: 'fade'
-      },
-      children: [
-        {
-          path: '/dashBoard/taskDetail',
-          component: () => import('../views/dashBoard/components/taskDetail.vue'),
-        }
-      ]
+      }
     },
     {
       path: '/taskDetail/:mediaType/:mediaId',
@@ -67,6 +61,13 @@ const router = createRouter({
       path: '/favorite',
       name: 'favorite',
       component: () => import('../views/mediaStore/favorite.vue'),
+      meta: {
+        transition: 'fade'
+      }
+    },
+    {
+      path: '/favorite/:mediaType',
+      component: () => import('../views/mediaStore/components/favoriteDetail.vue'),
       meta: {
         transition: 'fade'
       }
