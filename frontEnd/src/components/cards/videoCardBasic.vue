@@ -84,10 +84,7 @@ $margin: 5px;
 
 .basicCard {
   --border_color: transparent;
-  // width: calc(100vw / var(--basc_card_num));
-  flex-shrink: 0;
-
-  // font-size: 14px;
+  flex-shrink: 0; 
   .cardImage {
 
     outline: 3px var(--border_color) solid;

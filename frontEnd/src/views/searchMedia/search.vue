@@ -5,7 +5,7 @@ import { useRouter } from "vue-router";
 import { layoutStore } from "@/stores/layout";
 import searchRow from "./components/searchRow.vue";
 import scrollView from "@/viewComponents/scrollView.vue";
-import typeTab from "./components/typeTab.vue";
+import typeTab from "../../components/common/typeTab.vue";
 import searchItem from "./components/searchItem.vue";
 import ScrollHeader from "@/components/common/scrollHeader.vue"; 
 import { useMediaStore } from "@/stores/media";

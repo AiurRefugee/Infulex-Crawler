@@ -3,6 +3,17 @@ const infulexPrefix = '/api'
 
 export const mediasApi = {
 
+    findFavorite: async (mediaId, mediaType) => {
+        const url = infulexPrefix + `/findFavorite`
+        const data = {
+            mediaId,
+            mediaType
+        }
+        const result = await post(url, data)
+        console.log('findFavorite', result)
+        return result
+    },
+
     // 收藏
     addToFavorite: async (media, mediaType) => {
         const url = infulexPrefix + `/addToFavorite`
@@ -16,10 +27,11 @@ export const mediasApi = {
     },
 
     // 收藏的列表
-    getFavoriteList: async (mediaType) => {
+    getFavoriteList: async (mediaType, queryParam) => {
         const url = infulexPrefix + `/getFavoriteList`
         const params = {
-            mediaType
+            mediaType,
+            queryParam
         }
         const favoriteMovies = await get(url, params)
         console.log('getFavoriteList', favoriteMovies)
@@ -51,10 +63,11 @@ export const mediasApi = {
     },
 
     // 资料库列表
-    getLibraryList: async (mediaType) => {
+    getLibraryList: async (mediaType, queryParm) => {
         const url = infulexPrefix + `/getLibraryList`
         const params = {
-            mediaType
+            mediaType,
+            ...queryParm
         }
         const libraryMovies = await get(url, params)
         console.log('getLibraryList', libraryMovies)

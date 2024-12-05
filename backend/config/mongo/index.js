@@ -16,6 +16,8 @@ const generesCollectionName = 'generes'
 
 const taskCollectionName = 'tasks'
 
+const pageSize = 20 // 分页大小
+
 const mongoConfig = {
     databaseUrl,
     dbName,
@@ -27,7 +29,8 @@ const mongoConfig = {
     movieLibraryCollection,
     tvLibraryCollection,
     generesCollectionName,
-    taskCollectionName
+    taskCollectionName,
+    pageSize
 }
 
 module.exports = mongoConfig

@@ -10,7 +10,7 @@ onMounted(async () => {});
 <template>
   <button
     class="browseClassButton browseButtonSize rounded-lg center"
-    :style="{ backgroundImage: tag.backgroundImage }"
+    :style="{ backgroundImage: tag.background }"
     v-for="tag in genres"
     :key="tag"
   >

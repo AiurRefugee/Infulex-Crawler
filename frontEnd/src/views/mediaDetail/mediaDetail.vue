@@ -6,8 +6,7 @@ import scrollHeader from "@/components/common/scrollHeader.vue";
 import backword from "@/components/common/backword.vue";
 import moreActions from "@/components/common/moreActions.vue";
 import creditCard from "@/components/cards/creditCard.vue";
-import videoCardBasic from "@/components/cards/videoCardBasic.vue";
-import addFavorite from "./components/addFavorite.vue";
+import videoCardBasic from "@/components/cards/videoCardBasic.vue"; 
 import share from "./components/share.vue";
 import moreImages from "./components/moreImages.vue";
 import toSeries from "./components/toSeries.vue";
@@ -23,6 +22,7 @@ const route = useRoute();
 const router = useRouter();
 const layout = layoutStore();
 const tasks = useTaskStore();
+const isFavorite = ref(false);
 
 const defaultArray = ["", "", "", "", "", "", "", "", "", "", "", ""];
 
@@ -42,19 +42,11 @@ const mediaDetail = ref({});
 const TVDetail = ref({});
 const generes = ref([]);
 const mediaTitle = ref("");
-const guestStars = ref(defaultArray);
+const guestStars = ref([]);
 const cast = ref([]);
-const crew = ref(defaultArray);
+const crew = ref([]);
 
 const actions = [
-  [
-    {
-      title: "addToLibrary",
-    },
-    {
-      title: "addToFavorite",
-    },
-  ],
   [
     {
       title: 'toSeries'
@@ -69,7 +61,6 @@ const actions = [
     }
   ]
 ]
-const tabIconVisible = computed(() => layout.tabIconVisible) 
 const direcotors = computed(() => {
   return crew.value.filter((crewMember) => crewMember.job === "Director");
 });
@@ -88,10 +79,11 @@ const credits = computed(() => {
   if (creditArray.length) {
     return creditArray;
   } else {
-    return defaultArray;
+    return [];
   }
 });
 
+provide('isFavorite', isFavorite)
 provide("tvDetail", TVDetail);
 provide("seasonNum", seasonNum);
 provide("episodeNum", episodeNum);
@@ -103,9 +95,16 @@ provide("generes", generes);
 const scrollTopModel = ref(0) 
 const clearCredits = () => {
   cast.value = [];
-  crew.value = defaultArray;
-  guestStars.value = defaultArray;
+  crew.value = [];
+  guestStars.value = [];
 };
+
+const findFavorite = async (mediaId, mediaType) => { 
+  mediasApi.findFavorite(mediaId, mediaType).then(res => {
+    console.log(res)
+    isFavorite.value = res?.data != null
+  }) 
+}
 
 const calSeasonAndEpisodeNumber = (id, media_type) => {
   if (media_type == "tv") {
@@ -204,6 +203,7 @@ const render = async (id, media_type) => {
     await getMovieDetail(id);
     getMovieCredits(id);
   }
+  findFavorite(id, mediaType.value)
 };
 
 const addTask = () => {
@@ -241,6 +241,7 @@ onMounted(async () => {
     id = await searchMedia(title, media_type, year);
   }
   mediaId.value = id;
+  findFavorite(mediaId.value, mediaType.value);
   calSeasonAndEpisodeNumber(id, media_type);
   console.log(id, media_type);
   render(id, media_type);
@@ -263,11 +264,10 @@ onMounted(async () => {
         </template>
         <template v-slot:right>
           <moreActions :actions="actions">
-            <template v-slot:addToLibrary><addLibrary /></template>
-            <template v-slot:addToFavorite><addFavorite /></template>
-            <template v-slot:share><share /></template>
-            <template v-slot:toSeries><toSeries /></template>
-            <template v-slot:moreImages><moreImages /></template>
+            <!-- <template #addToFavorite><addFavorite /></template> -->
+            <template #share><share /></template>
+            <template #toSeries><toSeries /></template>
+            <template #moreImages><moreImages /></template>
           </moreActions>
         </template>
       </scrollHeader>

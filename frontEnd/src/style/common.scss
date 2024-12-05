@@ -222,7 +222,7 @@ input:focus-visible {
 }
 .browseClassButton {
     flex-shrink: 0;
-    color: white; 
+    color: white;
     font-size: 2em;
     // letter-spacing: 1em;
     text-align: center;
@@ -234,7 +234,7 @@ input:focus-visible {
 
 .gridArea {
     $minw: 120px;
-    
+
     display: grid;
     padding: 0 min(2%, 1rem);
     grid-template-columns: repeat(
@@ -247,7 +247,7 @@ input:focus-visible {
 }
 .rect .gridArea {
     $minw: 120px;
-    
+
     display: grid;
     padding: 0 min(2%, 1rem);
     grid-template-columns: repeat(
@@ -260,4 +260,21 @@ input:focus-visible {
 }
 .showBorderB {
     border-bottom: 1px solid rgba(171, 170, 170, 0.288);
+}
+
+.divider {
+    $space: 0.6em;
+    height: 1px;
+    // display: none;
+    background-color: rgba(172, 172, 172, 0.4);
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: $space;
+    margin-bottom: $space * 2;
+    @media (width <= 1440px) {
+        background-color: transparent;
+        // $space: 5px;
+        margin-top: $space;
+        margin-bottom: $space;
+    }
 }

@@ -247,22 +247,7 @@ onMounted(async () => {
   </scrollView>
 </template>
 <style lang="scss" scoped>
-.divider {
-  $space: 0.6em;
-  height: 1px;
-  // display: none;
-  background-color: rgba(172, 172, 172, 0.4);
-  margin-left: 1rem;
-  margin-right: 1rem;
-  margin-top: $space;
-  margin-bottom: $space * 2;
-  @media (width <= 1440px) {
-    background-color: transparent;
-    // $space: 5px;
-    margin-top: $space;
-    margin-bottom: $space;
-  }
-}
+
 .scrollViewArea:nth-child(1) {
   background: red;
   .borderB {

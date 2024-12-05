@@ -136,7 +136,7 @@ const slideStart = (event) => {
               </div>
             </div>
 
-            <p class="h-1/3 text-dark-800 opacity-50">{{ lastMsg.type }}</p>
+            <p class="h-1/3 text-dark-800 opacity-50">{{ lastMsg?.type }}</p>
             <p
               class="h-1/3 overflow-hidden text-ellipsis text-dark-200"
             >
@@ -148,7 +148,7 @@ const slideStart = (event) => {
     </liItem>
   </div>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/style/color.scss";
 @keyframes loading {
   0% {
@@ -183,7 +183,7 @@ $borderColor: rgba(118, 118, 118, 0.3);
   font-size: 18px;
 } 
 .title {
-  max-width: 8em;
+  max-width: 6em;
 }
 @media (width > 1440px) {
   .overview {

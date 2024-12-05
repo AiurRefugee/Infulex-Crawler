@@ -1,28 +1,39 @@
 <script setup>
-import { ref, onMounted, computed, watch, inject } from "vue";
+import { ref, onMounted, computed, nextTick, inject } from "vue";
 import { useTaskStore } from "@/stores/tasks";
-import { tmdbImgPrefix } from '@/config/tmdbConfig'
+import { tmdbImgPrefix } from "@/config/tmdbConfig";
+import { mediasApi } from "@/apis/medias";
 const media = inject("media");
 const mediaType = inject("mediaType");
 const tvDetail = inject("tvDetail");
 const backdropUrl = inject("backdropUrl");
+const isFavorite = inject("isFavorite");
 const taskStore = useTaskStore();
-const isFavorite = ref(false);
+const detail = computed(() =>
+  mediaType.value === "movie" ? media.value : tvDetail.value
+);
+
+const toggleFavorite = () => {
+  if (isFavorite.value) {
+    mediasApi.removeFavorite(detail.value.id, mediaType.value).then((res) => {
+      isFavorite.value = false;
+    });
+  } else {
+    mediasApi.addToFavorite(detail.value, mediaType.value).then((res) => {
+      isFavorite.value = true;
+    });
+  }
+};
 
 const createTask = () => {
-  if (mediaType.value === "movie") {
-    const backdrop_path = tmdbImgPrefix + mediaDetail.value?.poster_path || mediaDetail.value?.backdrop_path
-    taskStore.createTask(media.value, mediaType.value, backdrop_path);
-  }
-  if (mediaType.value === "tv") {
-    const backdrop_path = tmdbImgPrefix + tvDetail.value?.poster_path || tvDetail.value?.backdrop_path
-    taskStore.createTask(tvDetail.value, mediaType.value, backdrop_path);
-  }
-  
-}
+  const title = detail.value?.title || detail.value?.name; 
+  taskStore.createTask(mediaType.value,  detail.value.id, title, backdropUrl.value);
+};
 
-
-onMounted(async () => {});
+onMounted(async () => {
+  // await nextTick()
+  // findFavorite()
+});
 </script>
 <template>
   <div class="px-4">

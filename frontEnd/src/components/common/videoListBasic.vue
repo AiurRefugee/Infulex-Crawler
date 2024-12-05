@@ -64,25 +64,25 @@ onMounted(() => { });
   width: calc(100vw / var(--basc_card_num));
 }
 
-.listWrap::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 30px;
-  height: 100%;
-  transition: all 0.2s ease-in-out;
-  background-image: linear-gradient(to right,
-      rgba(255, 255, 255, 0) 0,
-      #fff 100%);
-  will-change: opacity;
+// .listWrap::after {
+//   content: "";
+//   position: absolute;
+//   top: 0;
+//   right: 0;
+//   width: 30px;
+//   height: 100%;
+//   transition: all 0.2s ease-in-out;
+//   background-image: linear-gradient(to right,
+//       rgba(255, 255, 255, 0) 0,
+//       #fff 100%);
+//   will-change: opacity;
 
-  @media (prefers-color-scheme: dark) {
-    background-image: linear-gradient(to right,
-        rgba(255, 255, 255, 0) 0,
-        #000 100%);
-  }
-}
+//   @media (prefers-color-scheme: dark) {
+//     background-image: linear-gradient(to right,
+//         rgba(255, 255, 255, 0) 0,
+//         #000 100%);
+//   }
+// }
 
 .borderB {
   background: rgba(164, 163, 163, 0.368);

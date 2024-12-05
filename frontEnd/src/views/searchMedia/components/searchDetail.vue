@@ -8,7 +8,7 @@ import backword from '@/components/common/backword.vue';
 import { tmdbApi } from '@/apis/tmdbApi.js' 
 import { layoutStore } from "@/stores/layout";
 import { useMediaStore } from "@/stores/media";
-import TypeTab from './typeTab.vue'; 
+import TypeTab from '../../../components/common/typeTab.vue'; 
 const route = useRoute() 
 const router = useRouter()
 const { genreName } = route.params
@@ -88,7 +88,6 @@ const search = async () => {
 
 
 watch(scrollTop, async (newVal) => { 
-    console.log('scrollTop', newVal, maxHeight)
     await nextTick()
     calHeight()
     if (newVal + windowHeight > maxHeight - maxHeight / 5) {
@@ -152,7 +151,7 @@ onMounted( () => {
                 <videoCardBasic :toDetail="true" :media="media" v-for="media in list" :key="media.id"/>
                 </div>
                 <div class="gridArea" v-if="type == 'tv'">
-                    <videoCardBasic :toDetail="true" :media="media" v-for="media in tvList" :key="media.id"/>
+                    <videoCardBasic :toDetail="true" :media="media" :mediaType="'tv'" v-for="media in tvList" :key="media.id"/>
                 </div>
             </div>
         </template>

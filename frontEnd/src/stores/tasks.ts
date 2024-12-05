@@ -155,13 +155,7 @@ export const useTaskStore = defineStore('tasks', {
             this.getTopFiles()
         },
         
-        createTask(media, mediaType, backdropPath) {
-            const {
-                id: mediaId,
-                name,
-                title,
-            } = media
-            const mediaTitle = title || name
+        createTask(mediaType, mediaId, mediaTitle, backdropPath) { 
             taskApi.createTask(mediaType, mediaId, mediaTitle, backdropPath).then((res) => {
                 this.getTaskList()
             }).catch((err) => {

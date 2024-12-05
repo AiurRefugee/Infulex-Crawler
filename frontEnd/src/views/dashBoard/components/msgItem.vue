@@ -20,7 +20,11 @@ const props = defineProps({
   <div class="min-h-8 flex px-2 justify-between items-center flex-wrap"> 
     <div class="w-full flex justify-between items-center gap-4">
       <p class="type pr-4 text-[1.3em] getFile">{{ msg?.type }}</p>
-      <a v-if="msg?.link" class="text-dark-900 opacity-90 underline overflow-hidden whitespace-nowrap text-ellipsis" :href="msg?.link" target="_blank">...{{ msg.link.slice(22, -1) }}</a>
+      <a 
+        v-if="msg?.link" 
+        class="msgLink text-dark-900 opacity-90 underline overflow-hidden whitespace-nowrap text-ellipsis" 
+        :href="msg?.link" target="_blank"
+      >{{ layout.size == 'small' ? msg.link.slice(22, -1) : msg.link }}</a>
     </div>
     <div class="w-full flex justify-end items-center gap-4">
     </div>
@@ -57,7 +61,9 @@ const props = defineProps({
   align-items: center;
   font-weight: bold;
 }
-
+.msgLink:hover {
+  color: #26679c;
+}
 .getFile {
   color: #579cd6;
 }

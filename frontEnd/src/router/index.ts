@@ -64,9 +64,9 @@ const router = createRouter({
       }
     },
     {
-      path: '/movie',
-      name: 'movie',
-      component: () => import('../views/mediaStore/movie/movie.vue'),
+      path: '/favorite',
+      name: 'favorite',
+      component: () => import('../views/mediaStore/favorite.vue'),
       meta: {
         transition: 'fade'
       }

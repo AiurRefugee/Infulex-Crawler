@@ -8,32 +8,16 @@ const animateDuration = 250
 export const layoutStore = defineStore('layout', {
   state: () => ({
     size: 'normal',
-    layoutContent: [
-      {
-        text: "媒体库",
-        image: "src/assets/icons/mediastore.svg",
-        showChild: true,
-        children: [
-          {
-            text: "类型",
-            image: "src/assets/icons/mediaType.svg",
-          },
-          {
-            text: "电影",
-            image: "src/assets/icons/movie.svg",
-            path: '/movie'
-          },
-          {
-            text: "剧集",
-            image: "src/assets/icons/tv.svg",
-          },
-        ],
-      },
+    layoutContent: [ 
       {
         text: "浏览",
         path: '/browse',
         image: "src/assets/icons/browse.svg",
-        height: 'unknown',
+      },
+      {
+        text: "我的收藏",
+        path: '/favorite',
+        image: "src/assets/icons/mediaType.svg",
       },
       {
         text: "搜索",
