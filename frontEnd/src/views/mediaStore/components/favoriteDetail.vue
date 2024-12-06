@@ -31,7 +31,7 @@ let totalPage = 1,
 watch(scrollTop, async (newVal) => {
   await nextTick();
   calHeight();
-  if (newVal + windowHeight > maxHeight - maxHeight / 5) {
+  if (newVal + windowHeight > maxHeight - windowHeight / 3) {
   }
 });
 

@@ -68,7 +68,7 @@ const calSize = (size) => {
           class="loadImg"
           v-if="file?.type == 'file'"
           :src="file?.thumbnail"
-          :defaultSrc="'src/assets/icons/play.svg'"
+          :defaultSrc="file?.category == 'image' ? 'src/assets/icons/defaultImage.svg' : 'src/assets/icons/play.svg'"
         />
       </div>
     </div>

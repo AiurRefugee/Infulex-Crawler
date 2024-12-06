@@ -56,7 +56,7 @@ const generesStr = computed( () => generes.value.map(item => item.name).join(', 
     <p class="text-[0.9em] onlyMobile">
       <text class="whitespace-nowrap">{{ generesStr }}</text>
     </p>
-    <p class="hideControl h-[3.6em] leading-[1.2em] text-[0.9em] overflow-hidden text-ellipsis">{{ media?.overview }}</p>
+    <p class="hideControl pr-4 h-[3.6em] leading-[1.2em] text-[0.9em] overflow-hidden text-ellipsis">{{ media?.overview }}</p>
   </div>
 </template>
 <style scoped lang="scss">

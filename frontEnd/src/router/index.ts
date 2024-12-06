@@ -4,6 +4,14 @@ const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: '/',
+      name: 'home',
+      component: () => import('../views/home/home.vue'),
+      meta: {
+        transition: 'fade'
+      }
+    },
+    {
       path: '/browse',
       name: 'browse',
       component: () => import('../views/browse/browse.vue'),

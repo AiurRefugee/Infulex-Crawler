@@ -28,13 +28,15 @@ const scrollWrap = ref(null)
 const queryParam = {
     page: 0,
     language: 'zh-CN', 
+    'vote_average.gte': 7.0,
+    'vote_count.gte': 500
 }
 const tvQueryParam = {
     page: 0,
     language: 'zh-CN',
 }
 const windowHeight = window.innerHeight
-let maxHeight = 0, calHeightTimeout = null, canSearch = true
+let maxHeight = windowHeight, calHeightTimeout = null, canSearch = true
 let totalPage = 10, tvTotalPage = 10
 
 const calHeight = () => {
@@ -90,7 +92,7 @@ const search = async () => {
 watch(scrollTop, async (newVal) => { 
     await nextTick()
     calHeight()
-    if (newVal + windowHeight > maxHeight - maxHeight / 5) {
+    if (newVal + windowHeight > maxHeight - windowHeight / 3) {
         search()
     }
 })

@@ -10,7 +10,8 @@ export const tmdbHeaders = {
     }
 }
 export const GETParams = {
-    language: 'zh-CN'
+    language: 'zh-CN',
+    'vote_count.gte': 5.0
 }
 
 export const tmdbApi = {
@@ -29,14 +30,13 @@ export const tmdbApi = {
         return medias
     },
     // search
-    searchMulti: async (keyword) => {
+    searchMulti: async (keyword, params) => {
         const url = tmdbAPIPrefix + '/search/multi'
-        const params = {
+        const queryParam = {
             query: keyword,
-            page: 1,
-            language: 'zh-CN'
+            ...params
         }
-        const medias = await get(url, params, tmdbHeaders)
+        const medias = await get(url, queryParam, tmdbHeaders)
         console.log('medias', medias)
         return medias
     },

@@ -20,7 +20,7 @@ const queryParam = {
   language: "zh-CN",
 };
 const windowHeight = window.innerHeight;
-let maxHeight = 0,
+let maxHeight = windowHeight,
   calHeightTimeout = null,
   canSearch = true;
 let totalPage = 10;
@@ -50,7 +50,7 @@ watch(scrollTop, async (newVal) => {
   console.log("scrollTop", newVal, maxHeight);
   await nextTick();
   calHeight();
-  if (newVal + windowHeight > maxHeight - maxHeight / 5) {
+  if (newVal + windowHeight > maxHeight - windowHeight / 3) {
     search();
   }
 });

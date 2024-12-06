@@ -1,11 +1,9 @@
 <script setup>
-import SearchView from "@/viewComponents/searchView.vue";
-import { ref, computed, inject, onMounted, watch } from "vue";
+import { ref, computed, inject, onMounted, provide } from "vue";
 import { useRouter } from "vue-router";
 import { layoutStore } from "@/stores/layout";
 import searchRow from "./components/searchRow.vue";
 import scrollView from "@/viewComponents/scrollView.vue";
-import typeTab from "../../components/common/typeTab.vue";
 import searchItem from "./components/searchItem.vue";
 import ScrollHeader from "@/components/common/scrollHeader.vue"; 
 import { useMediaStore } from "@/stores/media";
@@ -14,32 +12,19 @@ const genres = computed(() => mediaStore.genres);
 const tvGenre = computed(() => mediaStore.tvGenre);
 const layout = layoutStore();
 const router = useRouter()
-const showTab = computed(() => layout.showTab);
-const size = computed(() => layout.size);
+// const showTab = computed(() => layout.showTab);
+// const size = computed(() => layout.size);
 
-const showTitle = inject('showTitle') 
-
-const mediaType = ref('movie');
-const scrollArea = ref(null);
 const searchText = ref("复仇者联盟 3");
 const focused = ref(false);
 const searchResult = ref([]); // 搜索结果
 const scrollTop = ref(0);
-const titleHeight = ref(80)
 
-const toogleStyle = () => {
-  showTitle.value = scrollArea.value.scrollTop > 35;
-};
-
-// watch(scrollTop, (newVal) => {
-//   console.log('scrollTop', newVal);
-// })
+provide('scrollTop', scrollTop)
 
 const searchDetail = (type, id, name) => {
   router.push('/searchDetail/' + name);
 }
-
-
 
 onMounted(() => {
   console.log(tvGenre.value)
@@ -87,12 +72,8 @@ onMounted(() => {
         :class="focused ? 'bg-light-900' : ''" 
         class="searchResult w-full h-full"
         v-if="focused && searchResult.length && searchText"
-      >
-        <ul>
-          <li v-for="item in searchResult" :key="item.id">
-            <searchItem :data="item" />
-          </li>
-        </ul>
+      > 
+          <searchItem :data="item" v-for="item in searchResult" :key="item.id"/>
       </div>   
     </template> 
   </scrollView>

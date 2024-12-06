@@ -1,25 +1,52 @@
 <script setup>
-import { ref, computed, inject } from "vue";
+import { ref, computed, inject, watch, nextTick } from "vue";
 import { layoutStore } from "@/stores/layout";
 import { tmdbApi } from "@/apis/tmdbApi";
 
 const layout = layoutStore();
 const focused = defineModel("focused");
 
-const showTitle = inject("showTitle");
+const scrollTop = inject("scrollTop");
 
 const size = computed(() => layout.size);
 const searchText = defineModel("searchText");
 const searchResult = defineModel("searchResult");
+
+const queryParam = {
+  page: 0,
+  language: 'zh-CN'
+}
+const windowHeight = window.innerHeight
+
+let maxHeight = windowHeight, total_pages = 1, canSearch = true
+
+const calHeight = () => {
+    maxHeight = document.getElementsByClassName('searchResult')[0].scrollHeight
+    console.log(maxHeight)
+}
+
 /* 
 搜索tmdb 
 */
-const search = async () => {
-  if (searchText.value == "") {
-    searchResult.value = [];
+const search = async (clear = true) => {
+  console.log("search", searchText.value, clear); 
+  if (!canSearch || queryParam.page >= total_pages || !searchText.value) {
+    return;
   }
-  tmdbApi.searchMulti(searchText.value).then((res) => {
-    searchResult.value = res?.results;
+  canSearch = false
+  queryParam.page += 1;
+  tmdbApi.searchMulti(searchText.value, queryParam).then((res) => {
+    total_pages = res.total_pages;
+    if (clear) {
+      searchResult.value = res.results
+      canSearch = true
+    } else {
+      searchResult.value = searchResult.value.concat(res.results);
+      setTimeout( () => { 
+        canSearch = true 
+      }, 1000)
+    } 
+    setTimeout(calHeight, 500)
   });
 };
 
@@ -43,6 +70,21 @@ const handleBlur = () => {
     layout.setTabIconVisible(true);
   }
 };
+
+watch(searchText, async (newVal, oldVal) => {
+  console.log("searchText", newVal, oldVal);
+  searchResult.value = [];
+  queryParam.page = 0;
+  total_pages = 1
+  search() 
+})
+
+watch(scrollTop, async (newVal) => { 
+    await nextTick()
+    if (newVal + windowHeight > maxHeight - windowHeight / 3) {
+        search(false)
+    }
+})
 </script>
 <template>
   <div
@@ -64,9 +106,7 @@ const handleBlur = () => {
           v-model="searchText"
           class="w-full px-2 h-[1.6em] text-[1.2em] text-white"
           placeholder="电影，剧集"
-          @focus="handleFocus"
-          @input="search"
-          @keydown.enter="search"
+          @focus="handleFocus" 
         />
       </div>
       <text
