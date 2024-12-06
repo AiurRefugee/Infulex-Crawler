@@ -33,7 +33,7 @@ const search = () => {
     <div class="h-1/4"></div>
     <div class="w-full center overflow-auto hideScroll">
       <ul class="sites px-10 flex items-center gap-[10%] text-dark-500">
-        <li class="flex-shrink-0" v-for="site in sites" :key="site.name">
+        <li v-for="site in sites" :key="site.name">
           <img class="m-auto mb-2 h-16 aspect-square" :src="site.logo" />
           <!-- <p class="max-w-[120px] text-center overflow-hidden whitespace-pre break-words">{{ site.name }}</p> -->
         </li>
@@ -54,6 +54,7 @@ const search = () => {
           class="w-full h-full border-none outline-none"
           placeholder="搜索"
           type="text"
+          @keydown.enter="search"
         />
         <img class="h-2/3" src="@/assets/icons/send.svg" @click="search"/>
       </div>
@@ -69,6 +70,9 @@ const search = () => {
 }
 .sites {
     max-width: var(--max_w); 
+    li {
+        flex-shrink: 0;
+    }
     p {
         height: 2.2em;
         line-height: 1.1em;

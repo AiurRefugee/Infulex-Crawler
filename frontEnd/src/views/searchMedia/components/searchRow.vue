@@ -58,6 +58,7 @@ const handleFocus = () => {
   if (layout.showTab == false) {
     layout.setTabIconVisible(false);
   }
+  searchResult.value = [];
 };
 
 const handleBlur = () => {

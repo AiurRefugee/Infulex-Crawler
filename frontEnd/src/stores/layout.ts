@@ -10,6 +10,11 @@ export const layoutStore = defineStore('layout', {
     size: 'normal',
     layoutContent: [ 
       {
+        text: "首页",
+        path: '/',
+        image: "src/assets/icons/tv.svg",
+      },
+      {
         text: "浏览",
         path: '/browse',
         image: "src/assets/icons/browse.svg",
