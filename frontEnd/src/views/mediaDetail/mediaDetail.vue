@@ -18,30 +18,32 @@ import { useTaskStore } from "@/stores/tasks";
 import { layoutStore } from "@/stores/layout";
 import { tmdbApi } from "@/apis/tmdbApi.js";
 import { mediasApi } from "@/apis/medias.js";  
+import { taskApi } from "@/apis/tasks.js";
 const route = useRoute();
 const router = useRouter();
 const layout = layoutStore();
 const tasks = useTaskStore();
-const isFavorite = ref(false);
 
 const defaultArray = ["", "", "", "", "", "", "", "", "", "", "", ""];
 
+const isFavorite = ref(null);
 const backdropAreaRef = ref(null);
 const optButtonRef = ref(null);
 const mediaId = ref(null);
-const similar = ref(defaultArray);
+const inTaskList = ref(null)
 const selectedId = ref(null);
 const mediaType = ref(null);
-const seasonsViewRef = ref();
+const seasonsViewRef = ref(null);
+const similar = ref(defaultArray);  
 const seasons = ref(defaultArray);
 const episodes = ref(defaultArray);
 const seasonNum = ref(1);
-const episodeNum = ref(1);
+const episodeNum = ref(1); 
 const backdropUrl = ref("");
+const mediaTitle = ref("");
 const mediaDetail = ref({});
 const TVDetail = ref({});
-const generes = ref([]);
-const mediaTitle = ref("");
+const generes = ref([]); 
 const guestStars = ref([]);
 const cast = ref([]);
 const crew = ref([]);
@@ -91,6 +93,7 @@ provide("mediaType", mediaType);
 provide("backdropUrl", backdropUrl);
 provide("media", mediaDetail);
 provide("generes", generes);
+provide('inTaskList', inTaskList)
 
 const scrollTopModel = ref(0) 
 const clearCredits = () => {
@@ -98,6 +101,12 @@ const clearCredits = () => {
   crew.value = [];
   guestStars.value = [];
 };
+
+const findTask = async (mediaType, mediaId) => {
+  taskApi.getTaskDetail(mediaType, mediaId).then(res => {
+    inTaskList.value = res ? res : false
+  })
+} 
 
 const findFavorite = async (mediaId, mediaType) => { 
   mediasApi.findFavorite(mediaId, mediaType).then(res => {
@@ -242,6 +251,7 @@ onMounted(async () => {
   }
   mediaId.value = id;
   findFavorite(mediaId.value, mediaType.value);
+  findTask(mediaType.value, mediaId.value);
   calSeasonAndEpisodeNumber(id, media_type);
   console.log(id, media_type);
   render(id, media_type);

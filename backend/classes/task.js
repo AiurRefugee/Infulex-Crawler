@@ -69,8 +69,10 @@ class Task {
             for (const msg of task.msgs) {
                 if (msg.type == 'GET Links') {
                     const index = msg.data.findIndex(item => item.link == failedLink)
-                    msg.data[index].status = 'failed'
-                    break
+                    if (index != -1) {
+                        msg.data[index].status = 'failed'
+                        break
+                    }
                 }
             } 
             this.updateLink(failedLink, 'failed')

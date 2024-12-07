@@ -1,6 +1,6 @@
 const { chromium } = require('playwright');
 
-(async () => {
+(async (title) => {
   const browser = await chromium.launch({
     headless: false
   });
@@ -11,16 +11,17 @@ const { chromium } = require('playwright');
     window.navigator.__proto__.webdriver = undefined;
   })
    
-  const page = await context.newPage();
-  await page.goto('https://pan666.net/?q=双城之战');
+  const page = await context.newPage(); 
+  await page.goto('https://pan666.net/?q=双城之战' );
+  
 
-  //   await page.getByRole('button', { name: '不再弹出' }).click();
-  //   await page.getByRole('combobox').selectOption('ali');
-  //   await page.getByPlaceholder('输入关键词，回车/换行即可 搜索全网云盘资源').click();
-  //   await page.getByPlaceholder('输入关键词，回车/换行即可 搜索全网云盘资源').fill('双城之战');
-  //   await page.getByPlaceholder('输入关键词，回车/换行即可 搜索全网云盘资源').press('Enter');
+  await page.waitForSelector('ul[role="feed"]');
+  const links = await page.$$eval('a', as => as.map(a => a.href));
+  console.log(links);
+  let aliLinks = new Set(links.filter(link => link.includes('www.ali')));
 
-  //   // ---------------------
-  //   await context.close();
-  //   await browser.close();
-})();
+  aliLinks = Array.from(aliLinks).map(link => ({ link, status: 'normal' }))
+  // 打印所有链接
+  console.log('Found links:', aliLinks);
+  
+})('双城之战');

@@ -58,8 +58,10 @@ onMounted(async () => {
             <msgGrid class="pt-2" :handleClick="handleClick">
                 <template v-slot:list>
                     <fileItem v-for="file in topFiles" :key="file.file_id" :file="file" @click="handleClick(file)"/>
+                    
                 </template>
             </msgGrid>
+            <p class="w-full h-1/2 center text-xl text-light-200" v-if="!topFiles.length">暂无文件</p>
         </div>
     </div>
 

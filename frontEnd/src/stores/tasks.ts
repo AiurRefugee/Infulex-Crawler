@@ -97,8 +97,8 @@ export const useTaskStore = defineStore('tasks', {
 
         async getTaskDetail(mediaType, mediaId) {
             this.resetSelectedTask()
-            const media_id = Number(mediaId)
-            taskApi.getTaskDetail(mediaType, media_id).then(task => {
+            
+            taskApi.getTaskDetail(mediaType, mediaId).then(task => {
                 this.selectedTask = task
                 this.fileTree = this.buildFileTree(task)
                 this.getTopChildren(this.filePaths)

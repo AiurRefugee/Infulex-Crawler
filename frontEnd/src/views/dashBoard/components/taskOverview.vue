@@ -136,9 +136,9 @@ const slideStart = (event) => {
               </div>
             </div>
 
-            <p class="h-1/3 text-dark-800 opacity-50">{{ lastMsg?.type }}</p>
+            <p class="h-1/3 flex items-center text-dark-800 opacity-50">{{ lastMsg?.type }}</p>
             <p
-              class="h-1/3 overflow-hidden text-ellipsis text-dark-200"
+              class="h-1/3 flex items-center overflow-hidden text-[0.8em] text-ellipsis text-dark-200"
             >
               {{ task.createdAt }}
             </p>

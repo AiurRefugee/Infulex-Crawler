@@ -1,6 +1,20 @@
 const { cookies } = require('./cookie.js')
 
-const yisouScript = async (context, title, callback) => {
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+const yisouScript = async (context, title, callback) => { 
+
+  const postMessage = async () => {
+    const links = await page.$$eval('a', as => as.map(a => a.href));
+    let aliLinks = new Set(links.filter(link => link.includes('www.ali')));
+
+    aliLinks = Array.from(aliLinks).map(link => ({ link, status: 'normal' }))
+    // 打印所有链接
+    console.log('Found links:', aliLinks);
+    if (callback) {
+      callback(Array.from(aliLinks));
+    }
+  }
   console.log('yisouScript', context, title);
   
   // await context.addCookies(cookies)
@@ -28,28 +42,25 @@ const yisouScript = async (context, title, callback) => {
       window.sessionStorage.setItem(key, value);
     console.log(document.cookie)
   })
-  await page.goto('https://cdn.yiso.fun/');
-  // try {
-  //   await page.getByRole('button', { name: '不再弹出' }).click();
-  // } catch (error) {
-  //   console.log('no button');
-  // }
-  await page.getByRole('combobox').selectOption('ali');
-  await page.getByPlaceholder('输入关键词，回车/换行即可 搜索全网云盘资源').click(); 
-  await page.getByPlaceholder('输入关键词，回车/换行即可 搜索全网云盘资源').fill(title); 
-  await page.getByPlaceholder('输入关键词，回车/换行即可 搜索全网云盘资源').press('Enter');
+  await page.goto(`https://cdn.yiso.fun/info?searchKey=${title}&from=ali`);
+  
 
-  await page.waitForSelector('#app > div > div > div.page-wrapper > div.page-body > div.container-xl > div > div.col-md-8 > div:nth-child(1)');
-  const links = await page.$$eval('a', as => as.map(a => a.href));
-  let aliLinks = new Set(links.filter(link => link.includes('www.ali')));
+  for (let i = 0; i < 10; i++) {
+    try {
+      await page.waitForSelector('#app > div > div > div.page-wrapper > div.page-body > div.container-xl > div > div.col-md-8 > div:nth-child(1)');
 
-  aliLinks = Array.from(aliLinks).map(link => ({ link, status: 'normal' }))
-  // 打印所有链接
-  console.log('Found links:', aliLinks);
+      postMessage()
+    
+      const button = await page.$$('button.btn-next');
 
-  if (callback) {
-    callback(Array.from(aliLinks));
+      await sleep(2000)
+
+      await button[2].click();
+    } catch (error) {
+      console.log('error', error) 
+    }
   }
+  
 
   // ---------------------
   // await context.close();

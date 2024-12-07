@@ -22,6 +22,7 @@ const loading = ref(true)
             @load="loading = false"
         /> 
         <img :src="defaultSrc" alt="" class="imgSize aspect-square" v-if="loading" />
+        <slot :loading="loading"></slot>
     </div>
 </template>
 <style lang="scss" scoped>

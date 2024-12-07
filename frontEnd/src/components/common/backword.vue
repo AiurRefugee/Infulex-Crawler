@@ -22,7 +22,7 @@ const props = defineProps({
       layout.tabIconVisible && !layout.showTab && pl ? 'pl-[50px]' : '',
       textClassName ? textClassName : 'backword'
     ]"
-    class="h-full flex items-center cursor-pointer trans"
+    class="w-20 h-full flex items-center cursor-pointer trans"
   >
         <img class="h-[25px] aspect-square" src="@/assets/icons/back.svg"/>
         <p class="text-[1.1em] text-lg whitespace-nowrap">{{ title }}</p>

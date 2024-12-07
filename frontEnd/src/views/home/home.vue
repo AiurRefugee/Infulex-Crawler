@@ -2,14 +2,7 @@
 import { ref } from "vue";
 
 const searchText = ref("");
-const sites = [
-  {
-    name: "https://pan666.net/",
-    logo: "https://pan666.net/favicon.ico",
-    search: (name) => {
-        return name + '?q=' + searchText.value
-    }
-  },
+const sites = [ 
   {
     name: "https://cdn.yiso.fun/",
     logo: "https://cdn.yiso.fun/static/img/logo.7101c44.png",

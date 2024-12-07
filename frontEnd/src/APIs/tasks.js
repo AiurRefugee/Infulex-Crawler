@@ -23,7 +23,8 @@ const getTaskList = async () => {
 
 const getTaskDetail = async (mediaType, mediaId) => {
     const url = apiPrefix + '/getTaskDetail'
-    const taskDetail = await post(url, { mediaType, mediaId })
+    const media_id = Number(mediaId)
+    const taskDetail = await post(url, { mediaType, mediaId: media_id })
     console.log('getTaskDetail', taskDetail)
     return taskDetail
 }

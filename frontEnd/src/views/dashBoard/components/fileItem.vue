@@ -36,7 +36,7 @@ const calSize = (size) => {
 <template>
   <div
     :class="selected ? 'selected' : ''"
-    class="fileWrap rounded-lg m-2 py-2 relative"
+    class="fileWrap rounded-lg m-2 pb-2 pt-6 relative"
   >
     <div
       class="selectArea center bg-light-800 rounded-lg absolute"
@@ -58,7 +58,7 @@ const calSize = (size) => {
       </div>
     </div>
     <div class="center p-2">
-      <div class="w-full imgWrap center">
+      <div class="w-full imgWrap center relative">
         <img
           src="@/assets/icons/fileIcon.svg"
           alt="file"
@@ -69,7 +69,12 @@ const calSize = (size) => {
           v-if="file?.type == 'file'"
           :src="file?.thumbnail"
           :defaultSrc="file?.category == 'image' ? 'src/assets/icons/defaultImage.svg' : 'src/assets/icons/play.svg'"
-        />
+        >
+          <template #default="{ loading }">
+            <img class="absolute h-8 aspect-square" src="@/assets/icons/video.svg" alt="file" v-if="file?.category == 'video' && !loading"/>
+          </template>
+        </loadImg>
+        
       </div>
     </div>
     <div class="w-full text-center">

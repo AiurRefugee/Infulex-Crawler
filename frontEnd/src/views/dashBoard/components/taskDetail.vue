@@ -76,8 +76,8 @@ onMounted(() => {
       </scrollHeader>
     </template>
     <template #content>
-      <msgListView :style="{ display: listStype == 0 ? '' : 'none' }" />
-      <FileListView :style="{ display: listStype == 1 ? '' : 'none' }" />
+      <msgListView :style="{ display: listStype == 0 ? '' : 'none' }" v-if="selectedTask"/>
+      <FileListView :style="{ display: listStype == 1 ? '' : 'none' }" v-if="selectedTask"/>
     </template>
   </scrollView>
 </template>
