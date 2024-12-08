@@ -1,4 +1,5 @@
 <script setup>
+import arrowButton from "./arrowButton.vue";
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { onMounted } from "vue";
@@ -15,7 +16,9 @@ const props = defineProps({
 });
 
 const router = useRouter();
+
 const scrolling = ref(false);
+const listRef = ref(null);
 
 function toAll() {
   if (props.showAllPath) {
@@ -32,6 +35,15 @@ const calFading = (e) => {
   }
 };
 
+const nextPage = (num) => {
+  console.log("nextPage");
+  const space = listRef.value.clientWidth * num;
+  listRef.value.scrollBy({
+    left: space,
+    behavior: "smooth",
+  });
+}
+
 onMounted(() => { });
 </script>
 <template>
@@ -42,47 +54,76 @@ onMounted(() => { });
       </h1>
       <slot name="showAll"></slot>
     </div>
-    <div ref="list" class="list flex pl-4 justify-stretch items-start overflow-x-auto snap-x" @scroll="calFading">
-      <slot name="card" class="" :media="media" v-for="media in list" :key="media">
-      </slot>
+    <div class="relative listWrap">
+      <div ref="listRef" class="list flex pl-4 justify-stretch items-center overflow-x-auto snap-x" @scroll="calFading">
+        <slot name="card" class="" :media="media" v-for="media in list" :key="media">
+        </slot>
+      </div>
+      <div class="left side center">
+        <arrowButton class="arrow rotate-180" @click="nextPage(-1)" />
+      </div>
+      <div class="right side center">
+        <arrowButton class="arrow" @click="nextPage(1)" />
+      </div>
     </div>
   </div>
   <!-- </div> -->
 </template>
 <style lang="scss">
-::-webkit-scrollbar {
-  position: relative;
-  z-index: 9999;
+::-webkit-scrollbar { 
   display: none;
 }
 
-.rect .list>div {
+.rect .list>.basicCard {
   width: calc(100vw / var(--basc_card_rect_num)) !important;
 }
 
-.list>div {
+.list>.basicCard {
   width: calc(100vw / var(--basc_card_num));
 }
+ 
+.listWrap:hover .side {
+  opacity: 1;
+}
+.side {
+  top: 0; 
+  width: 50px;
+  height: 100%; 
+  position: absolute;
+  z-index: 10;
+  opacity: 0;
+  transition: all 0.2s ease-in-out;
+}
+.left {
+  left: 0;
+  background-image: linear-gradient(to right,
+      white 0,
+      rgba(255, 255, 255, 0) 100%);
+  will-change: opacity;
 
-// .listWrap::after {
-//   content: "";
-//   position: absolute;
-//   top: 0;
-//   right: 0;
-//   width: 30px;
-//   height: 100%;
-//   transition: all 0.2s ease-in-out;
-//   background-image: linear-gradient(to right,
-//       rgba(255, 255, 255, 0) 0,
-//       #fff 100%);
-//   will-change: opacity;
+  @media (prefers-color-scheme: dark) {
+    background-image: linear-gradient(to right,
+        black 0,
+        rgba(255, 255, 255, 0) 100%);
+  }
+}
+.right {
+  right: 0;
+  background-image: linear-gradient(to left,
+      white 0,
+      rgba(255, 255, 255, 0) 100%);
+  will-change: opacity;
 
-//   @media (prefers-color-scheme: dark) {
-//     background-image: linear-gradient(to right,
-//         rgba(255, 255, 255, 0) 0,
-//         #000 100%);
-//   }
-// }
+  @media (prefers-color-scheme: dark) {
+    background-image: linear-gradient(to left,
+        black 0,
+        rgba(255, 255, 255, 0) 100%);
+  }
+}
+  
+
+@media (width > 628px) { 
+}
 
 .borderB {
   background: rgba(164, 163, 163, 0.368);

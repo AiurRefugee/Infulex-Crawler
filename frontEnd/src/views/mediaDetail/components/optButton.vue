@@ -38,6 +38,7 @@ const toggleFavorite = () => {
 };
 
 const createTask = () => {
+  inTaskList.value = true;
   const title = detail.value?.title || detail.value?.name; 
   taskStore.createTask(mediaType.value,  detail.value.id, title, backdropUrl.value);
 };

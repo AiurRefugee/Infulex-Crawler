@@ -7,6 +7,7 @@ import backword from "@/components/common/backword.vue";
 import moreActions from "@/components/common/moreActions.vue";
 import creditCard from "@/components/cards/creditCard.vue";
 import videoCardBasic from "@/components/cards/videoCardBasic.vue"; 
+import videoListBasic from "@/components/common/videoListBasic.vue";
 import share from "./components/share.vue";
 import moreImages from "./components/moreImages.vue";
 import toSeries from "./components/toSeries.vue";
@@ -314,19 +315,23 @@ onMounted(async () => {
             :key="person.name"
             :person="person"
           />
-        </div>
+        </div> 
 
-        <subTitle class="py-1" v-if="similar.length">更多相似</subTitle>
-        <div class="flex pl-4 overflow-x-auto overflow-y-hidden" v-if="similar.length">
-          <videoCardBasic
-            class="basicW pr-2"
-            v-for="media in similar"
-            :key="media.id"
-            :media="media"
-            :class="media.id == selectedId && selectedId ? 'selected' : ''"
-            @click="choose(media)"
-          />
-        </div>
+        <videoListBasic 
+          :list="aiqiyiWangju"
+          :title="'更多相似'" 
+        > 
+          <template #card="{ media }">
+            <videoCardBasic
+              class="basicW pr-2"
+              v-for="media in similar"
+              :key="media.id"
+              :media="media"
+              :class="media.id == selectedId && selectedId ? 'selected' : ''"
+              @click="choose(media)"
+            />
+          </template>
+        </videoListBasic>   
         <div class="h-32"></div>
       </div>
     </template>
