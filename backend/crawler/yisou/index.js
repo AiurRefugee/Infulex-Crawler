@@ -1,4 +1,6 @@
 const { cookies } = require('./cookie.js')
+const crawlerConfig = require('../../config/crawler/index.js')
+const { maxPage } = crawlerConfig
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -45,7 +47,7 @@ const yisouScript = async (context, title, callback) => {
   await page.goto(`https://cdn.yiso.fun/info?searchKey=${title}&from=ali`);
   
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < maxPage; i++) {
     try {
       await page.waitForSelector('#app > div > div > div.page-wrapper > div.page-body > div.container-xl > div > div.col-md-8 > div:nth-child(1)');
 
@@ -53,7 +55,7 @@ const yisouScript = async (context, title, callback) => {
     
       const button = await page.$$('button.btn-next');
 
-      await sleep(2000)
+      await sleep(5000)
 
       await button[2].click();
     } catch (error) {

@@ -156,7 +156,7 @@ export const tmdbApi = {
 
     // topRated 电影
     getTopRatedMovies: async (params) => {
-        const topRatedUrl = tmdbAPIPrefix + "/discover/movie?include_adult=false&include_video=false&page=1&sort_by=vote_average.desc&without_genres=99,10755&vote_count.gte=200";
+        const topRatedUrl = tmdbAPIPrefix + "/discover/movie?include_adult=false&include_video=false&sort_by=vote_average.desc&without_genres=99,10755&vote_count.gte=200";
         const topRatedMovies = await get(topRatedUrl, params || GETParams, tmdbHeaders)
         console.log('getTopRatedMovies', topRatedMovies)
         return topRatedMovies

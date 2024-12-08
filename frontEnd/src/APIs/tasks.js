@@ -26,7 +26,7 @@ const getTaskDetail = async (mediaType, mediaId) => {
     const media_id = Number(mediaId)
     const taskDetail = await post(url, { mediaType, mediaId: media_id })
     console.log('getTaskDetail', taskDetail)
-    return taskDetail
+    return taskDetail?.data
 }
 
 export const taskApi = {

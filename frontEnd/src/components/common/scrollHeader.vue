@@ -40,7 +40,7 @@ watch(showTitle, (newVal, oldVal) => {
   <div 
     class="scrollHeader w-full flex-shrink-0 trans"
   >
-    <div class="headerLeft w-full">
+    <div class="headerLeft w-full pl-2">
       <slot name="left"></slot>
     </div>
     <div

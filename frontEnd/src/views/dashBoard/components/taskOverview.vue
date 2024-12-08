@@ -9,11 +9,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 const tasks = useTaskStore();
 const layout = layoutStore();
-const size = computed(() => layout.size);
-const lastMsg = computed(() => {
-  const len = props.task.msgs.length
-  return props.task.msgs[len - 1]
-})
+const size = computed(() => layout.size); 
 
 const imgPrefix = "https://image.tmdb.org/t/p/original";
 const emit = defineEmits(["slideOpt"]);
@@ -136,7 +132,9 @@ const slideStart = (event) => {
               </div>
             </div>
 
-            <p class="h-1/3 flex items-center text-dark-800 opacity-50">{{ lastMsg?.type }}</p>
+            <p 
+              class="h-1/3 flex items-center text-dark-800 opacity-50"
+            >{{ task.mediaType == 'tv' ? 'TV Series' : 'Movie' }}</p>
             <p
               class="h-1/3 flex items-center overflow-hidden text-[0.8em] text-ellipsis text-dark-200"
             >

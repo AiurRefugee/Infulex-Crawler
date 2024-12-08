@@ -26,11 +26,16 @@ const listenPOSTaskDetail = (app) => {
         }
         const insertRes = await getTaskDetail(mediaType, mediaId)
         if (insertRes) {
-            res.json(insertRes)
+            res.json({
+                code: 200,
+                data: insertRes,
+                message: 'getTaskDetail成功'
+            })
         } else {
             res.json({
                 code: 500,
-                message: 'getTaskDetail失败'
+                message: 'getTaskDetail失败',
+                data: insertRes
             })
         }
     })

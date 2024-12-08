@@ -2,6 +2,9 @@
 import { ref, onMounted, computed, nextTick, inject } from "vue";
 import { useTaskStore } from "@/stores/tasks"; 
 import { mediasApi } from "@/apis/medias";
+import { useRouter } from "vue-router"; 
+
+const router = useRouter();
 
 const media = inject("media");
 const mediaType = inject("mediaType");
@@ -38,9 +41,17 @@ const toggleFavorite = () => {
 };
 
 const createTask = () => {
-  inTaskList.value = true;
-  const title = detail.value?.title || detail.value?.name; 
-  taskStore.createTask(mediaType.value,  detail.value.id, title, backdropUrl.value);
+  if (!inTaskList.value) {
+    inTaskList.value = true;
+    const title = detail.value?.title || detail.value?.name; 
+    taskStore.createTask(mediaType.value,  detail.value.id, title, backdropUrl.value);
+  } else {
+    router.push({
+      path: '/dashBoard',
+      replace: true
+    })
+  }
+  
 };
 
 onMounted(async () => {
@@ -53,7 +64,7 @@ onMounted(async () => {
     <!-- <addFavorite ref="addFavoriteRef" @setIsFavorite="setIsFavorite" /> -->
     <div class="h-full flex gap-3 flex-shrink-0">
       <button
-        :class="[inTaskList != false ? 'cursor-not-allowed' : '', inTaskList == null ? 'opacity-60' : '']"
+        :class="[inTaskList == null ? 'opacity-60' : '']"
         class="w-full playOpt h-full text-[1.1em] tracking-wider bg-orange-500 text-white rounded-[10px]"
         @click="createTask"
       >
