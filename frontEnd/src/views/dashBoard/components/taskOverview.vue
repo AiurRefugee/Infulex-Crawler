@@ -110,17 +110,17 @@ const slideStart = (event) => {
               <div class="statusArea flex items-center gap-1">
                 <img
                   class="h-[1em] aspect-square loading"
-                  src="@/assets/icons/loading.svg"
+                  src="/icons/loading.svg"
                   v-if="task.status === '进行中'"
                 />
                 <img
                   class="h-[1em] aspect-square"
-                  src="@/assets/icons/canceled.svg"
+                  src="/icons/canceled.svg"
                   v-if="task.status === '已取消'"
                 />
                 <img
                   class="h-[1em] aspect-square"
-                  src="@/assets/icons/error.svg"
+                  src="/icons/error.svg"
                   v-if="task.status === '错误'"
                 />
                 <p

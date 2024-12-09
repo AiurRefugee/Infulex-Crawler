@@ -7,7 +7,7 @@ const select = (type) => {
 </script>
 <template>
   <div class="flex min-w-48 bg-light-400 center relative text-white rounded-[8px] overflow-hidden cursor-pointer"> 
-      <div class="selected absolute trans z-0" :class="mediaType == 'movie' ? 'left' : 'right'"></div>
+      <div class="selected absolute trans z-0" :class="mediaType == 'movie' ? 'selectLeft' : 'selectRight'"></div>
       <text class="w-1/2 center absolute left-0 z-10" @click="select('movie')">电影</text>
       <text class="w-1/2 center absolute right-0 z-10" @click="select('tv')">剧集</text>
   </div>
@@ -20,10 +20,10 @@ $space: 3px;
   border-radius: 6px;
   background-color: #ed7b2f;
 }
-.left {
+.selectLeft {
   left: $space;
 } 
-.right {
+.selectRight {
   transform: translate(50%, 0);
 }
 </style>

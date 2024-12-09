@@ -1,9 +1,7 @@
-import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
 const smallBreakPoint = 500
 const mediumBreakPoint = 1440
-const animateDuration = 250
 
 export const layoutStore = defineStore('layout', {
   state: () => ({
@@ -12,51 +10,43 @@ export const layoutStore = defineStore('layout', {
       {
         text: "首页",
         path: '/',
-        image: "src/assets/icons/tv.svg",
+        image: "/icons/tv.svg",
       },
       {
         text: "浏览",
         path: '/browse',
-        image: "src/assets/icons/browse.svg",
+        image: "/icons/browse.svg",
       },
       {
         text: "我的收藏",
         path: '/favorite',
-        image: "src/assets/icons/mediaType.svg",
+        image: "/icons/mediaType.svg",
       },
       {
         text: "搜索",
         path: '/search',
-        image: "src/assets/icons/search.svg",
-        height: 'unknown',
+        image: "/icons/search.svg",
       },
       {
         text: "面板",
-        image: "/src/assets/icons/dashboard.svg",
-        height: 'unknown',
+        image: "/icons/dashboard.svg",
         path: '/dashboard'
       },
     ],
-    tabAnimating: false,
-    tabFixed: false,
     showTaskDetailOnMobile: false,
     tabIconVisible: false,  // tabIcon是否显示
     showTab: false // 是否显示边栏
   }),
   getters: {
-    // double: (state) => state.count * 2,
   },
-  actions: {
-    setFixed(value) {
-      this.tabFixed = value
-    },
-    setSize(newSize) {
+  actions: { 
+    setSize(newSize: string) {
       this.size = newSize
     },
-    setSearchFocused (flag) {
+    setSearchFocused (flag: boolean) {
       this.tabIconVisible = flag
     },
-    setShowTaskDetailOnMobile (value) {
+    setShowTaskDetailOnMobile (value: boolean) {
       this.showTaskDetailOnMobile = value
     },
     toogleTab() {
@@ -65,7 +55,7 @@ export const layoutStore = defineStore('layout', {
     toogleTabIconVisible() {
       this.tabIconVisible = !this.tabIconVisible
     },
-    setTabIconVisible(value) {
+    setTabIconVisible(value: boolean) {
       console.log('setTabIconVisible', value)
       this.tabIconVisible = value 
     },

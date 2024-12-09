@@ -56,6 +56,7 @@ class alipanProxy {
 
         }
         this.crawling = false
+        
     }
 
     crawlLink(topicId, link) {

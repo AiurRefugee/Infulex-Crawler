@@ -58,7 +58,7 @@ const handleFocus = () => {
   if (layout.showTab == false) {
     layout.setTabIconVisible(false);
   }
-  searchResult.value = [];
+  // searchResult.value = [];
 };
 
 const handleBlur = () => {
@@ -101,7 +101,7 @@ watch(scrollTop, async (newVal) => {
       >
         <img
           class="searchIcon h-[15px] fill-slate-200"
-          src="@/assets/icons/search.svg"
+          src="/icons/search.svg"
         />
         <input
           v-model="searchText"

@@ -110,7 +110,7 @@ onMounted(() => {
                   <img
                     class="icon"
                     :style="{ rotate: item.showChild ? '90deg' : '' }"
-                    src="/src/assets/icons/arrow.svg"
+                    src="/icons/arrow.svg"
                   />
                 </button>
               </div>

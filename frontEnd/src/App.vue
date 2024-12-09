@@ -24,7 +24,7 @@ onMounted(() => {
       @click="layout.toogleTab"
       v-if="tabIconVisible"
     > 
-      <img src="@/assets/icons/sideBar.svg"/>
+      <img src="/icons/sideBar.svg"/>
       <!-- <h1 class="whitespace-nowrap text-xl font-bold text-black">Infulex-Crawler</h1> -->
     </div>
     <NavList />

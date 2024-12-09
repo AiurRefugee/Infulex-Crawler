@@ -18,7 +18,7 @@ const imageSrc = computed(() => props.person?.profile_path)
   <div class="creditCard pr-3 flex-shrink-0 cursor-pointer"> 
     <div class="cardImage defaultImage w-full overflow-hidden center">
 
-      <loadImg :src="tmdbApi.tmdbImgPrefix + imageSrc" :defaultSrc="'/src/assets/icons/person.svg'" />
+      <loadImg :src="tmdbApi.tmdbImgPrefix + imageSrc" :defaultSrc="'/icons/person.svg'" />
     </div>
     <div class="info h-[5em] pt-2">
       <p class="filmTitle font-bold text-[0.8em] singleLine text-dark-900" v-if="name">

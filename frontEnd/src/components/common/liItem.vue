@@ -46,7 +46,7 @@ const props = defineProps({
         <space :width="spaceW" />
         <img
           class="removeIcon transSlow"
-          src="@/assets/icons/remove.svg"
+          src="/icons/remove.svg"
           alt="remove"
           @click="remove"
         />

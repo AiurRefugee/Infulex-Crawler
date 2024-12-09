@@ -62,10 +62,10 @@ onMounted(() => {
         <template v-slot:right>
           <div class="right pr-4 w-full h-full flex justify-end items-center gap-4">
             <div :class="listStype == 0 ? 'bg-light-600' : ''" class="iconWrap" @click="switchListStype(0)">
-              <img class="h-[30px] aspect-square" src="@/assets/icons/messageList.svg" alt="" />
+              <img class="h-[30px] aspect-square" src="/icons/messageList.svg" alt="" />
             </div>
             <div :class="listStype == 1 ? 'bg-light-600' : ''" class="iconWrap" @click="switchListStype(1)">
-              <img class="h-[30px] aspect-square" src="@/assets/icons/fileList.svg" alt="" />
+              <img class="h-[30px] aspect-square" src="/icons/fileList.svg" alt="" />
             </div>
 
             <!-- <text class="cancel text-bold text-lg text-red-500 ">

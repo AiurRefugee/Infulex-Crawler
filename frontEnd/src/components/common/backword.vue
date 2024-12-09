@@ -24,7 +24,7 @@ const props = defineProps({
     ]"
     class="w-20 h-full flex items-center cursor-pointer trans"
   >
-        <img class="h-[25px] aspect-square" src="@/assets/icons/back.svg"/>
+        <img class="h-[25px] aspect-square" src="/icons/back.svg"/>
         <p class="text-[1.1em] text-lg whitespace-nowrap">{{ title }}</p>
       </div>
 </template>

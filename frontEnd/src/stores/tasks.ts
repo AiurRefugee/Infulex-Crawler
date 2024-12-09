@@ -6,39 +6,57 @@ import { fetchEventSource } from '@microsoft/fetch-event-source';
 import { task } from '@/mocData/task'
 import { taskApi } from '@/apis/tasks'
 
-const defaultTasks = [...task, ...task, ...task, ...task]
-
+interface File {
+    file_id: string;
+    parent_file_id: number;
+    name: string;
+    // 添加其他需要的字段
+}
  
+interface Msg {
+    type: string;
+    data: File[];
+    // 添加其他需要的字段
+}
+
+interface Node {
+    file: File | string;
+    children: Record<string, Node>;
+}
+
 export const useTaskStore = defineStore('tasks', {
     state: () => ({
         taskPools: [],
         selectedTask: null,
-        fileTree: null,
-        filePaths: [],
-        topFiles: [],
-        topChildren: null,
-        nodes: {}, // 存储task msg的所有file节点 
+        fileTree: {} as Node,
+        filePaths: [] as File[],
+        topFiles: [] as File[],
+        topChildren: {} as Record<string, Node>,
+        nodes: {} as Record<string, Node>, // 存储task msg的所有file节点 
         topTitle: "",
-        selectedFiles: {},
+        selectedFiles: {} as Record<string, boolean>,
         listStype: 0,
     }),
     actions: {
         resetSelectedTask() { 
             this.selectedTask = null
-            this.fileTree = null
+            this.fileTree = {
+                file: 'root',
+                children: {}
+            }
             this.filePaths = []
             this.topFiles = []
-            this.topChildren = null
+            this.topChildren = {}
             this.nodes = {}
             this.selectedFiles = {}
         },
 
-        switchListStype(type) {
+        switchListStype(type: number) {
             this.selectedFiles = {}
             this.listStype = type
         },
 
-        switchSelectFile(file) {
+        switchSelectFile(file: any) {
             const { file_id } = file
             if (this.selectedFiles[file_id]) {
                 this.selectedFiles[file_id] = false 
@@ -52,14 +70,17 @@ export const useTaskStore = defineStore('tasks', {
             this.selectedTask = null
         },
 
-        buildFileTree(task) {
-            const msgs = task.msgs
+        buildFileTree(task: any):Node {
+            const msgs: Msg[] = task.msgs
             if (!msgs || msgs.length === 0) {
                 console.log('buildFileTree null')
-                return {}
+                return {
+                    file: 'root',
+                    children: {}
+                }
             } 
             const forest = {}
-            let root = {
+            let root:Node = {
                 file: 'root',
                 children: {}
             }
@@ -95,13 +116,13 @@ export const useTaskStore = defineStore('tasks', {
             return root
         },
 
-        async getTaskDetail(mediaType, mediaId) {
+        async getTaskDetail(mediaType: string, mediaId: number) {
             this.resetSelectedTask()
             
             taskApi.getTaskDetail(mediaType, mediaId).then(task => {
                 this.selectedTask = task
                 this.fileTree = this.buildFileTree(task)
-                this.getTopChildren(this.filePaths)
+                this.getTopChildren()
                 this.getTopFiles()
             }).catch((err) => {
                 console.log('getTaskDetail err', err)
@@ -122,10 +143,11 @@ export const useTaskStore = defineStore('tasks', {
 
         getTopFiles() {
             this.selectedFiles = {}
-            this.topFiles = Object.values(this.topChildren).map(node => node.file)
+            const children: Node[] = Object.values(this.topChildren)
+            this.topFiles = children.map(node => node.file) as File[]
         },
 
-        updateFilePaths(index) {
+        updateFilePaths(index: number) {
             this.selectedFiles = {}
             this.filePaths = this.filePaths.slice(0, index + 1)
             this.getTopChildren()
@@ -139,7 +161,7 @@ export const useTaskStore = defineStore('tasks', {
             this.getTopFiles()
         },
 
-        pushFilePath(file) { 
+        pushFilePath(file: File) { 
             this.selectedFiles = {}
             const { file_id, name } = file 
             this.topTitle = name
@@ -155,7 +177,7 @@ export const useTaskStore = defineStore('tasks', {
             this.getTopFiles()
         },
         
-        createTask(mediaType, mediaId, mediaTitle, backdropPath) { 
+        createTask(mediaType: string, mediaId: number, mediaTitle: string, backdropPath: string) { 
             taskApi.createTask(mediaType, mediaId, mediaTitle, backdropPath).then((res) => {
                 this.getTaskList()
             }).catch((err) => {
@@ -164,12 +186,7 @@ export const useTaskStore = defineStore('tasks', {
     
     
         },
-        
-        stopChildrenTask(mediaId: Number, mediaType: String) {
-            const key = mediaType + String(mediaId)
-            const task = this.taskPools[key]
-            task.ctrl.abort()
-        },
+         
         getTaskList() {
             taskApi.getTaskList().then(taskList => {
                 this.taskPools = taskList.reverse()

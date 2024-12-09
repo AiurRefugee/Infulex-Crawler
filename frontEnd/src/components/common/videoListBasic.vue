@@ -97,26 +97,24 @@ onMounted(() => { });
 .left {
   left: 0;
   background-image: linear-gradient(to right,
-      white 0,
+  #f7f7f7 0,
       rgba(255, 255, 255, 0) 100%);
   will-change: opacity;
 
   @media (prefers-color-scheme: dark) {
-    background-image: linear-gradient(to right,
-        black 0,
-        rgba(255, 255, 255, 0) 100%);
+    background-image: linear-gradient(to right, #1f1f1f 0, rgba(255, 255, 255, 0) 100%)
   }
 }
 .right {
   right: 0;
   background-image: linear-gradient(to left,
-      white 0,
+  #f7f7f7 0,
       rgba(255, 255, 255, 0) 100%);
   will-change: opacity;
 
   @media (prefers-color-scheme: dark) {
     background-image: linear-gradient(to left,
-        black 0,
+        #1f1f1f 0,
         rgba(255, 255, 255, 0) 100%);
   }
 }

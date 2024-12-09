@@ -33,7 +33,7 @@ const search = () => {
         <li>
           <img
             class="m-auto h-10 sel aspect-square"
-            src="@/assets/icons/add.svg"
+            src="/icons/add.svg"
           />
           <!-- <p class="h-[2em]"></p> -->
         </li>
@@ -49,7 +49,7 @@ const search = () => {
           type="text"
           @keydown.enter="search"
         />
-        <img class="h-2/3" src="@/assets/icons/send.svg" @click="search"/>
+        <img class="h-2/3" src="/icons/send.svg" @click="search"/>
       </div>
     </div>
   </div>

@@ -60,7 +60,7 @@ const calSize = (size) => {
     <div class="center p-2">
       <div class="w-full imgWrap center relative">
         <img
-          src="@/assets/icons/fileIcon.svg"
+          src="/icons/fileIcon.svg"
           alt="file"
           v-if="file?.type == 'folder'"
         />
@@ -68,10 +68,10 @@ const calSize = (size) => {
           class="loadImg"
           v-if="file?.type == 'file'"
           :src="file?.thumbnail"
-          :defaultSrc="file?.category == 'image' ? 'src/assets/icons/defaultImage.svg' : 'src/assets/icons/play.svg'"
+          :defaultSrc="file?.category == 'image' ? '/icons/defaultImage.svg' : 'src/assets/icons/play.svg'"
         >
           <template #default="{ loading }">
-            <img class="absolute h-8 aspect-square" src="@/assets/icons/video.svg" alt="file" v-if="file?.category == 'video' && !loading"/>
+            <img class="absolute h-8 aspect-square" src="/icons/video.svg" alt="file" v-if="file?.category == 'video' && !loading"/>
           </template>
         </loadImg>
         

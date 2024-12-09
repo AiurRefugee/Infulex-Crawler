@@ -7,7 +7,7 @@ const props = defineProps({
     },
     defaultSrc: {
         type: String,
-        default: 'src/assets/icons/defaultImage.svg',
+        default: '/icons/defaultImage.svg',
     }
 })
 const loading = ref(true)
