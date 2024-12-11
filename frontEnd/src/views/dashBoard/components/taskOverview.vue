@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useTaskStore } from "@/stores/tasks";
 import liItem from "@/components/common/liItem.vue";
 import loadImg from "@/components/common/loadImg.vue";
@@ -39,10 +39,25 @@ const props = defineProps({
 const liWrap = ref(null);
 const touchEvent = ref("");
 
-
-const calStatusClass = () => {
+const iconSrc = computed(() => {
   switch (props.task.status) {
     case "进行中":
+      return '/icons/loading.svg'
+    case "已取消":
+      return '/icons/loading.svg'
+    case "错误":
+      return '/icons/error.svg'
+    case "已完成":
+      return '/icons/finished.svg'
+    default:
+      return ''
+  }
+})
+
+const statusClas = computed( () => {
+  switch (props.task.status) {
+    case "进行中":
+    case "已完成":
       return "text-green-400";
     case "已取消":
       return "text-gray-500";
@@ -51,7 +66,7 @@ const calStatusClass = () => {
     default:
       return "text-gray-500";
   }
-};
+})
 </script>
 <template>
   <div
@@ -59,7 +74,7 @@ const calStatusClass = () => {
     @pointerdown="startCal"
   >
     <div
-      class="taskOverview w-full h-[12vh] p-2 flex items-center flex-shrink-0 gap-4"
+      class="taskOverview w-full taskHeight p-2 flex items-center flex-shrink-0 gap-4"
       ref="liWrap"
     >
       <!-- poster -->
@@ -71,29 +86,19 @@ const calStatusClass = () => {
       <div class="overview w-full h-full flex flex-col justify-around">
         <div class="w-full h-1/3 flex justify-between items-center">
           <h1
-            class="title font-bold text-dark-900 whitespace-nowrap overflow-hidden text-ellipsis"
+            class="sm:taskTitle font-bold text-dark-900 whitespace-nowrap overflow-hidden text-ellipsis"
           >
             {{ task.title }}
           </h1>
           <div class="statusArea flex items-center gap-1">
             <img
-              class="h-[1em] aspect-square loading"
-              src="/icons/loading.svg"
-              v-if="task.status === '进行中'"
-            />
-            <img
               class="h-[1em] aspect-square"
-              src="/icons/canceled.svg"
-              v-if="task.status === '已取消'"
-            />
-            <img
-              class="h-[1em] aspect-square"
-              src="/icons/error.svg"
-              v-if="task.status === '错误'"
+              :class="task.status == '进行中' ? 'loading' : ''"
+              :src="iconSrc"
             />
             <p
               class="status w-[3em] text-base whitespace-nowrap"
-              :class="calStatusClass()"
+              :class="statusClas"
             >
               {{ task.status }}
             </p>
@@ -116,7 +121,7 @@ const calStatusClass = () => {
     </div>
 
     <div
-      class="afterfix h-[12vh] center flex-shrink-0 overflow-hidden"
+      class="afterfix taskHeight center flex-shrink-0 overflow-hidden"
       :style="{
         width: `calc(min(12vh * 2, ${optW}px))`,
       }"
@@ -161,9 +166,8 @@ const calStatusClass = () => {
 }
 $borderW: 4px;
 $borderColor: rgba(118, 118, 118, 0.3);
-.selected {
-  @extend .bg-light-800;
-  // border: $borderW solid $borderColor !important;
+.taskHeight {
+  height: max(12vh, 80px);
 }
 .taskItemWrap {
   border: $borderW solid transparent;
@@ -180,7 +184,7 @@ $borderColor: rgba(118, 118, 118, 0.3);
 .overview {
   font-size: 18px;
 }
-.title {
+.taskTitle {
   max-width: 6em;
 }
 .optIcon {

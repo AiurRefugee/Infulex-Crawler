@@ -19,6 +19,7 @@ class Task {
         }
         this.task = task
         this.insertTask()
+        
     }
 
     // Getters
@@ -51,14 +52,21 @@ class Task {
     }
 
     addMsg(msg) {
+        if (this.finishTimeout) {
+            clearTimeout(this.finishTimeout)
+        }
+        this.finishTimeout = setTimeout( () => {
+            this.finishTask()
+        }, 10 * 1000)
         const task = this.task
         const { mediaId, mediaType } = task; 
         task.msgs.push(msg);
         const mongoManager = new MongoManager();
         const taskCollection = mongoManager.getCollection(taskCollectionName);
-        
         const { type } = msg
         console.log('add msg', type)
+
+
         if (type == 'TASK Done') {
             task.status = '已完成'
             taskCollection.updateOne({ mediaId, mediaType}, { $set: { status: '已完成' } });
@@ -120,6 +128,14 @@ class Task {
         taskCollection.updateOne(filter, updateDoc, options).then(res => {
             console.log('insertTask', res)
         })
+    }
+
+    finishTask() {
+        const task = this.task
+        const { mediaId, mediaType } = task;
+        const mongoManager = new MongoManager();
+        const taskCollection = mongoManager.getCollection(taskCollectionName);
+        taskCollection.updateOne({ mediaId, mediaType }, { $set: { status: '已完成' } });
     }
 } 
 
