@@ -63,10 +63,9 @@ export const mediasApi = {
     },
 
     // 资料库列表
-    getLibraryList: async (mediaType, queryParm) => {
+    getLibraryList: async (queryParm) => {
         const url = infulexPrefix + `/getLibraryList`
         const params = {
-            mediaType,
             ...queryParm
         }
         const libraryMovies = await get(url, params)

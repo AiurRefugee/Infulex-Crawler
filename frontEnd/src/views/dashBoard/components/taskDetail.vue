@@ -48,6 +48,11 @@ const deleteTask = () => {
   showOpt.value = false;
 }
 
+const retryTask = () => {
+  taskStore.retryTask(selectedTask.value.mediaType, selectedTask.value.mediaId);
+  showOpt.value = false;
+}
+
 onMounted(() => {
   const { mediaType, mediaId } = route.params;
   document.onclick = (event) => {
@@ -135,7 +140,7 @@ onMounted(() => {
               </svg>
             </div>
             <div
-              class="p-1 bg-light-600 absolute top-[40px] right-0 z-20 rounded-lg text-[0.9em] trans text-dark-300"
+              class="p-1 bg-zinc-300 absolute top-[40px] right-0 z-20 rounded-lg text-[0.9em] trans text-dark-300"
               :class="!showOpt ? 'w-0' : 'w-24'"
               ref="opt"
               v-if="showOpt"
@@ -149,7 +154,7 @@ onMounted(() => {
                 <p>删除</p>
               </div>
               <div class="h-[1px] bg-dark-800 opacity-20"></div>
-              <div class="p-1 center">
+              <div class="p-1 center" @click="retryTask">
                 <img
                   class="h-[1.2em] pr-2"
                   src="/icons/refresh.svg"

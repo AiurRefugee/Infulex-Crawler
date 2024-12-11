@@ -1,38 +1,19 @@
-const fs = require('fs')
+const tmdbApi = require('../../tmdbApi/index');
+const { addToLibrary } = require('../../express/apis/medias/addToLibrary');
+const fs = require('fs');
 
-const resources = fs.readFileSync('filmRecource.txt', 'utf8')
+fs.readFile('films.txt', 'utf8', (err, data) => {
+    const lines = data.split('\n').slice(1000, 1172)
+    for (const line of lines) {
+        const [title, year, link] = line.split(/\s+/);
+        tmdbApi.searchMovie(title, year).then(res => { 
+            if (res && res.results && res.results.length > 0) {
+                const movie = res.results[0];
+                addToLibrary(movie, 'movie', link).then(res => {
+                    console.log(res);
+                })
+            }
+        })
 
-const list = resources.split('\n')
-
-list.forEach((item) => { 
-    const regex = /https?:\/\/[^\s<>]+[^\s<>.,]/gi;
-
-    const links = item.match(regex);
-    // console.log(links?.[0]);
-
-    const yearRegex = /\b(19|20)\d{2}\b/g;
-
-    const years = item.match(yearRegex);
-    // console.log(years?.[0]);
-
-    const name = item.split(' ').slice(0, 2)
-    console.log(name)
-
+    }
 })
-
-
-const res = []
-list.forEach((item, index) => {
-    
-    const yearRegex = /\b(19|20)\d{2}\b/g;
-
-    const years = item.match(yearRegex);
-    const save = Math.random() < 0.15
-    if (years > 2008 && save) {
-        res.push(item)
-    } 
-    
-})
-fs.writeFileSync('filteredFilms.txt', res.join('\n'))
-
-console.log(res)

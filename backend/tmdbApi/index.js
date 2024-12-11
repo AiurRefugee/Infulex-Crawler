@@ -1,20 +1,20 @@
-import { get, post } from './axiosWrapper.js'
+const { get, post } = require('../axios/axiosWrapper')
 
 const apiKey = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlYTJjOWU2NzBhZDQyMGNkMjAzMWE3MTM4NTI1ZDEyMCIsIm5iZiI6MTcyNjE5NzM3Ny4yMjU1MjgsInN1YiI6IjY2ZTM4ZjY4YzgxYjI0YjNmZTIzZDQ0MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gxD1UxBgcwNdGiFBnHF_FiomybTEZyPyPjX068nxoRI';
-export const tmdbImgPrefix = "https://image.tmdb.org/t/p/original"
-export const tmdbAPIPrefix = '/tmdb'
-export const tmdbHeaders = {
+const tmdbImgPrefix = "https://image.tmdb.org/t/p/original"
+const tmdbAPIPrefix = 'https://api.themoviedb.org/3'
+const tmdbHeaders = {
     headers: {
         accept: 'application/json',
         Authorization: `Bearer ${apiKey}`
     }
 }
-export const GETParams = {
+const GETParams = {
     language: 'zh-CN',
     'vote_count.gte': 5.0
 }
 
-export const tmdbApi = {
+const tmdbApi = {
     tmdbImgPrefix,
 
     tmdbAPIPrefix,
@@ -23,8 +23,7 @@ export const tmdbApi = {
 
     GETParams,
 
-    discover: async (params) => {
-        const mediaType = params.mediaType
+    discover: async (mediaType, params) => {
         const url = tmdbAPIPrefix + `/discover/${mediaType}` 
         const medias = await get(url, params, tmdbHeaders)
         console.log('discover', medias)
@@ -175,3 +174,5 @@ export const tmdbApi = {
 
 
 }
+
+module.exports = tmdbApi

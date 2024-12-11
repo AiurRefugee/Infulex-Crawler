@@ -6,7 +6,7 @@ import scrollHeader from "@/components/common/scrollHeader.vue";
 import backword from "@/components/common/backword.vue";
 import moreActions from "./components/moreActions.vue";
 import creditCard from "@/components/cards/creditCard.vue";
-import videoCardBasic from "@/components/cards/videoCardBasic.vue"; 
+import videoCardBasic from "@/components/cards/videoCardBasic.vue";
 import videoListBasic from "@/components/common/videoListBasic.vue";
 import share from "./components/share.vue";
 import moreImages from "./components/moreImages.vue";
@@ -18,7 +18,7 @@ import seasonsView from "./components/seasonsView.vue";
 import { useTaskStore } from "@/stores/tasks";
 import { layoutStore } from "@/stores/layout";
 import { tmdbApi } from "@/apis/tmdbApi.js";
-import { mediasApi } from "@/apis/medias.js";  
+import { mediasApi } from "@/apis/medias.js";
 import { taskApi } from "@/apis/tasks.js";
 const route = useRoute();
 const router = useRouter();
@@ -31,21 +31,21 @@ const isFavorite = ref(null);
 const backdropAreaRef = ref(null);
 const optButtonRef = ref(null);
 const mediaId = ref(null);
-const inTaskList = ref(null)
+const inTaskList = ref(null);
 const selectedId = ref(null);
 const mediaType = ref(null);
 const seasonsViewRef = ref(null);
-const similar = ref(defaultArray);  
+const similar = ref(defaultArray);
 const seasons = ref(defaultArray);
 const episodes = ref(defaultArray);
 const seasonNum = ref(1);
-const episodeNum = ref(1); 
+const episodeNum = ref(1);
 const backdropUrl = ref("");
-const poster = ref("")
+const poster = ref("");
 const mediaTitle = ref("");
 const mediaDetail = ref({});
 const TVDetail = ref({});
-const generes = ref([]); 
+const generes = ref([]);
 const guestStars = ref([]);
 const cast = ref([]);
 const crew = ref([]);
@@ -53,18 +53,20 @@ const crew = ref([]);
 const actions = [
   [
     {
-      title: 'toSeries'
+      title: "toSeries",
     },
-    {
-      title: 'moreImages'
-    }
   ],
   [
     {
-      title: 'share'
-    }
-  ]
-]
+      title: "moreImages",
+    },
+  ],
+  [
+    {
+      title: "share",
+    },
+  ],
+];
 const direcotors = computed(() => {
   return crew.value.filter((crewMember) => crewMember.job === "Director");
 });
@@ -87,8 +89,8 @@ const credits = computed(() => {
   }
 });
 
-provide('poster', poster)
-provide('isFavorite', isFavorite)
+provide("poster", poster);
+provide("isFavorite", isFavorite);
 provide("tvDetail", TVDetail);
 provide("seasonNum", seasonNum);
 provide("episodeNum", episodeNum);
@@ -96,9 +98,9 @@ provide("mediaType", mediaType);
 provide("backdropUrl", backdropUrl);
 provide("media", mediaDetail);
 provide("generes", generes);
-provide('inTaskList', inTaskList)
+provide("inTaskList", inTaskList);
 
-const scrollTopModel = ref(0) 
+const scrollTopModel = ref(0);
 const clearCredits = () => {
   cast.value = [];
   crew.value = [];
@@ -106,17 +108,17 @@ const clearCredits = () => {
 };
 
 const findTask = async (mediaType, mediaId) => {
-  taskApi.getTaskDetail(mediaType, mediaId).then(res => {
-    inTaskList.value = res ? res : false
-  })
-} 
+  taskApi.getTaskDetail(mediaType, mediaId).then((res) => {
+    inTaskList.value = res ? res : false;
+  });
+};
 
-const findFavorite = async (mediaId, mediaType) => { 
-  mediasApi.findFavorite(mediaId, mediaType).then(res => {
-    console.log(res)
-    isFavorite.value = res?.data != null
-  }) 
-}
+const findFavorite = async (mediaId, mediaType) => {
+  mediasApi.findFavorite(mediaId, mediaType).then((res) => {
+    console.log(res);
+    isFavorite.value = res?.data != null;
+  });
+};
 
 const calSeasonAndEpisodeNumber = (id, media_type) => {
   if (media_type == "tv") {
@@ -215,7 +217,7 @@ const render = async (id, media_type) => {
     await getMovieDetail(id);
     getMovieCredits(id);
   }
-  findFavorite(id, mediaType.value)
+  findFavorite(id, mediaType.value);
 };
 
 const addTask = () => {
@@ -240,9 +242,9 @@ const addToFavorite = async () => {
 provide("addToFavorite", addToFavorite);
 
 onMounted(async () => {
-  poster.value = tmdbApi.tmdbImgPrefix + route.query.poster
+  poster.value = tmdbApi.tmdbImgPrefix + route.query.poster;
   if (layout.showTab == false) {
-    layout.setTabIconVisible(false)
+    layout.setTabIconVisible(false);
   }
   const { title } = route.params;
 
@@ -265,12 +267,13 @@ onMounted(async () => {
 <template>
   <scrollView v-model:scrollTopModel="scrollTopModel" class="bg-light-800">
     <template v-slot:header>
-      <scrollHeader class="fixed top-0 z-10" :class="scrollTopModel > 45 ? 'bg-light-800' : ''">
+      <scrollHeader
+        class="fixed top-0 z-10"
+        :class="scrollTopModel > 45 ? 'bg-light-800' : ''"
+      >
         <template #left>
-          <backword 
-            @click="router.go(-1)"
-          />
-        </template> 
+          <backword @click="router.go(-1)" />
+        </template>
         <template v-slot:center>
           <h1 class="font-bold text-[1.2em] text-dark-900 whitespace-nowrap">
             {{ mediaTitle }} {{ scrollTop }}
@@ -300,8 +303,7 @@ onMounted(async () => {
           {{ mediaDetail?.overview }}
         </p>
 
-
-        <seasonsView 
+        <seasonsView
           v-if="mediaType == 'tv'"
           ref="seasonsViewRef"
           v-model:media="mediaDetail"
@@ -318,12 +320,9 @@ onMounted(async () => {
             :key="person.name"
             :person="person"
           />
-        </div> 
+        </div>
 
-        <videoListBasic 
-          :list="aiqiyiWangju"
-          :title="'更多相似'" 
-        > 
+        <videoListBasic :list="aiqiyiWangju" :title="'更多相似'">
           <template #card="{ media }">
             <videoCardBasic
               class="basicW pr-2"
@@ -334,7 +333,7 @@ onMounted(async () => {
               @click="choose(media)"
             />
           </template>
-        </videoListBasic>   
+        </videoListBasic>
         <div class="h-32"></div>
       </div>
     </template>
@@ -344,7 +343,8 @@ onMounted(async () => {
 ::-webkit-scrollbar {
   display: none;
 }
-.showOnMobilePortrait, .overviewWrap {
+.showOnMobilePortrait,
+.overviewWrap {
   display: none;
 }
 
@@ -365,5 +365,4 @@ onMounted(async () => {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 </style>

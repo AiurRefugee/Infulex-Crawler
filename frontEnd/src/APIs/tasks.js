@@ -37,9 +37,18 @@ const deleteTask = async (mediaType, mediaId) => {
     return deleteRes
 }
 
+// 重试任务
+const retryTask = async (mediaType, mediaId) => {
+    const url = apiPrefix + '/retryTask'
+    const retryRes = await post(url, { mediaType, mediaId })
+    console.log('retryTask', retryRes)
+    return retryRes
+}
+
 export const taskApi = {
     createTask,
     getTaskList,
     getTaskDetail,
-    deleteTask
+    deleteTask,
+    retryTask
 }

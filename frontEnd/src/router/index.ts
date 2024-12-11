@@ -74,11 +74,8 @@ const router = createRouter({
       }
     },
     {
-      path: '/favorite/:mediaType',
-      component: () => import('../views/mediaStore/components/favoriteDetail.vue'),
-      meta: {
-        transition: 'fade'
-      }
+      path: '/myResource',
+      component: () => import('../views/library/index.vue'),
     },
     {
       path: '/imageWall',

@@ -101,10 +101,6 @@ onMounted(() => {
           v-for="(action, index) in group"
           :key="index"
         >
-          <div
-            class="divider w-full h-[1px] bgDarkBasic opacity-20"
-            v-if="index"
-          ></div>
           <div @click="close">
             <slot :name="action.title" ></slot>
           </div>

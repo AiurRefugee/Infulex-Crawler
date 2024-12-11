@@ -4,7 +4,7 @@ const listenGetTaskList = require('./apis/tasks/getTaskList');
 const listenPOSTaddToFavorite = require('./apis/medias/addToFavorite');
 const listenGetFavoriteList = require('./apis/medias/getFavoriteList');
 const listenPOSTRemoveFavorite = require('./apis/medias/removeFromFavorite');
-const listenPOSTAddToLibrary = require('./apis/medias/addToLibrary');
+const { listenPOSTAddToLibrary } = require('./apis/medias/addToLibrary');
 const listenGetLibraryList = require('./apis/medias/getLibraryList');
 const listenPOSTRemoveFromLibrary = require('./apis/medias/removeFromLibrary');
 const listenGetTops = require('./apis/medias/getTops');
@@ -13,6 +13,7 @@ const listenPOSTCreateTask = require('./apis/tasks/createTask')
 const listenPOSTaskDetail = require('./apis/tasks/getTaskDetail')
 const listenPOSTfindFavorite = require('./apis/medias/findFavorite')
 const listenPOSTDeleteTask = require('./apis/tasks/deleteTask')
+const listenPOSTRetryTask = require('./apis/tasks/retryTask')
 const taskPool = new Set()
 
 const app = express();
@@ -86,6 +87,7 @@ listenPOSTCreateTask(app)
 listenPOSTaskDetail(app)
 listenPOSTfindFavorite(app)
 listenPOSTDeleteTask(app)
+listenPOSTRetryTask(app)
 
 app.use(errorHandler);
 

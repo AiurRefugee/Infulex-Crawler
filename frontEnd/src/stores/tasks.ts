@@ -25,8 +25,10 @@ interface Node {
 }
 
 interface Task {
+    status: string;
     mediaType: string;
     mediaId: number;
+    msgs: Msg[];
 }
 
 export const useTaskStore = defineStore('tasks', {
@@ -210,6 +212,16 @@ export const useTaskStore = defineStore('tasks', {
                 if (this.selectedTask && mediaId == this.selectedTask.mediaId) {
                     this.resetSelectedTask()
                 }
+            })
+        },
+
+        // 重试任务
+        retryTask(mediaType: string, mediaId: number) {
+            taskApi.retryTask(mediaType, mediaId).then((res) => {
+                const taskIndex = this.taskPools.findIndex(task => task.mediaType == mediaType && task.mediaId == mediaId)
+                this.taskPools[taskIndex].status = '进行中'
+                this.taskPools[taskIndex].msgs = []
+
             })
         }
     },

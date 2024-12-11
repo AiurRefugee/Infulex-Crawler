@@ -3,21 +3,26 @@ const mongoConfig = require('../../../config/mongo/index.js');
 const { addGenres } = require('./updateGenres.js')
 const { databaseUrl, dbName, movieLibraryCollection, tvLibraryCollection } = mongoConfig;
 
-const addToLibrary = async (media, mediaType) => {
+const addToLibrary = async (media, mediaType, link) => {
     // TODO: 获取任务列表
     const mongoManager = new MongoManager();
 
     let collection = null 
     if (mediaType === 'movie') {
         collection = mongoManager.getCollection(movieLibraryCollection);
-        addGenres(media)
+        // addGenres(media)
     } 
     if (mediaType === 'tv') {
         collection = mongoManager.getCollection(tvLibraryCollection);
     }  
     const filter = { id: media.id }
     const updateDoc = {
-        $set: media
+        $set: {
+            media: media,
+        },
+        $addToSet: {
+            links: link
+        }
     }
     const options = { upsert: true }
     const insertRes = await collection.updateOne(filter, updateDoc, options) 
@@ -218,4 +223,7 @@ const test = () => {
 // test()
  
 
-module.exports = listenPOSTAddToLibrary
+module.exports = {
+    addToLibrary,
+    listenPOSTAddToLibrary
+}
