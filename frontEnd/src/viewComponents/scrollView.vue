@@ -66,4 +66,7 @@ $paddingSize: 2%;
 .scrollViewArea {
   scroll-timeline: --scrollTimeline y;
 }
+.disableScroll .scrollViewArea{
+  overflow: hidden !important;
+}
 </style>

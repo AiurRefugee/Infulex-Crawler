@@ -10,6 +10,8 @@ const props = defineProps({
     Required: true,
   },
 });
+
+const poster = inject('poster')
 const backdropUrl = inject('backdropUrl')
 const media = inject('media')
 const loading = ref(true)
@@ -21,7 +23,7 @@ const loading = ref(true)
       <img 
         class="backdropImage" 
         :class="loading ? 'hidden' : ''"
-        :src="backdropUrl" 
+        :src="backdropUrl || poster" 
         draggable="false"
         @load="loading = false"
       />

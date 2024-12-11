@@ -24,10 +24,15 @@ interface Node {
     children: Record<string, Node>;
 }
 
+interface Task {
+    mediaType: string;
+    mediaId: number;
+}
+
 export const useTaskStore = defineStore('tasks', {
     state: () => ({
-        taskPools: [],
-        selectedTask: null,
+        taskPools: [] as Task[],
+        selectedTask: {} as Task,
         fileTree: {} as Node,
         filePaths: [] as File[],
         topFiles: [] as File[],
@@ -39,7 +44,10 @@ export const useTaskStore = defineStore('tasks', {
     }),
     actions: {
         resetSelectedTask() { 
-            this.selectedTask = null
+            this.selectedTask = {
+                mediaType: '',
+                mediaId: -1
+            }
             this.fileTree = {
                 file: 'root',
                 children: {}
@@ -192,6 +200,17 @@ export const useTaskStore = defineStore('tasks', {
                 this.taskPools = taskList.reverse()
             })
     
+        },
+
+        // 删除任务
+        deleteTask(mediaType: string, mediaId: number) {
+            const taskIndex = this.taskPools.findIndex(task => task.mediaType == mediaType && task.mediaId == mediaId)
+            taskApi.deleteTask(mediaType, mediaId).then((res) => {
+                this.taskPools.splice(taskIndex, 1)
+                if (this.selectedTask && mediaId == this.selectedTask.mediaId) {
+                    this.resetSelectedTask()
+                }
+            })
         }
     },
 

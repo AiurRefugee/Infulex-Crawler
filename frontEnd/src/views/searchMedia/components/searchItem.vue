@@ -3,12 +3,12 @@ import loadImg from "@/components/common/loadImg.vue";
 import { useRouter, useRoute } from "vue-router";
 import { useTaskStore } from "@/stores/tasks";
 import { genres } from '@/config/genre'
-import { ref } from "vue";
+import { ref, computed, provide } from "vue";
 const imageSrcPrefix = "https://image.tmdb.org/t/p/original";
-const route = useRoute();
+
 const router = useRouter();
 const tasks = useTaskStore();
-const loading = ref(true)
+
 const props = defineProps({
   data: {
     type: Object,
@@ -16,11 +16,19 @@ const props = defineProps({
   },
 });
 
+const poster = computed( () => {
+  const data = props.data;
+  return data.poster_path || data.profile_path
+})
+
+provide('poster', poster)
+
 const createTask = () => {
   const media = props.data;
   const mediaType = media.media_type;
-  const posterPath = media.poster_path;
-  tasks.createTask(media, mediaType, posterPath);
+  const mediaId = media.id;
+  const title = media.title || media.name
+  tasks.createTask(mediaType, mediaId, title, poster.value);
 };
 
 const toDetail = () => {
@@ -36,6 +44,7 @@ const toDetail = () => {
     query: {
       id: media?.id,
       media_type: media?.media_type,
+      poster: poster.value,
     },
   })
 }
@@ -57,7 +66,7 @@ const mapGenre = (genreIds) => {
 <template>
   <div class="searchItem w-full h-[12em] flex px-4 py-2 mb-2" @click="handleClick">
     <div class="imageArea h-full mr-4 object-cover rounded-lg">
-      <loadImg :src="imageSrcPrefix + (data.poster_path || data.profile_path)" /> 
+      <loadImg :src="poster" /> 
     </div>  
     
     <div

@@ -29,8 +29,17 @@ const getTaskDetail = async (mediaType, mediaId) => {
     return taskDetail?.data
 }
 
+// 删除任务
+const deleteTask = async (mediaType, mediaId) => {
+    const url = apiPrefix + '/deleteTask'
+    const deleteRes = await post(url, { mediaType, mediaId })
+    console.log('deleteTask', deleteRes)
+    return deleteRes
+}
+
 export const taskApi = {
     createTask,
     getTaskList,
-    getTaskDetail
+    getTaskDetail,
+    deleteTask
 }

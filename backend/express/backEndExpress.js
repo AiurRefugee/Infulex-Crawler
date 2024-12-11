@@ -12,6 +12,7 @@ const listenGetGenres = require('./apis/medias/getGenres')
 const listenPOSTCreateTask = require('./apis/tasks/createTask')
 const listenPOSTaskDetail = require('./apis/tasks/getTaskDetail')
 const listenPOSTfindFavorite = require('./apis/medias/findFavorite')
+const listenPOSTDeleteTask = require('./apis/tasks/deleteTask')
 const taskPool = new Set()
 
 const app = express();
@@ -84,6 +85,7 @@ listenGetGenres(app)
 listenPOSTCreateTask(app)
 listenPOSTaskDetail(app)
 listenPOSTfindFavorite(app)
+listenPOSTDeleteTask(app)
 
 app.use(errorHandler);
 

@@ -4,7 +4,7 @@ import { useRouter, useRoute } from "vue-router";
 import scrollView from "@/viewComponents/scrollView.vue";
 import scrollHeader from "@/components/common/scrollHeader.vue";
 import backword from "@/components/common/backword.vue";
-import moreActions from "@/components/common/moreActions.vue";
+import moreActions from "./components/moreActions.vue";
 import creditCard from "@/components/cards/creditCard.vue";
 import videoCardBasic from "@/components/cards/videoCardBasic.vue"; 
 import videoListBasic from "@/components/common/videoListBasic.vue";
@@ -41,6 +41,7 @@ const episodes = ref(defaultArray);
 const seasonNum = ref(1);
 const episodeNum = ref(1); 
 const backdropUrl = ref("");
+const poster = ref("")
 const mediaTitle = ref("");
 const mediaDetail = ref({});
 const TVDetail = ref({});
@@ -86,6 +87,7 @@ const credits = computed(() => {
   }
 });
 
+provide('poster', poster)
 provide('isFavorite', isFavorite)
 provide("tvDetail", TVDetail);
 provide("seasonNum", seasonNum);
@@ -238,6 +240,7 @@ const addToFavorite = async () => {
 provide("addToFavorite", addToFavorite);
 
 onMounted(async () => {
+  poster.value = tmdbApi.tmdbImgPrefix + route.query.poster
   if (layout.showTab == false) {
     layout.setTabIconVisible(false)
   }

@@ -1,7 +1,6 @@
 <script setup>
-import { ref } from "vue";
+import { inject, ref } from "vue";
 import space from "./space.vue";
-
 
 const overW = ref(false);
 const spaceW = ref(null);
@@ -14,44 +13,48 @@ const props = defineProps({
     type: Number,
     Required: true,
   },
-  afterfixW: {
-    type: Number,
-    default: 0,
-  }
 }); 
- 
+const sliding = inject('sliding')
+
+const afterfixW = ref(0);
+
+const remove = () => {
+  overW.value = false;
+  emit("remove", props.index);
+};
 </script>
 <template>
-  <div class="liWrap overflow-hidden" :class="liClassName">
-    <div class="w-full h-full flex">
-      <div class="prefix" :style="{ width: prefixW + 'px' }"></div>
+  <div
+    :class="liClassName"
+    class="liWrap flex w-full overflow-hidden"
+  >
+    <div class="prefix" :style="{ width: prefixW + 'px' }"></div>
 
-      <div
-        class="content w-full overflow-hidden flex-shrink-0 relative"
-        :style="{
-          left: `-${afterfixW}px`,
-        }"
-        @pointerdown="slideStart"
-      >
-        <slot name="content"></slot>
-      </div>
+    <div 
+      :class="sliding ? 'pointer-events-none' : ''"
+      class="content w-full overflow-hidden flex-shrink-0 relative user-select-none"
+      :style="{
+        left: `-${afterfixW}px`,
+      }" 
+    >
+      <slot name="content"></slot>
+    </div>
 
-      <div
-        class="afterfix h-full flex-shrink-0 flex items-center bg-red-500 overflow-hidden"
-        :style="{
-          width: `${afterfixW}px`,
-          translate: `-${afterfixW}px`,
-        }"
-      >
-        <space :width="spaceW" />
-        <img
-          class="removeIcon transSlow"
-          src="/icons/remove.svg"
-          alt="remove"
-          @click="remove"
-        />
-        <space :width="spaceW" />
-      </div>
+    <div
+      class="afterfix h-full flex-shrink-0 flex items-center bg-red-500 overflow-hidden"
+      :style="{
+        width: `${afterfixW}px`,
+        translate: `-${afterfixW}px`,
+      }"
+    >
+      <space :width="spaceW" />
+      <img
+        class="removeIcon transSlow"
+        src="/icons/remove.svg"
+        alt="remove"
+        @click="remove"
+      />
+      <space :width="spaceW" />
     </div>
   </div>
 </template>

@@ -39,7 +39,8 @@ const toDetail = () => {
     path: '/mediaDetail/' + title.value,
     query: {
       id: media?.id,
-      media_type: mediaType
+      media_type: mediaType,
+      poster: posterPath.value
     },
   })
 }

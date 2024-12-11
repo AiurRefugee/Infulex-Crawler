@@ -56,7 +56,7 @@ class Task {
         task.msgs.push(msg);
         const mongoManager = new MongoManager();
         const taskCollection = mongoManager.getCollection(taskCollectionName);
-        taskCollection.updateOne({ mediaId, mediaType}, { $push: { msgs: msg } });
+        
         const { type } = msg
         console.log('add msg', type)
         if (type == 'TASK Done') {
@@ -76,6 +76,8 @@ class Task {
                 }
             } 
             this.updateLink(failedLink, 'failed')
+        } else {
+            taskCollection.updateOne({ mediaId, mediaType}, { $push: { msgs: msg } });
         }
     }
 

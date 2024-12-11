@@ -150,7 +150,7 @@ onMounted( () => {
         <template #content>
             <div ref="scrollWrap">
                 <div class="gridArea" v-if="type == 'movie'">
-                <videoCardBasic :toDetail="true" :media="media" v-for="media in list" :key="media.id"/>
+                    <videoCardBasic :toDetail="true" :media="media" v-for="media in list" :key="media.id"/>
                 </div>
                 <div class="gridArea" v-if="type == 'tv'">
                     <videoCardBasic :toDetail="true" :media="media" :mediaType="'tv'" v-for="media in tvList" :key="media.id"/>

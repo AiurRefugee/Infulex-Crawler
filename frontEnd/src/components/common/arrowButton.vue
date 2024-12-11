@@ -14,7 +14,7 @@
 }
 @media (prefers-color-scheme: dark) {
     .arrowWrap {
-        background-color: rgb(0, 0, 0);
+        background-color: rgb(38 38 38);
     }
 }
 path {
@@ -22,7 +22,7 @@ path {
 }
 @media (prefers-color-scheme: dark) {
     path {
-        fill: rgb(46, 46, 46);
+        fill: rgb(183, 183, 183);
     }
 }
 </style>

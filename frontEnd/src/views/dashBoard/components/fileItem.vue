@@ -68,7 +68,7 @@ const calSize = (size) => {
           class="loadImg"
           v-if="file?.type == 'file'"
           :src="file?.thumbnail"
-          :defaultSrc="file?.category == 'image' ? '/icons/defaultImage.svg' : 'src/assets/icons/play.svg'"
+          :defaultSrc="file?.category == 'image' ? '/icons/defaultImage.svg' : '/icons/play.svg'"
         >
           <template #default="{ loading }">
             <img class="absolute h-8 aspect-square" src="/icons/video.svg" alt="file" v-if="file?.category == 'video' && !loading"/>

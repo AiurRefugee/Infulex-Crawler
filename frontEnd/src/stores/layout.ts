@@ -32,6 +32,11 @@ export const layoutStore = defineStore('layout', {
         image: "/icons/dashboard.svg",
         path: '/dashboard'
       },
+      {
+        text: '我的资源',
+        path: '/myResource',
+        image: '/icons/movie.svg',
+      }
     ],
     showTaskDetailOnMobile: false,
     tabIconVisible: false,  // tabIcon是否显示

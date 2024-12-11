@@ -10,6 +10,7 @@ const media = inject("media");
 const mediaType = inject("mediaType");
 const tvDetail = inject("tvDetail");
 const backdropUrl = inject("backdropUrl");
+const poster = inject("poster");
 const isFavorite = inject("isFavorite");
 const inTaskList = inject("inTaskList");
 
@@ -44,7 +45,7 @@ const createTask = () => {
   if (!inTaskList.value) {
     inTaskList.value = true;
     const title = detail.value?.title || detail.value?.name; 
-    taskStore.createTask(mediaType.value,  detail.value.id, title, backdropUrl.value);
+    taskStore.createTask(mediaType.value,  detail.value.id, title, poster.value);
   } else {
     router.push({
       path: '/dashBoard',

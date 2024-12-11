@@ -35,7 +35,7 @@ onMounted(async () => {
 </script>
 <template>
     <div class="msgListView">
-        <div class="min-h-8 px-4 flex justify-between items-center flex-wrap">
+        <div class="min-h-8 px-4 flex justify-between items-center flex-wrap sticky top-0 bg-light-800 z-10">
             <div
                 class="title flex gap-2 text-dark-800 text-left overflow-hidden text-ellipsis font-bold"
             > 
@@ -67,11 +67,6 @@ onMounted(async () => {
 
 </template>
 <style scoped lang="scss">
-.msgListView { 
-  height: calc(100%);
-  overflow-y: auto;
-  overflow-x: hidden;
-}
 .back {
     color: #f59305fa;
 }
