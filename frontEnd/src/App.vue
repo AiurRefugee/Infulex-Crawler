@@ -3,12 +3,14 @@ import { ref, computed, onMounted } from "vue";
 import { layoutStore } from "@/stores/layout";
 import NavList from "@/components/navList.vue";
 import { useMediaStore } from "@/stores/media";
+import sideBarSvg from "@/assets/icons/sideBar.svg"
+
 const mediaStore = useMediaStore();
 const layout = layoutStore();
 const tabIconVisible = computed(() => layout.tabIconVisible);
 const showTab = computed(() => layout.showTab);
 const size = computed(() => layout.size);
-const shouldTrans = computed(() => showTab.value && size.value != 'small');
+
 
 onMounted(() => {
   // mediaStore.initMediaStore();
@@ -24,7 +26,7 @@ onMounted(() => {
       @click="layout.toogleTab"
       v-if="tabIconVisible"
     > 
-      <img src="/icons/sideBar.svg"/>
+      <img :src="sideBarSvg"/>
       <!-- <h1 class="whitespace-nowrap text-xl font-bold text-black">Infulex-Crawler</h1> -->
     </div>
     <NavList />

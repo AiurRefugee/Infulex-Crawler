@@ -1,4 +1,11 @@
 import { defineStore } from 'pinia'
+import tv from '@/assets/icons/tv.svg'
+import browse from '@/assets/icons/browse.svg'
+import mediaType from '@/assets/icons/mediaType.svg'
+import search from '@/assets/icons/search.svg'
+import dashboard from '@/assets/icons/dashboard.svg'
+import movie from '@/assets/icons/movie.svg'
+
 
 const smallBreakPoint = 500
 const mediumBreakPoint = 1440
@@ -10,32 +17,32 @@ export const layoutStore = defineStore('layout', {
       {
         text: "首页",
         path: '/',
-        image: "/icons/tv.svg",
+        image: tv,
       },
       {
         text: "浏览",
         path: '/browse',
-        image: "/icons/browse.svg",
+        image: browse,
       },
       {
         text: "我的收藏",
         path: '/favorite',
-        image: "/icons/mediaType.svg",
+        image: mediaType,
       },
       {
         text: "搜索",
         path: '/search',
-        image: "/icons/search.svg",
+        image: search,
       },
       {
         text: "面板",
-        image: "/icons/dashboard.svg",
+        image: dashboard,
         path: '/dashboard'
       },
       {
         text: '我的资源',
         path: '/myResource',
-        image: '/icons/movie.svg',
+        image: movie,
       }
     ],
     showTaskDetailOnMobile: false,

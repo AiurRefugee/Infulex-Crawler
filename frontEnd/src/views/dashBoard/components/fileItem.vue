@@ -2,6 +2,11 @@
 import { ref, computed } from "vue";
 import loadImg from "@/components/common/loadImg.vue";
 import { useTaskStore } from "@/stores/tasks";
+import defaultimageSvg from '@/assets/icons/defaultImage.svg'
+import fileIcon from '@/assets/icons/fileIcon.svg'
+import playSvg from '@/assets/icons/play.svg'
+import videoSvg from '@/assets/icons/video.svg'
+
 const tasks = useTaskStore();
 const props = defineProps({
   file: {
@@ -60,7 +65,7 @@ const calSize = (size) => {
     <div class="center p-2">
       <div class="w-full imgWrap center relative">
         <img
-          src="/icons/fileIcon.svg"
+          :src="fileIcon"
           alt="file"
           v-if="file?.type == 'folder'"
         />
@@ -68,10 +73,10 @@ const calSize = (size) => {
           class="loadImg"
           v-if="file?.type == 'file'"
           :src="file?.thumbnail"
-          :defaultSrc="file?.category == 'image' ? '/icons/defaultImage.svg' : '/icons/play.svg'"
+          :defaultSrc="file?.category == 'image' ? defaultimageSvg : playSvg"
         >
           <template #default="{ loading }">
-            <img class="absolute h-8 aspect-square" src="/icons/video.svg" alt="file" v-if="file?.category == 'video' && !loading"/>
+            <img class="absolute h-8 aspect-square" :src="videoSvg" alt="file" v-if="file?.category == 'video' && !loading"/>
           </template>
         </loadImg>
         

@@ -4,13 +4,15 @@ import scrollView from "@/viewComponents/scrollView.vue";
 import scrollHeader from "@/components/common/scrollHeader.vue";
 import { layoutStore } from "@/stores/layout";
 import gsap from "gsap";
-import { useRouter, useRoute } from "vue-router";
+import { useRouter } from "vue-router";
+import arrowSvg from '@/assets/icons/arrow.svg?component'
+
 const router = useRouter();
 const layout = layoutStore();
 
 const layoutContent = computed(() => layout.layoutContent);
 const showTab = computed(() => layout.showTab); 
-const size = computed(() => layout.size);
+
 var standAlone = ref(false);
 
 function navigate(item) {
@@ -110,7 +112,7 @@ onMounted(() => {
                   <img
                     class="icon"
                     :style="{ rotate: item.showChild ? '90deg' : '' }"
-                    src="/icons/arrow.svg"
+                    :src="arrowSvg"
                   />
                 </button>
               </div>

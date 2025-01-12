@@ -1,7 +1,8 @@
 <script setup>
-import { computed, inject } from 'vue'
+import { computed } from 'vue'
 import loadImg from '@/components/common/loadImg.vue'
 import { tmdbApi } from '@/apis/tmdbApi.js'
+import personSvg from '@/assets/icons/person.svg'
 
 const props = defineProps({
   "person": {
@@ -15,10 +16,10 @@ const imageSrc = computed(() => props.person?.profile_path)
 
 </script>
 <template>
-  <div class="creditCard pr-3 flex-shrink-0 cursor-pointer"> 
+  <div class="creditCard pr-3 flex-shrink-0 cursor-pointer">
     <div class="cardImage defaultImage w-full overflow-hidden center">
 
-      <loadImg :src="tmdbApi.tmdbImgPrefix + imageSrc" :defaultSrc="'/icons/person.svg'" />
+      <loadImg :src="tmdbApi.tmdbImgPrefix + imageSrc" :defaultSrc="personSvg" />
     </div>
     <div class="info h-[5em] pt-2">
       <p class="filmTitle font-bold text-[0.8em] singleLine text-dark-900" v-if="name">
@@ -34,23 +35,19 @@ const imageSrc = computed(() => props.person?.profile_path)
 .creditCard {
   width: calc(100vw / var(--credit_card_num));
 
-  .cardImage { 
+  .cardImage {
     aspect-ratio: 1;
   }
 
   @media (width < 500px) or (height < 500px) {
     font-size: 14px;
   }
-} 
+}
 
 .maxLine {
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 3;
   /* 限制为3行 */
-}
-
-.info:has(.subFilmTitle) {
-  // height: 4em;
 }
 </style>

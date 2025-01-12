@@ -1,15 +1,12 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
-import { useTaskStore } from "@/stores/tasks";
-import liItem from "@/components/common/liItem.vue";
 import loadImg from "@/components/common/loadImg.vue";
-import gsap from "gsap";
-import { layoutStore } from "@/stores/layout";
-import { useRouter } from "vue-router";
-const router = useRouter();
-const tasks = useTaskStore();
-const layout = layoutStore();
-const size = computed(() => layout.size);
+ 
+import loadingSvg from '@/assets/icons/loading.svg'
+import finishedSvg from '@/assets/icons/finished.svg'
+import errorSvg from '@/assets/icons/error.svg'
+import refreshSvg from '@/assets/icons/refresh.svg'
+
 const optW = computed(() => {
   if (props.slidingIndex == props.index) {
     return props.afterfixW;
@@ -42,13 +39,13 @@ const touchEvent = ref("");
 const iconSrc = computed(() => {
   switch (props.task.status) {
     case "进行中":
-      return '/icons/loading.svg'
+      return loadingSvg
     case "已取消":
-      return '/icons/loading.svg'
+      return loadingSvg
     case "错误":
-      return '/icons/error.svg'
+      return errorSvg
     case "已完成":
-      return '/icons/finished.svg'
+      return finishedSvg
     default:
       return ''
   }
@@ -143,7 +140,7 @@ const statusClas = computed( () => {
         <img
           draggable="false"
           class="optIcon"
-          src="/icons/refresh.svg"
+          :src="refreshSvg"
           alt="remove"
           @click="remove"
         />

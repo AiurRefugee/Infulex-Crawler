@@ -1,5 +1,6 @@
 <script setup>
 import { layoutStore } from "@/stores/layout";
+import backSvg from "@/assets/icons/back.svg"
 const layout = layoutStore();
 const props = defineProps({
   pl: {
@@ -24,7 +25,7 @@ const props = defineProps({
     ]"
     class="w-20 h-full flex items-center cursor-pointer trans"
   >
-        <img class="h-[25px] aspect-square" src="/icons/back.svg"/>
+        <img class="h-[25px] aspect-square" :src="backSvg"/>
         <p class="text-[1.1em] text-lg whitespace-nowrap">{{ title }}</p>
       </div>
 </template>

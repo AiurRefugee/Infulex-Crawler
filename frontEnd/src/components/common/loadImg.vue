@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import defaultimageSvg from '@/assets/icons/defaultImage.svg'
 const props = defineProps({
     src: {
         type: String,
@@ -7,7 +8,7 @@ const props = defineProps({
     },
     defaultSrc: {
         type: String,
-        default: '/icons/defaultImage.svg',
+        default: defaultimageSvg,
     }
 })
 const loading = ref(true)

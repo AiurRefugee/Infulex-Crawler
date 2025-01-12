@@ -8,6 +8,10 @@ import { ref, computed, onMounted } from "vue";
 import msgListView from "./msgListView.vue";
 import FileListView from "./fileListView.vue";
 import { useRoute, useRouter } from "vue-router";
+import fileList from '@/assets/icons/fileList.svg'
+import messageListSvg from '@/assets/icons/messageList.svg'
+import refreshSvg from '@/assets/icons/refresh.svg'
+
 const taskStore = useTaskStore();
 const route = useRoute();
 const router = useRouter();
@@ -105,7 +109,7 @@ onMounted(() => {
             >
               <img
                 class="h-[30px] aspect-square"
-                src="/icons/messageList.svg"
+                :src="messageListSvg"
                 alt=""
               />
             </div>
@@ -116,7 +120,7 @@ onMounted(() => {
             >
               <img
                 class="h-[30px] aspect-square"
-                src="/icons/fileList.svg"
+                :src="fileList"
                 alt=""
               />
             </div>
@@ -157,7 +161,7 @@ onMounted(() => {
               <div class="p-1 center" @click="retryTask">
                 <img
                   class="h-[1.2em] pr-2"
-                  src="/icons/refresh.svg"
+                  :src="refreshSvg"
                   alt="remove"
                 />
                 <p>重试</p>

@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from "vue";
+import addSvg from '@/assets/icons/add.svg'
+import sendSvg from '@/assets/icons/send.svg'
 
 const searchText = ref("");
 const sites = [ 
@@ -33,7 +35,7 @@ const search = () => {
         <li>
           <img
             class="m-auto h-10 sel aspect-square"
-            src="/icons/add.svg"
+            :src="addSvg"
           />
           <!-- <p class="h-[2em]"></p> -->
         </li>
@@ -49,7 +51,7 @@ const search = () => {
           type="text"
           @keydown.enter="search"
         />
-        <img class="h-2/3" src="/icons/send.svg" @click="search"/>
+        <img class="h-2/3" :src="sendSvg" @click="search"/>
       </div>
     </div>
   </div>
