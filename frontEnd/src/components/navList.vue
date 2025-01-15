@@ -4,19 +4,20 @@ import scrollView from "@/viewComponents/scrollView.vue";
 import scrollHeader from "@/components/common/scrollHeader.vue";
 import { layoutStore } from "@/stores/layout";
 import gsap from "gsap";
-import { useRouter } from "vue-router";
-import arrowSvg from '@/assets/icons/arrow.svg?component'
+import { useRouter,  } from "vue-router";
 
 const router = useRouter();
 const layout = layoutStore();
 
 const layoutContent = computed(() => layout.layoutContent);
 const showTab = computed(() => layout.showTab); 
+const selectedTab = computed(() => layout.selectedTab);
 
 var standAlone = ref(false);
 
-function navigate(item) {
+function navigate(item, index) {
   console.log("navigate", item);
+  layout.setSelectedTab(index);
   if (item.path) {
     router.push({
       path: item.path,
@@ -32,6 +33,7 @@ function navigate(item) {
     
   }
 }
+ 
 
 function toogleItem(item, index) {
   if (item.children && item.children.length > 0 && "showChild" in item) {
@@ -98,43 +100,18 @@ onMounted(() => {
         <div
           v-for="(item, index) in layoutContent"
           :key="index"
-          @click="navigate(item)"
+          @click="navigate(item, index)"
           class="w-full"
         >
           <div class="w-full">
-            <button class="tabItem text-[1.2em] singleLine" @click="toogleItem(item, index)">
-              <div class="flex">
+            <button class="tabItem mb-2 p-2 text-[1.2em] singleLine" @click="toogleItem(item, index)">
+              <div class="w-full rounded-md flex" :class="selectedTab == index ? 'bg-gray-300 dark:bg-gray-600 pl-2' : ''">
                 <img class="icon" :src="item.image" />
                 <text>{{ item.text }}</text>
-              </div>
-              <div v-if="item.children">
-                <button>
-                  <img
-                    class="icon"
-                    :style="{ rotate: item.showChild ? '90deg' : '' }"
-                    :src="arrowSvg"
-                  />
-                </button>
-              </div>
+              </div> 
             </button>
             <div class="divider" v-if="item.children"></div>
-          </div>
-          <div
-            class="subWrapper"
-            :style="{
-              // height: item.children && item.showChild == false ? '0' : ''
-            }"
-          >
-            <button
-              v-for="child in item.children"
-              :key="child.text"
-              class="tabNavChild singleLine"
-              @click="navigate(child)"
-            >
-              <img class="icon" :src="child.image" />
-              <text>{{ child.text }}</text>
-            </button>
-          </div>
+          </div> 
         </div>
         <!-- <div class="w-full h-4/5 flex-shrink-0"></div> -->
       </template>
@@ -200,25 +177,10 @@ $itemHeight: 35px;
   .tabItem {
     display: flex;
     width: 100%;
-    padding: 0 1rem;
     justify-content: space-between;
     align-items: center;
     height: $itemHeight;
-  }
-  .subWrapper {
-    width: 100%;
-    padding-left: 1.8rem;
-    overflow: hidden;
-    position: relative;
-    // transition: $transBase;
-    .tabNavChild {
-      width: 100%;
-      height: $itemHeight;
-      color: var(--textColor_Primary);
-      display: flex;
-      align-items: center;
-    }
-  }
+  } 
 }
 .bottomList {
   position: fixed;

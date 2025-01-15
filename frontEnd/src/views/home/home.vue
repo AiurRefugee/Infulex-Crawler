@@ -1,13 +1,15 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import addSvg from '@/assets/icons/add.svg'
 import sendSvg from '@/assets/icons/send.svg'
-
+import yisouLogo from '@/assets/icons/yisou.png'
+import { layoutStore } from "@/stores/layout";
+const layout = layoutStore();
 const searchText = ref("");
 const sites = [ 
   {
     name: "https://cdn.yiso.fun/",
-    logo: "https://cdn.yiso.fun/static/img/logo.7101c44.png",
+    logo: yisouLogo,
     search: (name) => {
         console.log(this)
         return name + 'info?searchKey=' + searchText.value + '&from=ali'
@@ -22,6 +24,9 @@ const search = () => {
         }
     }
 }
+onMounted(() => {
+  layout.setTabIconVisible(true)
+});
 </script>
 <template>
   <div class="w-full home overflow-hidden bg-light-900">

@@ -105,7 +105,7 @@ defineExpose({
 })
 
 onMounted( () => {
-    layout.setTabIconVisible(false)
+    // layout.setTabIconVisible(false)
     init()
 })
 </script>

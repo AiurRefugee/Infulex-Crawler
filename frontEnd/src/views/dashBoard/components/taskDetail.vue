@@ -144,7 +144,7 @@ onMounted(() => {
               </svg>
             </div>
             <div
-              class="p-1 bg-zinc-300 absolute top-[40px] right-0 z-20 rounded-lg text-[0.9em] trans text-dark-300"
+              class="p-1 bg-zinc-300 dark:bg-zinc-700 absolute top-[40px] right-0 z-20 rounded-lg text-[0.9em] trans text-dark-300"
               :class="!showOpt ? 'w-0' : 'w-24'"
               ref="opt"
               v-if="showOpt"

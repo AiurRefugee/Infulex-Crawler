@@ -1,14 +1,14 @@
 <script setup>
-import { ref, computed, inject, watch, nextTick } from "vue";
+import { inject, watch, nextTick } from "vue";
 import { layoutStore } from "@/stores/layout";
 import { tmdbApi } from "@/apis/tmdbApi";
+import searchSvg from '@/assets/icons/search.svg'
 
 const layout = layoutStore();
 const focused = defineModel("focused");
 
 const scrollTop = inject("scrollTop");
 
-const size = computed(() => layout.size);
 const searchText = defineModel("searchText");
 const searchResult = defineModel("searchResult");
 
@@ -101,13 +101,14 @@ watch(scrollTop, async (newVal) => {
       >
         <img
           class="searchIcon h-[15px] fill-slate-200"
-          src="/icons/search.svg"
+          :src="searchSvg"
         />
         <input
           v-model="searchText"
           class="w-full px-2 h-[1.6em] text-[1.2em] text-white"
           placeholder="电影，剧集"
           @focus="handleFocus" 
+          @keydown.enter="search"
         />
       </div>
       <text

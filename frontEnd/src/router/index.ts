@@ -1,4 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { layoutStore } from "@/stores/layout";
+
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -84,7 +86,20 @@ const router = createRouter({
     }
 
     
-  ]
+  ],
 })
 
+router.beforeEach((to, from) => {
+  const layout = layoutStore();
+  const selectedTab = layout.layoutContent.findIndex( item => {
+    if (item.path === '/') {
+      return to.path === '/'
+    } else {
+      return to.path.includes(item.path)
+    }
+    
+  })
+  console.log('selectedTab', to, selectedTab)
+  layout.setSelectedTab(selectedTab)
+})
 export default router

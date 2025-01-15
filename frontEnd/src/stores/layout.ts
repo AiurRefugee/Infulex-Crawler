@@ -1,11 +1,7 @@
 import { defineStore } from 'pinia'
-import tv from '@/assets/icons/tv.svg'
-import browse from '@/assets/icons/browse.svg'
-import mediaType from '@/assets/icons/mediaType.svg'
-import search from '@/assets/icons/search.svg'
-import dashboard from '@/assets/icons/dashboard.svg'
-import movie from '@/assets/icons/movie.svg'
-
+import { useRoute } from 'vue-router'
+import { layoutContent } from '@/config/tabRoutes'
+const route = useRoute()
 
 const smallBreakPoint = 500
 const mediumBreakPoint = 1440
@@ -13,45 +9,18 @@ const mediumBreakPoint = 1440
 export const layoutStore = defineStore('layout', {
   state: () => ({
     size: 'normal',
-    layoutContent: [ 
-      {
-        text: "首页",
-        path: '/',
-        image: tv,
-      },
-      {
-        text: "浏览",
-        path: '/browse',
-        image: browse,
-      },
-      {
-        text: "我的收藏",
-        path: '/favorite',
-        image: mediaType,
-      },
-      {
-        text: "搜索",
-        path: '/search',
-        image: search,
-      },
-      {
-        text: "面板",
-        image: dashboard,
-        path: '/dashboard'
-      },
-      {
-        text: '我的资源',
-        path: '/myResource',
-        image: movie,
-      }
-    ],
+    layoutContent,
+    selectedTab: 0,
     showTaskDetailOnMobile: false,
     tabIconVisible: false,  // tabIcon是否显示
-    showTab: false // 是否显示边栏
+    showTab: JSON.parse(localStorage.getItem('showTab') || 'false') || false // 是否显示边栏
   }),
   getters: {
   },
   actions: { 
+    setSelectedTab(index: number) {
+      this.selectedTab = index
+    },
     setSize(newSize: string) {
       this.size = newSize
     },
@@ -63,6 +32,7 @@ export const layoutStore = defineStore('layout', {
     },
     toogleTab() {
       this.showTab = !this.showTab 
+      localStorage.setItem('showTab', this.showTab.toString())
     },
     toogleTabIconVisible() {
       this.tabIconVisible = !this.tabIconVisible
@@ -82,6 +52,9 @@ export const layoutStore = defineStore('layout', {
         this.setSize('large')
       } 
       console.log('size', this.size)
+    },
+    calSelectedTab() {
+      this.selectedTab = this.layoutContent.findIndex((item) => route.path.includes(item.path))
     }
   },
 })

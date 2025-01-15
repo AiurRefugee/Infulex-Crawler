@@ -2,7 +2,10 @@
 import scrollDetail from "@/components/scrollDetail.vue";
 import typeTab from "@/components/common/typeTab.vue";
 import { mediasApi } from "@/apis/medias";
-import { ref, watch } from "vue";
+import { ref, watch, onMounted } from "vue";
+import { layoutStore } from "@/stores/layout";
+const layout = layoutStore();
+
 const params = {
   page: 0,
   pageSize: 20,
@@ -21,6 +24,9 @@ watch(type, (newVal) => {
   params.page = 0;
   scrollDetailRef.value.clearList();
   scrollDetailRef.value.search();
+});
+onMounted(() => {
+  layout.setTabIconVisible(true)
 });
 </script>
 <template>
